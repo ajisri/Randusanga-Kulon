@@ -1,0 +1,153 @@
+.newsContainer {
+  display: flex;
+  gap: 90px; /* Gap antar item lebih lebar */
+  overflow: hidden; /* Sembunyikan scrollbar */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding: 30px 20px 10px;
+  white-space: nowrap;
+  align-items: center;
+  /* Gunakan background putih */
+  background-color: white; /* Warna latar belakang putih */
+
+  /* Membuat container selebar layar */
+  width: 100vw; /* Mengatur lebar container selebar tampilan layar */
+  border-radius: 8px; /* Jika ingin membulatkan sudut */
+  margin-left: calc(
+    -50vw + 50%
+  ); /* Menghapus margin samping agar pas dengan layar */
+}
+
+.newsItem {
+  display: inline-block;
+  white-space: nowrap;
+  width: 500px; /* Lebar konten lebih besar */
+  padding: 10px;
+  padding-bottom: 5px; /* Mengurangi padding bawah jika diperlukan */
+  margin-right: 100px;
+  border-radius: 8px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Latar belakang item dengan transparansi */
+  opacity: 1; /* Mulai dengan opasitas penuh */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek pop-up */
+}
+
+.newsItem:hover {
+  transform: scale(1.05) translateY(-15px); /* Membesarkan item dan mengangkatnya saat hover */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); /* Bayangan lebih dalam untuk efek pop-up */
+}
+
+.newsContentWrapper {
+  display: flex;
+  animation: marquee 50s linear infinite;
+  width: max-content;
+}
+
+.newsDescriptionWrapper {
+  display: flex;
+  justify-content: flex-start; /* Memastikan deskripsi rata kiri */
+  align-items: center; /* Menjaga deskripsi tetap sejajar secara vertikal */
+}
+
+.newsImage {
+  width: 100%;
+  height: 200px; /* Lebar dan tinggi gambar lebih besar */
+  object-fit: contain;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.newsDetails {
+  display: flex; /* Mengatur deskripsi dan tanggal dalam satu baris */
+  justify-content: space-between; /* Memastikan jarak antara keduanya */
+  width: 100%; /* Lebar penuh untuk elemen ini */
+  margin-top: 5px; /* Jarak antara judul dan deskripsi/tanggal */
+}
+
+.newsContent {
+  display: flex;
+  flex-direction: column; /* Menempatkan elemen dalam kolom */
+  align-items: flex-start; /* Rata kiri untuk semua elemen */
+  width: 100%; /* Mengatur lebar penuh untuk konten */
+}
+
+.newsHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.newsDate {
+  color: #888; /* Warna untuk tanggal */
+  font-size: 0.9rem; /* Ukuran font lebih kecil untuk tanggal */
+  margin-left: auto; /* Memindahkan tanggal ke sisi kanan */
+  align-self: center; /* Menjaga tanggal sejajar dengan deskripsi */
+  margin-top: 16px;
+}
+
+.newsTitle {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+  width: 100%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.customButton {
+  color: black; /* Warna teks */
+  border: 1px solid black; /* Border */
+  border-radius: 8px;
+  transition: all 0.3s ease; /* Animasi transisi */
+  margin-top: 16px;
+}
+
+.customButton:hover {
+  background-color: #1a73e8;
+  color: #ffffff;
+  transform: scale(1.05); /* Perbesar sedikit saat hover */
+}
+
+.customButton:active {
+  font-weight: bold;
+  color: white; /* Warna teks */
+  transform: scale(0.98); /* Animasi saat diklik */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduksi shadow saat diklik */
+}
+
+.imageContainer {
+  height: 200px; /* Atur tinggi kontainer */
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; /* Pastikan konten tidak meluber */
+}
+
+.dialogImage {
+  max-width: 100%;
+  max-height: 70vh; /* Batasi tinggi maksimum untuk dialog */
+  object-fit: contain; /* Agar gambar dalam dialog tidak terpotong */
+  display: block;
+  margin: 0 auto;
+}
+
+.dialogDescription {
+  padding: 20px;
+  text-align: justify;
+}
