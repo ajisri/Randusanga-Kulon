@@ -44,7 +44,7 @@ const PotensiWisata = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/potensiwisata",
+    "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata",
     fetcher
   );
 
@@ -73,7 +73,7 @@ const PotensiWisata = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:5000/potensiwisata/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -83,7 +83,10 @@ const PotensiWisata = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post("http://localhost:5000/cpotensiwisata", formData);
+        await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/cpotensiwisata",
+          formData
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -91,7 +94,9 @@ const PotensiWisata = () => {
           life: 3000,
         });
       }
-      await mutate("http://localhost:5000/potensiwisata");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -130,14 +135,18 @@ const PotensiWisata = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(`http://localhost:5000/potensiwisata/${uuid}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${uuid}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:5000/potensiwisata");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
+        );
       } catch (error) {
         handleError(error);
       }

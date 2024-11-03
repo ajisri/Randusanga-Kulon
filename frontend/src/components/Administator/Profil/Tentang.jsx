@@ -38,7 +38,7 @@ const Tentang = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/tentang",
+    "https://randusanga-kulonbackend-production.up.railway.app/tentang",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Tentang = () => {
 
     try {
       const response = await axiosJWT.post(
-        "http://localhost:5000/ctentang",
+        "https://randusanga-kulonbackend-production.up.railway.app/ctentang",
         formData,
         {
           headers: {
@@ -96,7 +96,9 @@ const Tentang = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:5000/tentang");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/tentang"
+      );
 
       toast.current.show({
         severity: "success",

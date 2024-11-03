@@ -58,7 +58,10 @@ const Pengumuman = () => {
     data: pengumumanData,
     error,
     isLoading,
-  } = useSWR("http://localhost:5000/pengumuman", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/pengumuman",
+    fetcher
+  );
 
   useEffect(() => {
     if (pengumumanData?.pengumumans) {
@@ -147,7 +150,7 @@ const Pengumuman = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:5000/pengumuman/${currentPengumuman.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/pengumuman/${currentPengumuman.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -160,9 +163,13 @@ const Pengumuman = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post("http://localhost:5000/cpengumuman", dataToSend, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/cpengumuman",
+          dataToSend,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -171,7 +178,9 @@ const Pengumuman = () => {
         });
       }
 
-      await mutate("http://localhost:5000/pengumuman");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/pengumuman"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -238,14 +247,18 @@ const Pengumuman = () => {
   const deletePengumuman = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(`http://localhost:5000/pengumuman/${uuid}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulonbackend-production.up.railway.app/pengumuman/${uuid}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:5000/pengumuman");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/pengumuman"
+        );
       } catch (error) {
         handleError(error);
       }

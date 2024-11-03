@@ -38,7 +38,7 @@ const Aktifasibpjs = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/aktifasibpjs",
+    "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjs",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Aktifasibpjs = () => {
 
     try {
       const response = await axiosJWT.post(
-        "http://localhost:5000/caktifasibpjs",
+        "https://randusanga-kulonbackend-production.up.railway.app/caktifasibpjs",
         formData,
         {
           headers: {
@@ -96,7 +96,9 @@ const Aktifasibpjs = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:5000/aktifasibpjs");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjs"
+      );
 
       toast.current.show({
         severity: "success",

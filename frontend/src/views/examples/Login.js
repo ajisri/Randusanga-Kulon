@@ -18,10 +18,13 @@ const Login = () => {
   const Auth = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/login", {
-        username: username,
-        password: password,
-      });
+      await axios.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/login",
+        {
+          username: username,
+          password: password,
+        }
+      );
       navigate("/dashboard");
     } catch (error) {
       if (error.response) {

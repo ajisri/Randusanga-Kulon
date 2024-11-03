@@ -46,7 +46,7 @@ const JenisLahan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/jenislahan",
+    "https://randusanga-kulonbackend-production.up.railway.app/jenislahan",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const JenisLahan = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:5000/jenislahan/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/jenislahan/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -85,7 +85,10 @@ const JenisLahan = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post("http://localhost:5000/cjenislahan", formData);
+        await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/cjenislahan",
+          formData
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -93,7 +96,9 @@ const JenisLahan = () => {
           life: 3000,
         });
       }
-      await mutate("http://localhost:5000/jenislahan");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/jenislahan"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -133,14 +138,18 @@ const JenisLahan = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(`http://localhost:5000/jenislahan/${uuid}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulonbackend-production.up.railway.app/jenislahan/${uuid}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:5000/jenislahan");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/jenislahan"
+        );
       } catch (error) {
         handleError(error);
       }

@@ -38,7 +38,7 @@ const Pembuatansktm = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/pembuatansktm",
+    "https://randusanga-kulonbackend-production.up.railway.app/pembuatansktm",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Pembuatansktm = () => {
 
     try {
       const response = await axiosJWT.post(
-        "http://localhost:5000/cpembuatansktm",
+        "https://randusanga-kulonbackend-production.up.railway.app/cpembuatansktm",
         formData,
         {
           headers: {
@@ -96,7 +96,9 @@ const Pembuatansktm = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:5000/pembuatansktm");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/pembuatansktm"
+      );
 
       toast.current.show({
         severity: "success",

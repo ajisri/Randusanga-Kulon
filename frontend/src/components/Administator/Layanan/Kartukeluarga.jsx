@@ -38,7 +38,7 @@ const Kartukeluarga = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/kartukeluarga",
+    "https://randusanga-kulonbackend-production.up.railway.app/kartukeluarga",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Kartukeluarga = () => {
 
     try {
       const response = await axiosJWT.post(
-        "http://localhost:5000/ckartukeluarga",
+        "https://randusanga-kulonbackend-production.up.railway.app/ckartukeluarga",
         formData,
         {
           headers: {
@@ -96,7 +96,9 @@ const Kartukeluarga = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:5000/kartukeluarga");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/kartukeluarga"
+      );
 
       toast.current.show({
         severity: "success",
