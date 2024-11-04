@@ -69,12 +69,14 @@ const Dashboard = () => {
       const response = await axios.get(
         "https://randusanga-kulonbackend-production.up.railway.app/token"
       );
+      console.log("Access Token diperbarui:", response.data.accessToken);
       setToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
       setExpire(decoded.exp);
     } catch (error) {
+      console.error("Gagal memperbarui token:", error);
       if (error.response) {
-        navigate("/");
+        navigate("/"); // Redirect ke halaman login jika token tidak valid
       }
     }
   };
@@ -87,11 +89,16 @@ const Dashboard = () => {
         const response = await axios.get(
           "https://randusanga-kulonbackend-production.up.railway.app/token"
         );
+        console.log(
+          "Token diperbarui melalui interceptor:",
+          response.data.accessToken
+        );
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
         setExpire(decoded.exp);
       } else {
+        console.log("Menggunakan token lama:", token);
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
