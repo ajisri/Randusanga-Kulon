@@ -9,16 +9,21 @@ const useAuth = (navigate) => {
   useEffect(() => {
     const refreshToken = async () => {
       try {
+        console.log("Meminta token baru...");
         const response = await axios.get(
           "https://randusanga-kulonbackend-production.up.railway.app/token"
         );
+        console.log("Token diterima:", response.data.accessToken);
         setToken(response.data.accessToken);
+
         const decoded = jwt_decode(response.data.accessToken);
+        console.log("Token terdecode:", decoded);
         setExpire(decoded.exp);
-        console.log("Access Token:", response.data.accessToken);
-        console.log("Decoded Token:", decoded);
-        console.log("Token Expiry:", decoded.exp);
+
+        // Tambahkan debugger di sini
+        debugger; // Hentikan eksekusi untuk pemeriksaan
       } catch (error) {
+        console.error("Error refreshing token:", error);
         navigate("/");
       }
     };
