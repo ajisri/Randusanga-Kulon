@@ -193,7 +193,7 @@ class DemoNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://www.facebook.com/creativetim"
+                      href="https://www.facebook.com/"
                       id="tooltip333589074"
                       target="_blank"
                     >
@@ -209,7 +209,7 @@ class DemoNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://www.instagram.com/creativetimofficial"
+                      href="https://www.instagram.com/"
                       id="tooltip356693867"
                       target="_blank"
                     >
@@ -225,7 +225,7 @@ class DemoNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://twitter.com/creativetim"
+                      href="https://twitter.com/"
                       id="tooltip184698705"
                       target="_blank"
                     >
@@ -241,7 +241,7 @@ class DemoNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://github.com/creativetimofficial/argon-design-system-react"
+                      href="https://github.com/"
                       id="tooltip112445449"
                       target="_blank"
                     >
@@ -258,7 +258,7 @@ class DemoNavbar extends React.Component {
                     <Button
                       className="btn-neutral btn-icon"
                       color="default"
-                      href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-navbar"
+                      href="https://twitter.com/"
                       target="_blank"
                     >
                       <span className="btn-inner--icon">
