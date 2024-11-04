@@ -67,7 +67,8 @@ const Dashboard = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.get(
-        "https://randusanga-kulonbackend-production.up.railway.app/token"
+        "https://randusanga-kulonbackend-production.up.railway.app/token",
+        { withCredentials: true }
       );
       console.log("Access Token diperbarui:", response.data.accessToken);
       setToken(response.data.accessToken);
