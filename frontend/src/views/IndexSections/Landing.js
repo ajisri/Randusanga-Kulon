@@ -79,10 +79,7 @@ const Landing = () => {
     data: agendaData,
     error: agendaError,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agendapengunjung",
-    fetcher
-  );
+  } = useSWR(`${process.env.REACT_APP_BACKEND_URL}/agendapengunjung`, fetcher);
 
   useEffect(() => {
     const fetchData = async () => {
