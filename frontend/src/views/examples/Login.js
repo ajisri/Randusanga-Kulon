@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/login",
+        "${process.env.REACT_APP_BACKEND_URL}/login",
         {
           username: username,
           password: password,

@@ -52,10 +52,7 @@ const Agenda = () => {
     data: agendaData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agenda",
-    fetcher
-  );
+  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/agenda", fetcher);
 
   useEffect(() => {
     if (agendaData?.agenda) {
@@ -106,7 +103,7 @@ const Agenda = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/agenda/${currentAgenda.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/agenda/${currentAgenda.uuid}`,
           formData
         );
         toast.current.show({
@@ -117,7 +114,7 @@ const Agenda = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cagenda",
+          "${process.env.REACT_APP_BACKEND_URL}/cagenda",
           formData
         );
         toast.current.show({
@@ -127,9 +124,7 @@ const Agenda = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/agenda"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/agenda");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -172,7 +167,7 @@ const Agenda = () => {
     if (window.confirm("Are you sure you want to delete this agenda?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/agenda/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/agenda/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -180,9 +175,7 @@ const Agenda = () => {
           detail: "Agenda deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/agenda"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/agenda");
       } catch (error) {
         handleError(error);
       }

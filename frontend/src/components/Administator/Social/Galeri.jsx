@@ -59,10 +59,7 @@ const Galeri = () => {
     data: galeriData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/galeri",
-    fetcher
-  );
+  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/galeri", fetcher);
 
   useEffect(() => {
     if (galeriData?.galeris) {
@@ -164,7 +161,7 @@ const Galeri = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/galeri/${currentGaleri.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/galeri/${currentGaleri.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -178,7 +175,7 @@ const Galeri = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cgaleri",
+          "${process.env.REACT_APP_BACKEND_URL}/cgaleri",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -192,9 +189,7 @@ const Galeri = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/galeri"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/galeri");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -249,7 +244,7 @@ const Galeri = () => {
     setFormData(galeri);
     setSelectedFile(null);
     const fileUrl = galeri.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${galeri.file_url}`
+      ? `${process.env.REACT_APP_BACKEND_URL}${galeri.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -262,7 +257,7 @@ const Galeri = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/galeri/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/galeri/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -270,9 +265,7 @@ const Galeri = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/galeri"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/galeri");
       } catch (error) {
         handleError(error);
       }

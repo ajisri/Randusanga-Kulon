@@ -47,10 +47,7 @@ const Keuangan = () => {
     data: keuanganData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/keuangan",
-    fetcher
-  );
+  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/keuangan", fetcher);
 
   useEffect(() => {
     if (keuanganData) {
@@ -91,7 +88,7 @@ const Keuangan = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${currentKeuangan.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/keuangan/${currentKeuangan.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -102,7 +99,7 @@ const Keuangan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckeuangan",
+          "${process.env.REACT_APP_BACKEND_URL}/ckeuangan",
           dataToSend
         );
         toast.current.show({
@@ -113,9 +110,7 @@ const Keuangan = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/keuangan"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/keuangan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -164,7 +159,7 @@ const Keuangan = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/keuangan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -172,9 +167,7 @@ const Keuangan = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/keuangan"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/keuangan");
       } catch (error) {
         handleError(error);
       }

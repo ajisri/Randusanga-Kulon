@@ -20,7 +20,7 @@ const Modalt = () => {
   const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukump",
+    "${process.env.REACT_APP_BACKEND_URL}/produk_hukump",
     fetcher
   );
   const loadingProdukhukum = !produkhukumData && !produkhukumError;
@@ -688,7 +688,7 @@ const Modalt = () => {
                       const fileName = rowData.file_url.split("/").pop(); // Ambil nama file saja
                       return (
                         <a
-                          href={`https://randusanga-kulonbackend-production.up.railway.app/download/${fileName}`} // Mengarahkan ke controller di backend
+                          href={`${process.env.REACT_APP_BACKEND_URL}/download/${fileName}`} // Mengarahkan ke controller di backend
                           download
                           style={{ textDecoration: "none" }}
                         >

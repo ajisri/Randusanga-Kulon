@@ -38,7 +38,7 @@ const Aktifasibpjs = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjs",
+    "${process.env.REACT_APP_BACKEND_URL}/aktifasibpjs",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Aktifasibpjs = () => {
 
     try {
       const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/caktifasibpjs",
+        "${process.env.REACT_APP_BACKEND_URL}/caktifasibpjs",
         formData,
         {
           headers: {
@@ -96,9 +96,7 @@ const Aktifasibpjs = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjs"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/aktifasibpjs");
 
       toast.current.show({
         severity: "success",
@@ -242,7 +240,7 @@ const Aktifasibpjs = () => {
             {file_url && !preview && (
               <div className="image-container">
                 <img
-                  src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                  src={`${process.env.REACT_APP_BACKEND_URL}${file_url}`}
                   alt="Database"
                 />
               </div>

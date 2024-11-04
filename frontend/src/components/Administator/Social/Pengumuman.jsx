@@ -58,10 +58,7 @@ const Pengumuman = () => {
     data: pengumumanData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/pengumuman",
-    fetcher
-  );
+  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/pengumuman", fetcher);
 
   useEffect(() => {
     if (pengumumanData?.pengumumans) {
@@ -150,7 +147,7 @@ const Pengumuman = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/pengumuman/${currentPengumuman.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/pengumuman/${currentPengumuman.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -164,7 +161,7 @@ const Pengumuman = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cpengumuman",
+          "${process.env.REACT_APP_BACKEND_URL}/cpengumuman",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -178,9 +175,7 @@ const Pengumuman = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/pengumuman"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/pengumuman");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -235,7 +230,7 @@ const Pengumuman = () => {
     setFormData(pengumuman);
     setSelectedFile(null);
     const fileUrl = pengumuman.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${pengumuman.file_url}`
+      ? `${process.env.REACT_APP_BACKEND_URL}${pengumuman.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -248,7 +243,7 @@ const Pengumuman = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/pengumuman/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/pengumuman/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -256,9 +251,7 @@ const Pengumuman = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/pengumuman"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/pengumuman");
       } catch (error) {
         handleError(error);
       }

@@ -59,10 +59,7 @@ const Berita = () => {
     data: beritaData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/berita",
-    fetcher
-  );
+  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/berita", fetcher);
 
   useEffect(() => {
     if (beritaData?.beritas) {
@@ -164,7 +161,7 @@ const Berita = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/berita/${currentBerita.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/berita/${currentBerita.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -178,7 +175,7 @@ const Berita = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cberita",
+          "${process.env.REACT_APP_BACKEND_URL}/cberita",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -192,9 +189,7 @@ const Berita = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/berita"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/berita");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -249,7 +244,7 @@ const Berita = () => {
     setFormData(berita);
     setSelectedFile(null);
     const fileUrl = berita.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${berita.file_url}`
+      ? `${process.env.REACT_APP_BACKEND_URL}${berita.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -262,7 +257,7 @@ const Berita = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/berita/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/berita/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -270,9 +265,7 @@ const Berita = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/berita"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/berita");
       } catch (error) {
         handleError(error);
       }

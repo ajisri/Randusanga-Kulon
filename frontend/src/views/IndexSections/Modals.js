@@ -28,26 +28,26 @@ const Modals = () => {
   // const [chartOptions, setChartOptions] = useState({});
 
   const { data: tentangData, error: tentangError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/tentangpengunjung",
+    "${process.env.REACT_APP_BACKEND_URL}/tentangpengunjung",
     fetcher
   );
   const loadingTentang = !tentangData && !tentangError;
 
   const { data: sejarahData, error: sejarahError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/sejarahpengunjung",
+    "${process.env.REACT_APP_BACKEND_URL}/sejarahpengunjung",
     fetcher
   );
   const loadingSejarah = !sejarahData && !sejarahError;
 
   const { data: visionData, error: visionError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/visimisipengunjung",
+    "${process.env.REACT_APP_BACKEND_URL}/visimisipengunjung",
     fetcher
   );
   const loadingVision = !visionData && !visionError;
 
   const { data: strukturorganisasiData, error: strukturorganisasiError } =
     useSWR(
-      "https://randusanga-kulonbackend-production.up.railway.app/strukturorganisasipengunjung",
+      "${process.env.REACT_APP_BACKEND_URL}/strukturorganisasipengunjung",
       fetcher
     );
 
@@ -55,25 +55,25 @@ const Modals = () => {
     !strukturorganisasiData && !strukturorganisasiError;
 
   // Construct full URL for the image
-  const baseURL = "https://randusanga-kulonbackend-production.up.railway.app";
+  const baseURL = "${process.env.REACT_APP_BACKEND_URL}";
   const imageURL = strukturorganisasiData?.profile.file_url
     ? `${baseURL}${strukturorganisasiData.profile.file_url}`
     : null;
 
   const { data: demografiData, error: demografiError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/demografipengunjung",
+    "${process.env.REACT_APP_BACKEND_URL}/demografipengunjung",
     fetcher
   );
 
   //lembaga
   const { data: lembagaData, error: lembagaError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/lembagapengunjung",
+    "${process.env.REACT_APP_BACKEND_URL}/lembagapengunjung",
     fetcher
   );
   const loadingLembaga = !lembagaData && !lembagaError;
 
   const lembagaList = lembagaData?.lembagap || [];
-  const baseLURL = "https://randusanga-kulonbackend-production.up.railway.app/";
+  const baseLURL = "${process.env.REACT_APP_BACKEND_URL}/";
 
   const renderAnggota = (anggotaList) => (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>

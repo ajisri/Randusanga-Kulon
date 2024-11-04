@@ -46,7 +46,7 @@ const JenisLahan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jenislahan",
+    "${process.env.REACT_APP_BACKEND_URL}/jenislahan",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const JenisLahan = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/jenislahan/${currentData.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/jenislahan/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -86,7 +86,7 @@ const JenisLahan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cjenislahan",
+          "${process.env.REACT_APP_BACKEND_URL}/cjenislahan",
           formData
         );
         toast.current.show({
@@ -96,9 +96,7 @@ const JenisLahan = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/jenislahan"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/jenislahan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -139,7 +137,7 @@ const JenisLahan = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/jenislahan/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/jenislahan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -147,9 +145,7 @@ const JenisLahan = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/jenislahan"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/jenislahan");
       } catch (error) {
         handleError(error);
       }

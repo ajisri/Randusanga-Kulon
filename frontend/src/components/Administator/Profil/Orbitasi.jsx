@@ -46,7 +46,7 @@ const OrbitasiDesa = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/orbitasi",
+    "${process.env.REACT_APP_BACKEND_URL}/orbitasi",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const OrbitasiDesa = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/orbitasi/${currentData.uuid}`,
+          `${process.env.REACT_APP_BACKEND_URL}/orbitasi/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -86,7 +86,7 @@ const OrbitasiDesa = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/corbitasi",
+          "${process.env.REACT_APP_BACKEND_URL}/corbitasi",
           formData
         );
         toast.current.show({
@@ -96,9 +96,7 @@ const OrbitasiDesa = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/orbitasi"
-      );
+      await mutate("${process.env.REACT_APP_BACKEND_URL}/orbitasi");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -139,7 +137,7 @@ const OrbitasiDesa = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/orbitasi/${uuid}`
+          `${process.env.REACT_APP_BACKEND_URL}/orbitasi/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -147,9 +145,7 @@ const OrbitasiDesa = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/orbitasi"
-        );
+        await mutate("${process.env.REACT_APP_BACKEND_URL}/orbitasi");
       } catch (error) {
         handleError(error);
       }
