@@ -8,12 +8,13 @@ const useAuth = (navigate) => {
 
   useEffect(() => {
     const refreshToken = async () => {
+      console.log("Memanggil refreshToken..."); // Debug log untuk memastikan fungsi dipanggil
       try {
         const response = await axios.get(
           "https://randusanga-kulonbackend-production.up.railway.app/token",
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Menggunakan token yang sudah ada
+              Authorization: `Bearer ${token}`, // Pastikan token sudah diatur sebelumnya
             },
           }
         );
@@ -21,22 +22,30 @@ const useAuth = (navigate) => {
         const decoded = jwt_decode(response.data.accessToken);
         setExpire(decoded.exp);
       } catch (error) {
-        navigate("/");
+        console.error("Error refreshing token:", error);
+        navigate("/"); // Navigasi kembali jika terjadi kesalahan
       }
     };
 
-    if (!token) {
+    // Panggil refreshToken jika token belum ada atau telah kadaluarsa
+    if (!token || expire * 1000 < new Date().getTime()) {
       refreshToken();
     }
-  }, [token, navigate]);
+  }, [token, expire, navigate]);
 
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
+        console.log("Token expired, memanggil refreshToken...");
         const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token"
+          "https://randusanga-kulonbackend-production.up.railway.app/token",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         setToken(response.data.accessToken);
@@ -50,7 +59,7 @@ const useAuth = (navigate) => {
     (error) => Promise.reject(error)
   );
 
-  return axiosJWT;
+  return axiosJWT; // Mengembalikan instance axios dengan interceptor
 };
 
 export default useAuth;
