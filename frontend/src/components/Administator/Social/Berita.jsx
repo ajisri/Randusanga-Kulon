@@ -249,7 +249,7 @@ const Berita = () => {
     setFormData(berita);
     setSelectedFile(null);
     const fileUrl = berita.file_url
-      ? `http://localhost:5000${berita.file_url}`
+      ? `https://randusanga-kulonbackend-production.up.railway.app${berita.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL

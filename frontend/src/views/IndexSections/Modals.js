@@ -55,7 +55,7 @@ const Modals = () => {
     !strukturorganisasiData && !strukturorganisasiError;
 
   // Construct full URL for the image
-  const baseURL = "http://localhost:5000";
+  const baseURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageURL = strukturorganisasiData?.profile.file_url
     ? `${baseURL}${strukturorganisasiData.profile.file_url}`
     : null;

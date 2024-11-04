@@ -249,7 +249,7 @@ const Galeri = () => {
     setFormData(galeri);
     setSelectedFile(null);
     const fileUrl = galeri.file_url
-      ? `http://localhost:5000${galeri.file_url}`
+      ? `https://randusanga-kulonbackend-production.up.railway.app${galeri.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL

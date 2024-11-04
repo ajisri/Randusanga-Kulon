@@ -241,7 +241,10 @@ const Aktifasibpjs = () => {
             )}
             {file_url && !preview && (
               <div className="image-container">
-                <img src={`http://localhost:5000${file_url}`} alt="Database" />
+                <img
+                  src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                  alt="Database"
+                />
               </div>
             )}
           </div>

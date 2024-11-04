@@ -139,7 +139,7 @@ const Berita = () => {
             <div style={styles.imageContainer}>
               <img
                 src={
-                  `http://localhost:5000${item.file_url}` ||
+                  `https://randusanga-kulonbackend-production.up.railway.app${item.file_url}` ||
                   "default-image-url.jpg"
                 }
                 alt={item.title}
@@ -167,7 +167,7 @@ const Berita = () => {
         >
           <img
             src={
-              `http://localhost:5000${selectedBerita.file_url}` ||
+              `https://randusanga-kulonbackend-production.up.railway.app${selectedBerita.file_url}` ||
               "default-image-url.jpg"
             }
             alt={selectedBerita.title}

@@ -24,7 +24,7 @@ const Modall = () => {
   const loadingAktakelahiran = !aktakelahiranData && !aktakelahiranError;
 
   // Construct full URL for the image
-  const baseAURL = "http://localhost:5000";
+  const baseAURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageAURL = aktakelahiranData?.service.file_url
     ? `${baseAURL}${aktakelahiranData.service.file_url}`
     : null;
@@ -38,7 +38,7 @@ const Modall = () => {
   const loadingKartukeluarga = !kartukeluargaData && !kartukeluargaError;
 
   // Construct full URL for the image
-  const baseKKURL = "http://localhost:5000";
+  const baseKKURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageKKURL = kartukeluargaData?.service.file_url
     ? `${baseKKURL}${kartukeluargaData.service.file_url}`
     : null;
@@ -54,7 +54,8 @@ const Modall = () => {
     !kartutandapendudukData && !kartutandapendudukError;
 
   // Construct full URL for the image
-  const baseKTPURL = "http://localhost:5000";
+  const baseKTPURL =
+    "https://randusanga-kulonbackend-production.up.railway.app";
   const imageKTPURL = kartutandapendudukData?.service.file_url
     ? `${baseKTPURL}${kartutandapendudukData.service.file_url}`
     : null;
@@ -69,7 +70,7 @@ const Modall = () => {
     !pendaftarannikahData && !pendaftarannikahError;
 
   // Construct full URL for the image
-  const basePNURL = "http://localhost:5000";
+  const basePNURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imagePNURL = pendaftarannikahData?.service.file_url
     ? `${basePNURL}${pendaftarannikahData.service.file_url}`
     : null;
@@ -83,7 +84,7 @@ const Modall = () => {
   const loadingAktifasibpjs = !aktifasibpjsData && !aktifasibpjsError;
 
   // Construct full URL for the image
-  const baseABURL = "http://localhost:5000";
+  const baseABURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageABURL = aktifasibpjsData?.service.file_url
     ? `${baseABURL}${aktifasibpjsData.service.file_url}`
     : null;
@@ -97,7 +98,8 @@ const Modall = () => {
   const loadingPembuatansktm = !pembuatansktmData && !pembuatansktmError;
 
   // Construct full URL for the image
-  const basePSKTMURL = "http://localhost:5000";
+  const basePSKTMURL =
+    "https://randusanga-kulonbackend-production.up.railway.app";
   const imagePSKTMURL = pembuatansktmData?.service.file_url
     ? `${basePSKTMURL}${pembuatansktmData.service.file_url}`
     : null;

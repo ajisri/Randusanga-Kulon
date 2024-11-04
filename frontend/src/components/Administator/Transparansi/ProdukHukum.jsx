@@ -281,7 +281,7 @@ const Produkhukum = () => {
     setFormData(produkhukum);
     setSelectedFile(null);
     const fileUrl = produkhukum.file_url
-      ? `http://localhost:5000${produkhukum.file_url}`
+      ? `https://randusanga-kulonbackend-production.up.railway.app${produkhukum.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -373,7 +373,7 @@ const Produkhukum = () => {
           field="file_url"
           header="File"
           body={(rowData) => {
-            const fileUrl = `http://localhost:5000${rowData.file_url}`;
+            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

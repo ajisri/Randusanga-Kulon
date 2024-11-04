@@ -299,7 +299,7 @@ const Demografi = () => {
     setFormData(demographic);
     setSelectedFile(null);
     const fileUrl = demographic.file_url
-      ? `http://localhost:5000${demographic.file_url}`
+      ? `https://randusanga-kulonbackend-production.up.railway.app${demographic.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -331,7 +331,9 @@ const Demografi = () => {
 
   useEffect(() => {
     if (selectedDemographic?.file_url) {
-      setPreview(`http://localhost:5000${selectedDemographic.file_url}`);
+      setPreview(
+        `https://randusanga-kulonbackend-production.up.railway.app${selectedDemographic.file_url}`
+      );
     } else {
       setPreview("");
     }

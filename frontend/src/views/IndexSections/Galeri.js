@@ -50,8 +50,8 @@ const Galeri = () => {
   }
 
   const images = galeriData.galeris.map((item) => ({
-    itemImageSrc: `http://localhost:5000${item.file_url}`,
-    thumbnailImageSrc: `http://localhost:5000${item.file_url}`,
+    itemImageSrc: `https://randusanga-kulonbackend-production.up.railway.app${item.file_url}`,
+    thumbnailImageSrc: `https://randusanga-kulonbackend-production.up.railway.app${item.file_url}`,
     alt: item.title,
     title: item.title,
   }));
