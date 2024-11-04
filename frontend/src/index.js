@@ -20,7 +20,6 @@ import Landingpr from "views/examples/Landingpr.js";
 import Login from "views/examples/Login.js";
 import Profile from "views/examples/Profile.js";
 import Register from "views/examples/Register.js";
-import { AuthProvider } from "./context/AuthContext.js";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -40,25 +39,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <AuthProvider>
-        <BrowserRouter>
-          <ToastContainer ref={this.toastRef} />
-          <Routes>
-            <Route path="/" exact element={<Index />} />
-            <Route path="/landing-page" exact element={<Landing />} />
-            <Route path="/landingpr" exact element={<Landingpr />} />
-            <Route path="/login" exact element={<Login />} />
-            <Route path="/profile-page" exact element={<Profile />} />
-            <Route path="/register-page" exact element={<Register />} />
-            <Route path="/keuangan-desa" element={<KeuanganDesa />} />
-            <Route
-              path="/Dashboard"
-              element={<Dashboard showToast={this.showToast} />}
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <BrowserRouter>
+        <ToastContainer ref={this.toastRef} />
+        <Routes>
+          <Route path="/" exact element={<Index />} />
+          <Route path="/landing-page" exact element={<Landing />} />
+          <Route path="/landingpr" exact element={<Landingpr />} />
+          <Route path="/login" exact element={<Login />} />
+          <Route path="/profile-page" exact element={<Profile />} />
+          <Route path="/register-page" exact element={<Register />} />
+          <Route path="/keuangan-desa" element={<KeuanganDesa />} />
+          <Route
+            path="/Dashboard"
+            element={<Dashboard showToast={this.showToast} />}
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }

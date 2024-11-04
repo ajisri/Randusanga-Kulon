@@ -1,24 +1,44 @@
 // src/contexts/AuthContext.js
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState(null);
+  const [accessToken, setAccessToken] = useState("");
+  const [expire, setExpire] = useState(0);
+
+  useEffect(() => {
+    const refreshToken = async () => {
+      try {
+        const response = await axios.get(
+          "https://randusanga-kulonbackend-production.up.railway.app/token",
+          { withCredentials: true }
+        );
+        setAccessToken(response.data.accessToken);
+        const decoded = jwt_decode(response.data.accessToken);
+        setExpire(decoded.exp);
+      } catch (error) {
+        console.error("Error refreshing token:", error);
+      }
+    };
+    refreshToken();
+  }, []);
 
   const getAccessToken = async () => {
-    try {
+    const currentDate = new Date();
+    if (expire * 1000 < currentDate.getTime()) {
       const response = await axios.get(
         "https://randusanga-kulonbackend-production.up.railway.app/token",
         { withCredentials: true }
       );
       setAccessToken(response.data.accessToken);
+      const decoded = jwt_decode(response.data.accessToken);
+      setExpire(decoded.exp);
       return response.data.accessToken;
-    } catch (error) {
-      console.error("Gagal memperbarui token:", error.response?.data.msg);
-      return null;
     }
+    return accessToken;
   };
 
   return (
