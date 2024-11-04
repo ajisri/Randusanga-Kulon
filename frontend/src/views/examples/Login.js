@@ -18,15 +18,19 @@ const Login = () => {
   const Auth = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
+      const response = await axios.post(
         "https://randusanga-kulonbackend-production.up.railway.app/login",
         {
           username: username,
           password: password,
         },
-        { withCredentials: true }
+        { withCredentials: true } // Mengirim cookie refresh token ke backend
       );
-      navigate("/dashboard");
+      if (response.data.accessToken) {
+        navigate("/dashboard");
+      } else {
+        setMsg("Login gagal, tidak ada token yang diterima");
+      }
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
