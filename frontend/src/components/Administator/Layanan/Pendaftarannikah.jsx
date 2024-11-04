@@ -38,7 +38,7 @@ const Pendaftarannikah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/pendaftarannikah",
+    "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikah",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Pendaftarannikah = () => {
 
     try {
       const response = await axiosJWT.post(
-        "${process.env.REACT_APP_BACKEND_URL}/cpendaftarannikah",
+        "https://randusanga-kulonbackend-production.up.railway.app/cpendaftarannikah",
         formData,
         {
           headers: {
@@ -96,7 +96,9 @@ const Pendaftarannikah = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/pendaftarannikah");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikah"
+      );
 
       toast.current.show({
         severity: "success",
@@ -260,7 +262,7 @@ const Pendaftarannikah = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_URL}${file_url}`}
+                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
                         alt="Database"
                       />
                     </div>

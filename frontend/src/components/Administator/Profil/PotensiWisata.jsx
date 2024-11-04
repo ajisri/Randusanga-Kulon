@@ -44,7 +44,7 @@ const PotensiWisata = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/potensiwisata",
+    "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata",
     fetcher
   );
 
@@ -73,7 +73,7 @@ const PotensiWisata = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `${process.env.REACT_APP_BACKEND_URL}/potensiwisata/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -84,7 +84,7 @@ const PotensiWisata = () => {
         });
       } else {
         await axiosJWT.post(
-          "${process.env.REACT_APP_BACKEND_URL}/cpotensiwisata",
+          "https://randusanga-kulonbackend-production.up.railway.app/cpotensiwisata",
           formData
         );
         toast.current.show({
@@ -94,7 +94,9 @@ const PotensiWisata = () => {
           life: 3000,
         });
       }
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/potensiwisata");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -134,7 +136,7 @@ const PotensiWisata = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `${process.env.REACT_APP_BACKEND_URL}/potensiwisata/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -142,7 +144,9 @@ const PotensiWisata = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("${process.env.REACT_APP_BACKEND_URL}/potensiwisata");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
+        );
       } catch (error) {
         handleError(error);
       }

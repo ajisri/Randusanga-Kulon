@@ -6,7 +6,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Galeri = () => {
   const { data: galeriData, error: galeriError } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/galeripengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/galeripengunjung",
     fetcher
   );
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1200);
@@ -50,8 +50,8 @@ const Galeri = () => {
   }
 
   const images = galeriData.galeris.map((item) => ({
-    itemImageSrc: `${process.env.REACT_APP_BACKEND_URL}${item.file_url}`,
-    thumbnailImageSrc: `${process.env.REACT_APP_BACKEND_URL}${item.file_url}`,
+    itemImageSrc: `https://randusanga-kulonbackend-production.up.railway.app${item.file_url}`,
+    thumbnailImageSrc: `https://randusanga-kulonbackend-production.up.railway.app${item.file_url}`,
     alt: item.title,
     title: item.title,
   }));

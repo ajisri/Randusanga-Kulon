@@ -63,17 +63,26 @@ const Demografi = () => {
     data: demografiData,
     error,
     isLoading,
-  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/demografi", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/demografi",
+    fetcher
+  );
   const {
     data: educationData,
     error: educationError,
     isLoading: isEducationLoading,
-  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/education-options", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/education-options",
+    fetcher
+  );
   const {
     data: religionData,
     error: religionError,
     isLoading: isReligionLoading,
-  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/agama", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/agama",
+    fetcher
+  );
 
   useEffect(() => {
     if (demografiData?.demographics) {
@@ -186,7 +195,7 @@ const Demografi = () => {
     try {
       if (isEditMode) {
         await axiosJWT.put(
-          `${process.env.REACT_APP_BACKEND_URL}/demografi/${currentDemographic.nik}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/demografi/${currentDemographic.nik}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -200,7 +209,7 @@ const Demografi = () => {
         });
       } else {
         await axiosJWT.post(
-          "${process.env.REACT_APP_BACKEND_URL}/cdemografi",
+          "https://randusanga-kulonbackend-production.up.railway.app/cdemografi",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -214,7 +223,9 @@ const Demografi = () => {
         });
       }
 
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/demografi");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/demografi"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -288,7 +299,7 @@ const Demografi = () => {
     setFormData(demographic);
     setSelectedFile(null);
     const fileUrl = demographic.file_url
-      ? `${process.env.REACT_APP_BACKEND_URL}${demographic.file_url}`
+      ? `https://randusanga-kulonbackend-production.up.railway.app${demographic.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -301,7 +312,7 @@ const Demografi = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `${process.env.REACT_APP_BACKEND_URL}/demografi/${nik}`
+          `https://randusanga-kulonbackend-production.up.railway.app/demografi/${nik}`
         );
         toast.current.show({
           severity: "success",
@@ -309,7 +320,9 @@ const Demografi = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("${process.env.REACT_APP_BACKEND_URL}/demografi");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/demografi"
+        );
       } catch (error) {
         handleError(error);
       }
@@ -319,7 +332,7 @@ const Demografi = () => {
   useEffect(() => {
     if (selectedDemographic?.file_url) {
       setPreview(
-        `${process.env.REACT_APP_BACKEND_URL}${selectedDemographic.file_url}`
+        `https://randusanga-kulonbackend-production.up.railway.app${selectedDemographic.file_url}`
       );
     } else {
       setPreview("");

@@ -44,7 +44,7 @@ const BatasWilayah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/bataswilayah",
+    "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah",
     fetcher
   );
 
@@ -73,7 +73,7 @@ const BatasWilayah = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `${process.env.REACT_APP_BACKEND_URL}/bataswilayah/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/bataswilayah/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -84,7 +84,7 @@ const BatasWilayah = () => {
         });
       } else {
         await axiosJWT.post(
-          "${process.env.REACT_APP_BACKEND_URL}/cbataswilayah",
+          "https://randusanga-kulonbackend-production.up.railway.app/cbataswilayah",
           formData
         );
         toast.current.show({
@@ -94,7 +94,9 @@ const BatasWilayah = () => {
           life: 3000,
         });
       }
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/bataswilayah");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -134,7 +136,7 @@ const BatasWilayah = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `${process.env.REACT_APP_BACKEND_URL}/bataswilayah/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/bataswilayah/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -142,7 +144,9 @@ const BatasWilayah = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("${process.env.REACT_APP_BACKEND_URL}/bataswilayah");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah"
+        );
       } catch (error) {
         handleError(error);
       }

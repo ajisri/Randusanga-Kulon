@@ -38,7 +38,7 @@ const Aktakelahiran = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/aktakelahiran",
+    "https://randusanga-kulonbackend-production.up.railway.app/aktakelahiran",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Aktakelahiran = () => {
 
     try {
       const response = await axiosJWT.post(
-        "${process.env.REACT_APP_BACKEND_URL}/caktakelahiran",
+        "https://randusanga-kulonbackend-production.up.railway.app/caktakelahiran",
         formData,
         {
           headers: {
@@ -96,7 +96,9 @@ const Aktakelahiran = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/aktakelahiran");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/aktakelahiran"
+      );
 
       toast.current.show({
         severity: "success",
@@ -260,7 +262,7 @@ const Aktakelahiran = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_URL}${file_url}`}
+                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
                         alt="Database"
                       />
                     </div>

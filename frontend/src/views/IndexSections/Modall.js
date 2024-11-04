@@ -17,28 +17,28 @@ const Modall = () => {
 
   //akta kelahiran
   const { data: aktakelahiranData, error: aktakelahiranError } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/aktakelahiranpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/aktakelahiranpengunjung",
     fetcher
   );
 
   const loadingAktakelahiran = !aktakelahiranData && !aktakelahiranError;
 
   // Construct full URL for the image
-  const baseAURL = "${process.env.REACT_APP_BACKEND_URL}";
+  const baseAURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageAURL = aktakelahiranData?.service.file_url
     ? `${baseAURL}${aktakelahiranData.service.file_url}`
     : null;
 
   //kartu keluarga
   const { data: kartukeluargaData, error: kartukeluargaError } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/kartukeluargapengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/kartukeluargapengunjung",
     fetcher
   );
 
   const loadingKartukeluarga = !kartukeluargaData && !kartukeluargaError;
 
   // Construct full URL for the image
-  const baseKKURL = "${process.env.REACT_APP_BACKEND_URL}";
+  const baseKKURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageKKURL = kartukeluargaData?.service.file_url
     ? `${baseKKURL}${kartukeluargaData.service.file_url}`
     : null;
@@ -46,7 +46,7 @@ const Modall = () => {
   //ktp
   const { data: kartutandapendudukData, error: kartutandapendudukError } =
     useSWR(
-      "${process.env.REACT_APP_BACKEND_URL}/kartutandapendudukpengunjung",
+      "https://randusanga-kulonbackend-production.up.railway.app/kartutandapendudukpengunjung",
       fetcher
     );
 
@@ -54,14 +54,15 @@ const Modall = () => {
     !kartutandapendudukData && !kartutandapendudukError;
 
   // Construct full URL for the image
-  const baseKTPURL = "${process.env.REACT_APP_BACKEND_URL}";
+  const baseKTPURL =
+    "https://randusanga-kulonbackend-production.up.railway.app";
   const imageKTPURL = kartutandapendudukData?.service.file_url
     ? `${baseKTPURL}${kartutandapendudukData.service.file_url}`
     : null;
 
   //pendaftaran nikah
   const { data: pendaftarannikahData, error: pendaftarannikahError } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/pendaftarannikahpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikahpengunjung",
     fetcher
   );
 
@@ -69,35 +70,36 @@ const Modall = () => {
     !pendaftarannikahData && !pendaftarannikahError;
 
   // Construct full URL for the image
-  const basePNURL = "${process.env.REACT_APP_BACKEND_URL}";
+  const basePNURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imagePNURL = pendaftarannikahData?.service.file_url
     ? `${basePNURL}${pendaftarannikahData.service.file_url}`
     : null;
 
   //aktifasi bpjs
   const { data: aktifasibpjsData, error: aktifasibpjsError } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/aktifasibpjspengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjspengunjung",
     fetcher
   );
 
   const loadingAktifasibpjs = !aktifasibpjsData && !aktifasibpjsError;
 
   // Construct full URL for the image
-  const baseABURL = "${process.env.REACT_APP_BACKEND_URL}";
+  const baseABURL = "https://randusanga-kulonbackend-production.up.railway.app";
   const imageABURL = aktifasibpjsData?.service.file_url
     ? `${baseABURL}${aktifasibpjsData.service.file_url}`
     : null;
 
   //pembuatan sktm
   const { data: pembuatansktmData, error: pembuatansktmError } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/pembuatansktmpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/pembuatansktmpengunjung",
     fetcher
   );
 
   const loadingPembuatansktm = !pembuatansktmData && !pembuatansktmError;
 
   // Construct full URL for the image
-  const basePSKTMURL = "${process.env.REACT_APP_BACKEND_URL}";
+  const basePSKTMURL =
+    "https://randusanga-kulonbackend-production.up.railway.app";
   const imagePSKTMURL = pembuatansktmData?.service.file_url
     ? `${basePSKTMURL}${pembuatansktmData.service.file_url}`
     : null;

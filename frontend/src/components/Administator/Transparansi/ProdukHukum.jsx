@@ -54,7 +54,10 @@ const Produkhukum = () => {
     data: produkhukumData,
     error,
     isLoading,
-  } = useSWR("${process.env.REACT_APP_BACKEND_URL}/produk_hukum", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum",
+    fetcher
+  );
 
   useEffect(() => {
     if (produkhukumData?.produkHukum) {
@@ -192,7 +195,7 @@ const Produkhukum = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `${process.env.REACT_APP_BACKEND_URL}/produk_hukum/${currentProdukhukum.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -206,7 +209,7 @@ const Produkhukum = () => {
         });
       } else {
         await axiosJWT.post(
-          "${process.env.REACT_APP_BACKEND_URL}/cprodukhukum",
+          "https://randusanga-kulonbackend-production.up.railway.app/cprodukhukum",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -220,7 +223,9 @@ const Produkhukum = () => {
         });
       }
 
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/produk_hukum");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -276,7 +281,7 @@ const Produkhukum = () => {
     setFormData(produkhukum);
     setSelectedFile(null);
     const fileUrl = produkhukum.file_url
-      ? `${process.env.REACT_APP_BACKEND_URL}${produkhukum.file_url}`
+      ? `https://randusanga-kulonbackend-production.up.railway.app${produkhukum.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -289,7 +294,7 @@ const Produkhukum = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `${process.env.REACT_APP_BACKEND_URL}/produk_hukum/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -297,7 +302,9 @@ const Produkhukum = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("${process.env.REACT_APP_BACKEND_URL}/produk_hukum");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+        );
       } catch (error) {
         handleError(error);
       }
@@ -366,7 +373,7 @@ const Produkhukum = () => {
           field="file_url"
           header="File"
           body={(rowData) => {
-            const fileUrl = `${process.env.REACT_APP_BACKEND_URL}${rowData.file_url}`;
+            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

@@ -63,7 +63,7 @@ const Lembaga = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/lembaga",
+    "https://randusanga-kulonbackend-production.up.railway.app/lembaga",
     fetcher
   );
 
@@ -100,7 +100,7 @@ const Lembaga = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/demografi", // Endpoint API demografi
+    "https://randusanga-kulonbackend-production.up.railway.app/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -227,7 +227,7 @@ const Lembaga = () => {
       if (isEditMode) {
         console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
-          `${process.env.REACT_APP_BACKEND_URL}/ulembaga/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/ulembaga/${currentData.uuid}`,
           data,
           {
             headers: {
@@ -243,7 +243,7 @@ const Lembaga = () => {
         });
       } else {
         await axiosJWT.post(
-          "${process.env.REACT_APP_BACKEND_URL}/clembaga",
+          "https://randusanga-kulonbackend-production.up.railway.app/clembaga",
           data,
           {
             headers: {
@@ -258,7 +258,9 @@ const Lembaga = () => {
           life: 3000,
         });
       }
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/lembaga");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/lembaga"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -305,7 +307,7 @@ const Lembaga = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `${process.env.REACT_APP_BACKEND_URL}/lembaga/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/lembaga/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -313,7 +315,9 @@ const Lembaga = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("${process.env.REACT_APP_BACKEND_URL}/lembaga");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/lembaga"
+        );
       } catch (error) {
         handleError(error);
       }
@@ -359,7 +363,7 @@ const Lembaga = () => {
     }
     console.log("Data Jabatan saat dibuka:", rowData.jabatans);
     if (typeof rowData.file_url === "string") {
-      const fullUrl = `${process.env.REACT_APP_BACKEND_URL}/${rowData.file_url}`;
+      const fullUrl = `https://randusanga-kulonbackend-production.up.railway.app/${rowData.file_url}`;
       console.log("Full URL gambar:", fullUrl); // Debug URL absolut
       setImagePreview(fullUrl);
     } else if (rowData.file_url instanceof File) {

@@ -39,7 +39,7 @@ const Kartutandapenduduk = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "${process.env.REACT_APP_BACKEND_URL}/kartutandapenduduk",
+    "https://randusanga-kulonbackend-production.up.railway.app/kartutandapenduduk",
     fetcher
   );
 
@@ -83,7 +83,7 @@ const Kartutandapenduduk = () => {
 
     try {
       const response = await axiosJWT.post(
-        "${process.env.REACT_APP_BACKEND_URL}/ckartutandapenduduk",
+        "https://randusanga-kulonbackend-production.up.railway.app/ckartutandapenduduk",
         formData,
         {
           headers: {
@@ -97,7 +97,9 @@ const Kartutandapenduduk = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("${process.env.REACT_APP_BACKEND_URL}/kartutandapenduduk");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/kartutandapenduduk"
+      );
 
       toast.current.show({
         severity: "success",
@@ -261,7 +263,7 @@ const Kartutandapenduduk = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_URL}${file_url}`}
+                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
                         alt="Database"
                       />
                     </div>
