@@ -20,7 +20,7 @@ import Landingpr from "views/examples/Landingpr.js";
 import Login from "views/examples/Login.js";
 import Profile from "views/examples/Profile.js";
 import Register from "views/examples/Register.js";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext.js";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
