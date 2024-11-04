@@ -15,6 +15,9 @@ const useAuth = (navigate) => {
         setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
         setExpire(decoded.exp);
+        console.log("Access Token:", response.data.accessToken);
+        console.log("Decoded Token:", decoded);
+        console.log("Token Expiry:", decoded.exp);
       } catch (error) {
         navigate("/");
       }
