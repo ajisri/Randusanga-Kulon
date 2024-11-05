@@ -27,10 +27,12 @@ const Tentang = () => {
   const fetcher = useCallback(
     async (url) => {
       try {
+        console.log("Fetching data dari URL:", url);
         const response = await axiosJWT.get(url);
+        console.log("Data berhasil diambil:", response.data);
         return response.data;
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error mengambil data:", error);
         throw error;
       }
     },
@@ -51,6 +53,15 @@ const Tentang = () => {
       setPname(data.profile.pname);
     }
   }, [data]);
+
+  useEffect(() => {
+    axiosJWT
+      .get("https://randusanga-kulonbackend-production.up.railway.app/tentang")
+      .then((response) => console.log("Data fetched manually:", response.data))
+      .catch((error) =>
+        console.error("Error fetching Tentang manually:", error)
+      );
+  }, [axiosJWT]);
 
   const handleTextChange = useCallback((value) => {
     setVisionContent(value);
