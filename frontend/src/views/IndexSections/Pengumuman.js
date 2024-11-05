@@ -67,10 +67,7 @@ const Pengumuman = () => {
   };
 
   return (
-    <div
-      className={`${styles.newsContainer} ${styles.backgroundEffect}`}
-      ref={containerRef}
-    >
+    <div className={styles.newsContainer} ref={containerRef}>
       <div className={styles.newsContentWrapper}>
         {doubledNewsItems.map((item, index) => (
           <div

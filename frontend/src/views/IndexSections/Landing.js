@@ -166,6 +166,20 @@ const Landing = () => {
               style={{ backgroundColor: "#3E3B31" }}
             >
               <Pengumuman />
+              <div
+                style={{
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundImage:
+                    "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABwAQMAAACRLWqVAAAAA1BMVEX///+nxBvIAAAACklEQVR42mJgAIAAALQAAarVyFEAAAAASUVORK5CYII=')",
+                  opacity: 0.2,
+                  pointerEvents: "none",
+                }}
+              ></div>
             </div>
           </div>
         </section>
