@@ -166,19 +166,6 @@ const Landing = () => {
               style={{ backgroundColor: "#3E3B31" }}
             >
               <Pengumuman />
-              <div
-                style={{
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  backgroundImage: `https://randusanga-kulonbackend-production.up.railway.app/uploads/bi-pasir.png`,
-                  opacity: 0.2,
-                  pointerEvents: "none",
-                }}
-              ></div>
             </div>
           </div>
         </section>
