@@ -160,7 +160,7 @@ const Landing = () => {
       <main>
         {/* Pengumuman */}
         <section className="section-shaped">
-          <div className="grid">
+          <div style={{ backgroundColor: "#5dade2" }} className="grid">
             <div className="col-12 md:col-12 lg:col-12">
               <Pengumuman />
             </div>
