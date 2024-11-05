@@ -18,6 +18,32 @@
   ); /* Menghapus margin samping agar pas dengan layar */
 }
 
+.background-effect {
+  background: #4b4b4b; /* Warna dasar */
+  background: radial-gradient(
+    circle,
+    rgba(75, 75, 75, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  position: relative;
+  width: 300px; /* Sesuaikan dengan ukuran yang diinginkan */
+  height: 100px; /* Sesuaikan dengan ukuran yang diinginkan */
+  overflow: hidden;
+}
+
+/* Noise effect */
+.background-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABwAQMAAACRLWqVAAAAA1BMVEX///+nxBvIAAAACklEQVR42mJgAIAAALQAAarVyFEAAAAASUVORK5CYII="); /* Base64 image untuk noise */
+  opacity: 0.2; /* Sesuaikan tingkat noise */
+  pointer-events: none;
+}
+
 .newsItem {
   display: inline-block;
   white-space: nowrap;
