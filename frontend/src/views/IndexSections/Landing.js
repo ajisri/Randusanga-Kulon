@@ -163,12 +163,20 @@ const Landing = () => {
           <div className="grid">
             <div
               className="col-12 md:col-12 lg:col-12"
-              style={{ backgroundColor: "#3E3B31" }}
+              style={{
+                backgroundColor: "#3E3B31",
+                backgroundImage: `url('https://randusanga-kulonbackend-production.up.railway.app/upload/bi-pasir.png'), radial-gradient(circle, rgba(75, 75, 75, 1) 0%, rgba(0, 0, 0, 1) 100%)`,
+                backgroundSize: "cover", // Menyebabkan gambar memenuhi area secara proporsional
+                backgroundPosition: "center", // Memusatkan gambar
+                position: "relative",
+                overflow: "hidden",
+              }}
             >
               <Pengumuman />
             </div>
           </div>
         </section>
+
         {/* agenda kegiatan */}
         <section className="section section-lg section-shaped">
           <div style={{ backgroundColor: "#5dade2" }} className="shape"></div>
