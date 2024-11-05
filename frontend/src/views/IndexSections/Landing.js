@@ -174,8 +174,7 @@ const Landing = () => {
                   left: 0,
                   width: "100%",
                   height: "100%",
-                  backgroundImage:
-                    "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABwAQMAAACRLWqVAAAAA1BMVEX///+nxBvIAAAACklEQVR42mJgAIAAALQAAarVyFEAAAAASUVORK5CYII=')",
+                  backgroundImage: `https://randusanga-kulonbackend-production.up.railway.app/uploads/bi-pasir.png`,
                   opacity: 0.2,
                   pointerEvents: "none",
                 }}
