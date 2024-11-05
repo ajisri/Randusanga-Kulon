@@ -8,7 +8,7 @@
   white-space: nowrap;
   align-items: center;
   /* Gunakan background putih */
-  background-color: white; /* Warna latar belakang putih */
+  background-color: #5dade2; /* Warna latar belakang putih */
 
   /* Membuat container selebar layar */
   width: 100vw; /* Mengatur lebar container selebar tampilan layar */
