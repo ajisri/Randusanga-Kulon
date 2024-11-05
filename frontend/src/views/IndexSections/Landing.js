@@ -163,7 +163,7 @@ const Landing = () => {
           <div className="grid">
             <div
               className="col-12 md:col-12 lg:col-12"
-              style={{ backgroundColor: "#3E3B31" }}
+              style={{ backgroundColor: "#2F4F4F" }}
             >
               <Pengumuman />
             </div>
