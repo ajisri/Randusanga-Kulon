@@ -278,7 +278,7 @@ const Landing = () => {
                               }}
                             >
                               <Button
-                                icon="pi pi-close"
+                                icon="pi pi-times"
                                 rounded
                                 text
                                 severity="danger"
