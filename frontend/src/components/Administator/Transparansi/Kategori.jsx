@@ -54,10 +54,7 @@ const Kategori = () => {
     data: kategoriData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/kategori",
-    fetcher
-  );
+  } = useSWR("http://localhost:5000/kategori", fetcher);
 
   useEffect(() => {
     if (kategoriData) {
@@ -70,10 +67,7 @@ const Kategori = () => {
     data: keuanganData,
     error: keuanganError,
     isLoading: isKeuanganLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/keuangan",
-    fetcher
-  );
+  } = useSWR("http://localhost:5000/keuangan", fetcher);
 
   useEffect(() => {
     if (keuanganData) {
@@ -84,14 +78,16 @@ const Kategori = () => {
   const fetchSubkategoriByKategoriId = async (kategoriId) => {
     try {
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
+        `http://localhost:5000/subkategoribykategori/${kategoriId}`
       );
-      setSubkategoriFormData(
-        response.data.map((subkategori) => ({
-          name: subkategori.name || "",
-          kategoriId: kategoriId,
-        }))
-      );
+      const data =
+        response.data.length > 0
+          ? response.data.map((subkategori) => ({
+              name: subkategori.name || "",
+              kategoriId: kategoriId,
+            }))
+          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
+      setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
     }
@@ -134,7 +130,7 @@ const Kategori = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategori/${currentKategori.uuid}`,
+          `http://localhost:5000/kategori/${currentKategori.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -144,10 +140,7 @@ const Kategori = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckategori",
-          dataToSend
-        );
+        await axiosJWT.post("http://localhost:5000/ckategori", dataToSend);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -156,9 +149,7 @@ const Kategori = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/kategori"
-      );
+      await mutate("http://localhost:5000/kategori");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -207,7 +198,7 @@ const Kategori = () => {
     try {
       // Mengirimkan subkategoriFormData sebagai array ke server
       const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
+        "http://localhost:5000/csubkategori",
         {
           subkategoriData: subkategoriFormData,
         }
@@ -221,9 +212,7 @@ const Kategori = () => {
         detail: "Subkategori saved successfully!",
         life: 3000,
       });
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
-      );
+      await mutate("http://localhost:5000/subkategori");
       setSubkategoriDialogVisible(false);
     } catch (error) {
       console.error("Error saat mengirim data:", error); // Logging error
@@ -251,18 +240,14 @@ const Kategori = () => {
   const deleteKategori = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategori/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:5000/kategori/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/kategori"
-        );
+        await mutate("http://localhost:5000/kategori");
       } catch (error) {
         handleError(error);
       }
@@ -367,6 +352,7 @@ const Kategori = () => {
                 }}
                 className="add-subkategori-button coastal-button p-button-rounded"
               />
+
               <Button
                 icon="pi pi-pencil"
                 onClick={() => editKategori(rowData)}
