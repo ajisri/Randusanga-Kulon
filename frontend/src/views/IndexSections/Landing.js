@@ -170,7 +170,6 @@ const Landing = () => {
                 backgroundRepeat: "no-repeat", // Menghindari pengulangan gambar
                 position: "relative",
                 overflow: "hidden",
-                filter: "brightness(0.4) contrast(2.0)",
               }}
             >
               <Pengumuman />
