@@ -11,6 +11,7 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import { Dropdown } from "primereact/dropdown";
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import "./Kategori.css"; // Custom CSS for styling
 
 const Kategori = () => {
@@ -295,6 +296,19 @@ const Kategori = () => {
     setRows(e.rows);
   };
 
+  const showConfirm = () => {
+    confirmDialog({
+      message: "Apakah Anda yakin ingin menambah subkategori?",
+      header: "Konfirmasi",
+      icon: "pi pi-exclamation-triangle",
+      acceptClassName: "p-button-primary",
+      rejectClassName: "p-button-secondary",
+      acceptLabel: "Ya",
+      rejectLabel: "Tidak",
+      accept: () => setSubkategoriDialogVisible(true), // Buka dialog jika "Ya"
+    });
+  };
+
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
   if (error || keuanganError) return <p>Error fetching data</p>;
 
@@ -459,7 +473,57 @@ const Kategori = () => {
           </form>
         </div>
       </Dialog>
-
+      <Dialog
+        header="Tambah Subkategori"
+        visible={isSubkategoriDialogVisible}
+        onHide={() => setSubkategoriDialogVisible(false)}
+        dismissableMask={true}
+        modal={true}
+        maximizable
+        style={{ width: "70vw" }}
+      >
+        <div>
+          <form onSubmit={handleSubkategoriSubmit}>
+            {subkategoriFormData.map((item, index) => (
+              <div key={index} className="subkategori-field-container">
+                <div className="field">
+                  <label htmlFor={`subkategoriName_${index}`}>
+                    Subkategori:
+                  </label>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Button
+                      type="button"
+                      label="Hapus"
+                      className="remove-button"
+                      disabled={subkategoriFormData.length === 1}
+                      onClick={() => removeSubkategoriField(index)}
+                    />
+                    <InputText
+                      id={`subkategoriName_${index}`}
+                      name="name"
+                      value={item.name}
+                      onChange={(e) => handleSubkategoriChange(index, e)}
+                      required
+                      className="input-field"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="add-jabatan-container">
+              <Button
+                type="button"
+                label="Tambah"
+                className="add-button p-button-rounded"
+                icon="pi pi-plus"
+                onClick={showConfirm} // Panggil confirm dialog ketika klik "Tambah"
+              />
+            </div>
+            <Button type="submit" label="Simpan" />
+          </form>
+        </div>
+      </Dialog>
+      <ConfirmDialog /> {/* Tambahkan ini untuk menampilkan Confirm Dialog */}
       <Dialog
         header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
         visible={isDialogVisible}
