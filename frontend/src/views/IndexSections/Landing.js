@@ -164,8 +164,7 @@ const Landing = () => {
             <div
               className="col-12 md:col-12 lg:col-12"
               style={{
-                backgroundColor: "#f39c12", // Latar belakang oranye
-                backgroundImage: `url('https://randusanga-kulonbackend-production.up.railway.app/uploads/bi-pasir.png'), radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 1) 100%)`,
+                backgroundColor: "#fdfff5", // Latar belakang oranye
                 backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
                 backgroundRepeat: "no-repeat", // Menghindari pengulangan gambar
