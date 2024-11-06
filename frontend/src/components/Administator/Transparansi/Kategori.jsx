@@ -21,6 +21,9 @@ const Kategori = () => {
     name: "",
     keuanganId: "",
   });
+  const [budgetingFormData, setBudgetingFormData] = useState([
+    { budget: 0, realization: 0, remaining: 0 },
+  ]);
   const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
   const [isConfirmVisible, setConfirmVisible] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
@@ -308,6 +311,25 @@ const Kategori = () => {
     setConfirmVisible(false);
   };
 
+  const addBudgetingField = () => {
+    setBudgetingFormData((prev) => [
+      ...prev,
+      { budget: 0, realization: 0, remaining: 0 },
+    ]);
+  };
+
+  const removeBudgetingField = (index) => {
+    const newFormData = budgetingFormData.filter((_, i) => i !== index);
+    setBudgetingFormData(newFormData);
+  };
+
+  const handleBudgetingChange = (index, e) => {
+    const { name, value } = e.target;
+    const newFormData = [...budgetingFormData];
+    newFormData[index][name] = parseFloat(value);
+    setBudgetingFormData(newFormData);
+  };
+
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
   if (error || keuanganError) return <p>Error fetching data</p>;
 
@@ -504,8 +526,64 @@ const Kategori = () => {
         modal
         style={{ width: "50vw" }}
       >
-        <p>Isi form budgeting di sini...</p>
+        <form>
+          {budgetingFormData.map((item, index) => (
+            <div key={index} className="budgeting-field-container">
+              <div className="field">
+                <label htmlFor={`budget_${index}`}>Anggaran:</label>
+                <InputText
+                  id={`budget_${index}`}
+                  name="budget"
+                  value={item.budget}
+                  onChange={(e) => handleBudgetingChange(index, e)}
+                  required
+                  className="input-field"
+                />
+              </div>
+              <div className="field">
+                <label htmlFor={`realization_${index}`}>Realisasi:</label>
+                <InputText
+                  id={`realization_${index}`}
+                  name="realization"
+                  value={item.realization}
+                  onChange={(e) => handleBudgetingChange(index, e)}
+                  required
+                  className="input-field"
+                />
+              </div>
+              <div className="field">
+                <label htmlFor={`remaining_${index}`}>Sisa:</label>
+                <InputText
+                  id={`remaining_${index}`}
+                  name="remaining"
+                  value={item.remaining}
+                  onChange={(e) => handleBudgetingChange(index, e)}
+                  required
+                  className="input-field"
+                />
+              </div>
+              <Button
+                type="button"
+                label="Hapus"
+                onClick={() => removeBudgetingField(index)}
+                className="remove-budgeting-button"
+              />
+            </div>
+          ))}
+          <Button
+            type="button"
+            label="Tambah"
+            onClick={addBudgetingField}
+            className="add-budgeting-button"
+          />
+          <Button
+            type="submit"
+            label="Simpan"
+            className="save-budgeting-button"
+          />
+        </form>
       </Dialog>
+
       <Dialog
         header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
         visible={isDialogVisible}
