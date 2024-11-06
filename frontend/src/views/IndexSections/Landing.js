@@ -165,12 +165,13 @@ const Landing = () => {
               className="col-12 md:col-12 lg:col-12"
               style={{
                 backgroundColor: "#f39c12", // Latar belakang oranye
-                backgroundImage: `url('https://randusanga-kulonbackend-production.up.railway.app/uploads/bi-pasir.png'), radial-gradient(circle, rgba(75, 75, 75, 1) 0%, rgba(0, 0, 0, 1) 100%)`,
+                backgroundImage: `url('https://randusanga-kulonbackend-production.up.railway.app/uploads/bi-pasir.png'), radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 1) 100%)`,
                 backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
                 backgroundRepeat: "no-repeat", // Menghindari pengulangan gambar
                 position: "relative",
                 overflow: "hidden",
+                filter: "brightness(0.5) contrast(1.5)",
                 height: "100vh", // Atur tinggi section ke tinggi viewport (100% dari tinggi layar)
               }}
             >

@@ -11,6 +11,7 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import { Dropdown } from "primereact/dropdown";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 import "./Kategori.css"; // Custom CSS for styling
 
@@ -20,6 +21,8 @@ const Kategori = () => {
     name: "",
     keuanganId: "",
   });
+  const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
+  const [isConfirmVisible, setConfirmVisible] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
   const [keuanganOptions, setKeuanganOptions] = useState([]);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -296,6 +299,15 @@ const Kategori = () => {
     setRows(e.rows);
   };
 
+  const handleAddBudgetingClick = () => {
+    setConfirmVisible(true); // Menampilkan confirm dialog saat tombol Add Budgeting diklik
+  };
+
+  const confirmAddBudgeting = () => {
+    setBudgetingDialogVisible(true); // Menampilkan dialog budgeting jika konfirmasi "Ya" dipilih
+    setConfirmVisible(false);
+  };
+
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
   if (error || keuanganError) return <p>Error fetching data</p>;
 
@@ -370,7 +382,13 @@ const Kategori = () => {
                 }}
                 className="add-subkategori-button coastal-button p-button-rounded"
               />
-
+              <Button
+                label="Add Budgeting"
+                onClick={handleAddBudgetingClick}
+                className="add-budgeting-button p-button-rounded p-button-warning"
+                icon="pi pi-wallet"
+                style={{ backgroundColor: "#FFA726", color: "#ffffff" }}
+              />
               <Button
                 icon="pi pi-pencil"
                 onClick={() => editKategori(rowData)}
@@ -399,6 +417,15 @@ const Kategori = () => {
           )}
         />
       </DataTable>
+      <ConfirmDialog
+        visible={isConfirmVisible}
+        onHide={() => setConfirmVisible(false)}
+        message="Apakah Anda yakin ingin membuka dialog budgeting?"
+        header="Konfirmasi"
+        icon="pi pi-exclamation-triangle"
+        accept={confirmAddBudgeting}
+        reject={() => setConfirmVisible(false)}
+      />
       <Dialog
         header="Tambah Subkategori"
         visible={isSubkategoriDialogVisible}
@@ -460,7 +487,15 @@ const Kategori = () => {
           </form>
         </div>
       </Dialog>
-
+      <Dialog
+        header="Budgeting"
+        visible={isBudgetingDialogVisible}
+        onHide={() => setBudgetingDialogVisible(false)}
+        modal
+        style={{ width: "50vw" }}
+      >
+        <p>Isi form budgeting di sini...</p>
+      </Dialog>
       <Dialog
         header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
         visible={isDialogVisible}
