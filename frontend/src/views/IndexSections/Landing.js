@@ -165,7 +165,7 @@ const Landing = () => {
               className="col-12 md:col-12 lg:col-12"
               style={{
                 backgroundColor: "#f39c12", // Latar belakang oranye
-                backgroundImage: `url('https://drive.google.com/uc?export=view&id=1x1_w9ZDF7hc-jvUfsV_Y_xi0fGokEgUj')`, // Gambar latar belakang
+                backgroundImage: `url('https://randusanga-kulonbackend-production.up.railway.app/uploads/bi-pasir.png')`, // Gambar latar belakang
                 backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
                 backgroundRepeat: "no-repeat", // Menghindari pengulangan gambar
