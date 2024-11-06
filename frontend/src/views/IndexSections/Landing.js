@@ -171,7 +171,6 @@ const Landing = () => {
                 backgroundRepeat: "no-repeat", // Menghindari pengulangan gambar
                 position: "relative",
                 overflow: "hidden",
-                filter: "brightness(0.5) contrast(1.5)",
                 height: "100vh", // Atur tinggi section ke tinggi viewport (100% dari tinggi layar)
               }}
             >
