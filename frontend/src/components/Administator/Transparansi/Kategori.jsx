@@ -354,10 +354,15 @@ const Kategori = () => {
           }}
           style={{ width: "5%", minWidth: "5%" }}
         />
-        <Column field="name" header="Name" />
+        <Column
+          field="name"
+          header="Name"
+          style={{ width: "30%", minWidth: "30%" }}
+        />
         <Column
           field="keuanganId"
           header="Keuangan"
+          style={{ width: "10%", minWidth: "10%" }}
           body={(rowData) => {
             const keuangan = keuanganOptions.find(
               (kw) => kw.uuid === rowData.keuanganId
@@ -365,9 +370,14 @@ const Kategori = () => {
             return keuangan ? keuangan.name : "N/A";
           }}
         />
-        <Column field="number" header="Number" />
+        <Column
+          field="number"
+          header="Number"
+          style={{ width: "10%", minWidth: "10%" }}
+        />
         <Column
           header="Actions"
+          style={{ width: "25%", minWidth: "15%" }}
           body={(rowData) => (
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
