@@ -164,13 +164,14 @@ const Landing = () => {
             <div
               className="col-12 md:col-12 lg:col-12"
               style={{
-                backgroundColor: "#f39c12",
-                backgroundImage: `url('https://drive.google.com/uc?export=view&id=1x1_w9ZDF7hc-jvUfsV_Y_xi0fGokEgUj'), radial-gradient(circle, rgba(75, 75, 75, 1) 0%, rgba(0, 0, 0, 1) 100%)`,
-                backgroundSize: "cover", // Menyebabkan gambar memenuhi area secara proporsional
+                backgroundColor: "#f39c12", // Latar belakang oranye
+                backgroundImage: `url('https://drive.google.com/uc?export=view&id=1x1_w9ZDF7hc-jvUfsV_Y_xi0fGokEgUj')`, // Gambar latar belakang
+                backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
+                backgroundRepeat: "no-repeat", // Menghindari pengulangan gambar
                 position: "relative",
                 overflow: "hidden",
-                height: "500px",
+                height: "100vh", // Atur tinggi section ke tinggi viewport (100% dari tinggi layar)
               }}
             >
               <Pengumuman />
