@@ -164,7 +164,7 @@ const Landing = () => {
             <div
               className="col-12 md:col-12 lg:col-12"
               style={{
-                backgroundColor: "#3E3B31",
+                backgroundColor: "#2c3e50",
                 backgroundImage: `url('https://drive.google.com/uc?export=view&id=1x1_w9ZDF7hc-jvUfsV_Y_xi0fGokEgUj'), radial-gradient(circle, rgba(75, 75, 75, 1) 0%, rgba(0, 0, 0, 1) 100%)`,
                 backgroundSize: "cover", // Menyebabkan gambar memenuhi area secara proporsional
                 backgroundPosition: "center", // Memusatkan gambar
