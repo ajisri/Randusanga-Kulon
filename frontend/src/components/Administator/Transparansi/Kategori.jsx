@@ -544,7 +544,7 @@ const Kategori = () => {
                 type="button"
                 label="Hapus"
                 onClick={() => removeBudgetingField(index)}
-                className="remove-button"
+                className="remove-button p-button p-component"
                 disabled={budgetingFormData.length === 1}
                 style={{
                   marginRight: "10px",
