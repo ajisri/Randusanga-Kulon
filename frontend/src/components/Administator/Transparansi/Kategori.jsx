@@ -520,92 +520,95 @@ const Kategori = () => {
         </div>
       </Dialog>
       <Dialog
-        header="Budgeting"
-        visible={isBudgetingDialogVisible}
-        onHide={() => setBudgetingDialogVisible(false)}
-        modal
-        maximizable
-        style={{ width: "70vw" }} // Increase dialog width
+  header="Budgeting"
+  visible={isBudgetingDialogVisible}
+  onHide={() => setBudgetingDialogVisible(false)}
+  modal
+  maximizable
+  style={{ width: "70vw" }} // Increase dialog width
+>
+  <form>
+    {budgetingFormData.map((item, index) => (
+      <div
+        key={index}
+        className="budgeting-field-container"
+        style={{
+          display: "flex",
+          alignItems: "flex-start", // Align items to the top for consistent row alignment
+          borderBottom: "1px solid #ccc",
+          paddingBottom: "10px",
+          marginBottom: "10px",
+        }}
       >
-        <form>
-          {budgetingFormData.map((item, index) => (
-            <div
-              key={index}
-              className="budgeting-field-container"
-              style={{
-                display: "flex",
-                alignItems: "center", // Align items vertically
-                borderBottom: "1px solid #ccc", // Separator line
-                paddingBottom: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              <Button
-                type="button"
-                label="Hapus"
-                onClick={() => removeBudgetingField(index)}
-                className="remove-button"
-                disabled={budgetingFormData.length === 1}
-                style={{
-                  marginRight: "10px",
-                  height: "100%", // Match button height to input fields
-                }}
-              />
-              <div className="field" style={{ flex: 1, marginRight: "10px" }}>
-                <label htmlFor={`budget_${index}`}>Anggaran:</label>
-                <InputText
-                  id={`budget_${index}`}
-                  name="budget"
-                  value={item.budget}
-                  onChange={(e) => handleBudgetingChange(index, e)}
-                  required
-                  style={{ width: "100%" }}
-                  className="input-field"
-                />
-              </div>
-              <div className="field" style={{ flex: 1, marginRight: "10px" }}>
-                <label htmlFor={`realization_${index}`}>Realisasi:</label>
-                <InputText
-                  id={`realization_${index}`}
-                  name="realization"
-                  value={item.realization}
-                  onChange={(e) => handleBudgetingChange(index, e)}
-                  required
-                  style={{ width: "100%" }}
-                  className="input-field"
-                />
-              </div>
-              <div className="field" style={{ flex: 1 }}>
-                <label htmlFor={`remaining_${index}`}>Sisa:</label>
-                <InputText
-                  id={`remaining_${index}`}
-                  name="remaining"
-                  value={item.remaining}
-                  onChange={(e) => handleBudgetingChange(index, e)}
-                  required
-                  style={{ width: "100%" }}
-                  className="input-field"
-                />
-              </div>
-            </div>
-          ))}
-          <Button
-            type="button"
-            label="Tambah"
-            className="delete-button coastal-button p-button-rounded"
-            raised
-            rounded
-            onClick={addBudgetingField}
-          />
-          <div className="button-sub">
-            <Button
-              type="submit"
-              label="Simpan"
-              className="coastal-button submit-button p-button-rounded"
+        <div style={{ display: "flex", flex: 3, gap: "10px" }}>
+          <div className="field" style={{ flex: 1 }}>
+            <label htmlFor={`budget_${index}`}>Anggaran:</label>
+            <InputText
+              id={`budget_${index}`}
+              name="budget"
+              value={item.budget}
+              onChange={(e) => handleBudgetingChange(index, e)}
+              required
+              style={{ width: "100%" }}
+              className="input-field"
             />
           </div>
-        </form>
-      </Dialog>
+          <div className="field" style={{ flex: 1 }}>
+            <label htmlFor={`realization_${index}`}>Realisasi:</label>
+            <InputText
+              id={`realization_${index}`}
+              name="realization"
+              value={item.realization}
+              onChange={(e) => handleBudgetingChange(index, e)}
+              required
+              style={{ width: "100%" }}
+              className="input-field"
+            />
+          </div>
+          <div className="field" style={{ flex: 1 }}>
+            <label htmlFor={`remaining_${index}`}>Sisa:</label>
+            <InputText
+              id={`remaining_${index}`}
+              name="remaining"
+              value={item.remaining}
+              onChange={(e) => handleBudgetingChange(index, e)}
+              required
+              style={{ width: "100%" }}
+              className="input-field"
+            />
+          </div>
+        </div>
+        <Button
+          type="button"
+          label="Hapus"
+          onClick={() => removeBudgetingField(index)}
+          className="remove-button"
+          disabled={budgetingFormData.length === 1}
+          style={{
+            height: "100%", // Match button height to container
+            alignSelf: "center", // Align button vertically with inputs
+          }}
+        />
+      </div>
+    ))}
+    <Button
+      type="button"
+      label="Tambah"
+      className="delete-button coastal-button p-button-rounded"
+      raised
+      rounded
+      onClick={addBudgetingField}
+    />
+    <div className="button-sub">
+      <Button
+        type="submit"
+        label="Simpan"
+        className="coastal-button submit-button p-button-rounded"
+      />
+    </div>
+  </form>
+</Dialog>
+
 
       <Dialog
         header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
