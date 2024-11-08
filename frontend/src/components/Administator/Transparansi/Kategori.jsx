@@ -524,15 +524,33 @@ const Kategori = () => {
         visible={isBudgetingDialogVisible}
         onHide={() => setBudgetingDialogVisible(false)}
         modal
-        style={{ width: "70vw" }} // Menambah lebar dialog
+        maximizable
+        style={{ width: "70vw" }} // Increase dialog width
       >
         <form>
           {budgetingFormData.map((item, index) => (
             <div
               key={index}
               className="budgeting-field-container"
-              style={{ display: "flex", marginBottom: "10px" }}
+              style={{
+                display: "flex",
+                alignItems: "center", // Align items vertically
+                borderBottom: "1px solid #ccc", // Separator line
+                paddingBottom: "10px",
+                marginBottom: "10px",
+              }}
             >
+              <Button
+                type="button"
+                label="Hapus"
+                onClick={() => removeBudgetingField(index)}
+                className="remove-button"
+                disabled={budgetingFormData.length === 1}
+                style={{
+                  marginRight: "10px",
+                  height: "100%", // Match button height to input fields
+                }}
+              />
               <div className="field" style={{ flex: 1, marginRight: "10px" }}>
                 <label htmlFor={`budget_${index}`}>Anggaran:</label>
                 <InputText
@@ -541,7 +559,7 @@ const Kategori = () => {
                   value={item.budget}
                   onChange={(e) => handleBudgetingChange(index, e)}
                   required
-                  style={{ width: "100%" }} // Mengatur lebar input
+                  style={{ width: "100%" }}
                   className="input-field"
                 />
               </div>
@@ -553,11 +571,11 @@ const Kategori = () => {
                   value={item.realization}
                   onChange={(e) => handleBudgetingChange(index, e)}
                   required
-                  style={{ width: "100%" }} // Mengatur lebar input
+                  style={{ width: "100%" }}
                   className="input-field"
                 />
               </div>
-              <div className="field" style={{ flex: 1, marginRight: "10px" }}>
+              <div className="field" style={{ flex: 1 }}>
                 <label htmlFor={`remaining_${index}`}>Sisa:</label>
                 <InputText
                   id={`remaining_${index}`}
@@ -565,20 +583,10 @@ const Kategori = () => {
                   value={item.remaining}
                   onChange={(e) => handleBudgetingChange(index, e)}
                   required
-                  style={{ width: "100%" }} // Mengatur lebar input
+                  style={{ width: "100%" }}
                   className="input-field"
                 />
               </div>
-              <Button
-                type="button"
-                label="Hapus"
-                onClick={() => removeBudgetingField(index)}
-                className="remove-button"
-                disabled={budgetingFormData.length === 1}
-                style={{
-                  alignItems: "center",
-                }}
-              />
             </div>
           ))}
           <Button
