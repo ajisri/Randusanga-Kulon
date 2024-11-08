@@ -540,6 +540,18 @@ const Kategori = () => {
           marginBottom: "10px",
         }}
       >
+        <Button
+          type="button"
+          label="Hapus"
+          onClick={() => removeBudgetingField(index)}
+          className="remove-button"
+          disabled={budgetingFormData.length === 1}
+          style={{
+            marginRight: "10px",
+            height: "100%", // Match button height to container
+            alignSelf: "center", // Align button vertically with inputs
+          }}
+        />
         <div style={{ display: "flex", flex: 3, gap: "10px" }}>
           <div className="field" style={{ flex: 1 }}>
             <label htmlFor={`budget_${index}`}>Anggaran:</label>
@@ -578,17 +590,6 @@ const Kategori = () => {
             />
           </div>
         </div>
-        <Button
-          type="button"
-          label="Hapus"
-          onClick={() => removeBudgetingField(index)}
-          className="remove-button"
-          disabled={budgetingFormData.length === 1}
-          style={{
-            height: "100%", // Match button height to container
-            alignSelf: "center", // Align button vertically with inputs
-          }}
-        />
       </div>
     ))}
     <Button
@@ -608,6 +609,7 @@ const Kategori = () => {
     </div>
   </form>
 </Dialog>
+
 
 
       <Dialog
