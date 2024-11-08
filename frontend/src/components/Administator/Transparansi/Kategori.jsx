@@ -524,12 +524,16 @@ const Kategori = () => {
         visible={isBudgetingDialogVisible}
         onHide={() => setBudgetingDialogVisible(false)}
         modal
-        style={{ width: "50vw" }}
+        style={{ width: "70vw" }} // Menambah lebar dialog
       >
         <form>
           {budgetingFormData.map((item, index) => (
-            <div key={index} className="budgeting-field-container">
-              <div className="field">
+            <div
+              key={index}
+              className="budgeting-field-container"
+              style={{ display: "flex", marginBottom: "10px" }}
+            >
+              <div className="field" style={{ flex: 1, marginRight: "10px" }}>
                 <label htmlFor={`budget_${index}`}>Anggaran:</label>
                 <InputText
                   id={`budget_${index}`}
@@ -537,10 +541,11 @@ const Kategori = () => {
                   value={item.budget}
                   onChange={(e) => handleBudgetingChange(index, e)}
                   required
+                  style={{ width: "100%" }} // Mengatur lebar input
                   className="input-field"
                 />
               </div>
-              <div className="field">
+              <div className="field" style={{ flex: 1, marginRight: "10px" }}>
                 <label htmlFor={`realization_${index}`}>Realisasi:</label>
                 <InputText
                   id={`realization_${index}`}
@@ -548,10 +553,11 @@ const Kategori = () => {
                   value={item.realization}
                   onChange={(e) => handleBudgetingChange(index, e)}
                   required
+                  style={{ width: "100%" }} // Mengatur lebar input
                   className="input-field"
                 />
               </div>
-              <div className="field">
+              <div className="field" style={{ flex: 1, marginRight: "10px" }}>
                 <label htmlFor={`remaining_${index}`}>Sisa:</label>
                 <InputText
                   id={`remaining_${index}`}
@@ -559,6 +565,7 @@ const Kategori = () => {
                   value={item.remaining}
                   onChange={(e) => handleBudgetingChange(index, e)}
                   required
+                  style={{ width: "100%" }} // Mengatur lebar input
                   className="input-field"
                 />
               </div>
