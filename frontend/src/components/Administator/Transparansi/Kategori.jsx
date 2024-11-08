@@ -573,21 +573,29 @@ const Kategori = () => {
                 type="button"
                 label="Hapus"
                 onClick={() => removeBudgetingField(index)}
-                className="remove-budgeting-button"
+                className="remove-button"
+                disabled={budgetingFormData.length === 1}
+                style={{
+                  alignItems: "center",
+                }}
               />
             </div>
           ))}
           <Button
             type="button"
             label="Tambah"
+            className="delete-button coastal-button p-button-rounded"
+            raised
+            rounded
             onClick={addBudgetingField}
-            className="add-budgeting-button"
           />
-          <Button
-            type="submit"
-            label="Simpan"
-            className="save-budgeting-button"
-          />
+          <div className="button-sub">
+            <Button
+              type="submit"
+              label="Simpan"
+              className="coastal-button submit-button p-button-rounded"
+            />
+          </div>
         </form>
       </Dialog>
 
