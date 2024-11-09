@@ -534,7 +534,7 @@ const Kategori = () => {
               className="budgeting-field-container"
               style={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-start", // Mulai dari atas agar tombol sejajar dengan awal konten
                 borderBottom: "1px solid #ccc",
                 paddingBottom: "10px",
                 marginBottom: "10px",
@@ -548,14 +548,16 @@ const Kategori = () => {
                 disabled={budgetingFormData.length === 1}
                 style={{
                   marginRight: "10px",
-                  height: "100%", // Match button height to container
-                  alignSelf: "center", // Align button vertically with inputs
+                  alignSelf: "center", // Tempatkan di tengah vertikal
                   padding: "0.5rem 1rem",
-                  marginBottom: "0px",
+                  marginTop: "5px", // Tambahkan sedikit jarak dari atas
+                  width: "80px", // Sesuaikan lebar tombol
                 }}
               />
               <div style={{ display: "flex", flex: 3, gap: "10px" }}>
-                <div className="field" style={{ flex: 1 }}>
+                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
+                  {" "}
+                  {/* Set minHeight */}
                   <label htmlFor={`budget_${index}`}>Anggaran:</label>
                   <InputText
                     id={`budget_${index}`}
@@ -567,7 +569,9 @@ const Kategori = () => {
                     className="input-field"
                   />
                 </div>
-                <div className="field" style={{ flex: 1 }}>
+                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
+                  {" "}
+                  {/* Set minHeight */}
                   <label htmlFor={`realization_${index}`}>Realisasi:</label>
                   <InputText
                     id={`realization_${index}`}
@@ -579,7 +583,9 @@ const Kategori = () => {
                     className="input-field"
                   />
                 </div>
-                <div className="field" style={{ flex: 1 }}>
+                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
+                  {" "}
+                  {/* Set minHeight */}
                   <label htmlFor={`remaining_${index}`}>Sisa:</label>
                   <InputText
                     id={`remaining_${index}`}
