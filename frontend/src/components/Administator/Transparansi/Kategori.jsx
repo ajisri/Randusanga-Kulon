@@ -536,8 +536,6 @@ const Kategori = () => {
                 display: "flex",
                 alignItems: "center",
                 borderBottom: "1px solid #ccc",
-                paddingBottom: "10px",
-                marginBottom: "10px",
               }}
             >
               <Button
