@@ -550,7 +550,7 @@ const Kategori = () => {
                   marginRight: "10px",
                   alignSelf: "center", // Tempatkan di tengah vertikal
                   padding: "0.5rem 1rem",
-                  marginTop: "10px", // Tambahkan sedikit jarak dari atas
+                  marginTop: "12px", // Tambahkan sedikit jarak dari atas
                   width: "80px", // Sesuaikan lebar tombol
                 }}
               />
