@@ -551,7 +551,7 @@ const Kategori = () => {
                   height: "100%", // Match button height to container
                   alignSelf: "center", // Align button vertically with inputs
                   padding: "0.5rem 1rem",
-                  paddingBottom: "10px",
+                  marginBottom: "10px",
                 }}
               />
               <div style={{ display: "flex", flex: 3, gap: "10px" }}>
