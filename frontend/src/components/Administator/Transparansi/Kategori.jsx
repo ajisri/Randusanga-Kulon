@@ -534,7 +534,7 @@ const Kategori = () => {
               className="budgeting-field-container"
               style={{
                 display: "flex",
-                alignItems: "flex-start", // Align items to the top for consistent row alignment
+                alignItems: "center",
                 borderBottom: "1px solid #ccc",
                 paddingBottom: "10px",
                 marginBottom: "10px",
