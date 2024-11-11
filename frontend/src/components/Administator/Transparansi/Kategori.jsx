@@ -372,25 +372,30 @@ const Kategori = () => {
     const { name, value } = event.target;
     const updatedFormData = [...budgetingFormData];
 
-    // Update nilai dari budget atau realization
+    // Konversi input nilai ke angka untuk memastikan tidak terjadi NaN
+    const numericValue = parseFloat(value.replace(/[^\d.-]/g, "")) || 0;
+
+    // Update nilai budget atau realization
     updatedFormData[index] = {
       ...updatedFormData[index],
-      [name]: value,
+      [name]: numericValue,
       remaining: calculateRemaining(
-        name === "budget" ? value : updatedFormData[index].budget,
-        name === "realization" ? value : updatedFormData[index].realization
+        name === "budget" ? numericValue : updatedFormData[index].budget,
+        name === "realization"
+          ? numericValue
+          : updatedFormData[index].realization
       ),
     };
 
     setBudgetingFormData(updatedFormData);
   };
 
-  // Fungsi untuk menghitung remaining
   const calculateRemaining = (budget, realization) => {
     return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
   };
 
   const formatRupiah = (angka) => {
+    if (isNaN(angka) || angka === "") return ""; // Cek jika bukan angka
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
