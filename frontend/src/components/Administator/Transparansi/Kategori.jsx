@@ -390,6 +390,13 @@ const Kategori = () => {
     return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
   };
 
+  const formatRupiah = (angka) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(angka);
+  };
+
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
   if (error || keuanganError) return <p>Error fetching data</p>;
 
@@ -622,7 +629,7 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget}
+                    value={formatRupiah(item.budget)}
                     onChange={(e) => handleBudgetingChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -636,7 +643,7 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization}
+                    value={formatRupiah(item.realization)}
                     onChange={(e) => handleBudgetingChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -648,7 +655,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={item.remaining}
+                    value={formatRupiah(item.remaining)}
                     readOnly // Set as readOnly
                     style={{ width: "100%" }}
                     className="input-field"
