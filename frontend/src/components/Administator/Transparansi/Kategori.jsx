@@ -302,6 +302,51 @@ const Kategori = () => {
     setRows(e.rows);
   };
 
+  const handleBudgetSubmit = async (e) => {
+    e.preventDefault();
+
+    // Memastikan bahwa budgetingFormData adalah array dan tidak kosong
+    if (!Array.isArray(budgetingFormData) || budgetingFormData.length === 0) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Data budgeting harus berupa array dan tidak boleh kosong!",
+        life: 5000,
+      });
+      return;
+    }
+
+    console.log("Data budgeting yang dikirim ke server:", budgetingFormData); // Logging data yang akan dikirim
+
+    try {
+      // Mengirimkan budgetingFormData sebagai array ke server
+      const response = await axiosJWT.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/cbudget-item",
+        {
+          budgetItemsData: budgetingFormData,
+        }
+      );
+
+      console.log("Response dari server:", response.data); // Logging response dari server
+
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Data budgeting berhasil disimpan!",
+        life: 3000,
+      });
+
+      // Update data budgeting setelah berhasil disimpan
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/budget-item"
+      );
+      setBudgetingDialogVisible(false); // Tutup dialog setelah penyimpanan berhasil
+    } catch (error) {
+      console.error("Error saat mengirim data:", error); // Logging error
+      handleError(error);
+    }
+  };
+
   const handleAddBudgetingClick = () => {
     setConfirmVisible(true); // Menampilkan confirm dialog saat tombol Add Budgeting diklik
   };
@@ -323,11 +368,26 @@ const Kategori = () => {
     setBudgetingFormData(newFormData);
   };
 
-  const handleBudgetingChange = (index, e) => {
-    const { name, value } = e.target;
-    const newFormData = [...budgetingFormData];
-    newFormData[index][name] = parseFloat(value);
-    setBudgetingFormData(newFormData);
+  const handleBudgetingChange = (index, event) => {
+    const { name, value } = event.target;
+    const updatedFormData = [...budgetingFormData];
+
+    // Update nilai dari budget atau realization
+    updatedFormData[index] = {
+      ...updatedFormData[index],
+      [name]: value,
+      remaining: calculateRemaining(
+        name === "budget" ? value : updatedFormData[index].budget,
+        name === "realization" ? value : updatedFormData[index].realization
+      ),
+    };
+
+    setBudgetingFormData(updatedFormData);
+  };
+
+  // Fungsi untuk menghitung remaining
+  const calculateRemaining = (budget, realization) => {
+    return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
   };
 
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
@@ -527,7 +587,7 @@ const Kategori = () => {
         maximizable
         style={{ width: "70vw" }} // Increase dialog width
       >
-        <form>
+        <form onSubmit={handleBudgetSubmit}>
           {budgetingFormData.map((item, index) => (
             <div
               key={index}
@@ -584,15 +644,12 @@ const Kategori = () => {
                   />
                 </div>
                 <div className="field" style={{ flex: 1, minHeight: "60px" }}>
-                  {" "}
-                  {/* Set minHeight */}
                   <label htmlFor={`remaining_${index}`}>Sisa:</label>
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
                     value={item.remaining}
-                    onChange={(e) => handleBudgetingChange(index, e)}
-                    required
+                    readOnly // Set as readOnly
                     style={{ width: "100%" }}
                     className="input-field"
                   />
