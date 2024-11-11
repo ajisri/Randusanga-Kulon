@@ -22,7 +22,10 @@ const Kategori = () => {
     keuanganId: "",
   });
   const [budgetingFormData, setBudgetingFormData] = useState([
-    { budget: 0, realization: 0, remaining: 0 },
+    { budget: "", realization: "", remaining: "" },
+  ]);
+  const [displayFormData, setDisplayFormData] = useState([
+    { budget: "", realization: "", remaining: "" },
   ]);
   const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
   const [isConfirmVisible, setConfirmVisible] = useState(false);
@@ -370,24 +373,25 @@ const Kategori = () => {
 
   const handleBudgetingChange = (index, event) => {
     const { name, value } = event.target;
+
+    // Update budgetingFormData dengan nilai asli
     const updatedFormData = [...budgetingFormData];
-
-    // Konversi input nilai ke angka untuk memastikan tidak terjadi NaN
-    const numericValue = parseFloat(value.replace(/[^\d.-]/g, "")) || 0;
-
-    // Update nilai budget atau realization
-    updatedFormData[index] = {
-      ...updatedFormData[index],
-      [name]: numericValue,
-      remaining: calculateRemaining(
-        name === "budget" ? numericValue : updatedFormData[index].budget,
-        name === "realization"
-          ? numericValue
-          : updatedFormData[index].realization
-      ),
-    };
+    updatedFormData[index][name] = value;
+    updatedFormData[index].remaining = calculateRemaining(
+      name === "budget" ? value : updatedFormData[index].budget,
+      name === "realization" ? value : updatedFormData[index].realization
+    );
 
     setBudgetingFormData(updatedFormData);
+
+    // Update displayFormData untuk tampilan format Rupiah
+    const updatedDisplayFormData = [...displayFormData];
+    updatedDisplayFormData[index][name] = formatRupiah(value);
+    updatedDisplayFormData[index].remaining = formatRupiah(
+      updatedFormData[index].remaining
+    );
+
+    setDisplayFormData(updatedDisplayFormData);
   };
 
   const calculateRemaining = (budget, realization) => {
@@ -395,7 +399,7 @@ const Kategori = () => {
   };
 
   const formatRupiah = (angka) => {
-    if (isNaN(angka) || angka === "") return ""; // Cek jika bukan angka
+    if (isNaN(angka) || angka === "") return "";
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
@@ -634,7 +638,7 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={formatRupiah(item.budget)}
+                    value={item.budget}
                     onChange={(e) => handleBudgetingChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -648,7 +652,7 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={formatRupiah(item.realization)}
+                    value={item.realization}
                     onChange={(e) => handleBudgetingChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -660,7 +664,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={formatRupiah(item.remaining)}
+                    value={item.remaining}
                     readOnly // Set as readOnly
                     style={{ width: "100%" }}
                     className="input-field"
