@@ -21,6 +21,9 @@ const Kategori = () => {
     name: "",
     keuanganId: "",
   });
+  const [selectedYear, setSelectedYear] = useState(""); // State untuk menyimpan tahun yang dipilih
+  const [yearOptions, setYearOptions] = useState([]); // State untuk menyimpan opsi tahun
+
   const [budgetingFormData, setBudgetingFormData] = useState([
     { uuid: "", budget: "", realization: "", remaining: "", subkategoriId: "" },
   ]);
@@ -427,6 +430,21 @@ const Kategori = () => {
         }).format(angka);
   };
 
+  // Fungsi untuk membuat opsi tahun secara otomatis
+  useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    for (let i = currentYear; i >= currentYear - 10; i--) {
+      // Menampilkan 10 tahun ke belakang
+      years.push(i);
+    }
+    setYearOptions(years);
+  }, []);
+
+  const handleYearChange = (e) => {
+    setSelectedYear(e.target.value);
+  };
+
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
   if (error || keuanganError) return <p>Error fetching data</p>;
 
@@ -637,6 +655,24 @@ const Kategori = () => {
         style={{ width: "70vw" }} // Increase dialog width
       >
         <form onSubmit={handleBudgetSubmit}>
+          <div className="field">
+            <label htmlFor="year">Pilih Tahun:</label>
+            <select
+              id="year"
+              value={selectedYear}
+              onChange={handleYearChange}
+              required
+            >
+              <option value="" disabled>
+                Pilih Tahun
+              </option>
+              {yearOptions.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
           {budgetingFormData.map((item, index) => (
             <div
               key={index}
