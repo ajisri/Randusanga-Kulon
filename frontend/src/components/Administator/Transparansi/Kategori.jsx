@@ -24,9 +24,9 @@ const Kategori = () => {
   const [budgetingFormData, setBudgetingFormData] = useState([
     { budget: "", realization: "", remaining: "" },
   ]);
-  const [displayFormData, setDisplayFormData] = useState([
-    { budget: "", realization: "", remaining: "" },
-  ]);
+  // const [displayFormData, setDisplayFormData] = useState([
+  //   { budget: "", realization: "", remaining: "" },
+  // ]);
   const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
   const [isConfirmVisible, setConfirmVisible] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
@@ -374,24 +374,16 @@ const Kategori = () => {
   const handleBudgetingChange = (index, event) => {
     const { name, value } = event.target;
 
-    // Update budgetingFormData dengan nilai asli
+    if (isNaN(value) || value === "") return; // Pastikan hanya nilai angka
+
     const updatedFormData = [...budgetingFormData];
-    updatedFormData[index][name] = value;
+    updatedFormData[index][name] = parseFloat(value); // Ubah ke angka asli untuk perhitungan
     updatedFormData[index].remaining = calculateRemaining(
       name === "budget" ? value : updatedFormData[index].budget,
       name === "realization" ? value : updatedFormData[index].realization
     );
 
     setBudgetingFormData(updatedFormData);
-
-    // Update displayFormData untuk tampilan format Rupiah
-    const updatedDisplayFormData = [...displayFormData];
-    updatedDisplayFormData[index][name] = formatRupiah(value);
-    updatedDisplayFormData[index].remaining = formatRupiah(
-      updatedFormData[index].remaining
-    );
-
-    setDisplayFormData(updatedDisplayFormData);
   };
 
   const calculateRemaining = (budget, realization) => {
@@ -399,11 +391,12 @@ const Kategori = () => {
   };
 
   const formatRupiah = (angka) => {
-    if (isNaN(angka) || angka === "") return "";
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(angka);
+    return isNaN(angka) || angka === ""
+      ? ""
+      : new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        }).format(angka);
   };
 
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
@@ -664,7 +657,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={item.remaining}
+                    value={formatRupiah(item.remaining)}
                     readOnly // Set as readOnly
                     style={{ width: "100%" }}
                     className="input-field"
