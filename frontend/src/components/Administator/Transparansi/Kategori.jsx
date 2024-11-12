@@ -655,6 +655,7 @@ const Kategori = () => {
             <label htmlFor="year">Pilih Tahun:</label>
             <select
               id="year"
+              name="year"
               value={selectedYear}
               onChange={handleYearChange}
               required
