@@ -309,7 +309,7 @@ const Kategori = () => {
   const fetchBudgetBySubkategori = async (subkategoriId) => {
     try {
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${subkategoriId}`
+        `https://randusanga-kulonbackend-production.up.railway.app/budgetbysubkategori/${subkategoriId}`
       );
       const data =
         response.data.length > 0
