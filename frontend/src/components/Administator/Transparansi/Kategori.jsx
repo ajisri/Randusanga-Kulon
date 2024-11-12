@@ -22,8 +22,9 @@ const Kategori = () => {
     keuanganId: "",
   });
   const [budgetingFormData, setBudgetingFormData] = useState([
-    { budget: "", realization: "", remaining: "" },
+    { uuid: "", budget: "", realization: "", remaining: "", subkategoriId: "" },
   ]);
+  const [currentSubkategoriId, setCurrentSubkategoriId] = useState("");
   // const [displayFormData, setDisplayFormData] = useState([
   //   { budget: "", realization: "", remaining: "" },
   // ]);
@@ -305,6 +306,32 @@ const Kategori = () => {
     setRows(e.rows);
   };
 
+  const fetchBudgetBySubkategori = async (subkategoriId) => {
+    try {
+      const response = await axiosJWT.get(
+        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${subkategoriId}`
+      );
+      const data =
+        response.data.length > 0
+          ? response.data.map((budget) => ({
+              budget: budget.budget || "",
+              realization: budget.realization || "",
+              remaining: budget.remaining || "",
+              subkategoriId: subkategoriId,
+            }))
+          : [{ budget: "", realization: "", remaining: "", subkategoriId }]; // Tambahkan satu form kosong jika data kosong
+      setBudgetingFormData(data);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  const handleBudgetDialogOpen = (subkategoriId) => {
+    setCurrentSubkategoriId(subkategoriId);
+    fetchBudgetBySubkategori(subkategoriId);
+    setBudgetingDialogVisible(true);
+  };
+
   const handleBudgetSubmit = async (e) => {
     e.preventDefault();
 
@@ -350,10 +377,6 @@ const Kategori = () => {
     }
   };
 
-  const handleAddBudgetingClick = () => {
-    setConfirmVisible(true); // Menampilkan confirm dialog saat tombol Add Budgeting diklik
-  };
-
   const confirmAddBudgeting = () => {
     setBudgetingDialogVisible(true); // Menampilkan dialog budgeting jika konfirmasi "Ya" dipilih
     setConfirmVisible(false);
@@ -362,7 +385,12 @@ const Kategori = () => {
   const addBudgetingField = () => {
     setBudgetingFormData((prev) => [
       ...prev,
-      { budget: 0, realization: 0, remaining: 0 },
+      {
+        budget: 0,
+        realization: 0,
+        remaining: 0,
+        subkategoriId: currentSubkategoriId,
+      },
     ]);
   };
 
@@ -485,7 +513,19 @@ const Kategori = () => {
               />
               <Button
                 label="Add Budgeting"
-                onClick={handleAddBudgetingClick}
+                onClick={() => {
+                  handleBudgetDialogOpen(rowData.uuid);
+                  setBudgetingFormData([
+                    {
+                      uuid: "",
+                      budget: "",
+                      realization: "",
+                      remaining: "",
+                      subkategoriId: rowData.uuid,
+                    },
+                  ]);
+                  setBudgetingDialogVisible(true);
+                }}
                 className="add-budgeting-button p-button-rounded p-button-warning"
                 icon="pi pi-wallet"
                 style={{ backgroundColor: "#FFA726", color: "#ffffff" }}
