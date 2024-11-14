@@ -706,39 +706,6 @@ const Dashboard = () => {
                   {isSidebarHovered && <span>Sub Kategori</span>}
                   <Ripple />
                 </div>
-
-                <div
-                  onClick={() => setActiveMenu("Subkategori")}
-                  className="menu-item"
-                  style={{
-                    marginBottom: "10px",
-                    cursor: "pointer",
-                    padding: "10px",
-                  }}
-                >
-                  <i
-                    className="pi pi-fw pi-folder"
-                    style={{ marginRight: "10px" }}
-                  ></i>
-                  {isSidebarHovered && <span>Subkategori</span>}
-                  <Ripple />
-                </div>
-                <div
-                  onClick={() => setActiveMenu("BudgetItems")}
-                  className="menu-item"
-                  style={{
-                    marginBottom: "10px",
-                    cursor: "pointer",
-                    padding: "10px",
-                  }}
-                >
-                  <i
-                    className="pi pi-fw pi-chart-line"
-                    style={{ marginRight: "10px" }}
-                  ></i>
-                  {isSidebarHovered && <span>Budget Items</span>}
-                  <Ripple />
-                </div>
               </div>
             )}
           </div>
