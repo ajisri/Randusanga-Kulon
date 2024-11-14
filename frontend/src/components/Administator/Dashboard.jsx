@@ -655,10 +655,10 @@ const Dashboard = () => {
               }}
             >
               <i
-                className="pi pi-fw pi-money-bill"
+                className="pi pi-fw pi-dollar"
                 style={{ marginRight: "10px" }}
               ></i>
-              {isSidebarHovered && <span>Keuangan</span>}
+              {isSidebarHovered && <span>APB Desa</span>}
               <i
                 className={`pi pi-fw ${
                   isKeuanganSubmenuVisible
@@ -687,7 +687,7 @@ const Dashboard = () => {
                     className="pi pi-fw pi-money-bill"
                     style={{ marginRight: "10px" }}
                   ></i>
-                  {isSidebarHovered && <span>Keuangan</span>}
+                  {isSidebarHovered && <span>Kategori</span>}
                   <Ripple />
                 </div>
                 <div
@@ -703,7 +703,7 @@ const Dashboard = () => {
                     className="pi pi-fw pi-tags"
                     style={{ marginRight: "10px" }}
                   ></i>
-                  {isSidebarHovered && <span>Kategori</span>}
+                  {isSidebarHovered && <span>Sub Kategori</span>}
                   <Ripple />
                 </div>
 
