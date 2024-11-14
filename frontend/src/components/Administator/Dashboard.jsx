@@ -25,6 +25,7 @@ import Pendaftarannikah from "./Layanan/Pendaftarannikah";
 import Aktifasibpjs from "./Layanan/Aktifasibpjs";
 //Transparansi
 import Produkhukum from "./Transparansi/ProdukHukum";
+import Apbd from "./Transparansi/Apbd";
 import Keuangan from "./Transparansi/Keuangan";
 import Kategori from "./Transparansi/Kategori";
 //sosial
@@ -158,6 +159,8 @@ const Dashboard = () => {
         return <Pendaftarannikah />;
       case "Produkhukum":
         return <Produkhukum />;
+      case "Apbd":
+        return <Apbd />;
       case "Keuangan":
         return <Keuangan />;
       case "Kategori":
@@ -620,21 +623,6 @@ const Dashboard = () => {
               }}
             >
               <i
-                className="pi pi-fw pi-dollar"
-                style={{ marginRight: "10px" }}
-              ></i>
-              {isSidebarHovered && <span>APB Desa</span>}
-              <Ripple />
-            </div>
-            <div
-              className="menu-item"
-              style={{
-                marginBottom: "10px",
-                cursor: "pointer",
-                padding: "10px",
-              }}
-            >
-              <i
                 className="pi pi-fw pi-download"
                 style={{ marginRight: "10px" }}
               ></i>
@@ -674,6 +662,22 @@ const Dashboard = () => {
                 className="submenu"
                 style={{ marginLeft: "20px", marginBottom: "10px" }}
               >
+                <div
+                  onClick={() => setActiveMenu("Apbd")}
+                  className="menu-item"
+                  style={{
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                    padding: "10px",
+                  }}
+                >
+                  <i
+                    className="pi pi-fw pi-file"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  {isSidebarHovered && <span>Tahun APBD</span>}
+                  <Ripple />
+                </div>
                 <div
                   onClick={() => setActiveMenu("Keuangan")}
                   className="menu-item"
