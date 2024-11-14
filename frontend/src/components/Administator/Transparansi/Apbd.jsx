@@ -4,22 +4,20 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
-import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
-import "./ProdukHukum.css"; // Custom CSS for styling
+import "./apbd.css"; // Custom CSS for styling
 
-const Produkhukum = () => {
+const Apbd = () => {
   const [formData, setFormData] = useState({
     uuid: "",
     name: "",
-    deskrispsi: "",
-    waktu: null,
+    waktu: "",
     file_url: "",
   });
 
@@ -29,12 +27,12 @@ const Produkhukum = () => {
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [currentProdukhukum, setCurrentProdukhukum] = useState(null);
+  const [currentApbd, setCurrentApbd] = useState(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS }, // Use FilterMatchMode
   });
-  const [produkhukumList, setProdukhukumList] = useState([]);
+  const [apbdList, setApbdList] = useState([]);
   const [fileDialogVisible, setFileDialogVisible] = useState(false);
 
   const navigate = useNavigate();
@@ -51,19 +49,19 @@ const Produkhukum = () => {
   );
 
   const {
-    data: produkhukumData,
+    data: apbdData,
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum",
+    "https://randusanga-kulonbackend-production.up.railway.app/apbd",
     fetcher
   );
 
   useEffect(() => {
-    if (produkhukumData?.produkHukum) {
-      setProdukhukumList(produkhukumData.produkHukum); // Menggunakan produkHukum
+    if (apbdData?.apbd) {
+      setApbdList(apbdData.apbd); // Menggunakan apbd
     }
-  }, [produkhukumData]);
+  }, [apbdData]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -153,19 +151,11 @@ const Produkhukum = () => {
   };
 
   const handleDateChange = (e) => {
-    const selectedDate = e.value;
-    if (selectedDate) {
-      // Create a new Date object, and ensure it's set to the start of the day in UTC
-      const adjustedDate = new Date(
-        Date.UTC(
-          selectedDate.getFullYear(),
-          selectedDate.getMonth(),
-          selectedDate.getDate()
-        )
-      );
+    const selectedYear = e.value; // Nilai yang dipilih dari dropdown
+    if (selectedYear) {
       setFormData({
         ...formData,
-        waktu: adjustedDate.toISOString().split("T")[0], // Format to yyyy-mm-dd
+        waktu: selectedYear, // Simpan tahun sebagai integer
       });
     } else {
       setFormData({ ...formData, waktu: null });
@@ -195,7 +185,7 @@ const Produkhukum = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -209,7 +199,7 @@ const Produkhukum = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cprodukhukum",
+          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -224,7 +214,7 @@ const Produkhukum = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+        "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
       resetForm();
       setDialogVisible(false);
@@ -274,27 +264,27 @@ const Produkhukum = () => {
     setSelectedFile(null);
     setPreview(null);
     setEditMode(false);
-    setCurrentProdukhukum(null);
+    setCurrentApbd(null);
   };
 
-  const editProdukhukum = (produkhukum) => {
-    setFormData(produkhukum);
+  const editapbd = (apbd) => {
+    setFormData(apbd);
     setSelectedFile(null);
-    const fileUrl = produkhukum.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${produkhukum.file_url}`
+    const fileUrl = apbd.file_url
+      ? `https://randusanga-kulonbackend-production.up.railway.app${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
-    setCurrentProdukhukum(produkhukum);
+    setCurrentApbd(apbd);
     setEditMode(true);
     setDialogVisible(true);
   };
 
-  const deleteProdukhukum = async (uuid) => {
+  const deleteapbd = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -303,7 +293,7 @@ const Produkhukum = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+          "https://randusanga-kulonbackend-production.up.railway.app/apbd"
         );
       } catch (error) {
         handleError(error);
@@ -321,10 +311,10 @@ const Produkhukum = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">Produk Hukum</h1>
+      <h1 className="demografi-header">APBD</h1>
       <Toast ref={toast} />
       <DataTable
-        value={produkhukumList}
+        value={apbdList}
         paginator
         rows={rows} // Gunakan nilai rows dari state
         first={first}
@@ -333,7 +323,7 @@ const Produkhukum = () => {
         filters={filters}
         globalFilterFields={["name", "deskripsi", "waktu"]}
         header={header}
-        footer={`Total data: ${produkhukumList.length}`}
+        footer={`Total data: ${apbdList.length}`}
         // tableStyle={{
         //   width: "100%",
         //   minWidth: "70rem",
@@ -367,8 +357,7 @@ const Produkhukum = () => {
           style={{ width: "5%", minWidth: "5%" }}
         />
         <Column field="name" header="Name" />
-        <Column field="deskripsi" header="Deskripsi" />
-        <Column field="waktu" header="Tanggal" />
+        <Column field="year" header="Tahun" />
         <Column
           field="file_url"
           header="File"
@@ -391,7 +380,7 @@ const Produkhukum = () => {
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
                 icon="pi pi-pencil"
-                onClick={() => editProdukhukum(rowData)}
+                onClick={() => editapbd(rowData)}
                 className="edit-button coastal-button p-button-rounded"
                 tooltip="Edit"
                 tooltipOptions={{ position: "bottom" }}
@@ -403,7 +392,7 @@ const Produkhukum = () => {
               />
               <Button
                 icon="pi pi-trash"
-                onClick={() => deleteProdukhukum(rowData.uuid)}
+                onClick={() => deleteapbd(rowData.uuid)}
                 className="delete-button coastal-button p-button-rounded"
                 tooltip="Delete"
                 tooltipOptions={{ position: "bottom" }}
@@ -420,7 +409,7 @@ const Produkhukum = () => {
       {renderFileDialog()}
 
       <Dialog
-        header={isEditMode ? "Edit Produk Hukum Data" : "Add Produk Hukum Data"}
+        header={isEditMode ? "Edit APBD Data" : "Add APBD Data"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}
@@ -444,12 +433,12 @@ const Produkhukum = () => {
               }}
             >
               <h3 className="section-title" style={{ color: "#00796B" }}>
-                Produk Hukum Information
+                APBD Information
               </h3>
 
               <div className="form-group">
                 <label htmlFor="name">
-                  Name <span className="required">*</span>
+                  Nama APBD <span className="required">*</span>
                 </label>
                 <InputText
                   id="name"
@@ -460,34 +449,16 @@ const Produkhukum = () => {
                   required
                 />
               </div>
-
               <div className="form-group">
-                <label htmlFor="deskripsi">
-                  Deskripsi <span className="required">*</span>
+                <label htmlFor="year">
+                  Tahun <span className="required">*</span>
                 </label>
-                <InputTextarea
-                  id="deskripsi"
-                  name="deskripsi"
-                  value={formData.deskripsi}
-                  onChange={handleChange}
-                  className="input-field"
-                  rows={5}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="waktu">
-                  Tanggal SK <span className="required">*</span>
-                </label>
-                <Calendar
-                  id="waktu"
-                  name="waktu"
-                  value={formData.waktu ? new Date(formData.waktu) : null}
+                <Dropdown
+                  id="year"
+                  name="year"
+                  value={formData.year}
                   onChange={handleDateChange}
-                  dateFormat="yy-mm-dd"
                   showIcon
-                  placeholder="Select Date"
                   className="input-field"
                   required
                 />
@@ -528,4 +499,4 @@ const Produkhukum = () => {
   );
 };
 
-export default Produkhukum;
+export default Apbd;
