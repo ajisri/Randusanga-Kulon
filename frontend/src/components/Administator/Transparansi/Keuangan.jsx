@@ -160,8 +160,11 @@ const Keuangan = () => {
     setDialogVisible(true);
   };
 
+  const [isLoadingg, setIsLoadingg] = useState(false);
+
   const deleteKeuangan = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
+      setIsLoadingg(true);
       try {
         await axiosJWT.delete(
           `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${uuid}`
@@ -177,6 +180,8 @@ const Keuangan = () => {
         );
       } catch (error) {
         handleError(error);
+      } finally {
+        setIsLoadingg(false); // Selesai loading state
       }
     }
   };
@@ -260,6 +265,7 @@ const Keuangan = () => {
                   border: "none",
                   color: "white",
                 }}
+                disabled={isLoadingg}
               />
             </div>
           )}

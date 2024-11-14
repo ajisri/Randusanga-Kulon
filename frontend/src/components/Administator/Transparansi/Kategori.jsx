@@ -28,9 +28,6 @@ const Kategori = () => {
     { uuid: "", budget: "", realization: "", remaining: "", subkategoriId: "" },
   ]);
   const [currentSubkategoriId, setCurrentSubkategoriId] = useState("");
-  // const [displayFormData, setDisplayFormData] = useState([
-  //   { budget: "", realization: "", remaining: "" },
-  // ]);
   const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
   const [isConfirmVisible, setConfirmVisible] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
@@ -535,7 +532,6 @@ const Kategori = () => {
                   handleBudgetDialogOpen(rowData.uuid);
                   setBudgetingFormData([
                     {
-                      uuid: "",
                       budget: "",
                       realization: "",
                       remaining: "",
@@ -659,6 +655,7 @@ const Kategori = () => {
             <label htmlFor="year">Pilih Tahun:</label>
             <select
               id="year"
+              name="year"
               value={selectedYear}
               onChange={handleYearChange}
               required
