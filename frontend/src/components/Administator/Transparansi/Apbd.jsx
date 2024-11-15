@@ -15,7 +15,6 @@ import "./ProdukHukum.css"; // Custom CSS for styling
 
 const Apbd = () => {
   const [formData, setFormData] = useState({
-    id: "",
     name: "",
     year: "",
     file_url: "",
