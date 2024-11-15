@@ -15,9 +15,9 @@ import "./ProdukHukum.css"; // Custom CSS for styling
 
 const Apbd = () => {
   const [formData, setFormData] = useState({
-    uuid: "",
+    id: "",
     name: "",
-    waktu: "",
+    year: "",
     file_url: "",
   });
 
@@ -59,7 +59,7 @@ const Apbd = () => {
 
   useEffect(() => {
     if (apbdData?.apbd) {
-      setApbdList(apbdData.apbd); // Menggunakan apbd
+      setApbdList(apbdData.apbd);
     }
   }, [apbdData]);
 
@@ -155,10 +155,10 @@ const Apbd = () => {
     if (selectedYear) {
       setFormData({
         ...formData,
-        waktu: selectedYear, // Simpan tahun sebagai integer
+        year: selectedYear, // Simpan tahun sebagai integer
       });
     } else {
-      setFormData({ ...formData, waktu: null });
+      setFormData({ ...formData, year: null });
     }
   };
 
@@ -255,10 +255,10 @@ const Apbd = () => {
 
   const resetForm = () => {
     setFormData({
-      uuid: "",
+      id: "",
       name: "",
       deskrispsi: "",
-      waktu: null,
+      year: null,
       file_url: "",
     });
     setSelectedFile(null);
@@ -321,7 +321,7 @@ const Apbd = () => {
         onPage={handlePageChange}
         rowsPerPageOptions={[5, 10, 25, 50]}
         filters={filters}
-        globalFilterFields={["name", "deskripsi", "waktu"]}
+        globalFilterFields={["name", "year"]}
         header={header}
         footer={`Total data: ${apbdList.length}`}
         // tableStyle={{
@@ -392,7 +392,7 @@ const Apbd = () => {
               />
               <Button
                 icon="pi pi-trash"
-                onClick={() => deleteapbd(rowData.uuid)}
+                onClick={() => deleteapbd(rowData.id)}
                 className="delete-button coastal-button p-button-rounded"
                 tooltip="Delete"
                 tooltipOptions={{ position: "bottom" }}
