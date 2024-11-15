@@ -150,6 +150,16 @@ const Apbd = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: currentYear - 2000 + 1 },
+    (_, i) => 2000 + i
+  );
+  const yearOptions = years.map((year) => ({
+    label: year.toString(),
+    value: year,
+  }));
+
   const handleDateChange = (e) => {
     const selectedYear = e.value; // Nilai yang dipilih dari dropdown
     if (selectedYear) {
@@ -457,6 +467,7 @@ const Apbd = () => {
                   id="year"
                   name="year"
                   value={formData.year}
+                  options={yearOptions}
                   onChange={handleDateChange}
                   showIcon
                   className="input-field"
