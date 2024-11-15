@@ -265,7 +265,6 @@ const Apbd = () => {
 
   const resetForm = () => {
     setFormData({
-      id: "",
       name: "",
       year: null,
       file_url: "",
