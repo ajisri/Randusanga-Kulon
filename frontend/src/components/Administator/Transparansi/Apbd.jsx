@@ -218,7 +218,7 @@ const Apbd = () => {
       } else {
         // Add new data
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/apbd", // Use correct URL here
+          "https://randusanga-kulonbackend-production.up.railway.app/capbd", // Use correct URL here
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
