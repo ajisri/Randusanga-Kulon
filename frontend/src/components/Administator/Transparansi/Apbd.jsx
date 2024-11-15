@@ -267,7 +267,6 @@ const Apbd = () => {
     setFormData({
       id: "",
       name: "",
-      deskrispsi: "",
       year: null,
       file_url: "",
     });
