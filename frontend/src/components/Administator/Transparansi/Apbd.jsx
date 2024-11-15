@@ -183,15 +183,24 @@ const Apbd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create a new FormData instance
     const dataToSend = new FormData();
+
+    // Append form data (name, year) to FormData
     Object.keys(formData).forEach((key) => {
-      dataToSend.append(key, formData[key]);
+      if (formData[key]) {
+        dataToSend.append(key, formData[key]);
+      }
     });
+
+    // If a file is selected, append it to FormData
     if (selectedFile) {
       dataToSend.append("file", selectedFile);
     }
 
     try {
+      // Check if it's an edit operation or a new submission
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
@@ -207,8 +216,9 @@ const Apbd = () => {
           life: 3000,
         });
       } else {
+        // Add new data
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
+          "https://randusanga-kulonbackend-production.up.railway.app/apbd", // Use correct URL here
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -222,18 +232,23 @@ const Apbd = () => {
         });
       }
 
+      // Refresh data after successful submit
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
+
+      // Reset form and close the dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      handleError(error);
+      handleError(error); // Improved error handling
     }
   };
 
   const handleError = (error) => {
     if (error.response) {
+      // Log error details for debugging
+      console.error("Error Response:", error.response);
       if (error.response.data.errors) {
         const messages = error.response.data.errors.map((err) => err.msg) || [];
         messages.forEach((msg) => {
@@ -253,6 +268,7 @@ const Apbd = () => {
         });
       }
     } else {
+      console.error("Unexpected error:", error);
       toast.current.show({
         severity: "error",
         summary: "Error",
