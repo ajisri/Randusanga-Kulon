@@ -185,7 +185,7 @@ const Apbd = () => {
     e.preventDefault();
 
     // Buat variabel untuk mode debugging
-    const debugMode = true; // Ubah ke `false` jika ingin melanjutkan pengiriman data
+    const debugMode = true;
 
     // Membuat instance baru dari FormData
     const dataToSend = new FormData();
