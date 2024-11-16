@@ -184,17 +184,16 @@ const Apbd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Data yang akan dikirimkan
+    // Pastikan file_url memiliki nilai meskipun file tidak diunggah
     const dataToSend = {
       ...formData,
+      file_url: formData.file_url || "default_file_path_or_empty", // Berikan default jika file tidak ada
     };
 
-    // Log data untuk debugging
     console.log("Data yang akan dikirim:", dataToSend);
 
     try {
       if (isEditMode) {
-        // Log untuk operasi edit
         console.log("Mengirim data untuk update (Edit Mode)...");
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
@@ -207,7 +206,6 @@ const Apbd = () => {
           life: 3000,
         });
       } else {
-        // Log untuk operasi baru
         console.log("Mengirim data baru...");
         await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/capbd",
@@ -221,19 +219,15 @@ const Apbd = () => {
         });
       }
 
-      // Log setelah data berhasil dikirim
       console.log("Data berhasil dikirim, merefresh data...");
 
-      // Refresh data setelah submit sukses
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
 
-      // Reset form dan tutup dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      // Penanganan error yang lebih detail dengan log yang lebih lengkap
       console.error("Terjadi kesalahan saat mengirim form:", error);
       handleError(error);
     }
@@ -241,33 +235,28 @@ const Apbd = () => {
 
   const handleError = (error) => {
     if (error.response) {
-      // Log error details for debugging
-      console.error("Error Response:", error.response);
-      if (error.response.data.errors) {
-        const messages = error.response.data.errors.map((err) => err.msg) || [];
-        messages.forEach((msg) => {
-          toast.current.show({
-            severity: "error",
-            summary: "Error",
-            detail: msg,
-            life: 5000,
-          });
-        });
-      } else {
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: error.response.data.message || "An unexpected error occurred",
-          life: 5000,
-        });
-      }
-    } else {
-      console.error("Unexpected error:", error);
+      console.error("Response Error:", error.response.data);
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "An unexpected error occurred",
-        life: 5000,
+        detail: error.response.data.msg || "Something went wrong!",
+        life: 3000,
+      });
+    } else if (error.request) {
+      console.error("Request Error:", error.request);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "No response received from server!",
+        life: 3000,
+      });
+    } else {
+      console.error("Unknown Error:", error.message);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: error.message,
+        life: 3000,
       });
     }
   };
