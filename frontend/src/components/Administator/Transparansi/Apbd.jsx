@@ -174,9 +174,9 @@ const Apbd = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedFile(file);
+      setSelectedFile(file); // Simpan file yang dipilih dalam state
       const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result);
+      reader.onloadend = () => setPreview(reader.result); // Buat preview jika diperlukan
       reader.readAsDataURL(file);
     }
   };
@@ -184,20 +184,26 @@ const Apbd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Pastikan file_url memiliki nilai meskipun file tidak diunggah
-    const dataToSend = {
-      ...formData,
-      file_url: formData.file_url || "default_file_path_or_empty", // Berikan default jika file tidak ada
-    };
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("year", formData.year);
 
-    console.log("Data yang akan dikirim:", dataToSend);
+    // Tambahkan file jika ada
+    if (selectedFile) {
+      formDataToSend.append("file", selectedFile);
+    }
 
     try {
       if (isEditMode) {
         console.log("Mengirim data untuk update (Edit Mode)...");
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
-          dataToSend
+          formDataToSend,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         toast.current.show({
           severity: "success",
@@ -209,7 +215,12 @@ const Apbd = () => {
         console.log("Mengirim data baru...");
         await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/capbd",
-          dataToSend
+          formDataToSend,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         toast.current.show({
           severity: "success",
@@ -220,7 +231,6 @@ const Apbd = () => {
       }
 
       console.log("Data berhasil dikirim, merefresh data...");
-
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
