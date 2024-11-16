@@ -200,6 +200,7 @@ const Apbd = () => {
     }
 
     try {
+      // Check if it's an edit operation or a new submission
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
