@@ -15,10 +15,8 @@ import "./ProdukHukum.css"; // Custom CSS for styling
 
 const Apbd = () => {
   const [formData, setFormData] = useState({
-    uuid: "",
     name: "",
     year: null,
-    waktu: null,
     file_url: "",
   });
 
@@ -167,7 +165,7 @@ const Apbd = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${formData.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${formData.id}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -181,7 +179,7 @@ const Apbd = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/apbd",
+          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -237,7 +235,6 @@ const Apbd = () => {
 
   const resetForm = () => {
     setFormData({
-      uuid: "",
       name: "",
       year: null,
       file_url: "",
@@ -258,11 +255,11 @@ const Apbd = () => {
     setDialogVisible(true);
   };
 
-  const deleteApbd = async (uuid) => {
+  const deleteApbd = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -329,7 +326,7 @@ const Apbd = () => {
                 <Button
                   icon="pi pi-trash"
                   className="p-button-rounded p-button-danger"
-                  onClick={() => deleteApbd(rowData.uuid)}
+                  onClick={() => deleteApbd(rowData.id)}
                 />
               </div>
             )}
