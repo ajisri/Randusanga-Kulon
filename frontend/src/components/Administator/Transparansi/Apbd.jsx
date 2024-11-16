@@ -12,7 +12,7 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import { Dropdown } from "primereact/dropdown";
-import "./Apbd.css"; // Custom CSS for styling
+import "./ProdukHukum.css"; // Custom CSS for styling
 
 const Apbd = () => {
   const [formData, setFormData] = useState({
