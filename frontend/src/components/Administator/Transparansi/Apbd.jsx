@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
@@ -15,8 +16,10 @@ import "./ProdukHukum.css"; // Custom CSS for styling
 
 const Apbd = () => {
   const [formData, setFormData] = useState({
+    uuid: "",
     name: "",
-    year: "",
+    deskrispsi: "",
+    waktu: null,
     file_url: "",
   });
 
@@ -26,12 +29,12 @@ const Apbd = () => {
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [currentApbd, setCurrentApbd] = useState(null);
+  const [currentProdukhukum, setCurrentProdukhukum] = useState(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS }, // Use FilterMatchMode
   });
-  const [apbdList, setApbdList] = useState([]);
+  const [produkhukumList, setProdukhukumList] = useState([]);
   const [fileDialogVisible, setFileDialogVisible] = useState(false);
 
   const navigate = useNavigate();
@@ -48,19 +51,19 @@ const Apbd = () => {
   );
 
   const {
-    data: apbdData,
+    data: produkhukumData,
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/apbd",
+    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum",
     fetcher
   );
 
   useEffect(() => {
-    if (apbdData?.apbd) {
-      setApbdList(apbdData.apbd);
+    if (produkhukumData?.produkHukum) {
+      setProdukhukumList(produkhukumData.produkHukum); // Menggunakan produkHukum
     }
-  }, [apbdData]);
+  }, [produkhukumData]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -149,25 +152,23 @@ const Apbd = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const currentYear = new Date().getFullYear();
-  const years = Array.from(
-    { length: currentYear - 2000 + 1 },
-    (_, i) => 2000 + i
-  );
-  const yearOptions = years.map((year) => ({
-    label: year.toString(),
-    value: year,
-  }));
-
   const handleDateChange = (e) => {
-    const selectedYear = e.value; // Nilai yang dipilih dari dropdown
-    if (selectedYear) {
+    const selectedDate = e.value;
+    if (selectedDate) {
+      // Create a new Date object, and ensure it's set to the start of the day in UTC
+      const adjustedDate = new Date(
+        Date.UTC(
+          selectedDate.getFullYear(),
+          selectedDate.getMonth(),
+          selectedDate.getDate()
+        )
+      );
       setFormData({
         ...formData,
-        year: selectedYear, // Simpan tahun sebagai integer
+        waktu: adjustedDate.toISOString().split("T")[0], // Format to yyyy-mm-dd
       });
     } else {
-      setFormData({ ...formData, year: null });
+      setFormData({ ...formData, waktu: null });
     }
   };
 
@@ -183,39 +184,23 @@ const Apbd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Create a new FormData instance
     const dataToSend = new FormData();
-
-    // Append form data (name, year) to FormData
     Object.keys(formData).forEach((key) => {
-      if (formData[key]) {
-        dataToSend.append(key, formData[key]);
-      }
+      dataToSend.append(key, formData[key]);
     });
-
-    // If a file is selected, append it to FormData
     if (selectedFile) {
       dataToSend.append("file", selectedFile);
     }
 
-    // Log FormData contents for debugging
-    console.log("Data to be sent:");
-    for (let pair of dataToSend.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
-
     try {
-      // Check if it's an edit operation or a new submission
       if (isEditMode) {
-        const response = await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
+        await axiosJWT.patch(
+          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
-        console.log("Server Response (Edit):", response.data); // Log server response
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -223,15 +208,13 @@ const Apbd = () => {
           life: 3000,
         });
       } else {
-        // Add new data
-        const response = await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
+        await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/cprodukhukum",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
-        console.log("Server Response (New):", response.data); // Log server response
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -240,28 +223,18 @@ const Apbd = () => {
         });
       }
 
-      // Refresh data after successful submit
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/apbd"
+        "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
       );
-
-      // Reset form and close the dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      // Improved error handling with detailed log
-      console.error(
-        "Error occurred:",
-        error.response || error.message || error
-      );
       handleError(error);
     }
   };
 
   const handleError = (error) => {
     if (error.response) {
-      // Log error details for debugging
-      console.error("Error Response:", error.response);
       if (error.response.data.errors) {
         const messages = error.response.data.errors.map((err) => err.msg) || [];
         messages.forEach((msg) => {
@@ -281,7 +254,6 @@ const Apbd = () => {
         });
       }
     } else {
-      console.error("Unexpected error:", error);
       toast.current.show({
         severity: "error",
         summary: "Error",
@@ -293,34 +265,36 @@ const Apbd = () => {
 
   const resetForm = () => {
     setFormData({
+      uuid: "",
       name: "",
-      year: null,
+      deskrispsi: "",
+      waktu: null,
       file_url: "",
     });
     setSelectedFile(null);
     setPreview(null);
     setEditMode(false);
-    setCurrentApbd(null);
+    setCurrentProdukhukum(null);
   };
 
-  const editapbd = (apbd) => {
-    setFormData(apbd);
+  const editProdukhukum = (produkhukum) => {
+    setFormData(produkhukum);
     setSelectedFile(null);
-    const fileUrl = apbd.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${apbd.file_url}`
+    const fileUrl = produkhukum.file_url
+      ? `https://randusanga-kulonbackend-production.up.railway.app${produkhukum.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
-    setCurrentApbd(apbd);
+    setCurrentProdukhukum(produkhukum);
     setEditMode(true);
     setDialogVisible(true);
   };
 
-  const deleteapbd = async (id) => {
+  const deleteProdukhukum = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${id}`
+          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -329,7 +303,7 @@ const Apbd = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/apbd"
+          "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
         );
       } catch (error) {
         handleError(error);
@@ -347,19 +321,19 @@ const Apbd = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">APBD</h1>
+      <h1 className="demografi-header">Produk Hukum</h1>
       <Toast ref={toast} />
       <DataTable
-        value={apbdList}
+        value={produkhukumList}
         paginator
         rows={rows} // Gunakan nilai rows dari state
         first={first}
         onPage={handlePageChange}
         rowsPerPageOptions={[5, 10, 25, 50]}
         filters={filters}
-        globalFilterFields={["name", "year"]}
+        globalFilterFields={["name", "deskripsi", "waktu"]}
         header={header}
-        footer={`Total data: ${apbdList.length}`}
+        footer={`Total data: ${produkhukumList.length}`}
         // tableStyle={{
         //   width: "100%",
         //   minWidth: "70rem",
@@ -393,7 +367,8 @@ const Apbd = () => {
           style={{ width: "5%", minWidth: "5%" }}
         />
         <Column field="name" header="Name" />
-        <Column field="year" header="Tahun" />
+        <Column field="deskripsi" header="Deskripsi" />
+        <Column field="waktu" header="Tanggal" />
         <Column
           field="file_url"
           header="File"
@@ -416,7 +391,7 @@ const Apbd = () => {
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
                 icon="pi pi-pencil"
-                onClick={() => editapbd(rowData)}
+                onClick={() => editProdukhukum(rowData)}
                 className="edit-button coastal-button p-button-rounded"
                 tooltip="Edit"
                 tooltipOptions={{ position: "bottom" }}
@@ -428,7 +403,7 @@ const Apbd = () => {
               />
               <Button
                 icon="pi pi-trash"
-                onClick={() => deleteapbd(rowData.id)}
+                onClick={() => deleteProdukhukum(rowData.uuid)}
                 className="delete-button coastal-button p-button-rounded"
                 tooltip="Delete"
                 tooltipOptions={{ position: "bottom" }}
@@ -445,7 +420,7 @@ const Apbd = () => {
       {renderFileDialog()}
 
       <Dialog
-        header={isEditMode ? "Edit APBD Data" : "Add APBD Data"}
+        header={isEditMode ? "Edit Produk Hukum Data" : "Add Produk Hukum Data"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}
@@ -469,12 +444,12 @@ const Apbd = () => {
               }}
             >
               <h3 className="section-title" style={{ color: "#00796B" }}>
-                APBD Information
+                Produk Hukum Information
               </h3>
 
               <div className="form-group">
                 <label htmlFor="name">
-                  Nama APBD <span className="required">*</span>
+                  Name <span className="required">*</span>
                 </label>
                 <InputText
                   id="name"
@@ -485,17 +460,34 @@ const Apbd = () => {
                   required
                 />
               </div>
+
               <div className="form-group">
-                <label htmlFor="year">
-                  Tahun <span className="required">*</span>
+                <label htmlFor="deskripsi">
+                  Deskripsi <span className="required">*</span>
                 </label>
-                <Dropdown
-                  id="year"
-                  name="year"
-                  value={formData.year}
-                  options={yearOptions}
+                <InputTextarea
+                  id="deskripsi"
+                  name="deskripsi"
+                  value={formData.deskripsi}
+                  onChange={handleChange}
+                  className="input-field"
+                  rows={5}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="waktu">
+                  Tanggal SK <span className="required">*</span>
+                </label>
+                <Calendar
+                  id="waktu"
+                  name="waktu"
+                  value={formData.waktu ? new Date(formData.waktu) : null}
                   onChange={handleDateChange}
+                  dateFormat="yy-mm-dd"
                   showIcon
+                  placeholder="Select Date"
                   className="input-field"
                   required
                 />
