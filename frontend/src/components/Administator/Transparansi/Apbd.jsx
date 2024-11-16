@@ -184,40 +184,22 @@ const Apbd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Bentuk data menjadi array objek
-    const dataToSend = [];
+    // Data yang akan dikirimkan
+    const dataToSend = {
+      ...formData,
+    };
 
-    // Masukkan form data (name, year) ke dalam array
-    Object.keys(formData).forEach((key) => {
-      if (formData[key]) {
-        dataToSend.push({ [key]: formData[key] });
-      }
-    });
-
-    // Jika ada file yang dipilih, tambahkan file ke dalam data array
-    if (selectedFile) {
-      dataToSend.push({ file: selectedFile });
-    }
-
-    // Log untuk debugging data array
-    console.log("Data yang akan dikirim dalam bentuk array:", dataToSend);
+    // Log data untuk debugging
+    console.log("Data yang akan dikirim:", dataToSend);
 
     try {
-      // Ubah data menjadi JSON string
-      const jsonData = JSON.stringify(dataToSend);
-
-      // Tentukan apakah ini operasi edit atau submit baru
       if (isEditMode) {
-        const response = await axiosJWT.patch(
+        // Log untuk operasi edit
+        console.log("Mengirim data untuk update (Edit Mode)...");
+        await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
-          jsonData,
-          {
-            headers: {
-              "Content-Type": "application/json", // Ubah ke JSON
-            },
-          }
+          dataToSend
         );
-        console.log("Respon dari server (Edit):", response.data); // Log respon server
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -225,17 +207,12 @@ const Apbd = () => {
           life: 3000,
         });
       } else {
-        // Tambahkan data baru
-        const response = await axiosJWT.post(
+        // Log untuk operasi baru
+        console.log("Mengirim data baru...");
+        await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/capbd",
-          jsonData,
-          {
-            headers: {
-              "Content-Type": "application/json", // Ubah ke JSON
-            },
-          }
+          dataToSend
         );
-        console.log("Respon dari server (New):", response.data); // Log respon server
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -243,6 +220,9 @@ const Apbd = () => {
           life: 3000,
         });
       }
+
+      // Log setelah data berhasil dikirim
+      console.log("Data berhasil dikirim, merefresh data...");
 
       // Refresh data setelah submit sukses
       await mutate(
@@ -254,10 +234,7 @@ const Apbd = () => {
       setDialogVisible(false);
     } catch (error) {
       // Penanganan error yang lebih detail dengan log yang lebih lengkap
-      console.error(
-        "Error occurred:",
-        error.response || error.message || error
-      );
+      console.error("Terjadi kesalahan saat mengirim form:", error);
       handleError(error);
     }
   };
@@ -364,26 +341,6 @@ const Apbd = () => {
         globalFilterFields={["name", "year"]}
         header={header}
         footer={`Total data: ${apbdList.length}`}
-        // tableStyle={{
-        //   width: "100%",
-        //   minWidth: "70rem",
-        //   maxWidth: "85rem",
-        // }}
-        // breakpoints={{
-        //   "960px": {
-        //     columns: [
-        //       { field: "name", header: "Name" },
-        //       { field: "deskripsi", header: "Deskripsi" },
-        //       // Add other columns you want to display for smaller screens
-        //     ],
-        //   },
-        //   "640px": {
-        //     columns: [
-        //       { field: "name", header: "Name" }, // You can hide columns based on screen size
-        //     ],
-        //   },
-        // }}
-        // className="datagrid"
       >
         <Column
           header="No"
