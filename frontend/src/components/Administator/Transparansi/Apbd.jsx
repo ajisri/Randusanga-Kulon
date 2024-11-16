@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
 import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
@@ -12,13 +11,14 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
-import "./ProdukHukum.css"; // Custom CSS for styling
+import { Dropdown } from "primereact/dropdown";
+import "./Apbd.css"; // Custom CSS for styling
 
 const Apbd = () => {
   const [formData, setFormData] = useState({
     uuid: "",
     name: "",
-    deskrispsi: "",
+    year: null,
     waktu: null,
     file_url: "",
   });
@@ -29,13 +29,12 @@ const Apbd = () => {
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [currentProdukhukum, setCurrentProdukhukum] = useState(null);
+  const [apbdList, setApbdList] = useState([]);
+  const [fileDialogVisible, setFileDialogVisible] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS }, // Use FilterMatchMode
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
-  const [produkhukumList, setProdukhukumList] = useState([]);
-  const [fileDialogVisible, setFileDialogVisible] = useState(false);
 
   const navigate = useNavigate();
   const toast = useRef(null);
@@ -44,26 +43,25 @@ const Apbd = () => {
   const fetcher = useCallback(
     async (url) => {
       const response = await axiosJWT.get(url);
-      console.log(response.data);
       return response.data;
     },
     [axiosJWT]
   );
 
   const {
-    data: produkhukumData,
+    data: apbdData,
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum",
+    "https://randusanga-kulonbackend-production.up.railway.app/apbd",
     fetcher
   );
 
   useEffect(() => {
-    if (produkhukumData?.produkHukum) {
-      setProdukhukumList(produkhukumData.produkHukum); // Menggunakan produkHukum
+    if (apbdData?.apbd) {
+      setApbdList(apbdData.apbd);
     }
-  }, [produkhukumData]);
+  }, [apbdData]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -84,7 +82,6 @@ const Apbd = () => {
   };
 
   const showFileInModal = (fileUrl) => {
-    // console.log("Opening file URL:", fileUrl);
     if (fileUrl) {
       setSelectedFile(fileUrl);
       setFileDialogVisible(true);
@@ -100,17 +97,15 @@ const Apbd = () => {
         visible={fileDialogVisible}
         onHide={() => setFileDialogVisible(false)}
         modal
-        style={{ width: "70vw" }} // Set width sesuai kebutuhan
+        style={{ width: "70vw" }}
       >
         {selectedFile ? (
-          <>
-            <iframe
-              src={selectedFile}
-              width="100%"
-              height="400px"
-              title="File Viewer"
-            />
-          </>
+          <iframe
+            src={selectedFile}
+            width="100%"
+            height="400px"
+            title="File Viewer"
+          />
         ) : (
           <p>No file selected.</p>
         )}
@@ -127,9 +122,9 @@ const Apbd = () => {
             type="search"
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
-            placeholder="Pencarian"
+            placeholder="Search"
             className="search-input"
-            style={{ width: "300px" }} // Increased width for search input
+            style={{ width: "300px" }}
           />
         </span>
         <div className="add-data-container">
@@ -138,14 +133,12 @@ const Apbd = () => {
             onClick={openDialog}
             className="add-data-button p-button-rounded p-button-success"
             icon="pi pi-plus"
-            style={{ backgroundColor: "#00796B", color: "#ffffff" }} // Elegant teal color
+            style={{ backgroundColor: "#00796B", color: "#ffffff" }}
           />
         </div>
       </div>
     );
   };
-
-  const header = renderHeader();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -155,7 +148,6 @@ const Apbd = () => {
   const handleDateChange = (e) => {
     const selectedDate = e.value;
     if (selectedDate) {
-      // Create a new Date object, and ensure it's set to the start of the day in UTC
       const adjustedDate = new Date(
         Date.UTC(
           selectedDate.getFullYear(),
@@ -165,7 +157,7 @@ const Apbd = () => {
       );
       setFormData({
         ...formData,
-        waktu: adjustedDate.toISOString().split("T")[0], // Format to yyyy-mm-dd
+        waktu: adjustedDate.toISOString().split("T")[0],
       });
     } else {
       setFormData({ ...formData, waktu: null });
@@ -195,7 +187,7 @@ const Apbd = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${formData.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -209,7 +201,7 @@ const Apbd = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cprodukhukum",
+          "https://randusanga-kulonbackend-production.up.railway.app/apbd",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -224,7 +216,7 @@ const Apbd = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+        "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
       resetForm();
       setDialogVisible(false);
@@ -267,34 +259,31 @@ const Apbd = () => {
     setFormData({
       uuid: "",
       name: "",
-      deskrispsi: "",
+      year: null,
       waktu: null,
       file_url: "",
     });
     setSelectedFile(null);
     setPreview(null);
     setEditMode(false);
-    setCurrentProdukhukum(null);
   };
 
-  const editProdukhukum = (produkhukum) => {
-    setFormData(produkhukum);
+  const editApbd = (apbd) => {
+    setFormData(apbd);
     setSelectedFile(null);
-    const fileUrl = produkhukum.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${produkhukum.file_url}`
+    const fileUrl = apbd.file_url
+      ? `https://randusanga-kulonbackend-production.up.railway.app${apbd.file_url}`
       : null;
-    // console.log("File URL:", fileUrl);
-    setPreview(fileUrl); // Set preview to the existing file URL
-    setCurrentProdukhukum(produkhukum);
+    setPreview(fileUrl);
     setEditMode(true);
     setDialogVisible(true);
   };
 
-  const deleteProdukhukum = async (uuid) => {
+  const deleteApbd = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -303,7 +292,7 @@ const Apbd = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+          "https://randusanga-kulonbackend-production.up.railway.app/apbd"
         );
       } catch (error) {
         handleError(error);
@@ -316,215 +305,140 @@ const Apbd = () => {
     setRows(e.rows);
   };
 
+  const years = Array.from({ length: 100 }, (_, i) => 2024 - i);
+
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  if (error) return <p>Error loading data!</p>;
 
   return (
-    <div>
-      <h1 className="demografi-header">Produk Hukum</h1>
+    <>
       <Toast ref={toast} />
-      <DataTable
-        value={produkhukumList}
-        paginator
-        rows={rows} // Gunakan nilai rows dari state
-        first={first}
-        onPage={handlePageChange}
-        rowsPerPageOptions={[5, 10, 25, 50]}
-        filters={filters}
-        globalFilterFields={["name", "deskripsi", "waktu"]}
-        header={header}
-        footer={`Total data: ${produkhukumList.length}`}
-        // tableStyle={{
-        //   width: "100%",
-        //   minWidth: "70rem",
-        //   maxWidth: "85rem",
-        // }}
-        // breakpoints={{
-        //   "960px": {
-        //     columns: [
-        //       { field: "name", header: "Name" },
-        //       { field: "deskripsi", header: "Deskripsi" },
-        //       // Add other columns you want to display for smaller screens
-        //     ],
-        //   },
-        //   "640px": {
-        //     columns: [
-        //       { field: "name", header: "Name" }, // You can hide columns based on screen size
-        //     ],
-        //   },
-        // }}
-        // className="datagrid"
-      >
-        <Column
-          header="No"
-          body={(rowData, options) => {
-            const rowIndex = options.rowIndex % rows; // Reset rowIndex setiap halaman
-            const nomorUrut = first + rowIndex + 1; // Hitung nomor urut berdasarkan halaman
-            console.log("Row Index:", rowIndex, "Nomor Urut:", nomorUrut); // Log nomor urut pada setiap baris
-
-            return nomorUrut;
-          }}
-          style={{ width: "5%", minWidth: "5%" }}
-        />
-        <Column field="name" header="Name" />
-        <Column field="deskripsi" header="Deskripsi" />
-        <Column field="waktu" header="Tanggal" />
-        <Column
-          field="file_url"
-          header="File"
-          body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
-            return (
-              <Button
-                label="Lihat"
-                onClick={() => showFileInModal(fileUrl)} // Gunakan URL lengkap
-                className="coastal-button p-button-rounded"
-                tooltip="Lihat File"
-                tooltipOptions={{ position: "bottom" }}
-              />
-            );
-          }}
-        />
-        <Column
-          header="Actions"
-          body={(rowData) => (
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <Button
-                icon="pi pi-pencil"
-                onClick={() => editProdukhukum(rowData)}
-                className="edit-button coastal-button p-button-rounded"
-                tooltip="Edit"
-                tooltipOptions={{ position: "bottom" }}
-                style={{
-                  backgroundColor: "#4DB6AC",
-                  border: "none",
-                  color: "white",
-                }}
-              />
-              <Button
-                icon="pi pi-trash"
-                onClick={() => deleteProdukhukum(rowData.uuid)}
-                className="delete-button coastal-button p-button-rounded"
-                tooltip="Delete"
-                tooltipOptions={{ position: "bottom" }}
-                style={{
-                  backgroundColor: "#009688",
-                  border: "none",
-                  color: "white",
-                }}
-              />
-            </div>
-          )}
-        />
-      </DataTable>
       {renderFileDialog()}
+      <Card>
+        <h2>APBD Data</h2>
+        <DataTable
+          value={apbdList}
+          paginator
+          rows={rows}
+          first={first}
+          onPage={handlePageChange}
+          globalFilter={globalFilterValue}
+          header={renderHeader()}
+          filters={filters}
+        >
+          <Column field="name" header="Name" filter />
+          <Column field="year" header="Year" filter />
+          <Column field="waktu" header="Date" filter />
+          <Column
+            body={(rowData) => (
+              <Button
+                label="View File"
+                icon="pi pi-eye"
+                onClick={() => showFileInModal(rowData.file_url)}
+              />
+            )}
+            header="Actions"
+            bodyClassName="text-center"
+          />
+          <Column
+            body={(rowData) => (
+              <div>
+                <Button
+                  icon="pi pi-pencil"
+                  className="p-button-rounded p-button-info"
+                  onClick={() => editApbd(rowData)}
+                />
+                <Button
+                  icon="pi pi-trash"
+                  className="p-button-rounded p-button-danger"
+                  onClick={() => deleteApbd(rowData.uuid)}
+                />
+              </div>
+            )}
+            header="Actions"
+            bodyClassName="text-center"
+          />
+        </DataTable>
+      </Card>
 
       <Dialog
-        header={isEditMode ? "Edit Produk Hukum Data" : "Add Produk Hukum Data"}
+        header={isEditMode ? "Edit Data" : "Add Data"}
         visible={isDialogVisible}
         onHide={closeDialog}
-        dismissableMask={true}
-        modal={true}
-        style={{ width: "70vw" }}
+        modal
+        style={{ width: "50vw" }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <Card
-              className="demografi-card"
-              style={{
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-                padding: "20px",
-              }}
-            >
-              <h3 className="section-title" style={{ color: "#00796B" }}>
-                Produk Hukum Information
-              </h3>
+        <form onSubmit={handleSubmit}>
+          <div className="p-field">
+            <label htmlFor="name">Name</label>
+            <InputText
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="name">
-                  Name <span className="required">*</span>
-                </label>
-                <InputText
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
+          <div className="p-field">
+            <label htmlFor="year">Year</label>
+            <Dropdown
+              id="year"
+              name="year"
+              value={formData.year}
+              options={years}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="deskripsi">
-                  Deskripsi <span className="required">*</span>
-                </label>
-                <InputTextarea
-                  id="deskripsi"
-                  name="deskripsi"
-                  value={formData.deskripsi}
-                  onChange={handleChange}
-                  className="input-field"
-                  rows={5}
-                  required
-                />
-              </div>
+          <div className="p-field">
+            <label htmlFor="waktu">Date</label>
+            <Calendar
+              id="waktu"
+              name="waktu"
+              value={formData.waktu ? new Date(formData.waktu) : null}
+              onChange={handleDateChange}
+              showIcon
+              dateFormat="yy-mm-dd"
+            />
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="waktu">
-                  Tanggal SK <span className="required">*</span>
-                </label>
-                <Calendar
-                  id="waktu"
-                  name="waktu"
-                  value={formData.waktu ? new Date(formData.waktu) : null}
-                  onChange={handleDateChange}
-                  dateFormat="yy-mm-dd"
-                  showIcon
-                  placeholder="Select Date"
-                  className="input-field"
-                  required
-                />
-              </div>
+          <div className="p-field">
+            <label htmlFor="file">Upload File</label>
+            <input
+              type="file"
+              id="file"
+              onChange={handleFileChange}
+              accept="application/pdf"
+            />
+            {preview && (
+              <iframe
+                src={selectedFile}
+                width="100%"
+                height="400px"
+                title="File Viewer"
+              />
+            )}
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="file_url">Upload File</label>
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                  className="file-input"
-                />
-                {preview && (
-                  <div className="file-preview">
-                    <iframe
-                      src={preview}
-                      title="File Preview"
-                      className="preview-file"
-                      style={{ width: "100%", height: "400px" }}
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="button-sub">
-                <Button
-                  type="submit"
-                  label={isEditMode ? "Update" : "Save"}
-                  className="coastal-button submit-button p-button-rounded"
-                  style={{ marginTop: "20px" }}
-                />
-              </div>
-            </Card>
-          </form>
-        </div>
+          <div className="p-d-flex p-jc-between">
+            <Button
+              label="Save"
+              icon="pi pi-check"
+              type="submit"
+              className="p-button-success"
+            />
+            <Button
+              label="Cancel"
+              icon="pi pi-times"
+              onClick={closeDialog}
+              className="p-button-danger"
+            />
+          </div>
+        </form>
       </Dialog>
-    </div>
+    </>
   );
 };
 
