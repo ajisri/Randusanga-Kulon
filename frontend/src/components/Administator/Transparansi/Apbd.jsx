@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
@@ -145,25 +144,6 @@ const Apbd = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDateChange = (e) => {
-    const selectedDate = e.value;
-    if (selectedDate) {
-      const adjustedDate = new Date(
-        Date.UTC(
-          selectedDate.getFullYear(),
-          selectedDate.getMonth(),
-          selectedDate.getDate()
-        )
-      );
-      setFormData({
-        ...formData,
-        waktu: adjustedDate.toISOString().split("T")[0],
-      });
-    } else {
-      setFormData({ ...formData, waktu: null });
-    }
-  };
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -260,7 +240,6 @@ const Apbd = () => {
       uuid: "",
       name: "",
       year: null,
-      waktu: null,
       file_url: "",
     });
     setSelectedFile(null);
@@ -328,7 +307,6 @@ const Apbd = () => {
         >
           <Column field="name" header="Name" filter />
           <Column field="year" header="Year" filter />
-          <Column field="waktu" header="Date" filter />
           <Column
             body={(rowData) => (
               <Button
@@ -337,7 +315,7 @@ const Apbd = () => {
                 onClick={() => showFileInModal(rowData.file_url)}
               />
             )}
-            header="Actions"
+            header="Dokumen"
             bodyClassName="text-center"
           />
           <Column
@@ -369,73 +347,65 @@ const Apbd = () => {
         style={{ width: "50vw" }}
       >
         <form onSubmit={handleSubmit}>
-          <div className="p-field">
-            <label htmlFor="name">Name</label>
-            <InputText
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="p-field">
-            <label htmlFor="year">Year</label>
-            <Dropdown
-              id="year"
-              name="year"
-              value={formData.year}
-              options={years}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="p-field">
-            <label htmlFor="waktu">Date</label>
-            <Calendar
-              id="waktu"
-              name="waktu"
-              value={formData.waktu ? new Date(formData.waktu) : null}
-              onChange={handleDateChange}
-              showIcon
-              dateFormat="yy-mm-dd"
-            />
-          </div>
-
-          <div className="p-field">
-            <label htmlFor="file">Upload File</label>
-            <input
-              type="file"
-              id="file"
-              onChange={handleFileChange}
-              accept="application/pdf"
-            />
-            {preview && (
-              <iframe
-                src={selectedFile}
-                width="100%"
-                height="400px"
-                title="File Viewer"
+          <Card className="demografi-card">
+            <div className="field">
+              <label htmlFor="name">Name</label>
+              <InputText
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="input-field"
               />
-            )}
-          </div>
+            </div>
+            <div className="field">
+              <label htmlFor="year">Year</label>
+              <Dropdown
+                id="year"
+                name="year"
+                value={formData.year}
+                options={years}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="file_url">Upload File</label>
+              <input
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+                className="file-input"
+              />
+              {preview && (
+                <div className="file-preview">
+                  <iframe
+                    src={preview}
+                    title="File Preview"
+                    className="preview-file"
+                    style={{ width: "100%", height: "400px" }}
+                  />
+                </div>
+              )}
+            </div>
 
-          <div className="p-d-flex p-jc-between">
-            <Button
-              label="Save"
-              icon="pi pi-check"
-              type="submit"
-              className="p-button-success"
-            />
-            <Button
-              label="Cancel"
-              icon="pi pi-times"
-              onClick={closeDialog}
-              className="p-button-danger"
-            />
-          </div>
+            <div className="p-d-flex p-jc-between">
+              <Button
+                label="Save"
+                icon="pi pi-check"
+                type="submit"
+                className="p-button-success"
+              />
+              <Button
+                label="Cancel"
+                icon="pi pi-times"
+                onClick={closeDialog}
+                className="p-button-danger"
+              />
+            </div>
+          </Card>
         </form>
       </Dialog>
     </>
