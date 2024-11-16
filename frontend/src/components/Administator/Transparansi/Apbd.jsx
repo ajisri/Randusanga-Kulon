@@ -184,38 +184,40 @@ const Apbd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new FormData instance
-    const dataToSend = new FormData();
+    // Bentuk data menjadi array objek
+    const dataToSend = [];
 
-    // Append form data (name, year) to FormData
+    // Masukkan form data (name, year) ke dalam array
     Object.keys(formData).forEach((key) => {
       if (formData[key]) {
-        dataToSend.append(key, formData[key]);
+        dataToSend.push({ [key]: formData[key] });
       }
     });
 
-    // If a file is selected, append it to FormData
+    // Jika ada file yang dipilih, tambahkan file ke dalam data array
     if (selectedFile) {
-      dataToSend.append("file", selectedFile);
+      dataToSend.push({ file: selectedFile });
     }
 
-    // Log FormData contents for debugging
-    console.log("Data to be sent:");
-    for (let pair of dataToSend.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
+    // Log untuk debugging data array
+    console.log("Data yang akan dikirim dalam bentuk array:", dataToSend);
 
     try {
-      // Check if it's an edit operation or a new submission
+      // Ubah data menjadi JSON string
+      const jsonData = JSON.stringify(dataToSend);
+
+      // Tentukan apakah ini operasi edit atau submit baru
       if (isEditMode) {
         const response = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
-          dataToSend,
+          jsonData,
           {
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: {
+              "Content-Type": "application/json", // Ubah ke JSON
+            },
           }
         );
-        console.log("Server Response (Edit):", response.data); // Log server response
+        console.log("Respon dari server (Edit):", response.data); // Log respon server
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -223,15 +225,17 @@ const Apbd = () => {
           life: 3000,
         });
       } else {
-        // Add new data
+        // Tambahkan data baru
         const response = await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/capbd",
-          dataToSend,
+          jsonData,
           {
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: {
+              "Content-Type": "application/json", // Ubah ke JSON
+            },
           }
         );
-        console.log("Server Response (New):", response.data); // Log server response
+        console.log("Respon dari server (New):", response.data); // Log respon server
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -240,16 +244,16 @@ const Apbd = () => {
         });
       }
 
-      // Refresh data after successful submit
+      // Refresh data setelah submit sukses
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
 
-      // Reset form and close the dialog
+      // Reset form dan tutup dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      // Improved error handling with detailed log
+      // Penanganan error yang lebih detail dengan log yang lebih lengkap
       console.error(
         "Error occurred:",
         error.response || error.message || error
