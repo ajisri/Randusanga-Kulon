@@ -164,7 +164,7 @@ const Apbd = () => {
     if (selectedYear) {
       setFormData({
         ...formData,
-        year: selectedYear, // Simpan tahun sebagai integer
+        year: parseInt(selectedYear, 10), // Simpan tahun sebagai integer
       });
     } else {
       setFormData({ ...formData, year: null });
@@ -183,7 +183,10 @@ const Apbd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Validasi nilai year dan konversi jika diperlukan
+    if (typeof formData.year === "string") {
+      formData.year = parseInt(formData.year, 10); // Konversi year ke integer
+    }
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("year", formData.year);
