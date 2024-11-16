@@ -184,23 +184,36 @@ const Apbd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new FormData instance
+    // Buat variabel untuk mode debugging
+    const debugMode = true; // Ubah ke `false` jika ingin melanjutkan pengiriman data
+
+    // Membuat instance baru dari FormData
     const dataToSend = new FormData();
 
-    // Append form data (name, year) to FormData
+    // Menambahkan data form (name, year) ke FormData
     Object.keys(formData).forEach((key) => {
       if (formData[key]) {
         dataToSend.append(key, formData[key]);
       }
     });
 
-    // If a file is selected, append it to FormData
+    // Jika ada file yang dipilih, tambahkan ke FormData
     if (selectedFile) {
       dataToSend.append("file", selectedFile);
     }
 
+    // Debugging: Log isi FormData jika dalam mode debugging
+    if (debugMode) {
+      console.log("Data yang akan dikirim:");
+      for (let pair of dataToSend.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+      // Hentikan eksekusi jika dalam mode debugging
+      return;
+    }
+
     try {
-      // Check if it's an edit operation or a new submission
+      // Check jika ini operasi edit atau penambahan baru
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
@@ -216,9 +229,9 @@ const Apbd = () => {
           life: 3000,
         });
       } else {
-        // Add new data
+        // Tambah data baru
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd", // Use correct URL here
+          "https://randusanga-kulonbackend-production.up.railway.app/capbd", // Gunakan URL yang benar di sini
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -232,12 +245,12 @@ const Apbd = () => {
         });
       }
 
-      // Refresh data after successful submit
+      // Refresh data setelah berhasil submit
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/apbd"
       );
 
-      // Reset form and close the dialog
+      // Reset form dan tutup dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
