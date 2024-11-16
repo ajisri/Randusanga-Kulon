@@ -199,16 +199,23 @@ const Apbd = () => {
       dataToSend.append("file", selectedFile);
     }
 
+    // Log FormData contents for debugging
+    console.log("Data to be sent:");
+    for (let pair of dataToSend.entries()) {
+      console.log(`${pair[0]}:`, pair[1]);
+    }
+
     try {
       // Check if it's an edit operation or a new submission
       if (isEditMode) {
-        await axiosJWT.patch(
+        const response = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
+        console.log("Server Response (Edit):", response.data); // Log server response
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -217,13 +224,14 @@ const Apbd = () => {
         });
       } else {
         // Add new data
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd", // Use correct URL here
+        const response = await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
+        console.log("Server Response (New):", response.data); // Log server response
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -241,7 +249,12 @@ const Apbd = () => {
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      handleError(error); // Improved error handling
+      // Improved error handling with detailed log
+      console.error(
+        "Error occurred:",
+        error.response || error.message || error
+      );
+      handleError(error);
     }
   };
 
