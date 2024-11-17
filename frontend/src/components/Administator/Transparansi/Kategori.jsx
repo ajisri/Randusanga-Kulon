@@ -756,7 +756,6 @@ const Kategori = () => {
           </div>
         </form>
       </Dialog>
-
       <Dialog
         header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
         visible={isDialogVisible}
