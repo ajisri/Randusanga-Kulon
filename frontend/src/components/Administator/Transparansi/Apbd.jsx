@@ -199,6 +199,14 @@ const Apbd = () => {
     try {
       if (isEditMode) {
         console.log("Mengirim data untuk update (Edit Mode)...");
+        console.log("Data yang akan dikirim:", {
+          id: currentApbd.id,
+          name: formData.name,
+          year: formData.year,
+          file: selectedFile
+            ? selectedFile.name
+            : "Tidak ada file yang diunggah",
+        });
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
           formDataToSend,
