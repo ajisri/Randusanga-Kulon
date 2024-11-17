@@ -7,6 +7,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
+import { Dropdown } from "primereact/dropdown";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
@@ -23,6 +24,7 @@ const Keuangan = () => {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
   const [currentKeuangan, setCurrentKeuangan] = useState(null);
+  const [apbdOptions, setApbdOptions] = useState([]);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -58,6 +60,21 @@ const Keuangan = () => {
       setKeuanganList(keuanganData); // Gunakan keuanganData langsung
     }
   }, [keuanganData]);
+
+  const {
+    data: apbdData,
+    error: apbdError,
+    isLoading: isApbdLoading,
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/allapbd",
+    fetcher
+  );
+
+  useEffect(() => {
+    if (apbdData) {
+      setApbdOptions(apbdData); // Simpan apbdData untuk dropdown
+    }
+  }, [apbdData]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -191,8 +208,8 @@ const Keuangan = () => {
     setRows(e.rows);
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  if (isLoading || isApbdLoading) return <p>Loading...</p>;
+  if (error || apbdError) return <p>{error.message}</p>;
 
   return (
     <div>
@@ -238,6 +255,15 @@ const Keuangan = () => {
           style={{ width: "5%", minWidth: "5%" }}
         />
         <Column field="name" header="Name" />
+        <Column
+          field="apbdId"
+          header="Tahun APBD"
+          style={{ width: "10%", minWidth: "10%" }}
+          body={(rowData) => {
+            const apbd = apbdOptions.find((kw) => kw.id === rowData.apbdId);
+            return apbd ? apbd.name : "N/A";
+          }}
+        />
         <Column
           header="Actions"
           body={(rowData) => (
@@ -297,6 +323,21 @@ const Keuangan = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  required
+                  className="input-field"
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="keuanganId">Keuangan:</label>
+                <Dropdown
+                  id="apbdId"
+                  name="apbdId"
+                  optionLabel="name"
+                  optionValue="id"
+                  value={formData.keuanganId}
+                  options={apbdData}
+                  onChange={handleChange}
+                  placeholder="Select Keuangan"
                   required
                   className="input-field"
                 />
