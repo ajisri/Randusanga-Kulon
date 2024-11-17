@@ -332,9 +332,9 @@ const Keuangan = () => {
                 <Dropdown
                   id="apbdId"
                   name="apbdId"
-                  optionLabel="name"
+                  optionLabel={(option) => `${option.name} (${option.year})`}
                   optionValue="id"
-                  value={formData.keuanganId}
+                  value={formData.apbdId}
                   options={apbdData}
                   onChange={handleChange}
                   placeholder="Select Keuangan"
