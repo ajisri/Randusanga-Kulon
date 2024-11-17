@@ -361,7 +361,7 @@ const Apbd = () => {
           field="file_url"
           header="File"
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
+            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app/${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"
@@ -463,7 +463,6 @@ const Apbd = () => {
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="file_url">Upload File</label>
                 <input
