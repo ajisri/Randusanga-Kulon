@@ -260,7 +260,7 @@ const Keuangan = () => {
           style={{ width: "10%", minWidth: "10%" }}
           body={(rowData) => {
             const apbd = apbdOptions.find((kw) => kw.id === rowData.apbdId);
-            return apbd ? apbd.name : "N/A";
+            return apbd ? `${apbd.name} (${apbd.year})` : "N/A";
           }}
         />
         <Column
