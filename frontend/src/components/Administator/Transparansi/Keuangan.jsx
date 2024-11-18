@@ -17,6 +17,7 @@ const Keuangan = () => {
   const [formData, setFormData] = useState({
     uuid: "",
     name: "",
+    apbdId: "",
   });
 
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -162,9 +163,7 @@ const Keuangan = () => {
     setFormData({
       uuid: "",
       name: "",
-      amount: 0,
-      date: null,
-      description: "",
+      apbdId: "",
     });
     setEditMode(false);
     setCurrentKeuangan(null);
