@@ -256,7 +256,7 @@ const Keuangan = () => {
         <Column
           field="name"
           header="Name"
-          style={{ width: "25%", minWidth: "25%" }}
+          style={{ width: "75%", minWidth: "25%" }}
         />
         <Column
           field="apbdId"
