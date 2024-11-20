@@ -151,9 +151,10 @@ const Apbd = () => {
 
   const currentYear = new Date().getFullYear();
   const years = Array.from(
-    { length: currentYear - 2000 + 1 },
-    (_, i) => 2000 + i
+    { length: 10 }, // Membatasi hingga 10 tahun
+    (_, i) => currentYear - i // Mengurangi indeks untuk mendapatkan tahun mundur
   );
+
   const yearOptions = years.map((year) => ({
     label: year.toString(),
     value: year,
