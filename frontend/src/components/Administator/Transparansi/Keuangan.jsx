@@ -253,11 +253,15 @@ const Keuangan = () => {
           }}
           style={{ width: "5%", minWidth: "5%" }}
         />
-        <Column field="name" header="Name" />
+        <Column
+          field="name"
+          header="Name"
+          style={{ width: "25%", minWidth: "25%" }}
+        />
         <Column
           field="apbdId"
           header="Tahun APBD"
-          style={{ width: "10%", minWidth: "10%" }}
+          style={{ width: "20%", minWidth: "20%" }}
           body={(rowData) => {
             const apbd = apbdOptions.find((kw) => kw.id === rowData.apbdId);
             return apbd ? `${apbd.name} (${apbd.year})` : "N/A";
