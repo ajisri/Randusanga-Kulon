@@ -99,7 +99,7 @@ const Kategori = () => {
               name: subkategori.name || "",
               kategoriId: kategoriId,
             }))
-          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
+          : [{ name: "", kategoriId }];
       setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
@@ -602,40 +602,45 @@ const Kategori = () => {
       >
         <div>
           <form onSubmit={handleSubkategoriSubmit}>
-            {subkategoriFormData.map((item, index) => (
-              <div key={index} className="subkategori-field-container">
-                <div className="field">
-                  <label htmlFor={`subkategoriName_${index}`}>
-                    Subkategori:
-                  </label>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Button
-                      type="button"
-                      label="Hapus"
-                      className="remove-button"
-                      disabled={subkategoriFormData.length === 1}
+            {Array.isArray(subkategoriFormData) &&
+            subkategoriFormData.length > 0 ? (
+              subkategoriFormData.map((item, index) => (
+                <div key={index} className="subkategori-field-container">
+                  <div className="field">
+                    <label htmlFor={`subkategoriName_${index}`}>
+                      Subkategori:
+                    </label>
+                    <div
                       style={{
+                        display: "flex",
                         alignItems: "center",
                       }}
-                      onClick={() => removeSubkategoriField(index)}
-                    />
-                    <InputText
-                      id={`subkategoriName_${index}`}
-                      name="name"
-                      value={item.name}
-                      onChange={(e) => handleSubkategoriChange(index, e)}
-                      required
-                      className="input-field"
-                    />
+                    >
+                      <Button
+                        type="button"
+                        label="Hapus"
+                        className="remove-button"
+                        disabled={subkategoriFormData.length === 1}
+                        style={{
+                          alignItems: "center",
+                        }}
+                        onClick={() => removeSubkategoriField(index)}
+                      />
+                      <InputText
+                        id={`subkategoriName_${index}`}
+                        name="name"
+                        value={item.name}
+                        onChange={(e) => handleSubkategoriChange(index, e)}
+                        required
+                        className="input-field"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No subkategori available</p>
+            )}
             <div className="add-jabatan-container">
               {" "}
               <Button
