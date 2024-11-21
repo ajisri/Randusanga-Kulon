@@ -25,6 +25,7 @@ const Kategori = () => {
   const [budgetingFormData, setBudgetingFormData] = useState([
     { uuid: "", budget: "", realization: "", remaining: "", subkategoriId: "" },
   ]);
+  const [currentSubkategoriId, setCurrentSubkategoriId] = useState("");
   const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
   const [isConfirmVisible, setConfirmVisible] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
@@ -303,44 +304,58 @@ const Kategori = () => {
     setRows(e.rows);
   };
 
-  const handleBudgetDialogOpen = async (kategoriId) => {
+  const fetchBudgetBySubkategori = async (subkategoriId) => {
     try {
-      // Fetch subkategori by kategoriId
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
+        `https://randusanga-kulonbackend-production.up.railway.app/budgetbysubkategori/${subkategoriId}`
       );
-
-      const subkategoriData = response.data;
-
-      // Generate initial budget data per subkategori
-      const initialBudgetData = subkategoriData.map((subkategori) => ({
-        subkategoriId: subkategori.uuid,
-        subkategoriName: subkategori.name,
-        budgets: [
-          {
-            budget: "",
-            realization: "",
-            remaining: "",
-          },
-        ],
-      }));
-
-      setBudgetingFormData(initialBudgetData); // Set budgeting data
-      setCurrentKategoriId(kategoriId); // Track the kategori
-      setBudgetingDialogVisible(true); // Open dialog
+      const data =
+        response.data.length > 0
+          ? response.data.map((budget) => ({
+              budget: budget.budget || "",
+              realization: budget.realization || "",
+              remaining: budget.remaining || "",
+              subkategoriId: subkategoriId,
+            }))
+          : [{ budget: "", realization: "", remaining: "", subkategoriId }]; // Tambahkan satu form kosong jika data kosong
+      setBudgetingFormData(data);
     } catch (error) {
       handleError(error);
     }
   };
 
+  const handleBudgetDialogOpen = (subkategoriId) => {
+    setCurrentSubkategoriId(subkategoriId);
+    fetchBudgetBySubkategori(subkategoriId);
+    setBudgetingDialogVisible(true);
+  };
+
   const handleBudgetSubmit = async (e) => {
     e.preventDefault();
 
+    // Memastikan bahwa budgetingFormData adalah array dan tidak kosong
+    if (!Array.isArray(budgetingFormData) || budgetingFormData.length === 0) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Data budgeting harus berupa array dan tidak boleh kosong!",
+        life: 5000,
+      });
+      return;
+    }
+
+    console.log("Data budgeting yang dikirim ke server:", budgetingFormData); // Logging data yang akan dikirim
+
     try {
-      await axiosJWT.post(
+      // Mengirimkan budgetingFormData sebagai array ke server
+      const response = await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/cbudget-item",
-        { budgetItemsData: budgetingFormData }
+        {
+          budgetItemsData: budgetingFormData,
+        }
       );
+
+      console.log("Response dari server:", response.data); // Logging response dari server
 
       toast.current.show({
         severity: "success",
@@ -349,8 +364,13 @@ const Kategori = () => {
         life: 3000,
       });
 
-      setBudgetingDialogVisible(false);
+      // Update data budgeting setelah berhasil disimpan
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/budget-item"
+      );
+      setBudgetingDialogVisible(false); // Tutup dialog setelah penyimpanan berhasil
     } catch (error) {
+      console.error("Error saat mengirim data:", error); // Logging error
       handleError(error);
     }
   };
@@ -360,59 +380,36 @@ const Kategori = () => {
     setConfirmVisible(false);
   };
 
-  const addBudgetingField = (subIndex) => {
-    setBudgetingFormData((prev) =>
-      prev.map((subkategori, i) =>
-        i === subIndex
-          ? {
-              ...subkategori,
-              budgets: [
-                ...subkategori.budgets,
-                { budget: "", realization: "", remaining: "" },
-              ],
-            }
-          : subkategori
-      )
-    );
+  const addBudgetingField = () => {
+    setBudgetingFormData((prev) => [
+      ...prev,
+      {
+        budget: 0,
+        realization: 0,
+        remaining: 0,
+        subkategoriId: currentSubkategoriId,
+      },
+    ]);
   };
 
-  const removeBudgetingField = (subIndex, index) => {
-    setBudgetingFormData((prev) =>
-      prev.map((subkategori, i) =>
-        i === subIndex
-          ? {
-              ...subkategori,
-              budgets: subkategori.budgets.filter((_, j) => j !== index),
-            }
-          : subkategori
-      )
-    );
+  const removeBudgetingField = (index) => {
+    const newFormData = budgetingFormData.filter((_, i) => i !== index);
+    setBudgetingFormData(newFormData);
   };
 
-  const handleBudgetingChange = (subIndex, index, e) => {
-    const { name, value } = e.target;
+  const handleBudgetingChange = (index, event) => {
+    const { name, value } = event.target;
 
-    setBudgetingFormData((prev) =>
-      prev.map((subkategori, i) =>
-        i === subIndex
-          ? {
-              ...subkategori,
-              budgets: subkategori.budgets.map((budget, j) =>
-                j === index
-                  ? {
-                      ...budget,
-                      [name]: value,
-                      remaining:
-                        name === "budget"
-                          ? calculateRemaining(value, budget.realization)
-                          : calculateRemaining(budget.budget, value),
-                    }
-                  : budget
-              ),
-            }
-          : subkategori
-      )
+    if (isNaN(value) || value === "") return; // Pastikan hanya nilai angka
+
+    const updatedFormData = [...budgetingFormData];
+    updatedFormData[index][name] = parseFloat(value); // Ubah ke angka asli untuk perhitungan
+    updatedFormData[index].remaining = calculateRemaining(
+      name === "budget" ? value : updatedFormData[index].budget,
+      name === "realization" ? value : updatedFormData[index].realization
     );
+
+    setBudgetingFormData(updatedFormData);
   };
 
   const calculateRemaining = (budget, realization) => {
@@ -634,86 +631,95 @@ const Kategori = () => {
         onHide={() => setBudgetingDialogVisible(false)}
         modal
         maximizable
-        style={{ width: "70vw" }}
+        style={{ width: "70vw" }} // Increase dialog width
       >
         <form onSubmit={handleBudgetSubmit}>
-          {budgetingFormData.map((subkategori, subIndex) => (
+          {budgetingFormData.map((item, index) => (
             <div
-              key={subkategori.subkategoriId}
-              className="subkategori-section"
+              key={index}
+              className="budgeting-field-container"
+              style={{
+                display: "flex",
+                alignItems: "flex-start", // Mulai dari atas agar tombol sejajar dengan awal konten
+                borderBottom: "1px solid #ccc",
+                paddingBottom: "10px",
+                marginBottom: "10px",
+              }}
             >
-              <h4>{subkategori.subkategoriName}</h4>
-              {subkategori.budgets.map((budget, index) => (
-                <div
-                  key={index}
-                  className="budgeting-field-container"
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    borderBottom: "1px solid #ccc",
-                    paddingBottom: "10px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <Button
-                    type="button"
-                    label="Hapus"
-                    onClick={() => removeBudgetingField(subIndex, index)}
-                    className="remove-button"
-                    disabled={subkategori.budgets.length === 1}
-                    style={{
-                      marginRight: "10px",
-                    }}
-                  />
-                  <div style={{ display: "flex", flex: 3, gap: "10px" }}>
-                    <div className="field" style={{ flex: 1 }}>
-                      <label>Anggaran:</label>
-                      <InputText
-                        name="budget"
-                        value={budget.budget}
-                        onChange={(e) =>
-                          handleBudgetingChange(subIndex, index, e)
-                        }
-                        required
-                        style={{ width: "100%" }}
-                      />
-                    </div>
-                    <div className="field" style={{ flex: 1 }}>
-                      <label>Realisasi:</label>
-                      <InputText
-                        name="realization"
-                        value={budget.realization}
-                        onChange={(e) =>
-                          handleBudgetingChange(subIndex, index, e)
-                        }
-                        required
-                        style={{ width: "100%" }}
-                      />
-                    </div>
-                    <div className="field" style={{ flex: 1 }}>
-                      <label>Sisa:</label>
-                      <InputText
-                        name="remaining"
-                        value={formatRupiah(budget.remaining)}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
               <Button
                 type="button"
-                label="Tambah Budget"
-                onClick={() => addBudgetingField(subIndex)}
-                className="add-button"
+                label="Hapus"
+                onClick={() => removeBudgetingField(index)}
+                className="remove-button p-button p-component"
+                disabled={budgetingFormData.length === 1}
+                style={{
+                  marginRight: "10px",
+                  alignSelf: "center", // Tempatkan di tengah vertikal
+                  padding: "0.5rem 1rem",
+                  marginTop: "12px", // Tambahkan sedikit jarak dari atas
+                  width: "80px", // Sesuaikan lebar tombol
+                }}
               />
+              <div style={{ display: "flex", flex: 3, gap: "10px" }}>
+                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
+                  {" "}
+                  {/* Set minHeight */}
+                  <label htmlFor={`budget_${index}`}>Anggaran:</label>
+                  <InputText
+                    id={`budget_${index}`}
+                    name="budget"
+                    value={item.budget}
+                    onChange={(e) => handleBudgetingChange(index, e)}
+                    required
+                    style={{ width: "100%" }}
+                    className="input-field"
+                  />
+                </div>
+                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
+                  {" "}
+                  {/* Set minHeight */}
+                  <label htmlFor={`realization_${index}`}>Realisasi:</label>
+                  <InputText
+                    id={`realization_${index}`}
+                    name="realization"
+                    value={item.realization}
+                    onChange={(e) => handleBudgetingChange(index, e)}
+                    required
+                    style={{ width: "100%" }}
+                    className="input-field"
+                  />
+                </div>
+                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
+                  <label htmlFor={`remaining_${index}`}>Sisa:</label>
+                  <InputText
+                    id={`remaining_${index}`}
+                    name="remaining"
+                    value={formatRupiah(item.remaining)}
+                    readOnly // Set as readOnly
+                    style={{ width: "100%" }}
+                    className="input-field"
+                  />
+                </div>
+              </div>
             </div>
           ))}
-          <Button type="submit" label="Simpan" />
+          <Button
+            type="button"
+            label="Tambah"
+            className="delete-button coastal-button p-button-rounded"
+            raised
+            rounded
+            onClick={addBudgetingField}
+          />
+          <div className="button-sub">
+            <Button
+              type="submit"
+              label="Simpan"
+              className="coastal-button submit-button p-button-rounded"
+            />
+          </div>
         </form>
       </Dialog>
-
       <Dialog
         header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
         visible={isDialogVisible}
