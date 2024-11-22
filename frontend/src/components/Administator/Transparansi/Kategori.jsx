@@ -42,7 +42,12 @@ const Kategori = () => {
 
   const [kategoriList, setKategoriList] = useState([]);
   const [subkategoriFormData, setSubkategoriFormData] = useState([
-    { uuid: "", name: "", kategoriId: "" },
+    {
+      uuid: "",
+      name: "",
+      kategoriId: "",
+      budget: [{ budget: "", realization: "", remaining: "" }],
+    },
   ]);
   const [isSubkategoriDialogVisible, setSubkategoriDialogVisible] =
     useState(false);
@@ -95,13 +100,14 @@ const Kategori = () => {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
+      console.log("Data subkategori:", response.data); // Periksa data yang diterima
       const data =
         response.data.length > 0
           ? response.data.map((subkategori) => ({
               name: subkategori.name || "",
               kategoriId: kategoriId,
             }))
-          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
+          : [{ name: "", kategoriId }]; // Tambahkan form kosong jika data kosong
       setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
@@ -444,6 +450,21 @@ const Kategori = () => {
         }).format(angka);
   };
 
+  useEffect(() => {
+    // Pastikan data sudah tersedia dan terformat dengan benar
+    if (Array.isArray(subkategoriFormData)) {
+      setSubkategoriFormData(subkategoriFormData);
+    } else {
+      setSubkategoriFormData([
+        {
+          name: "",
+          kategoriId: "",
+          budget: [{ budget: "", realization: "", remaining: "" }],
+        },
+      ]);
+    }
+  }, [subkategoriFormData]);
+
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
   if (error || keuanganError) return <p>Error fetching data</p>;
 
@@ -599,78 +620,86 @@ const Kategori = () => {
         style={{ width: "70vw" }}
       >
         <form onSubmit={handleSubkategoriSubmit}>
-          {subkategoriFormData.map((item, index) => (
-            <div key={index} className="subkategori-budget-field-container">
-              {/* Subkategori Field */}
-              <div className="subkategori-field">
-                <label htmlFor={`subkategoriName_${index}`}>Subkategori:</label>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <Button
-                    type="button"
-                    label="Hapus"
-                    className="remove-button"
-                    disabled={subkategoriFormData.length === 1}
-                    style={{ alignItems: "center" }}
-                    onClick={() => removeSubkategoriField(index)}
-                  />
-                  <InputText
-                    id={`subkategoriName_${index}`}
-                    name="name"
-                    value={item.name}
-                    onChange={(e) => handleSubkategoriChange(index, e)}
-                    required
-                    className="input-field"
-                  />
-                </div>
-              </div>
-
-              {/* Budgeting Fields */}
-              <div
-                className="budgeting-fields"
-                style={{ display: "flex", gap: "20px" }}
-              >
-                {item.budget.map((budgetItem, budgetIndex) => (
-                  <div key={budgetIndex} className="field" style={{ flex: 1 }}>
-                    <label htmlFor={`budget_${index}_${budgetIndex}`}>
-                      Anggaran:
-                    </label>
-                    <InputText
-                      id={`budget_${index}_${budgetIndex}`}
-                      name="budget"
-                      value={budgetItem.budget}
-                      onChange={(e) => handleBudgetingChange(index, e)}
-                      required
-                      style={{ width: "100%" }}
-                      className="input-field"
+          {subkategoriFormData &&
+            Array.isArray(subkategoriFormData) &&
+            subkategoriFormData.map((item, index) => (
+              <div key={index} className="subkategori-budget-field-container">
+                {/* Subkategori Field */}
+                <div className="subkategori-field">
+                  <label htmlFor={`subkategoriName_${index}`}>
+                    Subkategori:
+                  </label>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Button
+                      type="button"
+                      label="Hapus"
+                      className="remove-button"
+                      disabled={subkategoriFormData.length === 1}
+                      style={{ alignItems: "center" }}
+                      onClick={() => removeSubkategoriField(index)}
                     />
-                    <label htmlFor={`realization_${index}_${budgetIndex}`}>
-                      Realisasi:
-                    </label>
                     <InputText
-                      id={`realization_${index}_${budgetIndex}`}
-                      name="realization"
-                      value={budgetItem.realization}
-                      onChange={(e) => handleBudgetingChange(index, e)}
+                      id={`subkategoriName_${index}`}
+                      name="name"
+                      value={item.name}
+                      onChange={(e) => handleSubkategoriChange(index, e)}
                       required
-                      style={{ width: "100%" }}
-                      className="input-field"
-                    />
-                    <label htmlFor={`remaining_${index}_${budgetIndex}`}>
-                      Sisa:
-                    </label>
-                    <InputText
-                      id={`remaining_${index}_${budgetIndex}`}
-                      name="remaining"
-                      value={formatRupiah(budgetItem.remaining)}
-                      readOnly
-                      style={{ width: "100%" }}
                       className="input-field"
                     />
                   </div>
-                ))}
+                </div>
+
+                {/* Budgeting Fields */}
+                <div
+                  className="budgeting-fields"
+                  style={{ display: "flex", gap: "20px" }}
+                >
+                  {item.budget.map((budgetItem, budgetIndex) => (
+                    <div
+                      key={budgetIndex}
+                      className="field"
+                      style={{ flex: 1 }}
+                    >
+                      <label htmlFor={`budget_${index}_${budgetIndex}`}>
+                        Anggaran:
+                      </label>
+                      <InputText
+                        id={`budget_${index}_${budgetIndex}`}
+                        name="budget"
+                        value={budgetItem.budget}
+                        onChange={(e) => handleBudgetingChange(index, e)}
+                        required
+                        style={{ width: "100%" }}
+                        className="input-field"
+                      />
+                      <label htmlFor={`realization_${index}_${budgetIndex}`}>
+                        Realisasi:
+                      </label>
+                      <InputText
+                        id={`realization_${index}_${budgetIndex}`}
+                        name="realization"
+                        value={budgetItem.realization}
+                        onChange={(e) => handleBudgetingChange(index, e)}
+                        required
+                        style={{ width: "100%" }}
+                        className="input-field"
+                      />
+                      <label htmlFor={`remaining_${index}_${budgetIndex}`}>
+                        Sisa:
+                      </label>
+                      <InputText
+                        id={`remaining_${index}_${budgetIndex}`}
+                        name="remaining"
+                        value={formatRupiah(budgetItem.remaining)}
+                        readOnly
+                        style={{ width: "100%" }}
+                        className="input-field"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
           {/* Add Button */}
           <div className="add-jabatan-container">
