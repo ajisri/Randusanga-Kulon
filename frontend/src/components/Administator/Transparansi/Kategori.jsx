@@ -214,23 +214,33 @@ const Kategori = () => {
     }
 
     // Pastikan setiap subkategori memiliki budgetItems dan total yang benar
-    const formattedSubkategoriData = subkategoriFormData.map((item) => ({
-      kategoriId: item.kategoriId,
-      name: item.name,
-      budgetItems: item.budgetItems || [], // pastikan budgetItems ada
-      totalBudget: item.budgetItems.reduce(
+    const formattedSubkategoriData = subkategoriFormData.map((item) => {
+      // Pastikan budgetItems adalah array
+      const budgetItems = item.budgetItems || [];
+
+      // Hitung total budget, realization, dan remaining jika budgetItems ada
+      const totalBudget = budgetItems.reduce(
         (sum, budgetItem) => sum + parseFloat(budgetItem.budget || 0),
         0
-      ), // menghitung total budget
-      totalRealization: item.budgetItems.reduce(
+      );
+      const totalRealization = budgetItems.reduce(
         (sum, budgetItem) => sum + parseFloat(budgetItem.realization || 0),
         0
-      ), // menghitung total realisasi
-      remaining: item.budgetItems.reduce(
+      );
+      const remaining = budgetItems.reduce(
         (sum, budgetItem) => sum + parseFloat(budgetItem.remaining || 0),
         0
-      ), // menghitung sisa
-    }));
+      );
+
+      return {
+        kategoriId: item.kategoriId,
+        name: item.name,
+        budgetItems: budgetItems,
+        totalBudget: totalBudget,
+        totalRealization: totalRealization,
+        remaining: remaining,
+      };
+    });
 
     console.log("Data yang dikirim ke server:", formattedSubkategoriData); // Logging data yang akan dikirim
 
@@ -652,7 +662,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={formatRupiah(item.remaining)}
+                    value={item.budget - item.realization}
                     readOnly
                     style={{ width: "100%" }}
                     className="input-field"
