@@ -49,6 +49,7 @@ const Kategori = () => {
       budget: [{ budget: "", realization: "", remaining: "" }],
     },
   ]);
+
   const [isSubkategoriDialogVisible, setSubkategoriDialogVisible] =
     useState(false);
 
@@ -100,14 +101,14 @@ const Kategori = () => {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
-      console.log("Data subkategori:", response.data); // Periksa data yang diterima
+      console.log("Response subkategori:", response.data); // Cek data yang diterima
       const data =
         response.data.length > 0
           ? response.data.map((subkategori) => ({
               name: subkategori.name || "",
               kategoriId: kategoriId,
             }))
-          : [{ name: "", kategoriId }]; // Tambahkan form kosong jika data kosong
+          : [{ name: "", kategoriId }]; // Atur data kosong jika tidak ada data
       setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
@@ -286,16 +287,23 @@ const Kategori = () => {
     }
   };
 
+  const addBudgetItem = (index) => {
+    const updatedSubkategoriFormData = [...subkategoriFormData];
+    updatedSubkategoriFormData[index].budgetItems.push({
+      budget: "",
+      realization: "",
+      remaining: "",
+    });
+    setSubkategoriFormData(updatedSubkategoriFormData);
+  };
+
   const addSubkategoriField = () => {
-    // Tambahkan field baru untuk subkategori dan budget
-    setSubkategoriFormData((prev) => [
-      ...prev,
+    setSubkategoriFormData([
+      ...subkategoriFormData,
       {
         name: "",
-        kategoriId: currentKategoriId, // memastikan subkategori memiliki kategoriId yang tepat
-        budget: [
-          { budget: "", realization: "", remaining: "" }, // Default budget
-        ],
+        kategoriId: "",
+        budgetItems: [{ budget: "", realization: "", remaining: "" }],
       },
     ]);
   };
@@ -306,13 +314,16 @@ const Kategori = () => {
     setSubkategoriFormData(newFormData);
   };
 
-  const handleSubkategoriChange = (index, event) => {
-    const { name, value } = event.target;
-    setSubkategoriFormData((prevData) => {
-      const updatedData = [...prevData];
-      updatedData[index][name] = value; // Update nama subkategori
-      return updatedData;
-    });
+  const handleSubkategoriChange = (index, field, value) => {
+    const updatedSubkategoriFormData = [...subkategoriFormData];
+    updatedSubkategoriFormData[index][field] = value;
+    setSubkategoriFormData(updatedSubkategoriFormData);
+  };
+
+  const handleBudgetItemChange = (subIndex, itemIndex, field, value) => {
+    const updatedSubkategoriFormData = [...subkategoriFormData];
+    updatedSubkategoriFormData[subIndex].budgetItems[itemIndex][field] = value;
+    setSubkategoriFormData(updatedSubkategoriFormData);
   };
 
   const handlePageChange = (e) => {
@@ -463,6 +474,10 @@ const Kategori = () => {
         },
       ]);
     }
+  }, [subkategoriFormData]);
+
+  useEffect(() => {
+    console.log("Subkategori Form Data:", subkategoriFormData); // Debugging
   }, [subkategoriFormData]);
 
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
@@ -620,9 +635,8 @@ const Kategori = () => {
         style={{ width: "70vw" }}
       >
         <form onSubmit={handleSubkategoriSubmit}>
-          {subkategoriFormData &&
-            Array.isArray(subkategoriFormData) &&
-            subkategoriFormData.map((item, index) => (
+          {Array.isArray(subkategoriFormData) &&
+            subkategoriFormData.map((subkategori, index) => (
               <div key={index} className="subkategori-budget-field-container">
                 {/* Subkategori Field */}
                 <div className="subkategori-field">
@@ -641,8 +655,10 @@ const Kategori = () => {
                     <InputText
                       id={`subkategoriName_${index}`}
                       name="name"
-                      value={item.name}
-                      onChange={(e) => handleSubkategoriChange(index, e)}
+                      value={subkategori.name}
+                      onChange={(e) =>
+                        handleSubkategoriChange(index, "name", e.target.value)
+                      }
                       required
                       className="input-field"
                     />
@@ -654,41 +670,51 @@ const Kategori = () => {
                   className="budgeting-fields"
                   style={{ display: "flex", gap: "20px" }}
                 >
-                  {item.budget.map((budgetItem, budgetIndex) => (
-                    <div
-                      key={budgetIndex}
-                      className="field"
-                      style={{ flex: 1 }}
-                    >
-                      <label htmlFor={`budget_${index}_${budgetIndex}`}>
+                  {subkategori.budgetItems.map((budgetItem, itemIndex) => (
+                    <div key={itemIndex} className="field" style={{ flex: 1 }}>
+                      <label htmlFor={`budget_${index}_${itemIndex}`}>
                         Anggaran:
                       </label>
                       <InputText
-                        id={`budget_${index}_${budgetIndex}`}
+                        id={`budget_${index}_${itemIndex}`}
                         name="budget"
                         value={budgetItem.budget}
-                        onChange={(e) => handleBudgetingChange(index, e)}
+                        onChange={(e) =>
+                          handleBudgetingChange(
+                            index,
+                            itemIndex,
+                            "budget",
+                            e.target.value
+                          )
+                        }
                         required
                         style={{ width: "100%" }}
                         className="input-field"
                       />
-                      <label htmlFor={`realization_${index}_${budgetIndex}`}>
+                      <label htmlFor={`realization_${index}_${itemIndex}`}>
                         Realisasi:
                       </label>
                       <InputText
-                        id={`realization_${index}_${budgetIndex}`}
+                        id={`realization_${index}_${itemIndex}`}
                         name="realization"
                         value={budgetItem.realization}
-                        onChange={(e) => handleBudgetingChange(index, e)}
+                        onChange={(e) =>
+                          handleBudgetingChange(
+                            index,
+                            itemIndex,
+                            "realization",
+                            e.target.value
+                          )
+                        }
                         required
                         style={{ width: "100%" }}
                         className="input-field"
                       />
-                      <label htmlFor={`remaining_${index}_${budgetIndex}`}>
+                      <label htmlFor={`remaining_${index}_${itemIndex}`}>
                         Sisa:
                       </label>
                       <InputText
-                        id={`remaining_${index}_${budgetIndex}`}
+                        id={`remaining_${index}_${itemIndex}`}
                         name="remaining"
                         value={formatRupiah(budgetItem.remaining)}
                         readOnly
@@ -700,6 +726,9 @@ const Kategori = () => {
                 </div>
               </div>
             ))}
+          {subkategoriFormData.length === 0 && (
+            <p>Data subkategori kosong atau belum dimuat</p> // Menampilkan pesan jika data kosong
+          )}
 
           {/* Add Button */}
           <div className="add-jabatan-container">
