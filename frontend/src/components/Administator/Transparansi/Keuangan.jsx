@@ -212,7 +212,7 @@ const Keuangan = () => {
 
   return (
     <div>
-      <h1 className="keuangan-header">Keuangan</h1>
+      <h1 className="keuangan-header">Kategori</h1>
       <Toast ref={toast} />
       <DataTable
         value={keuanganList}

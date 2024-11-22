@@ -281,22 +281,32 @@ const Kategori = () => {
   };
 
   const addSubkategoriField = () => {
+    // Tambahkan field baru untuk subkategori dan budget
     setSubkategoriFormData((prev) => [
       ...prev,
-      { name: "", kategoriId: currentKategoriId },
+      {
+        name: "",
+        kategoriId: currentKategoriId, // memastikan subkategori memiliki kategoriId yang tepat
+        budget: [
+          { budget: "", realization: "", remaining: "" }, // Default budget
+        ],
+      },
     ]);
   };
 
   const removeSubkategoriField = (index) => {
+    // Hapus subkategori dan budget yang terkait dengan index
     const newFormData = subkategoriFormData.filter((_, i) => i !== index);
     setSubkategoriFormData(newFormData);
   };
 
-  const handleSubkategoriChange = (index, e) => {
-    const { name, value } = e.target;
-    const newFormData = [...subkategoriFormData];
-    newFormData[index][name] = value;
-    setSubkategoriFormData(newFormData);
+  const handleSubkategoriChange = (index, event) => {
+    const { name, value } = event.target;
+    setSubkategoriFormData((prevData) => {
+      const updatedData = [...prevData];
+      updatedData[index][name] = value; // Update nama subkategori
+      return updatedData;
+    });
   };
 
   const handlePageChange = (e) => {
@@ -402,14 +412,23 @@ const Kategori = () => {
 
     if (isNaN(value) || value === "") return; // Pastikan hanya nilai angka
 
-    const updatedFormData = [...budgetingFormData];
-    updatedFormData[index][name] = parseFloat(value); // Ubah ke angka asli untuk perhitungan
-    updatedFormData[index].remaining = calculateRemaining(
-      name === "budget" ? value : updatedFormData[index].budget,
-      name === "realization" ? value : updatedFormData[index].realization
+    const updatedFormData = [...subkategoriFormData];
+    updatedFormData[index].budget = updatedFormData[index].budget.map(
+      (budgetItem) => {
+        if (budgetItem.name === name) {
+          return { ...budgetItem, [name]: parseFloat(value) };
+        }
+        return budgetItem;
+      }
     );
 
-    setBudgetingFormData(updatedFormData);
+    // Update remaining field based on changes to budget or realization
+    updatedFormData[index].budget.remaining = calculateRemaining(
+      updatedFormData[index].budget.budget,
+      updatedFormData[index].budget.realization
+    );
+
+    setSubkategoriFormData(updatedFormData); // Update form state
   };
 
   const calculateRemaining = (budget, realization) => {
@@ -503,7 +522,13 @@ const Kategori = () => {
                 onClick={() => {
                   handleSubkategoriDialogOpen(rowData.uuid);
                   setSubkategoriFormData([
-                    { name: "", kategoriId: rowData.uuid },
+                    {
+                      name: "",
+                      kategoriId: rowData.uuid,
+                      budget: [
+                        { budget: "", realization: "", remaining: "" }, // Default budget
+                      ],
+                    },
                   ]);
                   setSubkategoriDialogVisible(true);
                 }}
@@ -565,7 +590,7 @@ const Kategori = () => {
         reject={() => setConfirmVisible(false)}
       />
       <Dialog
-        header="Tambah Subkategori"
+        header="Tambah Subkategori dan Budget"
         visible={isSubkategoriDialogVisible}
         onHide={() => setSubkategoriDialogVisible(false)}
         dismissableMask={true}
@@ -573,58 +598,103 @@ const Kategori = () => {
         maximizable
         style={{ width: "70vw" }}
       >
-        <div>
-          <form onSubmit={handleSubkategoriSubmit}>
-            {subkategoriFormData.map((item, index) => (
-              <div key={index} className="subkategori-field-container">
-                <div className="field">
-                  <label htmlFor={`subkategoriName_${index}`}>
-                    Subkategori:
-                  </label>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Button
-                      type="button"
-                      label="Hapus"
-                      className="remove-button"
-                      disabled={subkategoriFormData.length === 1}
-                      style={{
-                        alignItems: "center",
-                      }}
-                      onClick={() => removeSubkategoriField(index)}
-                    />
+        <form onSubmit={handleSubkategoriSubmit}>
+          {subkategoriFormData.map((item, index) => (
+            <div key={index} className="subkategori-budget-field-container">
+              {/* Subkategori Field */}
+              <div className="subkategori-field">
+                <label htmlFor={`subkategoriName_${index}`}>Subkategori:</label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Button
+                    type="button"
+                    label="Hapus"
+                    className="remove-button"
+                    disabled={subkategoriFormData.length === 1}
+                    style={{ alignItems: "center" }}
+                    onClick={() => removeSubkategoriField(index)}
+                  />
+                  <InputText
+                    id={`subkategoriName_${index}`}
+                    name="name"
+                    value={item.name}
+                    onChange={(e) => handleSubkategoriChange(index, e)}
+                    required
+                    className="input-field"
+                  />
+                </div>
+              </div>
+
+              {/* Budgeting Fields */}
+              <div
+                className="budgeting-fields"
+                style={{ display: "flex", gap: "20px" }}
+              >
+                {item.budget.map((budgetItem, budgetIndex) => (
+                  <div key={budgetIndex} className="field" style={{ flex: 1 }}>
+                    <label htmlFor={`budget_${index}_${budgetIndex}`}>
+                      Anggaran:
+                    </label>
                     <InputText
-                      id={`subkategoriName_${index}`}
-                      name="name"
-                      value={item.name}
-                      onChange={(e) => handleSubkategoriChange(index, e)}
+                      id={`budget_${index}_${budgetIndex}`}
+                      name="budget"
+                      value={budgetItem.budget}
+                      onChange={(e) => handleBudgetingChange(index, e)}
                       required
+                      style={{ width: "100%" }}
+                      className="input-field"
+                    />
+                    <label htmlFor={`realization_${index}_${budgetIndex}`}>
+                      Realisasi:
+                    </label>
+                    <InputText
+                      id={`realization_${index}_${budgetIndex}`}
+                      name="realization"
+                      value={budgetItem.realization}
+                      onChange={(e) => handleBudgetingChange(index, e)}
+                      required
+                      style={{ width: "100%" }}
+                      className="input-field"
+                    />
+                    <label htmlFor={`remaining_${index}_${budgetIndex}`}>
+                      Sisa:
+                    </label>
+                    <InputText
+                      id={`remaining_${index}_${budgetIndex}`}
+                      name="remaining"
+                      value={formatRupiah(budgetItem.remaining)}
+                      readOnly
+                      style={{ width: "100%" }}
                       className="input-field"
                     />
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-            <div className="add-jabatan-container">
-              {" "}
-              <Button
-                type="button"
-                label="Tambah"
-                className="delete-button coastal-button p-button-rounded"
-                raised
-                rounded
-                icon="pi pi-plus"
-                onClick={addSubkategoriField}
-              />
             </div>
-            <Button type="submit" label="Simpan" />
-          </form>
-        </div>
+          ))}
+
+          {/* Add Button */}
+          <div className="add-jabatan-container">
+            <Button
+              type="button"
+              label="Tambah"
+              className="delete-button coastal-button p-button-rounded"
+              raised
+              rounded
+              icon="pi pi-plus"
+              onClick={addSubkategoriField}
+            />
+          </div>
+
+          <div className="button-sub">
+            <Button
+              type="submit"
+              label="Simpan"
+              className="coastal-button submit-button p-button-rounded"
+            />
+          </div>
+        </form>
       </Dialog>
+
       <Dialog
         header="Budgeting"
         visible={isBudgetingDialogVisible}
