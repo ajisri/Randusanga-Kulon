@@ -232,6 +232,12 @@ const Kategori = () => {
       return;
     }
 
+    // Log data sebelum diformat
+    console.log(
+      "Data subkategoriFormData sebelum diformat:",
+      subkategoriFormData
+    );
+
     // Format data yang akan dikirim
     const formattedSubkategoriData = subkategoriFormData.map((item) => {
       const budgetItems = item.budgetItems || [];
@@ -249,6 +255,17 @@ const Kategori = () => {
         0
       );
 
+      // Log data setelah diformat
+      console.log("Item setelah diformat:", {
+        uuid: item.uuid || null,
+        kategoriId: item.kategoriId,
+        name: item.name,
+        budgetItems: budgetItems,
+        totalBudget: totalBudget,
+        totalRealization: totalRealization,
+        remaining: remaining,
+      });
+
       return {
         uuid: item.uuid || null, // Gunakan UUID jika tersedia
         kategoriId: item.kategoriId,
@@ -261,6 +278,9 @@ const Kategori = () => {
     });
 
     try {
+      // Log data yang akan dikirim ke backend
+      console.log("Data yang dikirim ke backend:", formattedSubkategoriData);
+
       // Kirim data ke backend
       await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
