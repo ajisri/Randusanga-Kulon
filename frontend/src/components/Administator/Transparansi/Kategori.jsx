@@ -239,8 +239,19 @@ const Kategori = () => {
     );
 
     // Format data yang akan dikirim
-    const formattedSubkategoriData = subkategoriFormData.map((item) => {
+    const formattedSubkategoriData = subkategoriFormData.map((item, index) => {
       const budgetItems = item.budgetItems || [];
+
+      // Log detail per form subkategori yang diisi
+      console.log(
+        `DEBUG: Form Subkategori ke-${index + 1} diisi dengan data berikut:`,
+        {
+          uuid: item.uuid || null,
+          kategoriId: item.kategoriId,
+          name: item.name,
+          budgetItems: budgetItems,
+        }
+      );
 
       // Log data budgetItems sebelum penghitungan
       console.log(
