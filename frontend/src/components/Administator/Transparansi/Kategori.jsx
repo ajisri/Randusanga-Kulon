@@ -215,7 +215,7 @@ const Kategori = () => {
   const handleSubkategoriSubmit = async (e) => {
     e.preventDefault();
 
-    // Memastikan bahwa subkategoriFormData adalah array dan tidak kosong
+    // Validasi input data
     if (
       !Array.isArray(subkategoriFormData) ||
       subkategoriFormData.length === 0
@@ -229,32 +229,60 @@ const Kategori = () => {
       return;
     }
 
-    console.log("Data yang dikirim ke server:", subkategoriFormData); // Logging data yang akan dikirim
+    // Format data yang akan dikirim
+    const formattedSubkategoriData = subkategoriFormData.map((item) => {
+      const budgetItems = item.budgetItems || [];
 
-    try {
-      // Mengirimkan subkategoriFormData sebagai array ke server
-      const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
-        {
-          subkategoriData: subkategoriFormData,
-        }
+      const totalBudget = budgetItems.reduce(
+        (sum, budgetItem) => sum + parseFloat(budgetItem.budget || 0),
+        0
+      );
+      const totalRealization = budgetItems.reduce(
+        (sum, budgetItem) => sum + parseFloat(budgetItem.realization || 0),
+        0
+      );
+      const remaining = budgetItems.reduce(
+        (sum, budgetItem) => sum + parseFloat(budgetItem.remaining || 0),
+        0
       );
 
-      console.log("Response dari server:", response.data); // Logging response dari server
+      return {
+        uuid: item.uuid || null,
+        kategoriId: item.kategoriId,
+        name: item.name,
+        budgetItems: budgetItems,
+        totalBudget: totalBudget,
+        totalRealization: totalRealization,
+        remaining: remaining,
+      };
+    });
 
+    try {
+      // Kirim data ke backend
+      await axiosJWT.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
+        { subkategoriData: formattedSubkategoriData }
+      );
+
+      // Tampilkan notifikasi sukses
       toast.current.show({
         severity: "success",
         summary: "Success",
-        detail: "Subkategori saved successfully!",
+        detail: "Subkategori berhasil disimpan!",
         life: 3000,
       });
+
+      // Mutasi data dan refresh state terkait
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
       );
+
+      // Tutup dialog setelah sukses
       setSubkategoriDialogVisible(false);
     } catch (error) {
-      console.error("Error saat mengirim data:", error); // Logging error
-      handleError(error);
+      // Tangani error dengan lebih informatif
+      console.error("Error saat mengirim data:", error);
+      handleError(error); // Pastikan `handleError` menangani berbagai jenis error dengan baik
     }
   };
 
@@ -292,8 +320,11 @@ const Kategori = () => {
           ? response.data.map((subkategori) => ({
               name: subkategori.name || "",
               kategoriId: kategoriId,
+              budget: 0, // Misalkan Anda ingin memasukkan nilai budget default
+              realization: 0,
+              remaining: 0, // Nilai default
             }))
-          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
+          : [{ name: "", kategoriId, budget: 0, realization: 0, remaining: 0 }];
       setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
@@ -585,11 +616,14 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={formatRupiah(item.remaining)}
+                    value={item.remaining}
                     readOnly
                     style={{ width: "100%" }}
                     className="input-field"
                   />
+                  <div className="formatted-remaining">
+                    {formatRupiah(item.remaining)}{" "}
+                  </div>
                 </div>
               </div>
             </div>
