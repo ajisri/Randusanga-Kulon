@@ -320,11 +320,8 @@ const Kategori = () => {
           ? response.data.map((subkategori) => ({
               name: subkategori.name || "",
               kategoriId: kategoriId,
-              budget: 0, // Misalkan Anda ingin memasukkan nilai budget default
-              realization: 0,
-              remaining: 0, // Nilai default
             }))
-          : [{ name: "", kategoriId, budget: 0, realization: 0, remaining: 0 }];
+          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
       setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
