@@ -42,7 +42,12 @@ const Kategori = () => {
 
   const [kategoriList, setKategoriList] = useState([]);
   const [subkategoriFormData, setSubkategoriFormData] = useState([
-    { uuid: "", name: "", kategoriId: "" },
+    {
+      uuid: "",
+      name: "",
+      budgetItems: [{ budget: 0, realization: 0, remaining: 0 }],
+      kategoriId: "",
+    },
   ]);
   const [isSubkategoriDialogVisible, setSubkategoriDialogVisible] =
     useState(false);
@@ -95,13 +100,31 @@ const Kategori = () => {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
+
       const data =
         response.data.length > 0
           ? response.data.map((subkategori) => ({
+              uuid: subkategori.uuid || "",
               name: subkategori.name || "",
               kategoriId: kategoriId,
+              budgetItems: subkategori.budgetItems.length
+                ? subkategori.budgetItems.map((item) => ({
+                    uuid: item.uuid || "",
+                    budget: item.budget || 0,
+                    realization: item.realization || 0,
+                    remaining: item.remaining || 0,
+                  }))
+                : [{ budget: 0, realization: 0, remaining: 0 }],
             }))
-          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
+          : [
+              {
+                uuid: "",
+                name: "",
+                budgetItems: [{ budget: 0, realization: 0, remaining: 0 }],
+                kategoriId,
+              },
+            ];
+
       setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
@@ -199,7 +222,7 @@ const Kategori = () => {
   const handleSubkategoriSubmit = async (e) => {
     e.preventDefault();
 
-    // Memastikan bahwa subkategoriFormData adalah array dan tidak kosong
+    // Validasi data form
     if (
       !Array.isArray(subkategoriFormData) ||
       subkategoriFormData.length === 0
@@ -213,12 +236,10 @@ const Kategori = () => {
       return;
     }
 
-    // Pastikan setiap subkategori memiliki budgetItems dan total yang benar
+    // Format data sebelum dikirim
     const formattedSubkategoriData = subkategoriFormData.map((item) => {
-      // Pastikan budgetItems adalah array
       const budgetItems = item.budgetItems || [];
 
-      // Hitung total budget, realization, dan remaining jika budgetItems ada
       const totalBudget = budgetItems.reduce(
         (sum, budgetItem) => sum + parseFloat(budgetItem.budget || 0),
         0
@@ -233,6 +254,7 @@ const Kategori = () => {
       );
 
       return {
+        uuid: item.uuid || null,
         kategoriId: item.kategoriId,
         name: item.name,
         budgetItems: budgetItems,
@@ -242,31 +264,30 @@ const Kategori = () => {
       };
     });
 
-    console.log("Data yang dikirim ke server:", formattedSubkategoriData); // Logging data yang akan dikirim
-
+    // Kirim data ke backend
     try {
-      // Mengirimkan subkategoriFormData sebagai array ke server
-      const response = await axiosJWT.post(
+      await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
-        {
-          subkategoriData: formattedSubkategoriData,
-        }
+        { subkategoriData: formattedSubkategoriData }
       );
 
-      console.log("Response dari server:", response.data); // Logging response dari server
-
+      // Tampilkan notifikasi sukses
       toast.current.show({
         severity: "success",
         summary: "Success",
-        detail: "Subkategori saved successfully!",
+        detail: "Subkategori berhasil disimpan!",
         life: 3000,
       });
+
+      // Refresh data setelah submit berhasil
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
       );
+
+      // Tutup dialog setelah data berhasil disimpan
       setSubkategoriDialogVisible(false);
     } catch (error) {
-      console.error("Error saat mengirim data:", error); // Logging error
+      console.error("Error saat mengirim data:", error);
       handleError(error);
     }
   };
