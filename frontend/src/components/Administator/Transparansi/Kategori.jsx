@@ -447,26 +447,34 @@ const Kategori = () => {
     setBudgetingFormData(newFormData);
   };
 
-  const handleBudgetingChange = (index, field, value) => {
+  const handleBudgetingChange = (index, field, rawValue) => {
     // Salin data dari state
     const updatedFormData = [...budgetingFormData];
 
-    // Validasi angka hanya pada budget dan realization
-    if (field === "budget" || field === "realization") {
-      const parsedValue = value === "" ? "" : parseFloat(value); // Pastikan nilai angka atau kosong
-      if (isNaN(parsedValue) && value !== "") return; // Abaikan jika bukan angka valid
-      updatedFormData[index][field] = parsedValue; // Perbarui nilai field
-    } else {
-      updatedFormData[index][field] = value; // Update field lain seperti name
+    // Periksa apakah nilai kosong (pengguna menghapus input)
+    const value = rawValue === "" ? "" : parseFloat(rawValue);
+
+    // Validasi angka hanya untuk budget dan realization
+    if (
+      (field === "budget" || field === "realization") &&
+      isNaN(value) &&
+      rawValue !== ""
+    ) {
+      return; // Abaikan jika input bukan angka valid dan bukan kosong
     }
 
-    // Hitung kembali nilai remaining
-    updatedFormData[index].remaining = calculateRemaining(
-      updatedFormData[index].budget || 0,
-      updatedFormData[index].realization || 0
-    );
+    // Perbarui nilai sesuai field
+    updatedFormData[index][field] = value;
 
-    // Simpan ke state
+    // Hitung ulang remaining jika field adalah budget atau realization
+    if (field === "budget" || field === "realization") {
+      updatedFormData[index].remaining = calculateRemaining(
+        updatedFormData[index].budget || 0,
+        updatedFormData[index].realization || 0
+      );
+    }
+
+    // Perbarui state
     setBudgetingFormData(updatedFormData);
   };
 
@@ -670,12 +678,13 @@ const Kategori = () => {
                 className="budgeting-fields"
                 style={{ display: "flex", gap: "20px" }}
               >
+                {/* Input untuk Anggaran */}
                 <div className="field" style={{ flex: 1 }}>
                   <label htmlFor={`budget_${index}`}>Anggaran:</label>
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget || ""} // Pastikan nilai selalu string
+                    value={item.budget || ""} // Pastikan nilai kosong di-handle
                     onChange={(e) =>
                       handleBudgetingChange(
                         index,
@@ -683,24 +692,19 @@ const Kategori = () => {
                         e.target.value
                       )
                     }
-                    onBlur={(e) =>
-                      handleBudgetingChange(
-                        index,
-                        e.target.name,
-                        e.target.value
-                      )
-                    } // Validasi saat blur
                     required
                     style={{ width: "100%" }}
                     className="input-field"
                   />
                 </div>
+
+                {/* Input untuk Realisasi */}
                 <div className="field" style={{ flex: 1 }}>
                   <label htmlFor={`realization_${index}`}>Realisasi:</label>
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization || ""}
+                    value={item.realization || ""} // Pastikan nilai kosong di-handle
                     onChange={(e) =>
                       handleBudgetingChange(
                         index,
@@ -708,18 +712,13 @@ const Kategori = () => {
                         e.target.value
                       )
                     }
-                    onBlur={(e) =>
-                      handleBudgetingChange(
-                        index,
-                        e.target.name,
-                        e.target.value
-                      )
-                    } // Validasi saat blur
                     required
                     style={{ width: "100%" }}
                     className="input-field"
                   />
                 </div>
+
+                {/* Input untuk Sisa */}
                 <div className="field" style={{ flex: 1 }}>
                   <label htmlFor={`remaining_${index}`}>Sisa:</label>
                   <InputText
