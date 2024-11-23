@@ -250,7 +250,7 @@ const Kategori = () => {
       );
 
       return {
-        uuid: item.uuid || null,
+        uuid: item.uuid || null, // Gunakan UUID jika tersedia
         kategoriId: item.kategoriId,
         name: item.name,
         budgetItems: budgetItems,
@@ -293,7 +293,7 @@ const Kategori = () => {
     setSubkategoriFormData([
       ...subkategoriFormData,
       {
-        uuid: "",
+        uuid: null,
         name: "",
         kategoriId: currentKategoriId,
         budget: 0,
@@ -343,23 +343,29 @@ const Kategori = () => {
       const data =
         response.data.length > 0
           ? response.data.map((subkategori) => ({
+              uuid: subkategori.uuid || null, // Pastikan UUID dikaitkan
               name: subkategori.name || "",
               kategoriId: kategoriId,
-              budget: subkategori.budget || 0, // Nilai default jika tidak ada
+              budget: subkategori.budget || 0,
               realization: subkategori.realization || 0,
-              remaining: subkategori.remaining || 0, // Nilai default jika tidak ada
+              remaining: subkategori.remaining || 0,
             }))
-          : [{ name: "", kategoriId, budget: 0, realization: 0, remaining: 0 }]; // Nilai default jika data kosong
+          : [
+              {
+                uuid: null,
+                name: "",
+                kategoriId,
+                budget: 0,
+                realization: 0,
+                remaining: 0,
+              },
+            ]; // UUID tetap null untuk data baru
 
       setSubkategoriFormData(data); // Memperbarui state form
     } catch (error) {
       handleError(error); // Menangani error
     }
   };
-
-  // const calculateRemaining = (budget, realization) => {
-  //   return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
-  // };
 
   const formatRupiah = (angka) => {
     return isNaN(angka) || angka === ""
