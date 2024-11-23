@@ -300,14 +300,9 @@ const Kategori = () => {
 
   const handleSubkategoriChange = (index, e) => {
     const { name, value } = e.target;
-
-    const updatedSubkategoriFormData = [...subkategoriFormData]; // Membuat salinan data form
-    updatedSubkategoriFormData[index] = {
-      ...updatedSubkategoriFormData[index],
-      [name]: value, // Memperbarui nilai berdasarkan nama field (name, budget, realization)
-    };
-
-    setSubkategoriFormData(updatedSubkategoriFormData); // Memperbarui state form
+    const newFormData = [...subkategoriFormData];
+    newFormData[index][name] = value;
+    setSubkategoriFormData(newFormData);
   };
 
   const handlePageChange = (e) => {
