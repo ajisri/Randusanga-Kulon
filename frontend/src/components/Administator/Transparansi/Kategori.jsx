@@ -380,6 +380,7 @@ const Kategori = () => {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
+      console.log("Data yang diterima dari API:", response.data);
       const data =
         response.data.length > 0
           ? response.data.map((subkategori) => ({
