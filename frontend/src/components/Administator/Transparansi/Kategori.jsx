@@ -666,8 +666,8 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget || ""} // Pastikan nilai default jika kosong
-                    onChange={(e) => handleBudgetingChange(index, e)}
+                    value={item.budget || ""} // Jika kosong, pastikan dapat diubah
+                    onChange={(e) => handleBudgetingChange(index, e)} // Perbarui state ketika diketik
                     required
                     style={{ width: "100%" }}
                     className="input-field"
@@ -678,8 +678,8 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization || ""} // Pastikan nilai default jika kosong
-                    onChange={(e) => handleBudgetingChange(index, e)}
+                    value={item.realization || ""} // Jika kosong, pastikan dapat diubah
+                    onChange={(e) => handleBudgetingChange(index, e)} // Perbarui state ketika diketik
                     required
                     style={{ width: "100%" }}
                     className="input-field"
@@ -690,7 +690,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={item.remaining || ""} // Pastikan nilai default jika kosong
+                    value={item.remaining || ""} // Nilai ini dibaca otomatis, tidak bisa diubah
                     readOnly
                     style={{ width: "100%" }}
                     className="input-field"
