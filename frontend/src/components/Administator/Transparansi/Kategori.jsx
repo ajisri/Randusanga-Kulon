@@ -342,12 +342,36 @@ const Kategori = () => {
     setSubkategoriFormData(newFormData);
   };
 
-  // const handleSubkategoriChange = (index, e) => {
-  //   const { name, value } = e.target;
-  //   const newFormData = [...subkategoriFormData];
-  //   newFormData[index][name] = value;
-  //   setSubkategoriFormData(newFormData);
-  // };
+  const handleSubkategoriChange = (subkategoriIndex, budgetItemIndex, e) => {
+    const { name, value } = e.target;
+
+    // Salin data form
+    const newFormData = [...subkategoriFormData];
+
+    // Pastikan hanya angka yang valid untuk budget atau realization
+    if (
+      (name === "budget" || name === "realization") &&
+      isNaN(value) &&
+      value !== ""
+    ) {
+      return;
+    }
+
+    // Perbarui nilai field dalam budgetItems
+    const budgetItems = newFormData[subkategoriIndex].budgetItems;
+    budgetItems[budgetItemIndex][name] = value === "" ? "" : parseFloat(value);
+
+    // Hitung ulang remaining jika budget atau realization diubah
+    if (name === "budget" || name === "realization") {
+      const budget = parseFloat(budgetItems[budgetItemIndex].budget) || 0;
+      const realization =
+        parseFloat(budgetItems[budgetItemIndex].realization) || 0;
+      budgetItems[budgetItemIndex].remaining = budget - realization;
+    }
+
+    // Simpan kembali data yang sudah diubah ke state
+    setSubkategoriFormData(newFormData);
+  };
 
   const handlePageChange = (e) => {
     setFirst(e.first);
@@ -447,34 +471,26 @@ const Kategori = () => {
     setBudgetingFormData(newFormData);
   };
 
-  const handleBudgetingChange = (index, field, rawValue) => {
+  const handleBudgetingChange = (index, field, value) => {
     // Salin data dari state
     const updatedFormData = [...budgetingFormData];
 
-    // Periksa apakah nilai kosong (pengguna menghapus input)
-    const value = rawValue === "" ? "" : parseFloat(rawValue);
-
-    // Validasi angka hanya untuk budget dan realization
-    if (
-      (field === "budget" || field === "realization") &&
-      isNaN(value) &&
-      rawValue !== ""
-    ) {
-      return; // Abaikan jika input bukan angka valid dan bukan kosong
-    }
-
-    // Perbarui nilai sesuai field
-    updatedFormData[index][field] = value;
-
-    // Hitung ulang remaining jika field adalah budget atau realization
+    // Validasi angka hanya pada budget dan realization
     if (field === "budget" || field === "realization") {
-      updatedFormData[index].remaining = calculateRemaining(
-        updatedFormData[index].budget || 0,
-        updatedFormData[index].realization || 0
-      );
+      const parsedValue = value === "" ? "" : parseFloat(value); // Pastikan nilai angka atau kosong
+      if (isNaN(parsedValue) && value !== "") return; // Abaikan jika bukan angka valid
+      updatedFormData[index][field] = parsedValue; // Perbarui nilai field
+    } else {
+      updatedFormData[index][field] = value; // Update field lain seperti name
     }
 
-    // Perbarui state
+    // Hitung kembali nilai remaining
+    updatedFormData[index].remaining = calculateRemaining(
+      updatedFormData[index].budget || 0,
+      updatedFormData[index].realization || 0
+    );
+
+    // Simpan ke state
     setBudgetingFormData(updatedFormData);
   };
 
@@ -678,47 +694,35 @@ const Kategori = () => {
                 className="budgeting-fields"
                 style={{ display: "flex", gap: "20px" }}
               >
-                {/* Input untuk Anggaran */}
+                {/* Input untuk Budget */}
                 <div className="field" style={{ flex: 1 }}>
                   <label htmlFor={`budget_${index}`}>Anggaran:</label>
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget || ""} // Pastikan nilai kosong di-handle
-                    onChange={(e) =>
-                      handleBudgetingChange(
-                        index,
-                        e.target.name,
-                        e.target.value
-                      )
-                    }
+                    value={item.budget || ""} // Nilai default adalah string kosong
+                    onChange={(e) => handleSubkategoriChange(index, e)} // Panggil handler yang diperbarui
                     required
                     style={{ width: "100%" }}
                     className="input-field"
                   />
                 </div>
 
-                {/* Input untuk Realisasi */}
+                {/* Input untuk Realization */}
                 <div className="field" style={{ flex: 1 }}>
                   <label htmlFor={`realization_${index}`}>Realisasi:</label>
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization || ""} // Pastikan nilai kosong di-handle
-                    onChange={(e) =>
-                      handleBudgetingChange(
-                        index,
-                        e.target.name,
-                        e.target.value
-                      )
-                    }
+                    value={item.realization || ""} // Nilai default adalah string kosong
+                    onChange={(e) => handleSubkategoriChange(index, e)} // Panggil handler yang diperbarui
                     required
                     style={{ width: "100%" }}
                     className="input-field"
                   />
                 </div>
 
-                {/* Input untuk Sisa */}
+                {/* Input untuk Remaining */}
                 <div className="field" style={{ flex: 1 }}>
                   <label htmlFor={`remaining_${index}`}>Sisa:</label>
                   <InputText
