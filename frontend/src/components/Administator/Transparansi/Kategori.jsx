@@ -630,7 +630,7 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget}
+                    value={item.totalBudget}
                     onChange={(e) => handleSubkategoriChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -642,7 +642,7 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization}
+                    value={item.totalRealization}
                     onChange={(e) => handleSubkategoriChange(index, e)}
                     required
                     style={{ width: "100%" }}
