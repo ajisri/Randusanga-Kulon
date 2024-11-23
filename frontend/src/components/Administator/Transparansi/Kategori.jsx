@@ -301,11 +301,20 @@ const Kategori = () => {
   const handleSubkategoriChange = (index, e) => {
     const { name, value } = e.target;
 
+    // Pastikan nilai yang diinput adalah angka
+    const updatedValue = isNaN(value) ? 0 : parseFloat(value);
+
     const updatedSubkategoriFormData = [...subkategoriFormData]; // Membuat salinan data form
     updatedSubkategoriFormData[index] = {
       ...updatedSubkategoriFormData[index],
-      [name]: value, // Memperbarui nilai berdasarkan nama field (name, budget, realization)
+      [name]: updatedValue, // Update nilai field berdasarkan nama (budget, realization, remaining)
     };
+
+    // Menghitung 'remaining' berdasarkan 'budget' dan 'realization'
+    const updatedItem = updatedSubkategoriFormData[index];
+    if (updatedItem.budget && updatedItem.realization !== undefined) {
+      updatedItem.remaining = updatedItem.budget - updatedItem.realization; // Kalkulasi otomatis
+    }
 
     setSubkategoriFormData(updatedSubkategoriFormData); // Memperbarui state form
   };
