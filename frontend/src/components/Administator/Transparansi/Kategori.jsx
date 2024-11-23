@@ -11,7 +11,6 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import { Dropdown } from "primereact/dropdown";
-import { ConfirmDialog } from "primereact/confirmdialog";
 
 import "./Kategori.css"; // Custom CSS for styling
 
@@ -25,9 +24,6 @@ const Kategori = () => {
   const [budgetingFormData, setBudgetingFormData] = useState([
     { uuid: "", budget: "", realization: "", remaining: "", subkategoriId: "" },
   ]);
-  const [currentSubkategoriId, setCurrentSubkategoriId] = useState("");
-  const [isBudgetingDialogVisible, setBudgetingDialogVisible] = useState(false);
-  const [isConfirmVisible, setConfirmVisible] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
   const [keuanganOptions, setKeuanganOptions] = useState([]);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -89,30 +85,6 @@ const Kategori = () => {
       setKeuanganOptions(keuanganData); // Simpan keuanganData untuk dropdown
     }
   }, [keuanganData]);
-
-  const fetchSubkategoriByKategoriId = async (kategoriId) => {
-    try {
-      const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
-      );
-      const data =
-        response.data.length > 0
-          ? response.data.map((subkategori) => ({
-              name: subkategori.name || "",
-              kategoriId: kategoriId,
-            }))
-          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
-      setSubkategoriFormData(data);
-    } catch (error) {
-      handleError(error);
-    }
-  };
-
-  const handleSubkategoriDialogOpen = (kategoriId) => {
-    setCurrentKategoriId(kategoriId);
-    fetchSubkategoriByKategoriId(kategoriId);
-    setSubkategoriDialogVisible(true);
-  };
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -196,6 +168,50 @@ const Kategori = () => {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      uuid: "",
+      name: "",
+      keuanganId: "",
+    });
+    setEditMode(false);
+    setCurrentKategori(null);
+  };
+
+  const editKategori = (kategori) => {
+    setFormData(kategori);
+    setCurrentKategori(kategori);
+    setEditMode(true);
+    setDialogVisible(true);
+  };
+
+  const deleteKategori = async (uuid) => {
+    if (window.confirm("Are you sure you want to delete this record?")) {
+      try {
+        await axiosJWT.delete(
+          `https://randusanga-kulonbackend-production.up.railway.app/kategori/${uuid}`
+        );
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data deleted successfully!",
+          life: 3000,
+        });
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/kategori"
+        );
+      } catch (error) {
+        handleError(error);
+      }
+    }
+  };
+
+  const handleSubkategoriDialogOpen = (kategoriId) => {
+    setCurrentKategoriId(kategoriId);
+    fetchSubkategoriByKategoriId(kategoriId);
+    setSubkategoriDialogVisible(true);
+  };
+
   const handleSubkategoriSubmit = async (e) => {
     e.preventDefault();
 
@@ -242,44 +258,6 @@ const Kategori = () => {
     }
   };
 
-  const resetForm = () => {
-    setFormData({
-      uuid: "",
-      name: "",
-      keuanganId: "",
-    });
-    setEditMode(false);
-    setCurrentKategori(null);
-  };
-
-  const editKategori = (kategori) => {
-    setFormData(kategori);
-    setCurrentKategori(kategori);
-    setEditMode(true);
-    setDialogVisible(true);
-  };
-
-  const deleteKategori = async (uuid) => {
-    if (window.confirm("Are you sure you want to delete this record?")) {
-      try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategori/${uuid}`
-        );
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Data deleted successfully!",
-          life: 3000,
-        });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/kategori"
-        );
-      } catch (error) {
-        handleError(error);
-      }
-    }
-  };
-
   const addSubkategoriField = () => {
     setSubkategoriFormData((prev) => [
       ...prev,
@@ -304,98 +282,43 @@ const Kategori = () => {
     setRows(e.rows);
   };
 
-  const fetchBudgetBySubkategori = async (subkategoriId) => {
+  const fetchSubkategoriByKategoriId = async (kategoriId) => {
     try {
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/budgetbysubkategori/${subkategoriId}`
+        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
       const data =
         response.data.length > 0
-          ? response.data.map((budget) => ({
-              budget: budget.budget || "",
-              realization: budget.realization || "",
-              remaining: budget.remaining || "",
-              subkategoriId: subkategoriId,
+          ? response.data.map((subkategori) => ({
+              name: subkategori.name || "",
+              kategoriId: kategoriId,
             }))
-          : [{ budget: "", realization: "", remaining: "", subkategoriId }]; // Tambahkan satu form kosong jika data kosong
-      setBudgetingFormData(data);
+          : [{ name: "", kategoriId }]; // Tambahkan satu form kosong jika data kosong
+      setSubkategoriFormData(data);
     } catch (error) {
       handleError(error);
     }
   };
 
-  const handleBudgetDialogOpen = (subkategoriId) => {
-    setCurrentSubkategoriId(subkategoriId);
-    fetchBudgetBySubkategori(subkategoriId);
-    setBudgetingDialogVisible(true);
-  };
-
-  const handleBudgetSubmit = async (e) => {
-    e.preventDefault();
-
-    // Memastikan bahwa budgetingFormData adalah array dan tidak kosong
-    if (!Array.isArray(budgetingFormData) || budgetingFormData.length === 0) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Data budgeting harus berupa array dan tidak boleh kosong!",
-        life: 5000,
-      });
-      return;
-    }
-
-    console.log("Data budgeting yang dikirim ke server:", budgetingFormData); // Logging data yang akan dikirim
-
-    try {
-      // Mengirimkan budgetingFormData sebagai array ke server
-      const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/cbudget-item",
-        {
-          budgetItemsData: budgetingFormData,
-        }
-      );
-
-      console.log("Response dari server:", response.data); // Logging response dari server
-
-      toast.current.show({
-        severity: "success",
-        summary: "Success",
-        detail: "Data budgeting berhasil disimpan!",
-        life: 3000,
-      });
-
-      // Update data budgeting setelah berhasil disimpan
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/budget-item"
-      );
-      setBudgetingDialogVisible(false); // Tutup dialog setelah penyimpanan berhasil
-    } catch (error) {
-      console.error("Error saat mengirim data:", error); // Logging error
-      handleError(error);
-    }
-  };
-
-  const confirmAddBudgeting = () => {
-    setBudgetingDialogVisible(true); // Menampilkan dialog budgeting jika konfirmasi "Ya" dipilih
-    setConfirmVisible(false);
-  };
-
-  const addBudgetingField = () => {
-    setBudgetingFormData((prev) => [
-      ...prev,
-      {
-        budget: 0,
-        realization: 0,
-        remaining: 0,
-        subkategoriId: currentSubkategoriId,
-      },
-    ]);
-  };
-
-  const removeBudgetingField = (index) => {
-    const newFormData = budgetingFormData.filter((_, i) => i !== index);
-    setBudgetingFormData(newFormData);
-  };
+  // const fetchBudgetBySubkategori = async (subkategoriId) => {
+  //   try {
+  //     const response = await axiosJWT.get(
+  //       `https://randusanga-kulonbackend-production.up.railway.app/budgetbysubkategori/${subkategoriId}`
+  //     );
+  //     const data =
+  //       response.data.length > 0
+  //         ? response.data.map((budget) => ({
+  //             budget: budget.budget || "",
+  //             realization: budget.realization || "",
+  //             remaining: budget.remaining || "",
+  //             subkategoriId: subkategoriId,
+  //           }))
+  //         : [{ budget: "", realization: "", remaining: "", subkategoriId }]; // Tambahkan satu form kosong jika data kosong
+  //     setBudgetingFormData(data);
+  //   } catch (error) {
+  //     handleError(error);
+  //   }
+  // };
 
   const handleBudgetingChange = (index, event) => {
     const { name, value } = event.target;
@@ -510,24 +433,6 @@ const Kategori = () => {
                 className="add-subkategori-button coastal-button p-button-rounded"
               />
               <Button
-                label="Add Budgeting"
-                onClick={() => {
-                  handleBudgetDialogOpen(rowData.uuid);
-                  setBudgetingFormData([
-                    {
-                      budget: "",
-                      realization: "",
-                      remaining: "",
-                      subkategoriId: rowData.uuid,
-                    },
-                  ]);
-                  setBudgetingDialogVisible(true);
-                }}
-                className="add-budgeting-button p-button-rounded p-button-warning"
-                icon="pi pi-wallet"
-                style={{ backgroundColor: "#FFA726", color: "#ffffff" }}
-              />
-              <Button
                 icon="pi pi-pencil"
                 onClick={() => editKategori(rowData)}
                 className="edit-button coastal-button p-button-rounded"
@@ -555,15 +460,62 @@ const Kategori = () => {
           )}
         />
       </DataTable>
-      <ConfirmDialog
-        visible={isConfirmVisible}
-        onHide={() => setConfirmVisible(false)}
-        message="Apakah Anda yakin ingin membuka dialog budgeting?"
-        header="Konfirmasi"
-        icon="pi pi-exclamation-triangle"
-        accept={confirmAddBudgeting}
-        reject={() => setConfirmVisible(false)}
-      />
+      <Dialog
+        header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
+        visible={isDialogVisible}
+        onHide={closeDialog}
+        dismissableMask={true}
+        modal={true}
+        style={{ width: "70vw" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <Card className="demografi-card">
+              <div className="field">
+                <label htmlFor="name">Nama:</label>
+                <InputText
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="input-field"
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="keuanganId">Keuangan:</label>
+                <Dropdown
+                  id="keuanganId"
+                  name="keuanganId"
+                  optionLabel="name"
+                  optionValue="uuid"
+                  value={formData.keuanganId}
+                  options={keuanganData}
+                  onChange={handleChange}
+                  placeholder="Select Keuangan"
+                  required
+                  className="input-field"
+                />
+              </div>
+              <div className="button-sub">
+                <Button
+                  type="submit"
+                  label={isEditMode ? "Update" : "Save"}
+                  className="coastal-button submit-button p-button-rounded"
+                  style={{ marginTop: "20px" }}
+                />
+              </div>
+            </Card>
+          </form>
+        </div>
+      </Dialog>
       <Dialog
         header="Tambah Subkategori dan Budget"
         visible={isSubkategoriDialogVisible}
@@ -664,158 +616,6 @@ const Kategori = () => {
             />
           </div>
         </form>
-      </Dialog>
-
-      <Dialog
-        header="Budgeting"
-        visible={isBudgetingDialogVisible}
-        onHide={() => setBudgetingDialogVisible(false)}
-        modal
-        maximizable
-        style={{ width: "70vw" }} // Increase dialog width
-      >
-        <form onSubmit={handleBudgetSubmit}>
-          {budgetingFormData.map((item, index) => (
-            <div
-              key={index}
-              className="budgeting-field-container"
-              style={{
-                display: "flex",
-                alignItems: "flex-start", // Mulai dari atas agar tombol sejajar dengan awal konten
-                borderBottom: "1px solid #ccc",
-                paddingBottom: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              <Button
-                type="button"
-                label="Hapus"
-                onClick={() => removeBudgetingField(index)}
-                className="remove-button p-button p-component"
-                disabled={budgetingFormData.length === 1}
-                style={{
-                  marginRight: "10px",
-                  alignSelf: "center", // Tempatkan di tengah vertikal
-                  padding: "0.5rem 1rem",
-                  marginTop: "12px", // Tambahkan sedikit jarak dari atas
-                  width: "80px", // Sesuaikan lebar tombol
-                }}
-              />
-              <div style={{ display: "flex", flex: 3, gap: "10px" }}>
-                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
-                  {" "}
-                  {/* Set minHeight */}
-                  <label htmlFor={`budget_${index}`}>Anggaran:</label>
-                  <InputText
-                    id={`budget_${index}`}
-                    name="budget"
-                    value={item.budget}
-                    onChange={(e) => handleBudgetingChange(index, e)}
-                    required
-                    style={{ width: "100%" }}
-                    className="input-field"
-                  />
-                </div>
-                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
-                  {" "}
-                  {/* Set minHeight */}
-                  <label htmlFor={`realization_${index}`}>Realisasi:</label>
-                  <InputText
-                    id={`realization_${index}`}
-                    name="realization"
-                    value={item.realization}
-                    onChange={(e) => handleBudgetingChange(index, e)}
-                    required
-                    style={{ width: "100%" }}
-                    className="input-field"
-                  />
-                </div>
-                <div className="field" style={{ flex: 1, minHeight: "60px" }}>
-                  <label htmlFor={`remaining_${index}`}>Sisa:</label>
-                  <InputText
-                    id={`remaining_${index}`}
-                    name="remaining"
-                    value={formatRupiah(item.remaining)}
-                    readOnly // Set as readOnly
-                    style={{ width: "100%" }}
-                    className="input-field"
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-          <Button
-            type="button"
-            label="Tambah"
-            className="delete-button coastal-button p-button-rounded"
-            raised
-            rounded
-            onClick={addBudgetingField}
-          />
-          <div className="button-sub">
-            <Button
-              type="submit"
-              label="Simpan"
-              className="coastal-button submit-button p-button-rounded"
-            />
-          </div>
-        </form>
-      </Dialog>
-      <Dialog
-        header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
-        visible={isDialogVisible}
-        onHide={closeDialog}
-        dismissableMask={true}
-        modal={true}
-        style={{ width: "70vw" }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <form onSubmit={handleSubmit}>
-            <Card className="demografi-card">
-              <div className="field">
-                <label htmlFor="name">Nama:</label>
-                <InputText
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="input-field"
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="keuanganId">Keuangan:</label>
-                <Dropdown
-                  id="keuanganId"
-                  name="keuanganId"
-                  optionLabel="name"
-                  optionValue="uuid"
-                  value={formData.keuanganId}
-                  options={keuanganData}
-                  onChange={handleChange}
-                  placeholder="Select Keuangan"
-                  required
-                  className="input-field"
-                />
-              </div>
-              <div className="button-sub">
-                <Button
-                  type="submit"
-                  label={isEditMode ? "Update" : "Save"}
-                  className="coastal-button submit-button p-button-rounded"
-                  style={{ marginTop: "20px" }}
-                />
-              </div>
-            </Card>
-          </form>
-        </div>
       </Dialog>
     </div>
   );
