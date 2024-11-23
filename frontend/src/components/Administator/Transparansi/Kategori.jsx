@@ -232,15 +232,21 @@ const Kategori = () => {
       return;
     }
 
-    // Log data sebelum diformat
+    // Log data subkategoriFormData sebelum diformat
     console.log(
-      "Data subkategoriFormData sebelum diformat:",
-      subkategoriFormData
+      "DEBUG: Data subkategoriFormData sebelum diformat:",
+      JSON.stringify(subkategoriFormData, null, 2)
     );
 
     // Format data yang akan dikirim
     const formattedSubkategoriData = subkategoriFormData.map((item) => {
       const budgetItems = item.budgetItems || [];
+
+      // Log data budgetItems sebelum penghitungan
+      console.log(
+        `DEBUG: Budget items untuk subkategori "${item.name}" sebelum penghitungan:`,
+        JSON.stringify(budgetItems, null, 2)
+      );
 
       const totalBudget = budgetItems.reduce(
         (sum, budgetItem) => sum + parseFloat(budgetItem.budget || 0),
@@ -255,8 +261,8 @@ const Kategori = () => {
         0
       );
 
-      // Log data setelah diformat
-      console.log("Item setelah diformat:", {
+      // Log data setelah diformat dan penghitungan total
+      console.log("DEBUG: Item setelah diformat:", {
         uuid: item.uuid || null,
         kategoriId: item.kategoriId,
         name: item.name,
@@ -279,7 +285,10 @@ const Kategori = () => {
 
     try {
       // Log data yang akan dikirim ke backend
-      console.log("Data yang dikirim ke backend:", formattedSubkategoriData);
+      console.log(
+        "DEBUG: Data yang dikirim ke backend:",
+        JSON.stringify(formattedSubkategoriData, null, 2)
+      );
 
       // Kirim data ke backend
       await axiosJWT.post(
@@ -304,7 +313,7 @@ const Kategori = () => {
       setSubkategoriDialogVisible(false);
     } catch (error) {
       // Tangani error dengan lebih informatif
-      console.error("Error saat mengirim data:", error);
+      console.error("DEBUG: Error saat mengirim data:", error);
       handleError(error); // Pastikan `handleError` menangani berbagai jenis error dengan baik
     }
   };
