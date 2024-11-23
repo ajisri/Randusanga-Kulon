@@ -450,20 +450,27 @@ const Kategori = () => {
   const handleBudgetingChange = (index, event) => {
     const { name, value } = event.target;
 
-    if (isNaN(value) || value === "") return; // Pastikan hanya nilai angka
+    // Pastikan hanya nilai angka yang diterima
+    if (isNaN(value) || value === "") return;
 
     const updatedFormData = [...budgetingFormData];
     updatedFormData[index][name] = parseFloat(value); // Ubah ke angka asli untuk perhitungan
+
+    // Perbarui nilai remaining setelah perubahan budget atau realization
     updatedFormData[index].remaining = calculateRemaining(
-      name === "budget" ? value : updatedFormData[index].budget,
-      name === "realization" ? value : updatedFormData[index].realization
+      updatedFormData[index].budget,
+      updatedFormData[index].realization
     );
 
     setBudgetingFormData(updatedFormData);
   };
 
   const calculateRemaining = (budget, realization) => {
-    return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
+    // Pastikan nilai budget dan realization valid dan bukan NaN
+    const validBudget = isNaN(budget) ? 0 : parseFloat(budget);
+    const validRealization = isNaN(realization) ? 0 : parseFloat(realization);
+
+    return validBudget - validRealization;
   };
 
   const formatRupiah = (angka) => {
@@ -659,7 +666,7 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget}
+                    value={item.budget || ""} // Pastikan nilai default jika kosong
                     onChange={(e) => handleBudgetingChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -671,7 +678,7 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization}
+                    value={item.realization || ""} // Pastikan nilai default jika kosong
                     onChange={(e) => handleBudgetingChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -683,7 +690,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={item.budget - item.realization}
+                    value={item.remaining || ""} // Pastikan nilai default jika kosong
                     readOnly
                     style={{ width: "100%" }}
                     className="input-field"
