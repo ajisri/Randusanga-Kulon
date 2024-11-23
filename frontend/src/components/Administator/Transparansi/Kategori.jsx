@@ -342,12 +342,12 @@ const Kategori = () => {
     setSubkategoriFormData(newFormData);
   };
 
-  const handleSubkategoriChange = (index, e) => {
-    const { name, value } = e.target;
-    const newFormData = [...subkategoriFormData];
-    newFormData[index][name] = value;
-    setSubkategoriFormData(newFormData);
-  };
+  // const handleSubkategoriChange = (index, e) => {
+  //   const { name, value } = e.target;
+  //   const newFormData = [...subkategoriFormData];
+  //   newFormData[index][name] = value;
+  //   setSubkategoriFormData(newFormData);
+  // };
 
   const handlePageChange = (e) => {
     setFirst(e.first);
@@ -447,29 +447,32 @@ const Kategori = () => {
     setBudgetingFormData(newFormData);
   };
 
-  const handleBudgetingChange = (index, event) => {
-    const { name, value } = event.target;
-
-    // Pastikan hanya nilai angka yang diterima
-    if (isNaN(value) || value === "") return;
-
+  const handleBudgetingChange = (index, field, value) => {
+    // Salin data dari state
     const updatedFormData = [...budgetingFormData];
-    updatedFormData[index][name] = parseFloat(value); // Ubah ke angka asli untuk perhitungan
 
-    // Perbarui nilai remaining setelah perubahan budget atau realization
+    // Validasi angka hanya pada budget dan realization
+    if (field === "budget" || field === "realization") {
+      const parsedValue = value === "" ? "" : parseFloat(value); // Pastikan nilai angka atau kosong
+      if (isNaN(parsedValue) && value !== "") return; // Abaikan jika bukan angka valid
+      updatedFormData[index][field] = parsedValue; // Perbarui nilai field
+    } else {
+      updatedFormData[index][field] = value; // Update field lain seperti name
+    }
+
+    // Hitung kembali nilai remaining
     updatedFormData[index].remaining = calculateRemaining(
-      updatedFormData[index].budget,
-      updatedFormData[index].realization
+      updatedFormData[index].budget || 0,
+      updatedFormData[index].realization || 0
     );
 
+    // Simpan ke state
     setBudgetingFormData(updatedFormData);
   };
 
   const calculateRemaining = (budget, realization) => {
-    // Pastikan nilai budget dan realization valid dan bukan NaN
-    const validBudget = isNaN(budget) ? 0 : parseFloat(budget);
-    const validRealization = isNaN(realization) ? 0 : parseFloat(realization);
-
+    const validBudget = isNaN(budget) ? 0 : budget;
+    const validRealization = isNaN(realization) ? 0 : realization;
     return validBudget - validRealization;
   };
 
@@ -649,7 +652,13 @@ const Kategori = () => {
                     id={`subkategoriName_${index}`}
                     name="name"
                     value={item.name}
-                    onChange={(e) => handleSubkategoriChange(index, e)}
+                    onChange={(e) =>
+                      handleBudgetingChange(
+                        index,
+                        e.target.name,
+                        e.target.value
+                      )
+                    }
                     required
                     className="input-field"
                   />
@@ -666,8 +675,21 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.budget || ""} // Jika kosong, pastikan dapat diubah
-                    onChange={(e) => handleBudgetingChange(index, e)} // Perbarui state ketika diketik
+                    value={item.budget || ""} // Pastikan nilai selalu string
+                    onChange={(e) =>
+                      handleBudgetingChange(
+                        index,
+                        e.target.name,
+                        e.target.value
+                      )
+                    }
+                    onBlur={(e) =>
+                      handleBudgetingChange(
+                        index,
+                        e.target.name,
+                        e.target.value
+                      )
+                    } // Validasi saat blur
                     required
                     style={{ width: "100%" }}
                     className="input-field"
@@ -678,8 +700,21 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.realization || ""} // Jika kosong, pastikan dapat diubah
-                    onChange={(e) => handleBudgetingChange(index, e)} // Perbarui state ketika diketik
+                    value={item.realization || ""}
+                    onChange={(e) =>
+                      handleBudgetingChange(
+                        index,
+                        e.target.name,
+                        e.target.value
+                      )
+                    }
+                    onBlur={(e) =>
+                      handleBudgetingChange(
+                        index,
+                        e.target.name,
+                        e.target.value
+                      )
+                    } // Validasi saat blur
                     required
                     style={{ width: "100%" }}
                     className="input-field"
@@ -690,7 +725,7 @@ const Kategori = () => {
                   <InputText
                     id={`remaining_${index}`}
                     name="remaining"
-                    value={item.remaining || ""} // Nilai ini dibaca otomatis, tidak bisa diubah
+                    value={formatRupiah(item.remaining || 0)} // Format angka ke Rupiah
                     readOnly
                     style={{ width: "100%" }}
                     className="input-field"
