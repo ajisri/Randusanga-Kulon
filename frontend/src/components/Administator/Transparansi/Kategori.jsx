@@ -240,7 +240,13 @@ const Kategori = () => {
 
     // Format data yang akan dikirim
     const formattedSubkategoriData = subkategoriFormData.map((item, index) => {
-      const budgetItems = item.budgetItems || [];
+      const budgetItems = [
+        {
+          budget: item.budget || 0,
+          realization: item.realization || 0,
+          remaining: item.remaining || 0,
+        },
+      ];
 
       // Log detail per form subkategori yang diisi
       console.log(
@@ -251,12 +257,6 @@ const Kategori = () => {
           name: item.name,
           budgetItems: budgetItems,
         }
-      );
-
-      // Log data budgetItems sebelum penghitungan
-      console.log(
-        `DEBUG: Budget items untuk subkategori "${item.name}" sebelum penghitungan:`,
-        JSON.stringify(budgetItems, null, 2)
       );
 
       const totalBudget = budgetItems.reduce(
@@ -284,7 +284,7 @@ const Kategori = () => {
       });
 
       return {
-        uuid: item.uuid || null, // Gunakan UUID jika tersedia
+        uuid: item.uuid || null,
         kategoriId: item.kategoriId,
         name: item.name,
         budgetItems: budgetItems,
@@ -302,10 +302,10 @@ const Kategori = () => {
       );
 
       // Kirim data ke backend
-      // await axiosJWT.post(
-      //   "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
-      //   { subkategoriData: formattedSubkategoriData }
-      // );
+      await axiosJWT.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
+        { subkategoriData: formattedSubkategoriData }
+      );
 
       // Tampilkan notifikasi sukses
       toast.current.show({
@@ -325,7 +325,7 @@ const Kategori = () => {
     } catch (error) {
       // Tangani error dengan lebih informatif
       console.error("DEBUG: Error saat mengirim data:", error);
-      handleError(error); // Pastikan `handleError` menangani berbagai jenis error dengan baik
+      handleError(error);
     }
   };
 
