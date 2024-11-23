@@ -352,22 +352,33 @@ const Kategori = () => {
   const handleSubkategoriChange = (index, event) => {
     const { name, value } = event.target;
 
-    // Pastikan nilai yang diinput adalah angka
-    const updatedValue = isNaN(value) ? 0 : parseFloat(value);
-
+    // Buat salinan data
     const updatedFormData = [...subkategoriFormData];
-    updatedFormData[index] = {
-      ...updatedFormData[index],
-      [name]: updatedValue, // Update field yang diubah (budget, realization, remaining)
-    };
 
-    // Menghitung 'remaining' berdasarkan 'budget' dan 'realization'
-    const updatedItem = updatedFormData[index];
-    if (updatedItem.budget && updatedItem.realization !== undefined) {
-      updatedItem.remaining = updatedItem.budget - updatedItem.realization; // Kalkulasi otomatis
+    // Tentukan apakah field yang diubah adalah angka atau teks
+    if (name === "budget" || name === "realization") {
+      // Pastikan nilai hanya angka untuk 'budget' dan 'realization'
+      const numericValue = isNaN(value) ? 0 : parseFloat(value);
+      updatedFormData[index] = {
+        ...updatedFormData[index],
+        [name]: numericValue,
+      };
+
+      // Kalkulasi otomatis 'remaining'
+      const updatedItem = updatedFormData[index];
+      if (updatedItem.budget && updatedItem.realization !== undefined) {
+        updatedItem.remaining = updatedItem.budget - updatedItem.realization;
+      }
+    } else {
+      // Izinkan teks untuk field lainnya (misalnya 'name')
+      updatedFormData[index] = {
+        ...updatedFormData[index],
+        [name]: value,
+      };
     }
 
-    setSubkategoriFormData(updatedFormData); // Memperbarui state form
+    // Perbarui state
+    setSubkategoriFormData(updatedFormData);
   };
 
   const handlePageChange = (e) => {
