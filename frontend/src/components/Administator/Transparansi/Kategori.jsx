@@ -291,10 +291,10 @@ const Kategori = () => {
       );
 
       // Kirim data ke backend
-      await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
-        { subkategoriData: formattedSubkategoriData }
-      );
+      // await axiosJWT.post(
+      //   "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
+      //   { subkategoriData: formattedSubkategoriData }
+      // );
 
       // Tampilkan notifikasi sukses
       toast.current.show({
