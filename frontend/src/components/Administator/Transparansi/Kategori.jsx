@@ -381,15 +381,16 @@ const Kategori = () => {
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
       console.log("Data yang diterima dari API:", response.data);
+
       const data =
         response.data.length > 0
           ? response.data.map((subkategori) => ({
               uuid: subkategori.uuid || null, // Pastikan UUID dikaitkan
               name: subkategori.name || "",
-              kategoriId: kategoriId,
-              budget: subkategori.budget || 0,
-              realization: subkategori.realization || 0,
-              remaining: subkategori.remaining || 0,
+              kategoriId: subkategori.kategoriId || kategoriId,
+              budget: subkategori.totalBudget || 0, // Mapping ke totalBudget
+              realization: subkategori.totalRealization || 0, // Mapping ke totalRealization
+              remaining: subkategori.remaining || 0, // Mapping ke remaining
             }))
           : [
               {
@@ -400,7 +401,7 @@ const Kategori = () => {
                 realization: 0,
                 remaining: 0,
               },
-            ]; // UUID tetap null untuk data baru
+            ];
 
       setSubkategoriFormData(data); // Memperbarui state form
     } catch (error) {
@@ -630,7 +631,7 @@ const Kategori = () => {
                   <InputText
                     id={`budget_${index}`}
                     name="budget"
-                    value={item.totalBudget}
+                    value={item.budget}
                     onChange={(e) => handleSubkategoriChange(index, e)}
                     required
                     style={{ width: "100%" }}
@@ -642,7 +643,7 @@ const Kategori = () => {
                   <InputText
                     id={`realization_${index}`}
                     name="realization"
-                    value={item.totalRealization}
+                    value={item.realization}
                     onChange={(e) => handleSubkategoriChange(index, e)}
                     required
                     style={{ width: "100%" }}
