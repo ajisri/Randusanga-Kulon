@@ -20,10 +20,6 @@ const Kategori = () => {
     name: "",
     keuanganId: "",
   });
-
-  const [budgetingFormData, setBudgetingFormData] = useState([
-    { uuid: "", budget: "", realization: "", remaining: "", subkategoriId: "" },
-  ]);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
   const [keuanganOptions, setKeuanganOptions] = useState([]);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -38,7 +34,14 @@ const Kategori = () => {
 
   const [kategoriList, setKategoriList] = useState([]);
   const [subkategoriFormData, setSubkategoriFormData] = useState([
-    { uuid: "", name: "", kategoriId: "" },
+    {
+      uuid: "",
+      name: "",
+      kategoriId: "",
+      budget: 0,
+      realization: 0,
+      remaining: 0,
+    },
   ]);
   const [isSubkategoriDialogVisible, setSubkategoriDialogVisible] =
     useState(false);
@@ -287,36 +290,44 @@ const Kategori = () => {
   };
 
   const addSubkategoriField = () => {
-    setSubkategoriFormData((prev) => [
-      ...prev,
-      { name: "", kategoriId: currentKategoriId },
+    setSubkategoriFormData([
+      ...subkategoriFormData,
+      {
+        uuid: "",
+        name: "",
+        kategoriId: currentKategoriId,
+        budget: 0,
+        realization: 0,
+        remaining: 0,
+      },
     ]);
   };
 
   const removeSubkategoriField = (index) => {
-    const newFormData = subkategoriFormData.filter((_, i) => i !== index);
-    setSubkategoriFormData(newFormData);
+    const updatedFormData = [...subkategoriFormData];
+    updatedFormData.splice(index, 1);
+    setSubkategoriFormData(updatedFormData);
   };
 
-  const handleSubkategoriChange = (index, e) => {
-    const { name, value } = e.target;
+  const handleSubkategoriChange = (index, event) => {
+    const { name, value } = event.target;
 
     // Pastikan nilai yang diinput adalah angka
     const updatedValue = isNaN(value) ? 0 : parseFloat(value);
 
-    const updatedSubkategoriFormData = [...subkategoriFormData]; // Membuat salinan data form
-    updatedSubkategoriFormData[index] = {
-      ...updatedSubkategoriFormData[index],
-      [name]: updatedValue, // Update nilai field berdasarkan nama (budget, realization, remaining)
+    const updatedFormData = [...subkategoriFormData];
+    updatedFormData[index] = {
+      ...updatedFormData[index],
+      [name]: updatedValue, // Update field yang diubah (budget, realization, remaining)
     };
 
     // Menghitung 'remaining' berdasarkan 'budget' dan 'realization'
-    const updatedItem = updatedSubkategoriFormData[index];
+    const updatedItem = updatedFormData[index];
     if (updatedItem.budget && updatedItem.realization !== undefined) {
       updatedItem.remaining = updatedItem.budget - updatedItem.realization; // Kalkulasi otomatis
     }
 
-    setSubkategoriFormData(updatedSubkategoriFormData); // Memperbarui state form
+    setSubkategoriFormData(updatedFormData); // Memperbarui state form
   };
 
   const handlePageChange = (e) => {
@@ -346,44 +357,9 @@ const Kategori = () => {
     }
   };
 
-  // const fetchBudgetBySubkategori = async (subkategoriId) => {
-  //   try {
-  //     const response = await axiosJWT.get(
-  //       `https://randusanga-kulonbackend-production.up.railway.app/budgetbysubkategori/${subkategoriId}`
-  //     );
-  //     const data =
-  //       response.data.length > 0
-  //         ? response.data.map((budget) => ({
-  //             budget: budget.budget || "",
-  //             realization: budget.realization || "",
-  //             remaining: budget.remaining || "",
-  //             subkategoriId: subkategoriId,
-  //           }))
-  //         : [{ budget: "", realization: "", remaining: "", subkategoriId }]; // Tambahkan satu form kosong jika data kosong
-  //     setBudgetingFormData(data);
-  //   } catch (error) {
-  //     handleError(error);
-  //   }
+  // const calculateRemaining = (budget, realization) => {
+  //   return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
   // };
-
-  const handleBudgetingChange = (index, event) => {
-    const { name, value } = event.target;
-
-    if (isNaN(value) || value === "") return; // Pastikan hanya nilai angka
-
-    const updatedFormData = [...budgetingFormData];
-    updatedFormData[index][name] = parseFloat(value); // Ubah ke angka asli untuk perhitungan
-    updatedFormData[index].remaining = calculateRemaining(
-      name === "budget" ? value : updatedFormData[index].budget,
-      name === "realization" ? value : updatedFormData[index].realization
-    );
-
-    setBudgetingFormData(updatedFormData);
-  };
-
-  const calculateRemaining = (budget, realization) => {
-    return (parseFloat(budget) || 0) - (parseFloat(realization) || 0);
-  };
 
   const formatRupiah = (angka) => {
     return isNaN(angka) || angka === ""
