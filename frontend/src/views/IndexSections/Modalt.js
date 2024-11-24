@@ -34,6 +34,11 @@ const Modalt = () => {
   const loadingApbd = !allapbdData && !allapbdError;
 
   const apbdList = allapbdData?.apbdp || [];
+  // Tampilkan data di console
+  if (allapbdData) {
+    console.log("Data APBD dari API:", allapbdData);
+  }
+
   const dialogFooterTemplate = () => {
     return (
       <Button
