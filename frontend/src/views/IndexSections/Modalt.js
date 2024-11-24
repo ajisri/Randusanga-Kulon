@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useSWR from "swr"; // Import SWR
 import { TabView, TabPanel } from "primereact/tabview";
 import { Accordion, AccordionTab } from "primereact/accordion";
@@ -14,6 +14,7 @@ import "primereact/resources/primereact.min.css"; // Import CSS utama PrimeReact
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Modalt = () => {
+  const [apbdpList, setApbdpList] = useState([]);
   const [isDetailDialogVisible, setDetailDialogVisible] = useState(false);
   const [selectedKeuangan, setSelectedKeuangan] = useState(null);
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -29,20 +30,35 @@ const Modalt = () => {
 
   const produkhukumList = produkhukumData?.produkHukump || [];
 
+  // Fetch APBD data
   const { data: allapbdData, error: allapbdError } = useSWR(
     "https://randusanga-kulonbackend-production.up.railway.app/allapbdp",
     fetcher
   );
   const loadingApbd = !allapbdData && !allapbdError;
 
-  const apbdList = allapbdData?.apbdp || [];
-  // Tampilkan data di console
-  if (allapbdData) {
-    console.log(
-      "Struktur data dari API:",
-      JSON.stringify(allapbdData, null, 2)
-    );
-  }
+  // Ambil data APBD dari API dan simpan ke state
+  useEffect(() => {
+    if (allapbdData?.data) {
+      console.log("API Response Data:", allapbdData.data);
+      setApbdpList(allapbdData.data); // Pastikan ini berjalan
+    }
+  }, [allapbdData]);
+
+  // Debugging: log struktur data
+  useEffect(() => {
+    if (allapbdData) {
+      console.log(
+        "Struktur data dari API:",
+        JSON.stringify(allapbdData, null, 2)
+      );
+    }
+  }, [allapbdData]);
+
+  // Debugging: log isi apbdpList
+  useEffect(() => {
+    console.log("Isi apbdpList:", apbdpList);
+  }, [apbdpList]);
 
   const dialogFooterTemplate = () => {
     return (
@@ -161,8 +177,6 @@ const Modalt = () => {
     setDetailDialogVisible(false);
     setSelectedKeuangan(null);
   };
-
-  console.log("Isi apbdList:", apbdList);
 
   return (
     <>
@@ -783,14 +797,14 @@ const Modalt = () => {
                 <div className="error-container">
                   <p>Error loading data: {allapbdError.message}</p>
                 </div>
-              ) : apbdList.length === 0 ? (
+              ) : apbdpList.length === 0 ? (
                 <div className="no-data-container">
                   <p>No data available.</p>
                 </div>
               ) : (
                 <>
                   <DataTable
-                    value={apbdList}
+                    value={apbdpList}
                     paginator
                     rows={5}
                     rowsPerPageOptions={[5, 10, 25, 50]}
@@ -854,8 +868,6 @@ const Modalt = () => {
                           <h2 style={{ marginBottom: "1rem" }}>
                             {selectedKeuangan.name}
                           </h2>
-                          {/* Tampilkan data detail lainnya sesuai schema */}
-                          {/* Contoh menampilkan data kategori */}
                           <div className="table-responsive">
                             <table className="table table-striped">
                               <thead>
