@@ -456,7 +456,7 @@ const Kategori = () => {
       severity: severity, // Jenis notifikasi (info, success, warn, error)
       summary: severity.charAt(0).toUpperCase() + severity.slice(1), // Mengubah huruf pertama menjadi kapital
       detail: message, // Pesan notifikasi yang akan ditampilkan
-      life: 5000, // Durasi notifikasi dalam milidetik (5 detik)
+      life: 3000, // Durasi notifikasi dalam milidetik (5 detik)
     });
   };
 
@@ -527,12 +527,12 @@ const Kategori = () => {
         <Column
           field="name"
           header="Name"
-          style={{ width: "30%", minWidth: "30%" }}
+          style={{ width: "40%", minWidth: "30%" }}
         />
         <Column
           field="keuanganId"
           header="Keuangan"
-          style={{ width: "10%", minWidth: "10%" }}
+          style={{ width: "20%", minWidth: "10%" }}
           body={(rowData) => {
             const keuangan = keuanganOptions.find(
               (kw) => kw.uuid === rowData.keuanganId
