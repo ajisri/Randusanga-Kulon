@@ -370,17 +370,23 @@ const Kategori = () => {
 
   const fetchSubkategoriByKategoriId = async (kategoriId) => {
     try {
+      console.log("Kategori ID yang dikirim:", kategoriId); // Debug log kategoriId
+
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
-      console.log("Data yang diterima dari API:", response); // Log keseluruhan respons
+
+      console.log("Response status:", response.status); // Debug status
+      console.log("Response data:", response.data); // Debug data yang diterima
 
       // Cek apakah data ada atau kosong
       if (Array.isArray(response.data) && response.data.length === 0) {
-        // Jika data kosong, tampilkan notifikasi
-        showNotification("Data subkategori kosong untuk kategori ini.");
+        showNotification(
+          "Data subkategori kosong untuk kategori ini.",
+          "warning"
+        );
 
-        // Jika ingin tetap mengisi form dengan data kosong, bisa tambahkan data default
+        // Isi dengan data default jika kosong
         setSubkategoriFormData([
           {
             uuid: null,
@@ -391,7 +397,6 @@ const Kategori = () => {
             remaining: 0,
           },
         ]);
-
         return; // Keluar dari fungsi jika data kosong
       }
 
@@ -407,12 +412,31 @@ const Kategori = () => {
 
       setSubkategoriFormData(data); // Memperbarui state form
     } catch (error) {
-      console.log(error); // Log error untuk melihat detailnya
-      // Tangani error jika terjadi kesalahan pada permintaan API
-      if (error.response) {
-        handleError(error); // Jika ada error pada response API
+      console.error("Error saat memfetch subkategori:", error);
+
+      // Tangani error spesifik jika 404
+      if (error.response && error.response.status === 404) {
+        showNotification(
+          "Data subkategori tidak ditemukan untuk kategori ini.",
+          "warning"
+        );
+
+        // Tetap tambahkan data default jika 404
+        setSubkategoriFormData([
+          {
+            uuid: null,
+            name: "",
+            kategoriId,
+            budget: 0,
+            realization: 0,
+            remaining: 0,
+          },
+        ]);
+      } else if (error.response) {
+        // Tangani error lain dari API
+        handleError(error); // Fungsi handleError untuk log error dari API
       } else {
-        // Jika terjadi kesalahan selain response (misal jaringan)
+        // Tangani error jaringan atau lainnya
         showNotification("Terjadi kesalahan pada jaringan", "error");
       }
     }
