@@ -669,7 +669,7 @@ const Modalt = () => {
                   <Column
                     field="name"
                     header="Name"
-                    style={{ width: "35%", minWidth: "35%" }}
+                    style={{ width: "25%", minWidth: "15%" }}
                   ></Column>
                   <Column
                     field="deskripsi"
@@ -681,7 +681,7 @@ const Modalt = () => {
                   />
                   <Column
                     field="waktu"
-                    style={{ width: "15%", minWidth: "5%" }}
+                    style={{ width: "20%", minWidth: "10%" }}
                     header="Tanggal SK"
                     body={(rowData) =>
                       new Date(rowData.waktu).toLocaleDateString()
