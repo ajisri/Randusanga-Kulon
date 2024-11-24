@@ -754,22 +754,22 @@ const Modalt = () => {
                 <Column
                   field="name"
                   header="Name"
-                  style={{ width: "35%" }}
+                  style={{ width: "25%", minWidth: "15%" }}
                 ></Column>
                 <Column
                   field="description"
                   header="description"
-                  style={{ width: "55%" }}
+                  style={{ width: "45%", minWidth: "15%" }}
                 ></Column>
                 <Column
                   field="date"
                   header="date"
-                  style={{ width: "5%" }}
+                  style={{ width: "20%", minWidth: "10%" }}
                 ></Column>
                 <Column
                   field="download"
                   header="download"
-                  style={{ width: "5%" }}
+                  style={{ width: "5%", minWidth: "5%" }}
                 >
                   <Button label="Primary" text raised />
                 </Column>

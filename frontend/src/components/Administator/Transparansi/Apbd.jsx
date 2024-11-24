@@ -364,11 +364,20 @@ const Apbd = () => {
           }}
           style={{ width: "5%", minWidth: "5%" }}
         />
-        <Column field="name" header="Name" />
-        <Column field="year" header="Tahun" />
+        <Column
+          field="name"
+          header="Nama"
+          style={{ width: "55%", minWidth: "15%" }}
+        />
+        <Column
+          field="year"
+          header="Tahun"
+          style={{ width: "30%", minWidth: "5%" }}
+        />
         <Column
           field="file_url"
           header="File"
+          style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
             const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
             return (
@@ -384,6 +393,7 @@ const Apbd = () => {
         />
         <Column
           header="Actions"
+          style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => (
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
