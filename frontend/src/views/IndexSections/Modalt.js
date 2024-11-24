@@ -38,7 +38,10 @@ const Modalt = () => {
   const apbdList = allapbdData?.apbdp || [];
   // Tampilkan data di console
   if (allapbdData) {
-    console.log("Data APBD dari API:", allapbdData);
+    console.log(
+      "Struktur data dari API:",
+      JSON.stringify(allapbdData, null, 2)
+    );
   }
 
   const dialogFooterTemplate = () => {
