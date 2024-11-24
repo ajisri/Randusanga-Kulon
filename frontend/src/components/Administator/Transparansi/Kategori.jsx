@@ -408,7 +408,12 @@ const Kategori = () => {
       setSubkategoriFormData(data); // Memperbarui state form
     } catch (error) {
       // Tangani error jika terjadi kesalahan pada permintaan API
-      handleError(error);
+      if (error.response) {
+        handleError(error); // Jika ada error pada response API
+      } else {
+        // Jika terjadi kesalahan selain response (misal jaringan)
+        showNotification("Terjadi kesalahan pada jaringan", "error");
+      }
     }
   };
 
