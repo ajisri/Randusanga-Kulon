@@ -14,6 +14,8 @@ import "primereact/resources/primereact.min.css"; // Import CSS utama PrimeReact
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Modalt = () => {
+  const [isDetailDialogVisible, setDetailDialogVisible] = useState(false);
+  const [selectedKeuangan, setSelectedKeuangan] = useState(null);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogVisiblePH, setDialogVisiblePH] = useState(false);
   const [dialogVisibleAPB, setDialogVisibleAPB] = useState(false);
@@ -147,10 +149,14 @@ const Modalt = () => {
     </div>
   );
 
-  const handleViewDetails = (uuid) => {
-    // URL mengarah ke halaman detail data
-    const detailUrl = `https://yourfrontendurl.com/detail/${uuid}`;
-    window.open(detailUrl, "_blank"); // Buka tab baru
+  const openDetailDialog = (keuangan) => {
+    setSelectedKeuangan(keuangan);
+    setDetailDialogVisible(true);
+  };
+
+  const closeDetailDialog = () => {
+    setDetailDialogVisible(false);
+    setSelectedKeuangan(null);
   };
 
   return (
@@ -771,38 +777,117 @@ const Modalt = () => {
               ) : apbdList.length === 0 ? (
                 <p>No data available.</p>
               ) : (
-                <DataTable
-                  value={apbdList}
-                  paginator
-                  rows={5}
-                  rowsPerPageOptions={[5, 10, 25, 50]}
-                  tableStyle={{ minWidth: "50rem" }}
-                >
-                  <Column
-                    field="name"
-                    header="Name"
-                    body={(rowData) => `${rowData.name} (${rowData.year})`}
-                    style={{ width: "25%", minWidth: "15%" }}
-                  ></Column>
-                  <Column
-                    header="Detail"
-                    body={(rowData) => (
-                      <Button
-                        label="View Details"
-                        onClick={() => handleViewDetails(rowData.uuid)}
-                        className="detail-button p-button-rounded p-button-info"
-                      />
-                    )}
-                    style={{ width: "20%", minWidth: "10%" }}
-                  />
-                  <Column
-                    field="download"
-                    header="download"
-                    style={{ width: "5%", minWidth: "5%" }}
+                <>
+                  <DataTable
+                    value={apbdList}
+                    paginator
+                    rows={5}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
+                    tableStyle={{ minWidth: "50rem" }}
                   >
-                    <Button label="Primary" text raised />
-                  </Column>
-                </DataTable>
+                    <Column
+                      field="name"
+                      header="Name"
+                      body={(rowData) => `${rowData.name} (${rowData.year})`}
+                      style={{ width: "25%", minWidth: "15%" }}
+                    ></Column>
+                    <Column
+                      header="Detail"
+                      body={(rowData) => (
+                        <Button
+                          label="Lihat Detail"
+                          onClick={() => openDetailDialog(rowData)}
+                          className="p-button-rounded p-button-info"
+                        />
+                      )}
+                      style={{ width: "20%", minWidth: "10%" }}
+                    />
+                    <Column
+                      field="download"
+                      header="download"
+                      style={{ width: "5%", minWidth: "5%" }}
+                    >
+                      <Button label="Primary" text raised />
+                    </Column>
+                  </DataTable>
+                  <Dialog
+                    visible={isDetailDialogVisible}
+                    onHide={closeDetailDialog}
+                    style={{ width: "100vw", height: "100vh" }}
+                    header="Detail Keuangan"
+                    modal
+                    dismissableMask
+                  >
+                    <div>
+                      <Button
+                        label="Close"
+                        icon="pi pi-times"
+                        onClick={closeDetailDialog}
+                        className="p-button-danger"
+                      />
+                      {selectedKeuangan && (
+                        <div>
+                          <h2>{selectedKeuangan.name}</h2>
+                          {/* Tampilkan data detail lainnya sesuai schema */}
+                          {/* Contoh menampilkan data kategori */}
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Kategori</th>
+                                <th>Subkategori</th>
+                                <th>Total Budget</th>
+                                <th>Total Realization</th>
+                                <th>Remaining</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {selectedKeuangan.kategori.map(
+                                (kategori, index) => (
+                                  <tr key={kategori.uuid}>
+                                    <td>{index + 1}</td>
+                                    <td>{kategori.name}</td>
+                                    <td>
+                                      {kategori.subkategori.map(
+                                        (sub, subIndex) => (
+                                          <div key={sub.uuid}>
+                                            {subIndex + 1}. {sub.name}
+                                          </div>
+                                        )
+                                      )}
+                                    </td>
+                                    <td>
+                                      {kategori.subkategori.reduce(
+                                        (acc, sub) =>
+                                          acc + parseFloat(sub.totalBudget),
+                                        0
+                                      )}
+                                    </td>
+                                    <td>
+                                      {kategori.subkategori.reduce(
+                                        (acc, sub) =>
+                                          acc +
+                                          parseFloat(sub.totalRealization),
+                                        0
+                                      )}
+                                    </td>
+                                    <td>
+                                      {kategori.subkategori.reduce(
+                                        (acc, sub) =>
+                                          acc + parseFloat(sub.remaining),
+                                        0
+                                      )}
+                                    </td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                    </div>
+                  </Dialog>
+                </>
               )}
             </Dialog>
           </div>
