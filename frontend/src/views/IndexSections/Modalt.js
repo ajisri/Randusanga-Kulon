@@ -162,6 +162,8 @@ const Modalt = () => {
     setSelectedKeuangan(null);
   };
 
+  console.log("Isi apbdList:", apbdList);
+
   return (
     <>
       <h2 className="mt-sm mb-2">
