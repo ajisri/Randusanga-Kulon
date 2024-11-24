@@ -57,6 +57,7 @@ const Keuangan = () => {
 
   useEffect(() => {
     if (keuanganData) {
+      console.log("Data Keuangan yang diterima:", keuanganData);
       // Periksa jika keuanganData ada
       setKeuanganList(keuanganData); // Gunakan keuanganData langsung
     }
@@ -73,6 +74,7 @@ const Keuangan = () => {
 
   useEffect(() => {
     if (apbdData) {
+      console.log("Data APBD yang diterima:", apbdData);
       setApbdOptions(apbdData); // Simpan apbdData untuk dropdown
     }
   }, [apbdData]);
