@@ -373,10 +373,10 @@ const Kategori = () => {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
       );
-      console.log("Data yang diterima dari API:", response.data);
+      console.log("Data yang diterima dari API:", response); // Log keseluruhan respons
 
       // Cek apakah data ada atau kosong
-      if (response.data.length === 0) {
+      if (Array.isArray(response.data) && response.data.length === 0) {
         // Jika data kosong, tampilkan notifikasi
         showNotification("Data subkategori kosong untuk kategori ini.");
 
@@ -407,6 +407,7 @@ const Kategori = () => {
 
       setSubkategoriFormData(data); // Memperbarui state form
     } catch (error) {
+      console.log(error); // Log error untuk melihat detailnya
       // Tangani error jika terjadi kesalahan pada permintaan API
       if (error.response) {
         handleError(error); // Jika ada error pada response API
