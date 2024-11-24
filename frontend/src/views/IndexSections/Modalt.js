@@ -898,59 +898,73 @@ const Modalt = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                {selectedKeuangan.kategori.map(
-                                  (kategori, index) => (
-                                    <tr key={kategori.uuid}>
-                                      <td>{index + 1}</td>
-                                      <td>{kategori.name}</td>
-                                      <td>
-                                        {kategori.subkategori.map(
-                                          (sub, subIndex) => (
-                                            <div key={sub.uuid}>
-                                              {subIndex + 1}. {sub.name}
-                                            </div>
-                                          )
-                                        )}
-                                      </td>
-                                      <td>
-                                        {kategori.subkategori
-                                          .reduce(
-                                            (acc, sub) =>
-                                              acc + parseFloat(sub.totalBudget),
-                                            0
-                                          )
-                                          .toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                          })}
-                                      </td>
-                                      <td>
-                                        {kategori.subkategori
-                                          .reduce(
-                                            (acc, sub) =>
-                                              acc +
-                                              parseFloat(sub.totalRealization),
-                                            0
-                                          )
-                                          .toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                          })}
-                                      </td>
-                                      <td>
-                                        {kategori.subkategori
-                                          .reduce(
-                                            (acc, sub) =>
-                                              acc + parseFloat(sub.remaining),
-                                            0
-                                          )
-                                          .toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                          })}
-                                      </td>
-                                    </tr>
+                                {selectedKeuangan?.kategori?.length > 0 ? (
+                                  selectedKeuangan.kategori.map(
+                                    (kategori, index) => (
+                                      <tr key={kategori.uuid}>
+                                        <td>{index + 1}</td>
+                                        <td>{kategori.name}</td>
+                                        <td>
+                                          {kategori.subkategori.map(
+                                            (sub, subIndex) => (
+                                              <div key={sub.uuid}>
+                                                {subIndex + 1}. {sub.name}
+                                              </div>
+                                            )
+                                          )}
+                                        </td>
+                                        <td>
+                                          {kategori.subkategori
+                                            .reduce(
+                                              (acc, sub) =>
+                                                acc +
+                                                parseFloat(sub.totalBudget),
+                                              0
+                                            )
+                                            .toLocaleString("id-ID", {
+                                              style: "currency",
+                                              currency: "IDR",
+                                            })}
+                                        </td>
+                                        <td>
+                                          {kategori.subkategori
+                                            .reduce(
+                                              (acc, sub) =>
+                                                acc +
+                                                parseFloat(
+                                                  sub.totalRealization
+                                                ),
+                                              0
+                                            )
+                                            .toLocaleString("id-ID", {
+                                              style: "currency",
+                                              currency: "IDR",
+                                            })}
+                                        </td>
+                                        <td>
+                                          {kategori.subkategori
+                                            .reduce(
+                                              (acc, sub) =>
+                                                acc + parseFloat(sub.remaining),
+                                              0
+                                            )
+                                            .toLocaleString("id-ID", {
+                                              style: "currency",
+                                              currency: "IDR",
+                                            })}
+                                        </td>
+                                      </tr>
+                                    )
                                   )
+                                ) : (
+                                  <tr>
+                                    <td
+                                      colSpan="6"
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      Tidak ada data kategori.
+                                    </td>
+                                  </tr>
                                 )}
                               </tbody>
                             </table>
