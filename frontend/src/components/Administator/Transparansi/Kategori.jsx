@@ -153,24 +153,6 @@ const Kategori = () => {
     }
   };
 
-  const handleError = (error) => {
-    if (error.response) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: error.response.data.message || "An unexpected error occurred",
-        life: 5000,
-      });
-    } else {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "An unexpected error occurred",
-        life: 5000,
-      });
-    }
-  };
-
   const resetForm = () => {
     setFormData({
       uuid: "",
@@ -393,30 +375,40 @@ const Kategori = () => {
       );
       console.log("Data yang diterima dari API:", response.data);
 
-      const data =
-        response.data.length > 0
-          ? response.data.map((subkategori) => ({
-              uuid: subkategori.uuid || null, // Pastikan UUID dikaitkan
-              name: subkategori.name || "",
-              kategoriId: subkategori.kategoriId || kategoriId,
-              budget: subkategori.totalBudget || 0, // Mapping ke totalBudget
-              realization: subkategori.totalRealization || 0, // Mapping ke totalRealization
-              remaining: subkategori.remaining || 0, // Mapping ke remaining
-            }))
-          : [
-              {
-                uuid: null,
-                name: "",
-                kategoriId,
-                budget: 0,
-                realization: 0,
-                remaining: 0,
-              },
-            ];
+      // Cek apakah data ada atau kosong
+      if (response.data.length === 0) {
+        // Jika data kosong, tampilkan notifikasi
+        showNotification("Data subkategori kosong untuk kategori ini.");
+
+        // Jika ingin tetap mengisi form dengan data kosong, bisa tambahkan data default
+        setSubkategoriFormData([
+          {
+            uuid: null,
+            name: "",
+            kategoriId,
+            budget: 0,
+            realization: 0,
+            remaining: 0,
+          },
+        ]);
+
+        return; // Keluar dari fungsi jika data kosong
+      }
+
+      // Jika data tidak kosong, map data seperti biasa
+      const data = response.data.map((subkategori) => ({
+        uuid: subkategori.uuid || null, // Pastikan UUID dikaitkan
+        name: subkategori.name || "",
+        kategoriId: subkategori.kategoriId || kategoriId,
+        budget: subkategori.totalBudget || 0, // Mapping ke totalBudget
+        realization: subkategori.totalRealization || 0, // Mapping ke totalRealization
+        remaining: subkategori.remaining || 0, // Mapping ke remaining
+      }));
 
       setSubkategoriFormData(data); // Memperbarui state form
     } catch (error) {
-      handleError(error); // Menangani error
+      // Tangani error jika terjadi kesalahan pada permintaan API
+      handleError(error);
     }
   };
 
@@ -427,6 +419,33 @@ const Kategori = () => {
           style: "currency",
           currency: "IDR",
         }).format(angka);
+  };
+
+  const showNotification = (message, severity = "info") => {
+    toast.current.show({
+      severity: severity, // Jenis notifikasi (info, success, warn, error)
+      summary: severity.charAt(0).toUpperCase() + severity.slice(1), // Mengubah huruf pertama menjadi kapital
+      detail: message, // Pesan notifikasi yang akan ditampilkan
+      life: 5000, // Durasi notifikasi dalam milidetik (5 detik)
+    });
+  };
+
+  const handleError = (error) => {
+    if (error.response) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: error.response.data.message || "An unexpected error occurred",
+        life: 5000,
+      });
+    } else {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "An unexpected error occurred",
+        life: 5000,
+      });
+    }
   };
 
   if (isLoading || isKeuanganLoading) return <p>Loading...</p>;
