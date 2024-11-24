@@ -435,14 +435,14 @@ const Kategori = () => {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: error.response.data.message || "An unexpected error occurred",
+        detail: error.response.data.message || "expected error occurred",
         life: 5000,
       });
     } else {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "expected error occurred",
+        detail: "An unexpected error occurred",
         life: 5000,
       });
     }
