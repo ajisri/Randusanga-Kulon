@@ -60,6 +60,21 @@ const Modalt = () => {
     console.log("Isi apbdpList:", apbdpList);
   }, [apbdpList]);
 
+  useEffect(() => {
+    if (allapbdData) {
+      setApbdpList(allapbdData.data || []);
+      console.log("Data APBD diatur:", allapbdData.data);
+    }
+  }, [allapbdData]);
+
+  useEffect(() => {
+    console.log("Dialog detail visible:", isDetailDialogVisible);
+  }, [isDetailDialogVisible]);
+
+  useEffect(() => {
+    console.log("selectedKeuangan telah diperbarui:", selectedKeuangan);
+  }, [selectedKeuangan]);
+
   const dialogFooterTemplate = () => {
     return (
       <Button
@@ -168,8 +183,10 @@ const Modalt = () => {
     </div>
   );
 
-  const openDetailDialog = (keuangan) => {
-    setSelectedKeuangan(keuangan);
+  const openDetailDialog = (rowData) => {
+    console.log("Data row yang dipilih:", rowData); // Debug untuk memastikan data diterima
+    setSelectedKeuangan(rowData.keuangan || []); // Pastikan ini sesuai dengan struktur data Anda
+
     setDetailDialogVisible(true);
   };
 
