@@ -26,6 +26,14 @@ const Modalt = () => {
   const loadingProdukhukum = !produkhukumData && !produkhukumError;
 
   const produkhukumList = produkhukumData?.produkHukump || [];
+
+  const { data: allapbdData, error: allapbdError } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/apbdp",
+    fetcher
+  );
+  const loadingApbd = !allapbdData && !allapbdError;
+
+  const apbdList = allapbdData?.apbdp || [];
   const dialogFooterTemplate = () => {
     return (
       <Button
@@ -745,35 +753,44 @@ const Modalt = () => {
               onHide={hideDialogAPB}
               footer={dialogFooterTemplate}
             >
-              <DataTable
-                paginator
-                rows={5}
-                rowsPerPageOptions={[5, 10, 25, 50]}
-                tableStyle={{ minWidth: "50rem" }}
-              >
-                <Column
-                  field="name"
-                  header="Name"
-                  style={{ width: "25%", minWidth: "15%" }}
-                ></Column>
-                <Column
-                  field="description"
-                  header="description"
-                  style={{ width: "45%", minWidth: "15%" }}
-                ></Column>
-                <Column
-                  field="date"
-                  header="date"
-                  style={{ width: "20%", minWidth: "10%" }}
-                ></Column>
-                <Column
-                  field="download"
-                  header="download"
-                  style={{ width: "5%", minWidth: "5%" }}
+              {loadingApbd ? (
+                <p>Loading...</p>
+              ) : allapbdError ? (
+                <p>Error loading data: {allapbdError.message}</p>
+              ) : apbdList.length === 0 ? (
+                <p>No data available.</p>
+              ) : (
+                <DataTable
+                  value={apbdList}
+                  paginator
+                  rows={5}
+                  rowsPerPageOptions={[5, 10, 25, 50]}
+                  tableStyle={{ minWidth: "50rem" }}
                 >
-                  <Button label="Primary" text raised />
-                </Column>
-              </DataTable>
+                  <Column
+                    field="name"
+                    header="Name"
+                    style={{ width: "25%", minWidth: "15%" }}
+                  ></Column>
+                  <Column
+                    field="description"
+                    header="description"
+                    style={{ width: "45%", minWidth: "15%" }}
+                  ></Column>
+                  <Column
+                    field="date"
+                    header="date"
+                    style={{ width: "20%", minWidth: "10%" }}
+                  ></Column>
+                  <Column
+                    field="download"
+                    header="download"
+                    style={{ width: "5%", minWidth: "5%" }}
+                  >
+                    <Button label="Primary" text raised />
+                  </Column>
+                </DataTable>
+              )}
             </Dialog>
           </div>
         </Col>
