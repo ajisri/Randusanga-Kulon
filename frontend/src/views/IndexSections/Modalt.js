@@ -142,6 +142,12 @@ const Modalt = () => {
     </div>
   );
 
+  const handleViewDetails = (uuid) => {
+    // URL mengarah ke halaman detail data
+    const detailUrl = `https://yourfrontendurl.com/detail/${uuid}`;
+    window.open(detailUrl, "_blank"); // Buka tab baru
+  };
+
   return (
     <>
       <h2 className="mt-sm mb-2">
@@ -770,18 +776,22 @@ const Modalt = () => {
                   <Column
                     field="name"
                     header="Name"
+                    body={(rowData) =>
+                      `${rowData.apbd.name} (${rowData.apbd.year})`
+                    }
                     style={{ width: "25%", minWidth: "15%" }}
                   ></Column>
                   <Column
-                    field="description"
-                    header="description"
-                    style={{ width: "45%", minWidth: "15%" }}
-                  ></Column>
-                  <Column
-                    field="date"
-                    header="date"
+                    header="Detail"
+                    body={(rowData) => (
+                      <Button
+                        label="View Details"
+                        onClick={() => handleViewDetails(rowData.uuid)}
+                        className="detail-button p-button-rounded p-button-info"
+                      />
+                    )}
                     style={{ width: "20%", minWidth: "10%" }}
-                  ></Column>
+                  />
                   <Column
                     field="download"
                     header="download"

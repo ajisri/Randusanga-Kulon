@@ -657,7 +657,15 @@ const Kategori = () => {
       >
         <form onSubmit={handleSubkategoriSubmit}>
           {subkategoriFormData.map((item, index) => (
-            <div key={index} className="subkategori-budget-field-container">
+            <div
+              key={index}
+              className="subkategori-budget-field-container"
+              style={{
+                marginBottom: "30px", // Jarak antar form dinamis
+                borderBottom: "2px dashed #ddd", // Garis pembatas
+                paddingBottom: "20px", // Jarak antara isi form dan garis
+              }}
+            >
               {/* Subkategori Field */}
               <div className="subkategori-field">
                 <label htmlFor={`subkategoriName_${index}`}>Subkategori:</label>
@@ -680,7 +688,6 @@ const Kategori = () => {
                   />
                 </div>
               </div>
-
               {/* Budgeting Fields */}
               <div
                 className="budgeting-fields"
