@@ -30,7 +30,7 @@ const Modalt = () => {
   const produkhukumList = produkhukumData?.produkHukump || [];
 
   const { data: allapbdData, error: allapbdError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/apbdp",
+    "https://randusanga-kulonbackend-production.up.railway.app/allapbdp",
     fetcher
   );
   const loadingApbd = !allapbdData && !allapbdError;
