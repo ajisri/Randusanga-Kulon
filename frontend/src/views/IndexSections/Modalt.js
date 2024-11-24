@@ -666,16 +666,22 @@ const Modalt = () => {
                   rowsPerPageOptions={[5, 10, 25, 50]}
                   tableStyle={{ minWidth: "50rem" }}
                 >
-                  <Column field="name" header="Name"></Column>
+                  <Column
+                    field="name"
+                    header="Name"
+                    style={{ width: "35%", minWidth: "35%" }}
+                  ></Column>
                   <Column
                     field="deskripsi"
                     header="Deskripsi"
+                    style={{ width: "45%", minWidth: "15%" }}
                     headerStyle={{
                       textAlign: "center !important",
                     }}
                   />
                   <Column
                     field="waktu"
+                    style={{ width: "15%", minWidth: "5%" }}
                     header="Tanggal SK"
                     body={(rowData) =>
                       new Date(rowData.waktu).toLocaleDateString()
@@ -683,6 +689,7 @@ const Modalt = () => {
                   ></Column>
                   <Column
                     field="file_url"
+                    style={{ width: "5%", minWidth: "5%" }}
                     header="Download"
                     body={(rowData) => {
                       const fileName = rowData.file_url.split("/").pop(); // Ambil nama file saja
