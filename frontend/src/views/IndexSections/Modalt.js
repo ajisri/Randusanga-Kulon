@@ -776,9 +776,7 @@ const Modalt = () => {
                   <Column
                     field="name"
                     header="Name"
-                    body={(rowData) =>
-                      `${rowData.apbd.name} (${rowData.apbd.year})`
-                    }
+                    body={(rowData) => `${rowData.name} (${rowData.year})`}
                     style={{ width: "25%", minWidth: "15%" }}
                   ></Column>
                   <Column
