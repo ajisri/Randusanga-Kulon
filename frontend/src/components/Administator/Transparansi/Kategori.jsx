@@ -442,7 +442,7 @@ const Kategori = () => {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "An unexpected error occurred",
+        detail: "expected error occurred",
         life: 5000,
       });
     }
