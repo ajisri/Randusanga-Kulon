@@ -766,16 +766,22 @@ const Modalt = () => {
               style={{ width: "75vw" }}
               maximizable
               modal
-              contentStyle={{ height: "300px" }}
+              contentStyle={{ height: "auto", padding: "1rem" }}
               onHide={hideDialogAPB}
               footer={dialogFooterTemplate}
             >
               {loadingApbd ? (
-                <p>Loading...</p>
+                <div className="loading-container">
+                  <p>Loading...</p>
+                </div>
               ) : allapbdError ? (
-                <p>Error loading data: {allapbdError.message}</p>
+                <div className="error-container">
+                  <p>Error loading data: {allapbdError.message}</p>
+                </div>
               ) : apbdList.length === 0 ? (
-                <p>No data available.</p>
+                <div className="no-data-container">
+                  <p>No data available.</p>
+                </div>
               ) : (
                 <>
                   <DataTable
@@ -783,13 +789,14 @@ const Modalt = () => {
                     paginator
                     rows={5}
                     rowsPerPageOptions={[5, 10, 25, 50]}
-                    tableStyle={{ minWidth: "50rem" }}
+                    tableStyle={{ minWidth: "60rem" }}
+                    style={{ marginBottom: "1rem" }}
                   >
                     <Column
                       field="name"
                       header="Name"
                       body={(rowData) => `${rowData.name} (${rowData.year})`}
-                      style={{ width: "25%", minWidth: "15%" }}
+                      style={{ width: "40%", minWidth: "30%" }}
                     ></Column>
                     <Column
                       header="Detail"
@@ -798,91 +805,122 @@ const Modalt = () => {
                           label="Lihat Detail"
                           onClick={() => openDetailDialog(rowData)}
                           className="p-button-rounded p-button-info"
+                          style={{ minWidth: "100px" }}
                         />
                       )}
-                      style={{ width: "20%", minWidth: "10%" }}
+                      style={{ width: "20%", minWidth: "15%" }}
                     />
                     <Column
                       field="download"
-                      header="download"
-                      style={{ width: "5%", minWidth: "5%" }}
-                    >
-                      <Button label="Primary" text raised />
-                    </Column>
+                      header="Download"
+                      body={(rowData) => (
+                        <Button
+                          label="Download"
+                          icon="pi pi-download"
+                          className="p-button-rounded p-button-primary"
+                          onClick={() =>
+                            console.log("Download data for:", rowData.name)
+                          }
+                        />
+                      )}
+                      style={{ width: "20%", minWidth: "15%" }}
+                    />
                   </DataTable>
                   <Dialog
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
-                    style={{ width: "100vw", height: "100vh" }}
+                    style={{ width: "95vw", height: "95vh" }}
                     header="Detail Keuangan"
                     modal
                     dismissableMask
                   >
-                    <div>
-                      <Button
-                        label="Close"
-                        icon="pi pi-times"
-                        onClick={closeDetailDialog}
-                        className="p-button-danger"
-                      />
+                    <div style={{ padding: "1rem" }}>
+                      <div className="dialog-header">
+                        <Button
+                          label="Close"
+                          icon="pi pi-times"
+                          onClick={closeDetailDialog}
+                          className="p-button-danger"
+                          style={{ marginBottom: "1rem" }}
+                        />
+                      </div>
                       {selectedKeuangan && (
-                        <div>
-                          <h2>{selectedKeuangan.name}</h2>
+                        <div className="detail-content">
+                          <h2 style={{ marginBottom: "1rem" }}>
+                            {selectedKeuangan.name}
+                          </h2>
                           {/* Tampilkan data detail lainnya sesuai schema */}
                           {/* Contoh menampilkan data kategori */}
-                          <table>
-                            <thead>
-                              <tr>
-                                <th>No</th>
-                                <th>Kategori</th>
-                                <th>Subkategori</th>
-                                <th>Total Budget</th>
-                                <th>Total Realization</th>
-                                <th>Remaining</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {selectedKeuangan.kategori.map(
-                                (kategori, index) => (
-                                  <tr key={kategori.uuid}>
-                                    <td>{index + 1}</td>
-                                    <td>{kategori.name}</td>
-                                    <td>
-                                      {kategori.subkategori.map(
-                                        (sub, subIndex) => (
-                                          <div key={sub.uuid}>
-                                            {subIndex + 1}. {sub.name}
-                                          </div>
-                                        )
-                                      )}
-                                    </td>
-                                    <td>
-                                      {kategori.subkategori.reduce(
-                                        (acc, sub) =>
-                                          acc + parseFloat(sub.totalBudget),
-                                        0
-                                      )}
-                                    </td>
-                                    <td>
-                                      {kategori.subkategori.reduce(
-                                        (acc, sub) =>
-                                          acc +
-                                          parseFloat(sub.totalRealization),
-                                        0
-                                      )}
-                                    </td>
-                                    <td>
-                                      {kategori.subkategori.reduce(
-                                        (acc, sub) =>
-                                          acc + parseFloat(sub.remaining),
-                                        0
-                                      )}
-                                    </td>
-                                  </tr>
-                                )
-                              )}
-                            </tbody>
-                          </table>
+                          <div className="table-responsive">
+                            <table className="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>No</th>
+                                  <th>Kategori</th>
+                                  <th>Subkategori</th>
+                                  <th>Total Budget</th>
+                                  <th>Total Realization</th>
+                                  <th>Remaining</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {selectedKeuangan.kategori.map(
+                                  (kategori, index) => (
+                                    <tr key={kategori.uuid}>
+                                      <td>{index + 1}</td>
+                                      <td>{kategori.name}</td>
+                                      <td>
+                                        {kategori.subkategori.map(
+                                          (sub, subIndex) => (
+                                            <div key={sub.uuid}>
+                                              {subIndex + 1}. {sub.name}
+                                            </div>
+                                          )
+                                        )}
+                                      </td>
+                                      <td>
+                                        {kategori.subkategori
+                                          .reduce(
+                                            (acc, sub) =>
+                                              acc + parseFloat(sub.totalBudget),
+                                            0
+                                          )
+                                          .toLocaleString("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                          })}
+                                      </td>
+                                      <td>
+                                        {kategori.subkategori
+                                          .reduce(
+                                            (acc, sub) =>
+                                              acc +
+                                              parseFloat(sub.totalRealization),
+                                            0
+                                          )
+                                          .toLocaleString("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                          })}
+                                      </td>
+                                      <td>
+                                        {kategori.subkategori
+                                          .reduce(
+                                            (acc, sub) =>
+                                              acc + parseFloat(sub.remaining),
+                                            0
+                                          )
+                                          .toLocaleString("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                          })}
+                                      </td>
+                                    </tr>
+                                  )
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       )}
                     </div>
