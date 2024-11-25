@@ -887,7 +887,12 @@ const Modalt = () => {
                   <Dialog
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
-                    style={{ width: "95vw", height: "95vh", margin: "0" }}
+                    style={{
+                      width: "95vw",
+                      height: "95vh",
+                      margin: "0",
+                      padding: "1rem",
+                    }}
                     header="Detail Keuangan"
                     modal
                     dismissableMask
@@ -909,25 +914,32 @@ const Modalt = () => {
                         <div className="detail-content">
                           <div
                             className="table-responsive"
-                            style={{ overflowX: "auto", width: "100%" }}
+                            style={{
+                              overflowX: "auto",
+                              width: "100%",
+                              maxHeight: "calc(95vh - 150px)",
+                              border: "1px solid #e0e0e0",
+                              borderRadius: "8px",
+                            }}
                           >
                             <table
                               style={{
-                                width: "100vh",
+                                width: "100%",
                                 borderCollapse: "collapse",
-                                backgroundColor: "#f9f9f9",
+                                backgroundColor: "#ffffff",
                               }}
                             >
                               <thead>
                                 <tr
                                   style={{
-                                    backgroundColor: "#3366cc",
+                                    background:
+                                      "linear-gradient(90deg, #3366cc, #5588ff)",
                                     color: "#ffffff",
                                   }}
                                 >
                                   <th
                                     style={{
-                                      padding: "0.5rem",
+                                      padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
                                       width: "5%",
@@ -937,7 +949,7 @@ const Modalt = () => {
                                   </th>
                                   <th
                                     style={{
-                                      padding: "0.5rem",
+                                      padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
                                       width: "20%",
@@ -947,7 +959,7 @@ const Modalt = () => {
                                   </th>
                                   <th
                                     style={{
-                                      padding: "0.5rem",
+                                      padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
                                       width: "25%",
@@ -957,7 +969,7 @@ const Modalt = () => {
                                   </th>
                                   <th
                                     style={{
-                                      padding: "0.5rem",
+                                      padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
                                       width: "15%",
@@ -967,7 +979,7 @@ const Modalt = () => {
                                   </th>
                                   <th
                                     style={{
-                                      padding: "0.5rem",
+                                      padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
                                       width: "15%",
@@ -977,7 +989,7 @@ const Modalt = () => {
                                   </th>
                                   <th
                                     style={{
-                                      padding: "0.5rem",
+                                      padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
                                       width: "15%",
@@ -996,13 +1008,25 @@ const Modalt = () => {
                                         style={{
                                           backgroundColor:
                                             index % 2 === 0
-                                              ? "#ffffff"
-                                              : "#f2f2f2",
+                                              ? "#f9f9f9"
+                                              : "#ffffff",
+                                          cursor: "pointer",
+                                          transition: "background 0.3s ease",
                                         }}
+                                        onMouseOver={(e) =>
+                                          (e.currentTarget.style.backgroundColor =
+                                            "#e3f2fd")
+                                        }
+                                        onMouseOut={(e) =>
+                                          (e.currentTarget.style.backgroundColor =
+                                            index % 2 === 0
+                                              ? "#f9f9f9"
+                                              : "#ffffff")
+                                        }
                                       >
                                         <td
                                           style={{
-                                            padding: "0.5rem",
+                                            padding: "0.8rem",
                                             border: "1px solid #dddddd",
                                             textAlign: "left",
                                           }}
@@ -1011,7 +1035,7 @@ const Modalt = () => {
                                         </td>
                                         <td
                                           style={{
-                                            padding: "0.5rem",
+                                            padding: "0.8rem",
                                             border: "1px solid #dddddd",
                                             textAlign: "left",
                                           }}
@@ -1020,7 +1044,7 @@ const Modalt = () => {
                                         </td>
                                         <td
                                           style={{
-                                            padding: "0.5rem",
+                                            padding: "0.8rem",
                                             border: "1px solid #dddddd",
                                             textAlign: "left",
                                           }}
@@ -1035,7 +1059,7 @@ const Modalt = () => {
                                         </td>
                                         <td
                                           style={{
-                                            padding: "0.5rem",
+                                            padding: "0.8rem",
                                             border: "1px solid #dddddd",
                                             textAlign: "right",
                                           }}
@@ -1054,7 +1078,7 @@ const Modalt = () => {
                                         </td>
                                         <td
                                           style={{
-                                            padding: "0.5rem",
+                                            padding: "0.8rem",
                                             border: "1px solid #dddddd",
                                             textAlign: "right",
                                           }}
@@ -1075,7 +1099,7 @@ const Modalt = () => {
                                         </td>
                                         <td
                                           style={{
-                                            padding: "0.5rem",
+                                            padding: "0.8rem",
                                             border: "1px solid #dddddd",
                                             textAlign: "right",
                                           }}
@@ -1102,6 +1126,7 @@ const Modalt = () => {
                                         textAlign: "center",
                                         padding: "1rem",
                                         border: "1px solid #dddddd",
+                                        backgroundColor: "#f9f9f9",
                                       }}
                                     >
                                       Tidak ada data kategori.
