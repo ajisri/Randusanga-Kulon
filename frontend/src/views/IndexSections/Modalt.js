@@ -913,22 +913,25 @@ const Modalt = () => {
                       {selectedKeuangan && (
                         <div
                           className="detail-content"
-                          style={{ height: "calc(100% - 80px)" }}
+                          style={{
+                            height: "calc(100% - 80px)",
+                            width: "100%", // Pastikan menggunakan lebar penuh
+                            padding: "0", // Hilangkan padding yang dapat menciptakan ruang kosong
+                          }}
                         >
                           <div
                             className="table-responsive"
                             style={{
                               overflow: "auto",
                               height: "100%",
-                              width: "100%",
+                              width: "100%", // Lebar penuh untuk tabel
                               border: "1px solid #e0e0e0",
                               borderRadius: "8px",
                             }}
                           >
                             <table
                               style={{
-                                width: "100%",
-                                height: "100%",
+                                width: "100%", // Pastikan tabel menggunakan lebar penuh
                                 borderCollapse: "collapse",
                                 backgroundColor: "#ffffff",
                               }}
