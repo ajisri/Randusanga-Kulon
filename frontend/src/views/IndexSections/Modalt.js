@@ -875,7 +875,9 @@ const Modalt = () => {
                           onClick={() =>
                             console.log("Download data for:", rowData.name)
                           }
-                        />
+                        >
+                          Download
+                        </Button>
                       )}
                       style={{ width: "20%", minWidth: "15%" }}
                     />
