@@ -907,9 +907,6 @@ const Modalt = () => {
                       </div>
                       {selectedKeuangan && (
                         <div className="detail-content">
-                          <h2 style={{ marginBottom: "1rem" }}>
-                            {selectedKeuangan.name}
-                          </h2>
                           <div
                             className="table-responsive"
                             style={{ overflowX: "auto", width: "100%" }}
