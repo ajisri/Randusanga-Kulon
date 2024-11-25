@@ -851,7 +851,9 @@ const Modalt = () => {
                             transition: "background-color 0.3s", // Efek transisi
                             cursor: "pointer", // Cursor pointer
                           }}
-                        />
+                        >
+                          Detail
+                        </Button>
                       )}
                       style={{ width: "20%", minWidth: "15%" }}
                     />
@@ -908,7 +910,10 @@ const Modalt = () => {
                           <h2 style={{ marginBottom: "1rem" }}>
                             {selectedKeuangan.name}
                           </h2>
-                          <div className="table-responsive">
+                          <div
+                            className="table-responsive"
+                            style={{ overflowX: "auto" }}
+                          >
                             <table
                               style={{
                                 width: "100%",
@@ -928,6 +933,7 @@ const Modalt = () => {
                                       padding: "0.5rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
+                                      width: "5%",
                                     }}
                                   >
                                     No
@@ -937,6 +943,7 @@ const Modalt = () => {
                                       padding: "0.5rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
+                                      width: "20%",
                                     }}
                                   >
                                     Kategori
@@ -946,6 +953,7 @@ const Modalt = () => {
                                       padding: "0.5rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
+                                      width: "25%",
                                     }}
                                   >
                                     Subkategori
@@ -955,6 +963,7 @@ const Modalt = () => {
                                       padding: "0.5rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
+                                      width: "15%",
                                     }}
                                   >
                                     Total Budget
@@ -964,6 +973,7 @@ const Modalt = () => {
                                       padding: "0.5rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
+                                      width: "15%",
                                     }}
                                   >
                                     Total Realization
@@ -973,6 +983,7 @@ const Modalt = () => {
                                       padding: "0.5rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
+                                      width: "15%",
                                     }}
                                   >
                                     Remaining
