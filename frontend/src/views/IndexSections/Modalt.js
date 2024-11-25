@@ -799,7 +799,7 @@ const Modalt = () => {
             <Dialog
               header="APB Desa"
               visible={dialogVisibleAPB}
-              style={{ width: "75vw" }}
+              style={{ width: "90vw", maxWidth: "none" }} // Lebar dialog fleksibel
               maximizable
               modal
               contentStyle={{ height: "auto", padding: "1rem" }}
@@ -825,7 +825,6 @@ const Modalt = () => {
                     paginator
                     rows={5}
                     rowsPerPageOptions={[5, 10, 25, 50]}
-                    tableStyle={{ minWidth: "60rem" }}
                     style={{ marginBottom: "1rem" }}
                   >
                     <Column
@@ -842,14 +841,12 @@ const Modalt = () => {
                           onClick={() => openDetailDialog(rowData)}
                           className="p-button-rounded p-button-info"
                           style={{
-                            backgroundColor: "#008080", // Background teal
-                            color: "white", // Warna teks
-                            borderRadius: "8px", // Radius border
-                            border: "none", // Tanpa border
-                            padding: "10px 20px", // Padding
-                            fontWeight: "bold", // Tebal teks
-                            transition: "background-color 0.3s", // Efek transisi
-                            cursor: "pointer", // Cursor pointer
+                            backgroundColor: "#008080",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "10px 20px",
+                            fontWeight: "bold",
+                            cursor: "pointer",
                           }}
                         >
                           Detail
@@ -864,14 +861,12 @@ const Modalt = () => {
                         <Button
                           label="Download"
                           style={{
-                            backgroundColor: "#008080", // Background teal
-                            color: "white", // Warna teks
-                            borderRadius: "8px", // Radius border
-                            border: "none", // Tanpa border
-                            padding: "10px 20px", // Padding
-                            fontWeight: "bold", // Tebal teks
-                            transition: "background-color 0.3s", // Efek transisi
-                            cursor: "pointer", // Cursor pointer
+                            backgroundColor: "#008080",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "10px 20px",
+                            fontWeight: "bold",
+                            cursor: "pointer",
                           }}
                           icon="pi pi-download"
                           onClick={() =>
@@ -884,12 +879,13 @@ const Modalt = () => {
                       style={{ width: "20%", minWidth: "15%" }}
                     />
                   </DataTable>
+
                   <Dialog
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
                     style={{
-                      width: "100vw",
-                      height: "100vh",
+                      width: "90vw", // Lebar penuh dialog detail
+                      height: "90vh", // Tinggi penuh dialog detail
                       margin: "0",
                       padding: "0",
                     }}
@@ -915,8 +911,11 @@ const Modalt = () => {
                           className="detail-content"
                           style={{
                             height: "calc(100% - 80px)",
-                            width: "100%", // Pastikan menggunakan lebar penuh
-                            padding: "0", // Hilangkan padding yang dapat menciptakan ruang kosong
+                            width: "100%",
+                            padding: "0",
+                            margin: "0",
+                            display: "flex",
+                            flexDirection: "column",
                           }}
                         >
                           <div
@@ -924,14 +923,14 @@ const Modalt = () => {
                             style={{
                               overflow: "auto",
                               height: "100%",
-                              width: "100%", // Lebar penuh untuk tabel
+                              width: "100%",
                               border: "1px solid #e0e0e0",
                               borderRadius: "8px",
                             }}
                           >
                             <table
                               style={{
-                                width: "100%", // Pastikan tabel menggunakan lebar penuh
+                                width: "100%",
                                 borderCollapse: "collapse",
                                 backgroundColor: "#ffffff",
                               }}
