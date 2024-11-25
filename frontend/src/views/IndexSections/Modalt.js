@@ -888,19 +888,19 @@ const Modalt = () => {
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
                     style={{
-                      width: "95vw",
-                      height: "95vh",
+                      width: "100vw",
+                      height: "100vh",
                       margin: "0",
-                      padding: "1rem",
+                      padding: "0",
                     }}
                     header="Detail Keuangan"
                     modal
                     dismissableMask
                   >
-                    <div style={{ padding: "1rem" }}>
+                    <div style={{ height: "calc(100% - 50px)" }}>
                       <div
                         className="dialog-header"
-                        style={{ marginBottom: "1rem" }}
+                        style={{ padding: "1rem" }}
                       >
                         <Button
                           label="Close"
@@ -911,13 +911,16 @@ const Modalt = () => {
                         />
                       </div>
                       {selectedKeuangan && (
-                        <div className="detail-content">
+                        <div
+                          className="detail-content"
+                          style={{ height: "calc(100% - 80px)" }}
+                        >
                           <div
                             className="table-responsive"
                             style={{
-                              overflowX: "auto",
+                              overflow: "auto",
+                              height: "100%",
                               width: "100%",
-                              maxHeight: "calc(95vh - 150px)",
                               border: "1px solid #e0e0e0",
                               borderRadius: "8px",
                             }}
@@ -925,6 +928,7 @@ const Modalt = () => {
                             <table
                               style={{
                                 width: "100%",
+                                height: "100%",
                                 borderCollapse: "collapse",
                                 backgroundColor: "#ffffff",
                               }}
@@ -942,7 +946,6 @@ const Modalt = () => {
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
-                                      width: "5%",
                                     }}
                                   >
                                     No
@@ -952,7 +955,6 @@ const Modalt = () => {
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
-                                      width: "20%",
                                     }}
                                   >
                                     Kategori
@@ -962,7 +964,6 @@ const Modalt = () => {
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "left",
-                                      width: "25%",
                                     }}
                                   >
                                     Subkategori
@@ -972,7 +973,6 @@ const Modalt = () => {
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
-                                      width: "15%",
                                     }}
                                   >
                                     Total Budget
@@ -982,7 +982,6 @@ const Modalt = () => {
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
-                                      width: "15%",
                                     }}
                                   >
                                     Total Realization
@@ -992,7 +991,6 @@ const Modalt = () => {
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "right",
-                                      width: "15%",
                                     }}
                                   >
                                     Remaining
@@ -1010,19 +1008,7 @@ const Modalt = () => {
                                             index % 2 === 0
                                               ? "#f9f9f9"
                                               : "#ffffff",
-                                          cursor: "pointer",
-                                          transition: "background 0.3s ease",
                                         }}
-                                        onMouseOver={(e) =>
-                                          (e.currentTarget.style.backgroundColor =
-                                            "#e3f2fd")
-                                        }
-                                        onMouseOut={(e) =>
-                                          (e.currentTarget.style.backgroundColor =
-                                            index % 2 === 0
-                                              ? "#f9f9f9"
-                                              : "#ffffff")
-                                        }
                                       >
                                         <td
                                           style={{
