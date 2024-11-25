@@ -887,7 +887,7 @@ const Modalt = () => {
                   <Dialog
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
-                    style={{ width: "95vw", height: "95vh" }}
+                    style={{ width: "95vw", height: "95vh", margin: "0" }}
                     header="Detail Keuangan"
                     modal
                     dismissableMask
@@ -912,11 +912,11 @@ const Modalt = () => {
                           </h2>
                           <div
                             className="table-responsive"
-                            style={{ overflowX: "auto" }}
+                            style={{ overflowX: "auto", width: "100%" }}
                           >
                             <table
                               style={{
-                                width: "100%",
+                                width: "100vh",
                                 borderCollapse: "collapse",
                                 backgroundColor: "#f9f9f9",
                               }}
