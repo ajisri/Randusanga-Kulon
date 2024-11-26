@@ -40,8 +40,7 @@ const Modalt = () => {
   // Ambil data APBD dari API dan simpan ke state
   useEffect(() => {
     if (allapbdData?.data) {
-      console.log("API Response Data:", allapbdData.data);
-      setApbdpList(allapbdData.data); // Pastikan ini berjalan
+      setApbdpList(allapbdData.data);
     }
   }, [allapbdData]);
 
@@ -54,35 +53,6 @@ const Modalt = () => {
       );
     }
   }, [allapbdData]);
-
-  // Debugging: log isi apbdpList
-  useEffect(() => {
-    if (selectedKeuangan) {
-      console.log("Data selectedKeuangan:", selectedKeuangan);
-      console.log(
-        "Kategori dalam selectedKeuangan:",
-        selectedKeuangan?.kategori
-      );
-    }
-  }, [selectedKeuangan]);
-  useEffect(() => {
-    console.log("Isi apbdpList:", apbdpList);
-  }, [apbdpList]);
-
-  useEffect(() => {
-    if (allapbdData) {
-      setApbdpList(allapbdData.data || []);
-      console.log("Data APBD diatur:", allapbdData.data);
-    }
-  }, [allapbdData]);
-
-  useEffect(() => {
-    console.log("Dialog detail visible:", isDetailDialogVisible);
-  }, [isDetailDialogVisible]);
-
-  useEffect(() => {
-    console.log("selectedKeuangan telah diperbarui:", selectedKeuangan);
-  }, [selectedKeuangan]);
 
   const dialogFooterTemplate = () => {
     return (
@@ -193,9 +163,14 @@ const Modalt = () => {
   );
 
   const openDetailDialog = (rowData) => {
-    console.log("Data row yang dipilih:", rowData);
-    setSelectedKeuangan(rowData.keuangan || []);
-    setDetailDialogVisible(true);
+    console.log("Data yang dipilih:", rowData);
+
+    if (Array.isArray(rowData.keuangan) && rowData.keuangan.length > 0) {
+      setSelectedKeuangan(rowData.keuangan);
+      setDetailDialogVisible(true);
+    } else {
+      console.error("Data keuangan kosong:", rowData);
+    }
   };
 
   const closeDetailDialog = () => {
@@ -891,12 +866,7 @@ const Modalt = () => {
                   <Dialog
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
-                    style={{
-                      width: "90vw",
-                      height: "90vh",
-                      margin: "0",
-                      padding: "0",
-                    }}
+                    style={{ width: "90vw", height: "90vh" }}
                     header="Detail Keuangan"
                     modal
                     dismissableMask
@@ -914,7 +884,7 @@ const Modalt = () => {
                           style={{ marginBottom: "1rem" }}
                         />
                       </div>
-                      {selectedKeuangan && (
+                      {selectedKeuangan.length > 0 ? (
                         <div
                           className="detail-content"
                           style={{
@@ -954,7 +924,7 @@ const Modalt = () => {
                                   <th
                                     style={{
                                       padding: "0.8rem",
-                                      border: "1px solid #dddddd",
+                                      textAlign: "left",
                                     }}
                                   >
                                     No
@@ -962,7 +932,7 @@ const Modalt = () => {
                                   <th
                                     style={{
                                       padding: "0.8rem",
-                                      border: "1px solid #dddddd",
+                                      textAlign: "left",
                                     }}
                                   >
                                     Kategori
@@ -970,7 +940,7 @@ const Modalt = () => {
                                   <th
                                     style={{
                                       padding: "0.8rem",
-                                      border: "1px solid #dddddd",
+                                      textAlign: "left",
                                     }}
                                   >
                                     Subkategori
@@ -978,7 +948,6 @@ const Modalt = () => {
                                   <th
                                     style={{
                                       padding: "0.8rem",
-                                      border: "1px solid #dddddd",
                                       textAlign: "right",
                                     }}
                                   >
@@ -987,7 +956,6 @@ const Modalt = () => {
                                   <th
                                     style={{
                                       padding: "0.8rem",
-                                      border: "1px solid #dddddd",
                                       textAlign: "right",
                                     }}
                                   >
@@ -996,7 +964,6 @@ const Modalt = () => {
                                   <th
                                     style={{
                                       padding: "0.8rem",
-                                      border: "1px solid #dddddd",
                                       textAlign: "right",
                                     }}
                                   >
@@ -1005,83 +972,87 @@ const Modalt = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                {selectedKeuangan?.kategori?.length > 0 ? (
-                                  selectedKeuangan.kategori.map(
-                                    (kategori, index) => (
-                                      <tr key={kategori.uuid || index}>
-                                        <td>{index + 1}</td>
-                                        <td>{kategori.name || "N/A"}</td>
-                                        <td>
-                                          {kategori?.subkategori?.length > 0
-                                            ? kategori.subkategori.map(
-                                                (sub, subIndex) => (
-                                                  <div
-                                                    key={sub.uuid || subIndex}
-                                                  >
-                                                    {subIndex + 1}.{" "}
-                                                    {sub.name || "N/A"}
-                                                  </div>
+                                {selectedKeuangan.map(
+                                  (keuangan, keuanganIndex) =>
+                                    keuangan.kategori.map(
+                                      (kategori, kategoriIndex) => (
+                                        <tr
+                                          key={`${keuanganIndex}-${kategoriIndex}`}
+                                        >
+                                          <td>{keuanganIndex + 1}</td>
+                                          <td>
+                                            {kategori.name ||
+                                              "Tidak ada kategori"}
+                                          </td>
+                                          <td>
+                                            {kategori.subkategori?.length > 0
+                                              ? kategori.subkategori.map(
+                                                  (sub, subIndex) => (
+                                                    <div
+                                                      key={`${kategoriIndex}-${subIndex}`}
+                                                    >
+                                                      {subIndex + 1}.{" "}
+                                                      {sub.name || "N/A"}
+                                                    </div>
+                                                  )
                                                 )
+                                              : "Tidak ada subkategori"}
+                                          </td>
+                                          <td>
+                                            {kategori.subkategori
+                                              ?.reduce(
+                                                (acc, sub) =>
+                                                  acc +
+                                                  parseFloat(
+                                                    sub.totalBudget || 0
+                                                  ),
+                                                0
                                               )
-                                            : "Tidak ada subkategori"}
-                                        </td>
-                                        <td>
-                                          {kategori?.subkategori
-                                            ?.reduce(
-                                              (acc, sub) =>
-                                                acc +
-                                                parseFloat(
-                                                  sub.totalBudget || 0
-                                                ),
-                                              0
-                                            )
-                                            .toLocaleString("id-ID", {
-                                              style: "currency",
-                                              currency: "IDR",
-                                            })}
-                                        </td>
-                                        <td>
-                                          {kategori?.subkategori
-                                            ?.reduce(
-                                              (acc, sub) =>
-                                                acc +
-                                                parseFloat(
-                                                  sub.totalRealization || 0
-                                                ),
-                                              0
-                                            )
-                                            .toLocaleString("id-ID", {
-                                              style: "currency",
-                                              currency: "IDR",
-                                            })}
-                                        </td>
-                                        <td>
-                                          {kategori?.subkategori
-                                            ?.reduce(
-                                              (acc, sub) =>
-                                                acc +
-                                                parseFloat(sub.remaining || 0),
-                                              0
-                                            )
-                                            .toLocaleString("id-ID", {
-                                              style: "currency",
-                                              currency: "IDR",
-                                            })}
-                                        </td>
-                                      </tr>
+                                              .toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                              })}
+                                          </td>
+                                          <td>
+                                            {kategori.subkategori
+                                              ?.reduce(
+                                                (acc, sub) =>
+                                                  acc +
+                                                  parseFloat(
+                                                    sub.totalRealization || 0
+                                                  ),
+                                                0
+                                              )
+                                              .toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                              })}
+                                          </td>
+                                          <td>
+                                            {kategori.subkategori
+                                              ?.reduce(
+                                                (acc, sub) =>
+                                                  acc +
+                                                  parseFloat(
+                                                    sub.remaining || 0
+                                                  ),
+                                                0
+                                              )
+                                              .toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                              })}
+                                          </td>
+                                        </tr>
+                                      )
                                     )
-                                  )
-                                ) : (
-                                  <tr>
-                                    <td colSpan="6">
-                                      Tidak ada data kategori.
-                                    </td>
-                                  </tr>
                                 )}
                               </tbody>
                             </table>
                           </div>
                         </div>
+                      ) : (
+                        <p>Tidak ada data untuk ditampilkan.</p>
                       )}
                     </div>
                   </Dialog>
