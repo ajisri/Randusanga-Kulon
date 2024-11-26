@@ -193,10 +193,8 @@ const Modalt = () => {
   );
 
   const openDetailDialog = (rowData) => {
-    const keuanganDetail = selectedKeuangan.find(
-      (item) => item.uuid === rowData.uuid
-    );
-    setSelectedKeuangan(keuanganDetail); // Atur data detail
+    console.log("Data row yang dipilih:", rowData);
+    setSelectedKeuangan(rowData.keuangan || []);
     setDetailDialogVisible(true);
   };
 
@@ -957,7 +955,6 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
-                                      textAlign: "left",
                                     }}
                                   >
                                     No
@@ -966,7 +963,6 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
-                                      textAlign: "left",
                                     }}
                                   >
                                     Kategori
@@ -975,7 +971,6 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
-                                      textAlign: "left",
                                     }}
                                   >
                                     Subkategori
