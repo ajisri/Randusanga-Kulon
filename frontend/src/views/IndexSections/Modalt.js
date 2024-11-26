@@ -797,231 +797,341 @@ const Modalt = () => {
           </Button>
           <div className="card">
             <Dialog
-              visible={isDetailDialogVisible}
-              onHide={closeDetailDialog}
-              style={{
-                width: "90vw",
-                height: "90vh",
-                margin: "0",
-                padding: "0",
-              }}
-              header="Detail Keuangan"
+              header="APB Desa"
+              visible={dialogVisibleAPB}
+              style={{ width: "90vw", maxWidth: "none" }}
+              maximizable
               modal
-              dismissableMask
+              contentStyle={{ height: "auto", padding: "1rem" }}
+              onHide={hideDialogAPB}
+              footer={dialogFooterTemplate}
             >
-              <div style={{ height: "calc(100% - 50px)" }}>
-                <div className="dialog-header" style={{ padding: "1rem" }}>
-                  <Button
-                    label="Close"
-                    icon="pi pi-times"
-                    onClick={closeDetailDialog}
-                    className="p-button-danger"
-                    style={{ marginBottom: "1rem" }}
-                  />
+              {loadingApbd ? (
+                <div className="loading-container">
+                  <p>Loading...</p>
                 </div>
-                {selectedKeuangan && (
-                  <div
-                    className="detail-content"
-                    style={{
-                      height: "calc(100% - 80px)",
-                      width: "100%",
-                      padding: "0",
-                      margin: "0",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
+              ) : allapbdError ? (
+                <div className="error-container">
+                  <p>Error loading data: {allapbdError.message}</p>
+                </div>
+              ) : apbdpList.length === 0 ? (
+                <div className="no-data-container">
+                  <p>No data available.</p>
+                </div>
+              ) : (
+                <>
+                  <DataTable
+                    value={apbdpList}
+                    paginator
+                    rows={5}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
+                    style={{ marginBottom: "1rem" }}
                   >
-                    <div
-                      className="table-responsive"
-                      style={{
-                        overflow: "auto",
-                        height: "100%",
-                        width: "100%",
-                        border: "1px solid #e0e0e0",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <table
-                        style={{
-                          width: "100%",
-                          borderCollapse: "collapse",
-                          backgroundColor: "#ffffff",
-                        }}
+                    <Column
+                      field="name"
+                      header="Name"
+                      body={(rowData) => `${rowData.name} (${rowData.year})`}
+                      style={{ width: "40%", minWidth: "30%" }}
+                    ></Column>
+                    <Column
+                      header="Detail"
+                      body={(rowData) => (
+                        <Button
+                          label="Lihat Detail"
+                          onClick={() => openDetailDialog(rowData)}
+                          className="p-button-rounded p-button-info"
+                          style={{
+                            backgroundColor: "#008080",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "10px 20px",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Detail
+                        </Button>
+                      )}
+                      style={{ width: "20%", minWidth: "15%" }}
+                    />
+                    <Column
+                      field="download"
+                      header="Download"
+                      body={(rowData) => (
+                        <Button
+                          label="Download"
+                          style={{
+                            backgroundColor: "#008080",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "10px 20px",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                          }}
+                          icon="pi pi-download"
+                          onClick={() =>
+                            console.log("Download data for:", rowData.name)
+                          }
+                        >
+                          Download
+                        </Button>
+                      )}
+                      style={{ width: "20%", minWidth: "15%" }}
+                    />
+                  </DataTable>
+
+                  <Dialog
+                    visible={isDetailDialogVisible}
+                    onHide={closeDetailDialog}
+                    style={{
+                      width: "90vw",
+                      height: "90vh",
+                      margin: "0",
+                      padding: "0",
+                    }}
+                    header="Detail Keuangan"
+                    modal
+                    dismissableMask
+                  >
+                    <div style={{ height: "calc(100% - 50px)" }}>
+                      <div
+                        className="dialog-header"
+                        style={{ padding: "1rem" }}
                       >
-                        <thead>
-                          <tr
+                        <Button
+                          label="Close"
+                          icon="pi pi-times"
+                          onClick={closeDetailDialog}
+                          className="p-button-danger"
+                          style={{ marginBottom: "1rem" }}
+                        />
+                      </div>
+                      {selectedKeuangan && (
+                        <div
+                          className="detail-content"
+                          style={{
+                            height: "calc(100% - 80px)",
+                            width: "100%",
+                            padding: "0",
+                            margin: "0",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <div
+                            className="table-responsive"
                             style={{
-                              background:
-                                "linear-gradient(90deg, #3366cc, #5588ff)",
-                              color: "#ffffff",
+                              overflow: "auto",
+                              height: "100%",
+                              width: "100%",
+                              border: "1px solid #e0e0e0",
+                              borderRadius: "8px",
                             }}
                           >
-                            <th
+                            <table
                               style={{
-                                padding: "0.8rem",
-                                border: "1px solid #dddddd",
+                                width: "100%",
+                                borderCollapse: "collapse",
+                                backgroundColor: "#ffffff",
                               }}
                             >
-                              No
-                            </th>
-                            <th
-                              style={{
-                                padding: "0.8rem",
-                                border: "1px solid #dddddd",
-                              }}
-                            >
-                              Kategori
-                            </th>
-                            <th
-                              style={{
-                                padding: "0.8rem",
-                                border: "1px solid #dddddd",
-                              }}
-                            >
-                              Subkategori
-                            </th>
-                            <th
-                              style={{
-                                padding: "0.8rem",
-                                border: "1px solid #dddddd",
-                                textAlign: "right",
-                              }}
-                            >
-                              Total Budget
-                            </th>
-                            <th
-                              style={{
-                                padding: "0.8rem",
-                                border: "1px solid #dddddd",
-                                textAlign: "right",
-                              }}
-                            >
-                              Total Realization
-                            </th>
-                            <th
-                              style={{
-                                padding: "0.8rem",
-                                border: "1px solid #dddddd",
-                                textAlign: "right",
-                              }}
-                            >
-                              Remaining
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {selectedKeuangan.kategori.length > 0 ? (
-                            selectedKeuangan.kategori.map((kategori, index) => (
-                              <tr
-                                key={kategori.uuid}
-                                style={{
-                                  backgroundColor:
-                                    index % 2 === 0 ? "#f9f9f9" : "#ffffff",
-                                }}
-                              >
-                                <td
+                              <thead>
+                                <tr
                                   style={{
-                                    padding: "0.8rem",
-                                    border: "1px solid #dddddd",
+                                    background:
+                                      "linear-gradient(90deg, #3366cc, #5588ff)",
+                                    color: "#ffffff",
                                   }}
                                 >
-                                  {index + 1}
-                                </td>
-                                <td
-                                  style={{
-                                    padding: "0.8rem",
-                                    border: "1px solid #dddddd",
-                                  }}
-                                >
-                                  {kategori.name}
-                                </td>
-                                <td
-                                  style={{
-                                    padding: "0.8rem",
-                                    border: "1px solid #dddddd",
-                                  }}
-                                >
-                                  {kategori.subkategori.map((sub, subIndex) => (
-                                    <div key={sub.uuid}>
-                                      {subIndex + 1}. {sub.name}
-                                    </div>
-                                  ))}
-                                </td>
-                                <td
-                                  style={{
-                                    padding: "0.8rem",
-                                    border: "1px solid #dddddd",
-                                    textAlign: "right",
-                                  }}
-                                >
-                                  {kategori.subkategori
-                                    .reduce(
-                                      (acc, sub) => acc + sub.totalBudget,
-                                      0
+                                  <th
+                                    style={{
+                                      padding: "0.8rem",
+                                      border: "1px solid #dddddd",
+                                      textAlign: "left",
+                                    }}
+                                  >
+                                    No
+                                  </th>
+                                  <th
+                                    style={{
+                                      padding: "0.8rem",
+                                      border: "1px solid #dddddd",
+                                      textAlign: "left",
+                                    }}
+                                  >
+                                    Kategori
+                                  </th>
+                                  <th
+                                    style={{
+                                      padding: "0.8rem",
+                                      border: "1px solid #dddddd",
+                                      textAlign: "left",
+                                    }}
+                                  >
+                                    Subkategori
+                                  </th>
+                                  <th
+                                    style={{
+                                      padding: "0.8rem",
+                                      border: "1px solid #dddddd",
+                                      textAlign: "right",
+                                    }}
+                                  >
+                                    Total Budget
+                                  </th>
+                                  <th
+                                    style={{
+                                      padding: "0.8rem",
+                                      border: "1px solid #dddddd",
+                                      textAlign: "right",
+                                    }}
+                                  >
+                                    Total Realization
+                                  </th>
+                                  <th
+                                    style={{
+                                      padding: "0.8rem",
+                                      border: "1px solid #dddddd",
+                                      textAlign: "right",
+                                    }}
+                                  >
+                                    Remaining
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {selectedKeuangan?.kategori?.length > 0 ? (
+                                  selectedKeuangan.kategori.map(
+                                    (kategori, index) => (
+                                      <tr
+                                        key={kategori.uuid}
+                                        style={{
+                                          backgroundColor:
+                                            index % 2 === 0
+                                              ? "#f9f9f9"
+                                              : "#ffffff",
+                                        }}
+                                      >
+                                        <td
+                                          style={{
+                                            padding: "0.8rem",
+                                            border: "1px solid #dddddd",
+                                            textAlign: "left",
+                                          }}
+                                        >
+                                          {index + 1}
+                                        </td>
+                                        <td
+                                          style={{
+                                            padding: "0.8rem",
+                                            border: "1px solid #dddddd",
+                                            textAlign: "left",
+                                          }}
+                                        >
+                                          {kategori.name}
+                                        </td>
+                                        <td
+                                          style={{
+                                            padding: "0.8rem",
+                                            border: "1px solid #dddddd",
+                                            textAlign: "left",
+                                          }}
+                                        >
+                                          {kategori.subkategori.map(
+                                            (sub, subIndex) => (
+                                              <div key={sub.uuid}>
+                                                {subIndex + 1}. {sub.name}
+                                              </div>
+                                            )
+                                          )}
+                                        </td>
+                                        <td
+                                          style={{
+                                            padding: "0.8rem",
+                                            border: "1px solid #dddddd",
+                                            textAlign: "right",
+                                          }}
+                                        >
+                                          {kategori.subkategori
+                                            .reduce(
+                                              (acc, sub) =>
+                                                acc +
+                                                parseFloat(sub.totalBudget),
+                                              0
+                                            )
+                                            .toLocaleString("id-ID", {
+                                              style: "currency",
+                                              currency: "IDR",
+                                            })}
+                                        </td>
+                                        <td
+                                          style={{
+                                            padding: "0.8rem",
+                                            border: "1px solid #dddddd",
+                                            textAlign: "right",
+                                          }}
+                                        >
+                                          {kategori.subkategori
+                                            .reduce(
+                                              (acc, sub) =>
+                                                acc +
+                                                parseFloat(
+                                                  sub.totalRealization
+                                                ),
+                                              0
+                                            )
+                                            .toLocaleString("id-ID", {
+                                              style: "currency",
+                                              currency: "IDR",
+                                            })}
+                                        </td>
+                                        <td
+                                          style={{
+                                            padding: "0.8rem",
+                                            border: "1px solid #dddddd",
+                                            textAlign: "right",
+                                          }}
+                                        >
+                                          {kategori.subkategori
+                                            .reduce(
+                                              (acc, sub) =>
+                                                acc + parseFloat(sub.remaining),
+                                              0
+                                            )
+                                            .toLocaleString("id-ID", {
+                                              style: "currency",
+                                              currency: "IDR",
+                                            })}
+                                        </td>
+                                      </tr>
                                     )
-                                    .toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                </td>
-                                <td
-                                  style={{
-                                    padding: "0.8rem",
-                                    border: "1px solid #dddddd",
-                                    textAlign: "right",
-                                  }}
-                                >
-                                  {kategori.subkategori
-                                    .reduce(
-                                      (acc, sub) => acc + sub.totalRealization,
-                                      0
-                                    )
-                                    .toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                </td>
-                                <td
-                                  style={{
-                                    padding: "0.8rem",
-                                    border: "1px solid #dddddd",
-                                    textAlign: "right",
-                                  }}
-                                >
-                                  {kategori.subkategori
-                                    .reduce(
-                                      (acc, sub) => acc + sub.remaining,
-                                      0
-                                    )
-                                    .toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                </td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td
-                                colSpan="6"
-                                style={{
-                                  textAlign: "center",
-                                  padding: "1rem",
-                                  border: "1px solid #dddddd",
-                                  backgroundColor: "#f9f9f9",
-                                }}
-                              >
-                                Tidak ada data kategori.
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
+                                  )
+                                ) : (
+                                  <tr>
+                                    <td
+                                      colSpan="6"
+                                      style={{
+                                        textAlign: "center",
+                                        padding: "1rem",
+                                        border: "1px solid #dddddd",
+                                        backgroundColor: "#f9f9f9",
+                                      }}
+                                    >
+                                      Tidak ada data kategori.
+                                    </td>
+                                  </tr>
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
-              </div>
+                  </Dialog>
+                </>
+              )}
             </Dialog>
+            ;
           </div>
         </Col>
         <Col className="mt-1" md="3" xs="6">
