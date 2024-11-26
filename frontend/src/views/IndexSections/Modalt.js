@@ -193,9 +193,10 @@ const Modalt = () => {
   );
 
   const openDetailDialog = (rowData) => {
-    console.log("Data row yang dipilih:", rowData); // Debug untuk memastikan data diterima
-    setSelectedKeuangan(rowData.keuangan || []); // Pastikan ini sesuai dengan struktur data Anda
-
+    const keuanganDetail = selectedKeuangan.find(
+      (item) => item.uuid === rowData.uuid
+    );
+    setSelectedKeuangan(keuanganDetail); // Atur data detail
     setDetailDialogVisible(true);
   };
 
