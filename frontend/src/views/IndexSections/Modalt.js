@@ -1036,17 +1036,27 @@ const Modalt = () => {
                                       <React.Fragment
                                         key={keuangan.uuid || keuanganIndex}
                                       >
+                                        {/* Header for Keuangan */}
                                         <tr>
                                           <td
-                                            colSpan="7"
+                                            colSpan="6"
                                             style={{
                                               padding: "1rem",
-                                              fontWeight: "bold",
+                                              backgroundColor: "#f0f0f0",
                                             }}
                                           >
-                                            {keuangan.name}
+                                            <strong>{keuangan.name}</strong>{" "}
+                                            <br />
+                                            <span
+                                              style={{
+                                                fontSize: "0.9rem",
+                                                color: "#666",
+                                              }}
+                                            ></span>
                                           </td>
                                         </tr>
+
+                                        {/* Kategori Iteration */}
                                         {keuangan.kategori?.length > 0 ? (
                                           keuangan.kategori.map(
                                             (kategori, kategoriIndex) => (
@@ -1057,154 +1067,144 @@ const Modalt = () => {
                                               >
                                                 <tr>
                                                   <td
+                                                    colSpan="6"
                                                     style={{
-                                                      padding: "0.8rem",
-                                                      textAlign: "center",
-                                                    }}
-                                                  >
-                                                    {kategoriIndex + 1}
-                                                  </td>
-                                                  <td
-                                                    style={{
+                                                      backgroundColor:
+                                                        "#e8f4fc",
                                                       padding: "0.8rem",
                                                     }}
                                                   >
-                                                    {keuangan.name}
+                                                    <strong>
+                                                      {kategori.number}.
+                                                    </strong>{" "}
+                                                    <strong>
+                                                      {kategori.name}
+                                                    </strong>
                                                   </td>
-                                                  <td
-                                                    style={{
-                                                      padding: "0.8rem",
-                                                    }}
-                                                  >
-                                                    {kategori.number}
-                                                  </td>
-                                                  <td
-                                                    style={{
-                                                      padding: "0.8rem",
-                                                    }}
-                                                  >
-                                                    {kategori.name}
-                                                  </td>
-                                                  {kategori.subkategori
-                                                    ?.length > 0 ? (
-                                                    kategori.subkategori.map(
-                                                      (sub, subIndex) => {
-                                                        const formattedBudget =
-                                                          new Intl.NumberFormat(
-                                                            "id-ID",
-                                                            {
-                                                              style: "currency",
-                                                              currency: "IDR",
-                                                            }
-                                                          ).format(
-                                                            Number(
-                                                              sub.totalBudget
-                                                            ) || 0
-                                                          );
-                                                        const formattedRealization =
-                                                          new Intl.NumberFormat(
-                                                            "id-ID",
-                                                            {
-                                                              style: "currency",
-                                                              currency: "IDR",
-                                                            }
-                                                          ).format(
-                                                            Number(
-                                                              sub.totalRealization
-                                                            ) || 0
-                                                          );
-                                                        const formattedRemaining =
-                                                          new Intl.NumberFormat(
-                                                            "id-ID",
-                                                            {
-                                                              style: "currency",
-                                                              currency: "IDR",
-                                                            }
-                                                          ).format(
-                                                            Number(
-                                                              sub.remaining
-                                                            ) || 0
-                                                          );
-
-                                                        return (
-                                                          <tr
-                                                            key={
-                                                              sub.uuid ||
-                                                              subIndex
-                                                            }
-                                                          >
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td
-                                                              colSpan="2"
-                                                              style={{
-                                                                padding:
-                                                                  "0.8rem",
-                                                                backgroundColor:
-                                                                  "#f8f8f8",
-                                                              }}
-                                                            >
-                                                              {sub.name}
-                                                            </td>
-                                                            <td
-                                                              style={{
-                                                                textAlign:
-                                                                  "right",
-                                                                padding:
-                                                                  "0.8rem",
-                                                              }}
-                                                            >
-                                                              {formattedBudget}
-                                                            </td>
-                                                            <td
-                                                              style={{
-                                                                textAlign:
-                                                                  "right",
-                                                                padding:
-                                                                  "0.8rem",
-                                                              }}
-                                                            >
-                                                              {
-                                                                formattedRealization
-                                                              }
-                                                            </td>
-                                                            <td
-                                                              style={{
-                                                                textAlign:
-                                                                  "right",
-                                                                padding:
-                                                                  "0.8rem",
-                                                              }}
-                                                            >
-                                                              {
-                                                                formattedRemaining
-                                                              }
-                                                            </td>
-                                                          </tr>
-                                                        );
-                                                      }
-                                                    )
-                                                  ) : (
-                                                    <tr>
-                                                      <td
-                                                        colSpan="7"
-                                                        style={{
-                                                          textAlign: "center",
-                                                        }}
-                                                      >
-                                                        Tidak ada subkategori
-                                                      </td>
-                                                    </tr>
-                                                  )}
                                                 </tr>
+
+                                                {/* Subkategori Iteration */}
+                                                {kategori.subkategori?.length >
+                                                0 ? (
+                                                  kategori.subkategori.map(
+                                                    (sub, subIndex) => {
+                                                      const formattedBudget =
+                                                        new Intl.NumberFormat(
+                                                          "id-ID",
+                                                          {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                          }
+                                                        ).format(
+                                                          Number(
+                                                            sub.totalBudget
+                                                          ) || 0
+                                                        );
+
+                                                      const formattedRealization =
+                                                        new Intl.NumberFormat(
+                                                          "id-ID",
+                                                          {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                          }
+                                                        ).format(
+                                                          Number(
+                                                            sub.totalRealization
+                                                          ) || 0
+                                                        );
+
+                                                      const formattedRemaining =
+                                                        new Intl.NumberFormat(
+                                                          "id-ID",
+                                                          {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                          }
+                                                        ).format(
+                                                          Number(
+                                                            sub.remaining
+                                                          ) || 0
+                                                        );
+
+                                                      return (
+                                                        <tr
+                                                          key={
+                                                            sub.uuid || subIndex
+                                                          }
+                                                        >
+                                                          <td
+                                                            style={{
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          ></td>
+                                                          <td
+                                                            colSpan="2"
+                                                            style={{
+                                                              padding: "0.8rem",
+                                                              backgroundColor:
+                                                                "#f8f8f8",
+                                                            }}
+                                                          >
+                                                            {sub.name}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              textAlign:
+                                                                "right",
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          >
+                                                            {formattedBudget}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              textAlign:
+                                                                "right",
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          >
+                                                            {
+                                                              formattedRealization
+                                                            }
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              textAlign:
+                                                                "right",
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          >
+                                                            {formattedRemaining}
+                                                          </td>
+                                                        </tr>
+                                                      );
+                                                    }
+                                                  )
+                                                ) : (
+                                                  <tr>
+                                                    <td
+                                                      colSpan="6"
+                                                      style={{
+                                                        padding: "1rem",
+                                                        textAlign: "center",
+                                                      }}
+                                                    >
+                                                      Tidak ada subkategori
+                                                    </td>
+                                                  </tr>
+                                                )}
                                               </React.Fragment>
                                             )
                                           )
                                         ) : (
                                           <tr>
                                             <td
-                                              colSpan="7"
-                                              style={{ textAlign: "center" }}
+                                              colSpan="6"
+                                              style={{
+                                                padding: "1rem",
+                                                textAlign: "center",
+                                              }}
                                             >
                                               Tidak ada kategori
                                             </td>
@@ -1216,8 +1216,11 @@ const Modalt = () => {
                                 ) : (
                                   <tr>
                                     <td
-                                      colSpan="7"
-                                      style={{ textAlign: "center" }}
+                                      colSpan="6"
+                                      style={{
+                                        padding: "1rem",
+                                        textAlign: "center",
+                                      }}
                                     >
                                       Tidak ada data keuangan.
                                     </td>
