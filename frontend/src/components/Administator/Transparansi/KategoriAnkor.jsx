@@ -69,8 +69,12 @@ const KategoriAnkor = () => {
   );
 
   useEffect(() => {
-    if (ankorData?.ankor) {
+    if (ankorData?.ankor && Array.isArray(ankorData.ankor)) {
+      // Set data if ankor is an array
       setAnkorOptions(ankorData.ankor);
+    } else {
+      // Handle case where ankorData.ankor is empty or not an array
+      setAnkorOptions([]);
     }
   }, [ankorData]);
 
