@@ -38,6 +38,7 @@ const KategoriAnkor = () => {
   const fetcher = useCallback(
     async (url) => {
       const response = await axiosJWT.get(url);
+      console.log(response); // Debugging response
       return response.data;
     },
     [axiosJWT]
@@ -54,6 +55,7 @@ const KategoriAnkor = () => {
 
   useEffect(() => {
     if (kategoriankorData) {
+      console.log(kategoriankorData); // Debugging kategoriankorData
       setKategoriankorList(kategoriankorData);
     }
   }, [kategoriankorData]);
@@ -128,6 +130,7 @@ const KategoriAnkor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       if (isEditMode) {
         await axiosJWT.patch(
@@ -147,7 +150,7 @@ const KategoriAnkor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -165,6 +168,7 @@ const KategoriAnkor = () => {
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor"
       );
+
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -245,7 +249,8 @@ const KategoriAnkor = () => {
   };
 
   if (isLoading || isAnkorLoading) return <p>Loading...</p>;
-  if (error || ankorError) return <p>{error.message}</p>;
+  if (error || ankorError)
+    return <p>{error?.message || ankorError?.message}</p>;
 
   return (
     <div>
@@ -266,7 +271,7 @@ const KategoriAnkor = () => {
         <Column
           header="No"
           body={(rowData, options) => {
-            const rowIndex = options.rowIndex % rows;
+            const rowIndex = options.rowIndex % rows; // Reset rowIndex setiap halaman
             const nomorUrut = first + rowIndex + 1;
             return nomorUrut;
           }}
@@ -288,32 +293,17 @@ const KategoriAnkor = () => {
         />
         <Column
           header="Actions"
-          style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => (
-            <div style={{ display: "flex", gap: "0.5rem" }}>
+            <div>
               <Button
                 icon="pi pi-pencil"
+                className="p-button-rounded p-button-info"
                 onClick={() => editkategoriankor(rowData)}
-                className="edit-button coastal-button p-button-rounded"
-                tooltip="Edit"
-                tooltipOptions={{ position: "bottom" }}
-                style={{
-                  backgroundColor: "#4DB6AC",
-                  border: "none",
-                  color: "white",
-                }}
               />
               <Button
                 icon="pi pi-trash"
+                className="p-button-rounded p-button-danger"
                 onClick={() => deletekategoriankor(rowData.uuid)}
-                className="delete-button coastal-button p-button-rounded"
-                tooltip="Delete"
-                tooltipOptions={{ position: "bottom" }}
-                style={{
-                  backgroundColor: "#009688",
-                  border: "none",
-                  color: "white",
-                }}
               />
             </div>
           )}
@@ -321,72 +311,51 @@ const KategoriAnkor = () => {
       </DataTable>
 
       <Dialog
-        header={isEditMode ? "Edit Data" : "Add Data"}
         visible={isDialogVisible}
         onHide={closeDialog}
-        dismissableMask={true}
-        modal={true}
-        style={{ width: "70vw" }}
+        header={isEditMode ? "Edit Kategori Ankor" : "Add Kategori Ankor"}
+        footer={
+          <div>
+            <Button
+              label="Cancel"
+              icon="pi pi-times"
+              onClick={closeDialog}
+              className="p-button-text"
+            />
+            <Button
+              label={isEditMode ? "Update" : "Save"}
+              icon="pi pi-check"
+              onClick={handleSubmit}
+              autoFocus
+            />
+          </div>
+        }
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <form onSubmit={handleSubmit}>
-            <Card
-              className="demografi-card"
-              style={{
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-                padding: "20px",
-              }}
-            >
-              <h3 className="section-title" style={{ color: "#00796B" }}>
-                Informasi Kategori Parameter Ankor
-              </h3>
+        <form onSubmit={handleSubmit}>
+          <div className="p-field">
+            <label htmlFor="name">Nama</label>
+            <InputText
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="name">
-                  Kategori Parameter Ankor <span className="required">*</span>
-                </label>
-                <InputText
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="ankorId">Pilih Parameter Ankor:</label>
-                <Dropdown
-                  id="ankorId"
-                  name="ankorId"
-                  optionLabel={(option) => `${option.name})`}
-                  optionValue="id"
-                  value={formData.ankorId}
-                  options={ankorOptions}
-                  onChange={handleChange}
-                  placeholder="Pilih Parameter Ankor"
-                  required
-                  className="input-field"
-                />
-              </div>
-              <div className="button-sub">
-                <Button
-                  type="submit"
-                  label={isEditMode ? "Update" : "Save"}
-                  className="coastal-button submit-button p-button-rounded"
-                  style={{ marginTop: "20px" }}
-                />
-              </div>
-            </Card>
-          </form>
-        </div>
+          <div className="p-field">
+            <label htmlFor="ankorId">Parameter Ankor</label>
+            <Dropdown
+              id="ankorId"
+              name="ankorId"
+              value={formData.ankorId}
+              options={ankorOptions}
+              onChange={handleChange}
+              optionLabel="name"
+              required
+            />
+          </div>
+        </form>
       </Dialog>
     </div>
   );
