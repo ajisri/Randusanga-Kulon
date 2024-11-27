@@ -641,7 +641,7 @@ const Dashboard = () => {
                   <Ripple />
                 </div>
                 <div
-                  onClick={() => setActiveMenu("Kategoriankor")}
+                  onClick={() => setActiveMenu("KategoriAnkor")}
                   className="menu-item"
                   style={{
                     marginBottom: "10px",
@@ -653,7 +653,7 @@ const Dashboard = () => {
                     className="pi pi-fw pi-check-circle"
                     style={{ marginRight: "10px" }}
                   ></i>
-                  {isSidebarHovered && <span>Kategori</span>}
+                  {isSidebarHovered && <span>Kategori Ankor</span>}
                   <Ripple />
                 </div>
                 <div
