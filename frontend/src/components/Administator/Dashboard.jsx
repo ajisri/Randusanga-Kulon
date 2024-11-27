@@ -24,6 +24,7 @@ import Pembuatansktm from "./Layanan/Pembuatansktm";
 import Pendaftarannikah from "./Layanan/Pendaftarannikah";
 import Aktifasibpjs from "./Layanan/Aktifasibpjs";
 //Transparansi
+import Ankor from "./Transparansi/Ankor";
 import Produkhukum from "./Transparansi/ProdukHukum";
 import Apbd from "./Transparansi/Apbd";
 import Keuangan from "./Transparansi/Keuangan";
@@ -162,6 +163,8 @@ const Dashboard = () => {
         return <Pembuatansktm />;
       case "Pendaftarannikah":
         return <Pendaftarannikah />;
+      case "Ankor":
+        return <Ankor />;
       case "Produkhukum":
         return <Produkhukum />;
       case "Apbd":
@@ -628,7 +631,7 @@ const Dashboard = () => {
                   }}
                 >
                   <i
-                    className="pi pi-fw pi-file"
+                    className="pi pi-fw pi-shield"
                     style={{ marginRight: "10px" }}
                   ></i>
                   {isSidebarHovered && <span>Parameter</span>}
@@ -644,7 +647,7 @@ const Dashboard = () => {
                   }}
                 >
                   <i
-                    className="pi pi-fw pi-money-bill"
+                    className="pi pi-fw pi-check-circle"
                     style={{ marginRight: "10px" }}
                   ></i>
                   {isSidebarHovered && <span>Kategori</span>}
@@ -660,7 +663,7 @@ const Dashboard = () => {
                   }}
                 >
                   <i
-                    className="pi pi-fw pi-tags"
+                    className="pi pi-fw pi-file"
                     style={{ marginRight: "10px" }}
                   ></i>
                   {isSidebarHovered && <span>Sub Kategori</span>}
