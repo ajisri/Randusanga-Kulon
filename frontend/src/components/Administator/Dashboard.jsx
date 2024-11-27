@@ -59,6 +59,11 @@ const Dashboard = () => {
     setLayananSubmenuVisible(!isLayananSubmenuVisible);
   const toggleTransparansiSubmenu = () =>
     setTransparansiSubmenuVisible(!isTransparansiSubmenuVisible);
+
+  const [isAnkorSubmenuVisible, setAnkorSubmenuVisible] = useState(false);
+  const toggleAnkorSubmenu = () =>
+    setAnkorSubmenuVisible(!isAnkorSubmenuVisible);
+
   const [isKeuanganSubmenuVisible, setKeuanganSubmenuVisible] = useState(false);
   const toggleKeuanganSubmenu = () =>
     setKeuanganSubmenuVisible(!isKeuanganSubmenuVisible);
@@ -584,11 +589,15 @@ const Dashboard = () => {
             style={{ marginLeft: "20px", marginBottom: "10px" }}
           >
             <div
+              onClick={toggleAnkorSubmenu}
               className="menu-item"
               style={{
-                marginBottom: "10px",
                 cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
                 padding: "10px",
+                paddingLeft: "10px",
               }}
             >
               <i
@@ -596,8 +605,70 @@ const Dashboard = () => {
                 style={{ marginRight: "10px" }}
               ></i>
               {isSidebarHovered && <span>Desa Ankor</span>}
+              <i
+                className={`pi pi-fw ${
+                  isAnkorSubmenuVisible ? "pi-chevron-down" : "pi-chevron-right"
+                }`}
+                style={{ marginLeft: "auto" }}
+              ></i>
               <Ripple />
             </div>
+            {isSidebarHovered && isAnkorSubmenuVisible && (
+              <div
+                className="submenu"
+                style={{ marginLeft: "20px", marginBottom: "10px" }}
+              >
+                <div
+                  onClick={() => setActiveMenu("Ankor")}
+                  className="menu-item"
+                  style={{
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                    padding: "10px",
+                  }}
+                >
+                  <i
+                    className="pi pi-fw pi-file"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  {isSidebarHovered && <span>Parameter</span>}
+                  <Ripple />
+                </div>
+                <div
+                  onClick={() => setActiveMenu("Ankor")}
+                  className="menu-item"
+                  style={{
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                    padding: "10px",
+                  }}
+                >
+                  <i
+                    className="pi pi-fw pi-money-bill"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  {isSidebarHovered && <span>Kategori</span>}
+                  <Ripple />
+                </div>
+                <div
+                  onClick={() => setActiveMenu("Kategori")}
+                  className="menu-item"
+                  style={{
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                    padding: "10px",
+                  }}
+                >
+                  <i
+                    className="pi pi-fw pi-tags"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  {isSidebarHovered && <span>Sub Kategori</span>}
+                  <Ripple />
+                </div>
+              </div>
+            )}
+
             <div
               onClick={() => setActiveMenu("Produkhukum")}
               className="menu-item"
@@ -629,7 +700,7 @@ const Dashboard = () => {
               {isSidebarHovered && <span>Download</span>}
               <Ripple />
             </div>
-            {/* Menu untuk Keuangan, Kategori, Subkategori, dan Budget Items */}
+            {/* Menu untuk APBD, Keuangan, Kategori, Subkategori */}
             <div
               onClick={toggleKeuanganSubmenu}
               className="menu-item"
