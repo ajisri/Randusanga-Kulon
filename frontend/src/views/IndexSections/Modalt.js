@@ -929,7 +929,6 @@ const Modalt = () => {
                                   }}
                                 >
                                   <th
-                                    rowSpan="2"
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
@@ -939,17 +938,6 @@ const Modalt = () => {
                                     No
                                   </th>
                                   <th
-                                    rowSpan="2"
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                      textAlign: "center",
-                                    }}
-                                  >
-                                    Keuangan
-                                  </th>
-                                  <th
-                                    colSpan="2"
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
@@ -959,42 +947,10 @@ const Modalt = () => {
                                     Kategori
                                   </th>
                                   <th
-                                    colSpan="3"
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
                                       textAlign: "center",
-                                    }}
-                                  >
-                                    Subkategori dan Anggaran
-                                  </th>
-                                </tr>
-                                <tr
-                                  style={{
-                                    background: "#f1f1f1",
-                                  }}
-                                >
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                    }}
-                                  >
-                                    Nomor
-                                  </th>
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                    }}
-                                  >
-                                    Nama Kategori
-                                  </th>
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                      textAlign: "right",
                                     }}
                                   >
                                     Subkategori
@@ -1015,7 +971,7 @@ const Modalt = () => {
                                       textAlign: "right",
                                     }}
                                   >
-                                    Realisasi
+                                    Total Realization
                                   </th>
                                   <th
                                     style={{
@@ -1024,11 +980,10 @@ const Modalt = () => {
                                       textAlign: "right",
                                     }}
                                   >
-                                    Sisa
+                                    Remaining
                                   </th>
                                 </tr>
                               </thead>
-
                               <tbody>
                                 {selectedKeuangan?.length > 0 ? (
                                   selectedKeuangan.map(
