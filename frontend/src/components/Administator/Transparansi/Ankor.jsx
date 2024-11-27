@@ -110,22 +110,14 @@ const Ankor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-
     try {
       if (isEditMode) {
-        console.log("Mengirim data untuk update (Edit Mode)...");
-        console.log("Data yang akan dikirim:", {
-          id: currentAnkor.id,
-          name: formData.name,
-        });
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/ankor/${currentAnkor.id}`,
-          formDataToSend,
+          { name: formData.name },
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
             },
           }
         );
@@ -136,16 +128,12 @@ const Ankor = () => {
           life: 3000,
         });
       } else {
-        console.log("Mengirim data baru...");
-        console.log("Data yang dikirim create:", {
-          name: formData.name,
-        });
         await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/cankor",
-          formDataToSend,
+          { name: formData.name },
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
             },
           }
         );
