@@ -1007,9 +1007,7 @@ const Modalt = () => {
                                                 fontSize: "0.9rem",
                                                 color: "#666",
                                               }}
-                                            >
-                                              {keuangan.year}
-                                            </span>
+                                            ></span>
                                           </td>
                                         </tr>
 
@@ -1032,9 +1030,8 @@ const Modalt = () => {
                                                     }}
                                                   >
                                                     <strong>
-                                                      {kategori.number}
+                                                      {kategori.number}.
                                                     </strong>{" "}
-                                                    <br />
                                                     <strong>
                                                       {kategori.name}
                                                     </strong>
