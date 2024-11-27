@@ -147,7 +147,7 @@ const KategoriAnkor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/ckategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
