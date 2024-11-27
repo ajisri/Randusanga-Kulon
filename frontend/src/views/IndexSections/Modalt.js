@@ -1042,53 +1042,99 @@ const Modalt = () => {
                                                 {kategori.subkategori?.length >
                                                 0 ? (
                                                   kategori.subkategori.map(
-                                                    (sub, subIndex) => (
-                                                      <tr
-                                                        key={
-                                                          sub.uuid || subIndex
-                                                        }
-                                                      >
-                                                        <td
-                                                          style={{
-                                                            padding: "0.8rem",
-                                                          }}
-                                                        ></td>
-                                                        <td
-                                                          colSpan="2"
-                                                          style={{
-                                                            padding: "0.8rem",
-                                                            backgroundColor:
-                                                              "#f8f8f8",
-                                                          }}
+                                                    (sub, subIndex) => {
+                                                      const formattedBudget =
+                                                        new Intl.NumberFormat(
+                                                          "id-ID",
+                                                          {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                          }
+                                                        ).format(
+                                                          Number(
+                                                            sub.totalBudget
+                                                          ) || 0
+                                                        );
+
+                                                      const formattedRealization =
+                                                        new Intl.NumberFormat(
+                                                          "id-ID",
+                                                          {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                          }
+                                                        ).format(
+                                                          Number(
+                                                            sub.totalRealization
+                                                          ) || 0
+                                                        );
+
+                                                      const formattedRemaining =
+                                                        new Intl.NumberFormat(
+                                                          "id-ID",
+                                                          {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                          }
+                                                        ).format(
+                                                          Number(
+                                                            sub.remaining
+                                                          ) || 0
+                                                        );
+
+                                                      return (
+                                                        <tr
+                                                          key={
+                                                            sub.uuid || subIndex
+                                                          }
                                                         >
-                                                          {sub.name}
-                                                        </td>
-                                                        <td
-                                                          style={{
-                                                            textAlign: "right",
-                                                            padding: "0.8rem",
-                                                          }}
-                                                        >
-                                                          {sub.totalBudget}
-                                                        </td>
-                                                        <td
-                                                          style={{
-                                                            textAlign: "right",
-                                                            padding: "0.8rem",
-                                                          }}
-                                                        >
-                                                          {sub.totalRealization}
-                                                        </td>
-                                                        <td
-                                                          style={{
-                                                            textAlign: "right",
-                                                            padding: "0.8rem",
-                                                          }}
-                                                        >
-                                                          {sub.remaining}
-                                                        </td>
-                                                      </tr>
-                                                    )
+                                                          <td
+                                                            style={{
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          ></td>
+                                                          <td
+                                                            colSpan="2"
+                                                            style={{
+                                                              padding: "0.8rem",
+                                                              backgroundColor:
+                                                                "#f8f8f8",
+                                                            }}
+                                                          >
+                                                            {sub.name}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              textAlign:
+                                                                "right",
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          >
+                                                            {formattedBudget}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              textAlign:
+                                                                "right",
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          >
+                                                            {
+                                                              formattedRealization
+                                                            }
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              textAlign:
+                                                                "right",
+                                                              padding: "0.8rem",
+                                                            }}
+                                                          >
+                                                            {formattedRemaining}
+                                                          </td>
+                                                        </tr>
+                                                      );
+                                                    }
                                                   )
                                                 ) : (
                                                   <tr>
