@@ -980,112 +980,77 @@ const Modalt = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                {selectedKeuangan?.keuangan?.length > 0 ? (
-                                  selectedKeuangan.keuangan.map(
+                                {selectedKeuangan?.length > 0 ? (
+                                  selectedKeuangan.map(
                                     (keuangan, keuanganIndex) => (
-                                      <tr key={keuangan.id || keuanganIndex}>
-                                        <td>{keuanganIndex + 1}</td>
-                                        <td>{keuangan.name || "N/A"}</td>
-                                        <td>
-                                          {keuangan.kategori?.length > 0 ? (
-                                            keuangan.kategori.map(
-                                              (kategori, kategoriIndex) => (
-                                                <div
-                                                  key={
-                                                    kategori.uuid ||
-                                                    kategoriIndex
-                                                  }
-                                                >
-                                                  <strong>
-                                                    {kategori.name || "N/A"}
-                                                  </strong>
-                                                  {kategori.subkategori
-                                                    ?.length > 0 ? (
-                                                    kategori.subkategori.map(
-                                                      (sub, subIndex) => (
-                                                        <div
-                                                          key={
-                                                            sub.uuid || subIndex
-                                                          }
-                                                        >
-                                                          {subIndex + 1}.{" "}
-                                                          {sub.name || "N/A"}
-                                                        </div>
-                                                      )
+                                      <React.Fragment
+                                        key={keuangan.uuid || keuanganIndex}
+                                      >
+                                        <tr>
+                                          <td colSpan="6">
+                                            <strong>{keuangan.name}</strong>
+                                          </td>
+                                        </tr>
+                                        {keuangan.kategori?.length > 0 ? (
+                                          keuangan.kategori.map(
+                                            (kategori, kategoriIndex) => (
+                                              <React.Fragment
+                                                key={
+                                                  kategori.uuid || kategoriIndex
+                                                }
+                                              >
+                                                <tr>
+                                                  <td colSpan="6">
+                                                    <strong>
+                                                      Nomor Kategori:{" "}
+                                                      {kategori.number}
+                                                    </strong>
+                                                    <br />
+                                                    <strong>
+                                                      {kategori.name}
+                                                    </strong>
+                                                  </td>
+                                                </tr>
+                                                {kategori.subkategori?.length >
+                                                0 ? (
+                                                  kategori.subkategori.map(
+                                                    (sub, subIndex) => (
+                                                      <tr
+                                                        key={
+                                                          sub.uuid || subIndex
+                                                        }
+                                                      >
+                                                        <td colSpan="6">
+                                                          <div>
+                                                            {sub.name}:{" "}
+                                                            {sub.totalBudget}{" "}
+                                                            {
+                                                              sub.totalRealization
+                                                            }{" "}
+                                                            {sub.remaining}
+                                                          </div>
+                                                        </td>
+                                                      </tr>
                                                     )
-                                                  ) : (
-                                                    <div>
+                                                  )
+                                                ) : (
+                                                  <tr>
+                                                    <td colSpan="6">
                                                       Tidak ada subkategori
-                                                    </div>
-                                                  )}
-                                                </div>
-                                              )
+                                                    </td>
+                                                  </tr>
+                                                )}
+                                              </React.Fragment>
                                             )
-                                          ) : (
-                                            <div>Tidak ada kategori</div>
-                                          )}
-                                        </td>
-                                        <td>
-                                          {keuangan.kategori
-                                            ?.reduce(
-                                              (acc, kategori) =>
-                                                acc +
-                                                kategori.subkategori?.reduce(
-                                                  (subAcc, sub) =>
-                                                    subAcc +
-                                                    parseFloat(
-                                                      sub.totalBudget || 0
-                                                    ),
-                                                  0
-                                                ),
-                                              0
-                                            )
-                                            .toLocaleString("id-ID", {
-                                              style: "currency",
-                                              currency: "IDR",
-                                            })}
-                                        </td>
-                                        <td>
-                                          {keuangan.kategori
-                                            ?.reduce(
-                                              (acc, kategori) =>
-                                                acc +
-                                                kategori.subkategori?.reduce(
-                                                  (subAcc, sub) =>
-                                                    subAcc +
-                                                    parseFloat(
-                                                      sub.totalRealization || 0
-                                                    ),
-                                                  0
-                                                ),
-                                              0
-                                            )
-                                            .toLocaleString("id-ID", {
-                                              style: "currency",
-                                              currency: "IDR",
-                                            })}
-                                        </td>
-                                        <td>
-                                          {keuangan.kategori
-                                            ?.reduce(
-                                              (acc, kategori) =>
-                                                acc +
-                                                kategori.subkategori?.reduce(
-                                                  (subAcc, sub) =>
-                                                    subAcc +
-                                                    parseFloat(
-                                                      sub.remaining || 0
-                                                    ),
-                                                  0
-                                                ),
-                                              0
-                                            )
-                                            .toLocaleString("id-ID", {
-                                              style: "currency",
-                                              currency: "IDR",
-                                            })}
-                                        </td>
-                                      </tr>
+                                          )
+                                        ) : (
+                                          <tr>
+                                            <td colSpan="6">
+                                              Tidak ada kategori
+                                            </td>
+                                          </tr>
+                                        )}
+                                      </React.Fragment>
                                     )
                                   )
                                 ) : (
