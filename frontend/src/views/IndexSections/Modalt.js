@@ -975,7 +975,8 @@ const Modalt = () => {
                                 {selectedKeuangan?.keuangan?.length > 0 ? (
                                   selectedKeuangan.keuangan.map(
                                     (keuangan, keuanganIndex) => {
-                                      console.log("Keuangan:", keuangan); // Debugging keuangan
+                                      // Debugging keuangan
+                                      console.log("Keuangan:", keuangan);
 
                                       return (
                                         <tr
@@ -984,13 +985,15 @@ const Modalt = () => {
                                           <td>{keuanganIndex + 1}</td>
                                           <td>{keuangan.name || "N/A"}</td>
                                           <td>
+                                            {/* Cek apakah kategori ada */}
                                             {keuangan.kategori?.length > 0 ? (
                                               keuangan.kategori.map(
                                                 (kategori, kategoriIndex) => {
+                                                  // Debugging kategori
                                                   console.log(
                                                     "Kategori:",
                                                     kategori
-                                                  ); // Debugging kategori
+                                                  );
 
                                                   return (
                                                     <div
@@ -1002,14 +1005,16 @@ const Modalt = () => {
                                                       <strong>
                                                         {kategori.name}
                                                       </strong>
+                                                      {/* Cek apakah subkategori ada */}
                                                       {kategori.subkategori
                                                         ?.length > 0 ? (
                                                         kategori.subkategori.map(
                                                           (sub, subIndex) => {
+                                                            // Debugging subkategori
                                                             console.log(
                                                               "Subkategori:",
                                                               sub
-                                                            ); // Debugging subkategori
+                                                            );
                                                             return (
                                                               <div
                                                                 key={`${kategoriIndex}-${subIndex}`}
@@ -1039,6 +1044,7 @@ const Modalt = () => {
                                             )}
                                           </td>
                                           <td>
+                                            {/* Hitung total budget, total realisasi, dan sisa */}
                                             {keuangan.kategori
                                               ?.reduce(
                                                 (acc, kategori) =>
