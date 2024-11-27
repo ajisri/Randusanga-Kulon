@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
@@ -13,26 +12,21 @@ import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import "./ProdukHukum.css"; // Custom CSS for styling
 
-const Apbd = () => {
+const Ankor = () => {
   const [formData, setFormData] = useState({
     name: "",
-    year: "",
-    file_url: "",
   });
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [currentApbd, setCurrentApbd] = useState(null);
+  const [currentAnkor, setCurrentAnkor] = useState(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS }, // Use FilterMatchMode
   });
-  const [apbdList, setApbdList] = useState([]);
-  const [fileDialogVisible, setFileDialogVisible] = useState(false);
+  const [ankorList, setAnkorList] = useState([]);
 
   const navigate = useNavigate();
   const toast = useRef(null);
@@ -48,19 +42,19 @@ const Apbd = () => {
   );
 
   const {
-    data: apbdData,
+    data: ankorData,
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/apbd",
+    "https://randusanga-kulonbackend-production.up.railway.app/ankor",
     fetcher
   );
 
   useEffect(() => {
-    if (apbdData?.apbd) {
-      setApbdList(apbdData.apbd);
+    if (ankorData?.ankor) {
+      setAnkorList(ankorData.ankor);
     }
-  }, [apbdData]);
+  }, [ankorData]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -78,42 +72,6 @@ const Apbd = () => {
 
   const closeDialog = () => {
     setDialogVisible(false);
-  };
-
-  const showFileInModal = (fileUrl) => {
-    // console.log("Opening file URL:", fileUrl);
-    if (fileUrl) {
-      setSelectedFile(fileUrl);
-      setFileDialogVisible(true);
-    } else {
-      console.error("File is not valid");
-    }
-  };
-
-  const renderFileDialog = () => {
-    return (
-      <Dialog
-        header="File Preview"
-        visible={fileDialogVisible}
-        onHide={() => setFileDialogVisible(false)}
-        modal
-        style={{ width: "70vw" }} // Set width sesuai kebutuhan
-      >
-        {selectedFile ? (
-          <>
-            <iframe
-              src={selectedFile}
-              width="100%"
-              height="400px"
-              title="File Viewer"
-            />
-          </>
-        ) : (
-          <p>No file selected.</p>
-        )}
-        <Button label="Close" onClick={() => setFileDialogVisible(false)} />
-      </Dialog>
-    );
   };
 
   const renderHeader = () => {
@@ -149,67 +107,21 @@ const Apbd = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const currentYear = new Date().getFullYear();
-  const years = Array.from(
-    { length: 10 }, // Membatasi hingga 10 tahun
-    (_, i) => currentYear - i // Mengurangi indeks untuk mendapatkan tahun mundur
-  );
-
-  const yearOptions = years.map((year) => ({
-    label: year.toString(),
-    value: year,
-  }));
-
-  const handleDateChange = (e) => {
-    const selectedYear = e.value; // Nilai yang dipilih dari dropdown
-    if (selectedYear) {
-      setFormData({
-        ...formData,
-        year: parseInt(selectedYear, 10), // Simpan tahun sebagai integer
-      });
-    } else {
-      setFormData({ ...formData, year: null });
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file); // Simpan file yang dipilih dalam state
-      const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result); // Buat preview jika diperlukan
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validasi nilai year dan konversi jika diperlukan
-    if (typeof formData.year === "string") {
-      formData.year = parseInt(formData.year, 10); // Konversi year ke integer
-    }
+
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
-    formDataToSend.append("year", formData.year);
-
-    // Tambahkan file jika ada
-    if (selectedFile) {
-      formDataToSend.append("file", selectedFile);
-    }
 
     try {
       if (isEditMode) {
         console.log("Mengirim data untuk update (Edit Mode)...");
         console.log("Data yang akan dikirim:", {
-          id: currentApbd.id,
+          id: currentAnkor.id,
           name: formData.name,
-          year: formData.year,
-          file: selectedFile
-            ? selectedFile.name
-            : "Tidak ada file yang diunggah",
         });
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/ankor/${currentAnkor.id}`,
           formDataToSend,
           {
             headers: {
@@ -226,7 +138,7 @@ const Apbd = () => {
       } else {
         console.log("Mengirim data baru...");
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
+          "https://randusanga-kulonbackend-production.up.railway.app/cankor",
           formDataToSend,
           {
             headers: {
@@ -244,7 +156,7 @@ const Apbd = () => {
 
       console.log("Data berhasil dikirim, merefresh data...");
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/apbd"
+        "https://randusanga-kulonbackend-production.up.railway.app/ankor"
       );
 
       resetForm();
@@ -286,33 +198,23 @@ const Apbd = () => {
   const resetForm = () => {
     setFormData({
       name: "",
-      year: null,
-      file_url: "",
     });
-    setSelectedFile(null);
-    setPreview(null);
     setEditMode(false);
-    setCurrentApbd(null);
+    setCurrentAnkor(null);
   };
 
-  const editapbd = (apbd) => {
-    setFormData(apbd);
-    setSelectedFile(null);
-    const fileUrl = apbd.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${apbd.file_url}`
-      : null;
-    // console.log("File URL:", fileUrl);
-    setPreview(fileUrl); // Set preview to the existing file URL
-    setCurrentApbd(apbd);
+  const editankor = (ankor) => {
+    setFormData(ankor);
+    setCurrentAnkor(ankor);
     setEditMode(true);
     setDialogVisible(true);
   };
 
-  const deleteapbd = async (id) => {
+  const deleteankor = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${id}`
+          `https://randusanga-kulonbackend-production.up.railway.app/ankor/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -321,7 +223,7 @@ const Apbd = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/apbd"
+          "https://randusanga-kulonbackend-production.up.railway.app/ankor"
         );
       } catch (error) {
         handleError(error);
@@ -339,19 +241,19 @@ const Apbd = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">APBD</h1>
+      <h1 className="demografi-header">Parameter Ankor</h1>
       <Toast ref={toast} />
       <DataTable
-        value={apbdList}
+        value={ankorList}
         paginator
         rows={rows} // Gunakan nilai rows dari state
         first={first}
         onPage={handlePageChange}
         rowsPerPageOptions={[5, 10, 25, 50]}
         filters={filters}
-        globalFilterFields={["name", "year"]}
+        globalFilterFields={["name"]}
         header={header}
-        footer={`Total data: ${apbdList.length}`}
+        footer={`Total data: ${ankorList.length}`}
       >
         <Column
           header="No"
@@ -367,29 +269,7 @@ const Apbd = () => {
         <Column
           field="name"
           header="Nama"
-          style={{ width: "55%", minWidth: "15%" }}
-        />
-        <Column
-          field="year"
-          header="Tahun"
-          style={{ width: "30%", minWidth: "5%" }}
-        />
-        <Column
-          field="file_url"
-          header="File"
-          style={{ width: "5%", minWidth: "5%" }}
-          body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
-            return (
-              <Button
-                label="Lihat"
-                onClick={() => showFileInModal(fileUrl)} // Gunakan URL lengkap
-                className="coastal-button p-button-rounded"
-                tooltip="Lihat File"
-                tooltipOptions={{ position: "bottom" }}
-              />
-            );
-          }}
+          style={{ width: "90%", minWidth: "15%" }}
         />
         <Column
           header="Actions"
@@ -398,7 +278,7 @@ const Apbd = () => {
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
                 icon="pi pi-pencil"
-                onClick={() => editapbd(rowData)}
+                onClick={() => editankor(rowData)}
                 className="edit-button coastal-button p-button-rounded"
                 tooltip="Edit"
                 tooltipOptions={{ position: "bottom" }}
@@ -410,7 +290,7 @@ const Apbd = () => {
               />
               <Button
                 icon="pi pi-trash"
-                onClick={() => deleteapbd(rowData.id)}
+                onClick={() => deleteankor(rowData.id)}
                 className="delete-button coastal-button p-button-rounded"
                 tooltip="Delete"
                 tooltipOptions={{ position: "bottom" }}
@@ -424,10 +304,9 @@ const Apbd = () => {
           )}
         />
       </DataTable>
-      {renderFileDialog()}
 
       <Dialog
-        header={isEditMode ? "Edit APBD Data" : "Add APBD Data"}
+        header={isEditMode ? "Edit Data" : "Add Data"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}
@@ -451,12 +330,12 @@ const Apbd = () => {
               }}
             >
               <h3 className="section-title" style={{ color: "#00796B" }}>
-                APBD Information
+                Informasi Parameter Ankor
               </h3>
 
               <div className="form-group">
                 <label htmlFor="name">
-                  Nama APBD <span className="required">*</span>
+                  Parameter Ankor <span className="required">*</span>
                 </label>
                 <InputText
                   id="name"
@@ -466,40 +345,6 @@ const Apbd = () => {
                   className="input-field"
                   required
                 />
-              </div>
-              <div className="form-group">
-                <label htmlFor="year">
-                  Tahun <span className="required">*</span>
-                </label>
-                <Dropdown
-                  id="year"
-                  name="year"
-                  value={formData.year}
-                  options={yearOptions}
-                  onChange={handleDateChange}
-                  showIcon
-                  className="input-field"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="file_url">Upload File</label>
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                  className="file-input"
-                />
-                {preview && (
-                  <div className="file-preview">
-                    <iframe
-                      src={preview}
-                      title="File Preview"
-                      className="preview-file"
-                      style={{ width: "100%", height: "400px" }}
-                    />
-                  </div>
-                )}
               </div>
               <div className="button-sub">
                 <Button
@@ -517,4 +362,4 @@ const Apbd = () => {
   );
 };
 
-export default Apbd;
+export default Ankor;
