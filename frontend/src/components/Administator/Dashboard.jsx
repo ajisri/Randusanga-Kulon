@@ -25,6 +25,7 @@ import Pendaftarannikah from "./Layanan/Pendaftarannikah";
 import Aktifasibpjs from "./Layanan/Aktifasibpjs";
 //Transparansi
 import Ankor from "./Transparansi/Ankor";
+import Kategoriankor from "./Transparansi/Kategoriankor";
 import Produkhukum from "./Transparansi/ProdukHukum";
 import Apbd from "./Transparansi/Apbd";
 import Keuangan from "./Transparansi/Keuangan";
@@ -165,6 +166,8 @@ const Dashboard = () => {
         return <Pendaftarannikah />;
       case "Ankor":
         return <Ankor />;
+      case "Kategoriankor":
+        return <Kategoriankor />;
       case "Produkhukum":
         return <Produkhukum />;
       case "Apbd":
@@ -638,7 +641,7 @@ const Dashboard = () => {
                   <Ripple />
                 </div>
                 <div
-                  onClick={() => setActiveMenu("Ankor")}
+                  onClick={() => setActiveMenu("Kategoriankor")}
                   className="menu-item"
                   style={{
                     marginBottom: "10px",
