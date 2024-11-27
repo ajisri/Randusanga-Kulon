@@ -944,43 +944,7 @@ const Modalt = () => {
                                       textAlign: "center",
                                     }}
                                   >
-                                    Kategori
-                                  </th>
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                      textAlign: "center",
-                                    }}
-                                  >
-                                    Subkategori
-                                  </th>
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                      textAlign: "right",
-                                    }}
-                                  >
-                                    Total Budget
-                                  </th>
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                      textAlign: "right",
-                                    }}
-                                  >
-                                    Total Realization
-                                  </th>
-                                  <th
-                                    style={{
-                                      padding: "0.8rem",
-                                      border: "1px solid #dddddd",
-                                      textAlign: "right",
-                                    }}
-                                  >
-                                    Remaining
+                                    Keuangan
                                   </th>
                                 </tr>
                               </thead>
@@ -991,27 +955,18 @@ const Modalt = () => {
                                       <React.Fragment
                                         key={keuangan.uuid || keuanganIndex}
                                       >
-                                        {/* Header for Keuangan */}
                                         <tr>
                                           <td
-                                            colSpan="6"
+                                            colSpan="2"
                                             style={{
                                               padding: "1rem",
-                                              backgroundColor: "#f0f0f0",
+                                              fontWeight: "bold",
+                                              backgroundColor: "#f1f1f1",
                                             }}
                                           >
-                                            <strong>{keuangan.name}</strong>{" "}
-                                            <br />
-                                            <span
-                                              style={{
-                                                fontSize: "0.9rem",
-                                                color: "#666",
-                                              }}
-                                            ></span>
+                                            {keuangan.name}
                                           </td>
                                         </tr>
-
-                                        {/* Kategori Iteration */}
                                         {keuangan.kategori?.length > 0 ? (
                                           keuangan.kategori.map(
                                             (kategori, kategoriIndex) => (
@@ -1020,25 +975,75 @@ const Modalt = () => {
                                                   kategori.uuid || kategoriIndex
                                                 }
                                               >
-                                                <tr>
-                                                  <td
-                                                    colSpan="6"
+                                                {/* Mini header untuk kategori */}
+                                                <tr
+                                                  style={{
+                                                    background: "#e0e0e0",
+                                                    color: "#333333",
+                                                  }}
+                                                >
+                                                  <th
                                                     style={{
-                                                      backgroundColor:
-                                                        "#e8f4fc",
                                                       padding: "0.8rem",
+                                                      border:
+                                                        "1px solid #dddddd",
+                                                      textAlign: "center",
                                                     }}
                                                   >
-                                                    <strong>
-                                                      {kategori.number}.
-                                                    </strong>{" "}
-                                                    <strong>
-                                                      {kategori.name}
-                                                    </strong>
-                                                  </td>
+                                                    Nomor
+                                                  </th>
+                                                  <th
+                                                    style={{
+                                                      padding: "0.8rem",
+                                                      border:
+                                                        "1px solid #dddddd",
+                                                      textAlign: "center",
+                                                    }}
+                                                  >
+                                                    {kategori.name}
+                                                  </th>
+                                                  <th
+                                                    style={{
+                                                      padding: "0.8rem",
+                                                      border:
+                                                        "1px solid #dddddd",
+                                                      textAlign: "center",
+                                                    }}
+                                                  >
+                                                    Subkategori
+                                                  </th>
+                                                  <th
+                                                    style={{
+                                                      padding: "0.8rem",
+                                                      border:
+                                                        "1px solid #dddddd",
+                                                      textAlign: "center",
+                                                    }}
+                                                  >
+                                                    Total Budget
+                                                  </th>
+                                                  <th
+                                                    style={{
+                                                      padding: "0.8rem",
+                                                      border:
+                                                        "1px solid #dddddd",
+                                                      textAlign: "center",
+                                                    }}
+                                                  >
+                                                    Realisasi
+                                                  </th>
+                                                  <th
+                                                    style={{
+                                                      padding: "0.8rem",
+                                                      border:
+                                                        "1px solid #dddddd",
+                                                      textAlign: "center",
+                                                    }}
+                                                  >
+                                                    Sisa
+                                                  </th>
                                                 </tr>
-
-                                                {/* Subkategori Iteration */}
+                                                {/* Data kategori */}
                                                 {kategori.subkategori?.length >
                                                 0 ? (
                                                   kategori.subkategori.map(
@@ -1055,7 +1060,6 @@ const Modalt = () => {
                                                             sub.totalBudget
                                                           ) || 0
                                                         );
-
                                                       const formattedRealization =
                                                         new Intl.NumberFormat(
                                                           "id-ID",
@@ -1068,7 +1072,6 @@ const Modalt = () => {
                                                             sub.totalRealization
                                                           ) || 0
                                                         );
-
                                                       const formattedRemaining =
                                                         new Intl.NumberFormat(
                                                           "id-ID",
@@ -1091,14 +1094,17 @@ const Modalt = () => {
                                                           <td
                                                             style={{
                                                               padding: "0.8rem",
+                                                              textAlign:
+                                                                "center",
                                                             }}
-                                                          ></td>
+                                                          >
+                                                            {kategoriIndex + 1}.
+                                                            {subIndex + 1}
+                                                          </td>
+                                                          <td></td>
                                                           <td
-                                                            colSpan="2"
                                                             style={{
                                                               padding: "0.8rem",
-                                                              backgroundColor:
-                                                                "#f8f8f8",
                                                             }}
                                                           >
                                                             {sub.name}
@@ -1141,7 +1147,6 @@ const Modalt = () => {
                                                     <td
                                                       colSpan="6"
                                                       style={{
-                                                        padding: "1rem",
                                                         textAlign: "center",
                                                       }}
                                                     >
@@ -1156,10 +1161,7 @@ const Modalt = () => {
                                           <tr>
                                             <td
                                               colSpan="6"
-                                              style={{
-                                                padding: "1rem",
-                                                textAlign: "center",
-                                              }}
+                                              style={{ textAlign: "center" }}
                                             >
                                               Tidak ada kategori
                                             </td>
@@ -1172,10 +1174,7 @@ const Modalt = () => {
                                   <tr>
                                     <td
                                       colSpan="6"
-                                      style={{
-                                        padding: "1rem",
-                                        textAlign: "center",
-                                      }}
+                                      style={{ textAlign: "center" }}
                                     >
                                       Tidak ada data keuangan.
                                     </td>
