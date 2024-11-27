@@ -972,39 +972,84 @@ const Modalt = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                {selectedKeuangan.map(
-                                  (keuangan, keuanganIndex) =>
-                                    keuangan.kategori.map(
-                                      (kategori, kategoriIndex) => (
+                                {selectedKeuangan?.keuangan?.length > 0 ? (
+                                  selectedKeuangan.keuangan.map(
+                                    (keuangan, keuanganIndex) => {
+                                      console.log("Keuangan:", keuangan); // Debugging keuangan
+
+                                      return (
                                         <tr
-                                          key={`${keuanganIndex}-${kategoriIndex}`}
+                                          key={keuangan.uuid || keuanganIndex}
                                         >
                                           <td>{keuanganIndex + 1}</td>
+                                          <td>{keuangan.name || "N/A"}</td>
                                           <td>
-                                            {kategori.name ||
-                                              "Tidak ada kategori"}
-                                          </td>
-                                          <td>
-                                            {kategori.subkategori?.length > 0
-                                              ? kategori.subkategori.map(
-                                                  (sub, subIndex) => (
+                                            {keuangan.kategori?.length > 0 ? (
+                                              keuangan.kategori.map(
+                                                (kategori, kategoriIndex) => {
+                                                  console.log(
+                                                    "Kategori:",
+                                                    kategori
+                                                  ); // Debugging kategori
+
+                                                  return (
                                                     <div
-                                                      key={`${kategoriIndex}-${subIndex}`}
+                                                      key={
+                                                        kategori.uuid ||
+                                                        kategoriIndex
+                                                      }
                                                     >
-                                                      {subIndex + 1}.{" "}
-                                                      {sub.name || "N/A"}
+                                                      <strong>
+                                                        {kategori.name}
+                                                      </strong>
+                                                      {kategori.subkategori
+                                                        ?.length > 0 ? (
+                                                        kategori.subkategori.map(
+                                                          (sub, subIndex) => {
+                                                            console.log(
+                                                              "Subkategori:",
+                                                              sub
+                                                            ); // Debugging subkategori
+                                                            return (
+                                                              <div
+                                                                key={`${kategoriIndex}-${subIndex}`}
+                                                              >
+                                                                {subIndex + 1}.{" "}
+                                                                {sub.name ||
+                                                                  "N/A"}{" "}
+                                                                -{" "}
+                                                                {
+                                                                  sub.totalBudget
+                                                                }
+                                                              </div>
+                                                            );
+                                                          }
+                                                        )
+                                                      ) : (
+                                                        <div>
+                                                          Tidak ada subkategori
+                                                        </div>
+                                                      )}
                                                     </div>
-                                                  )
-                                                )
-                                              : "Tidak ada subkategori"}
+                                                  );
+                                                }
+                                              )
+                                            ) : (
+                                              <div>Tidak ada kategori</div>
+                                            )}
                                           </td>
                                           <td>
-                                            {kategori.subkategori
+                                            {keuangan.kategori
                                               ?.reduce(
-                                                (acc, sub) =>
+                                                (acc, kategori) =>
                                                   acc +
-                                                  parseFloat(
-                                                    sub.totalBudget || 0
+                                                  kategori.subkategori?.reduce(
+                                                    (subAcc, sub) =>
+                                                      subAcc +
+                                                      parseFloat(
+                                                        sub.totalBudget || 0
+                                                      ),
+                                                    0
                                                   ),
                                                 0
                                               )
@@ -1014,12 +1059,18 @@ const Modalt = () => {
                                               })}
                                           </td>
                                           <td>
-                                            {kategori.subkategori
+                                            {keuangan.kategori
                                               ?.reduce(
-                                                (acc, sub) =>
+                                                (acc, kategori) =>
                                                   acc +
-                                                  parseFloat(
-                                                    sub.totalRealization || 0
+                                                  kategori.subkategori?.reduce(
+                                                    (subAcc, sub) =>
+                                                      subAcc +
+                                                      parseFloat(
+                                                        sub.totalRealization ||
+                                                          0
+                                                      ),
+                                                    0
                                                   ),
                                                 0
                                               )
@@ -1029,12 +1080,17 @@ const Modalt = () => {
                                               })}
                                           </td>
                                           <td>
-                                            {kategori.subkategori
+                                            {keuangan.kategori
                                               ?.reduce(
-                                                (acc, sub) =>
+                                                (acc, kategori) =>
                                                   acc +
-                                                  parseFloat(
-                                                    sub.remaining || 0
+                                                  kategori.subkategori?.reduce(
+                                                    (subAcc, sub) =>
+                                                      subAcc +
+                                                      parseFloat(
+                                                        sub.remaining || 0
+                                                      ),
+                                                    0
                                                   ),
                                                 0
                                               )
@@ -1044,8 +1100,15 @@ const Modalt = () => {
                                               })}
                                           </td>
                                         </tr>
-                                      )
-                                    )
+                                      );
+                                    }
+                                  )
+                                ) : (
+                                  <tr>
+                                    <td colSpan="6">
+                                      Tidak ada data keuangan.
+                                    </td>
+                                  </tr>
                                 )}
                               </tbody>
                             </table>
