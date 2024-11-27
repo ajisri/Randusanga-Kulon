@@ -24,7 +24,7 @@ const KategoriAnkor = () => {
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [currentKategoriankor, setCurrentKategoriAnkor] = useState(null);
+  const [currentKategoriAnkor, setCurrentKategoriAnkor] = useState(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS }, // Use FilterMatchMode
@@ -135,7 +135,7 @@ const KategoriAnkor = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${currentKategoriankor.uuid}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${currentKategoriAnkor.uuid}`,
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
