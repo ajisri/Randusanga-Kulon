@@ -980,33 +980,63 @@ const Modalt = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                {selectedKeuangan?.kategori?.length > 0 ? (
-                                  selectedKeuangan.kategori.map(
-                                    (kategori, index) => (
-                                      <tr key={kategori.uuid || index}>
-                                        <td>{index + 1}</td>
-                                        <td>{kategori.name || "N/A"}</td>
+                                {selectedKeuangan?.keuangan?.length > 0 ? (
+                                  selectedKeuangan.keuangan.map(
+                                    (keuangan, keuanganIndex) => (
+                                      <tr key={keuangan.id || keuanganIndex}>
+                                        <td>{keuanganIndex + 1}</td>
+                                        <td>{keuangan.name || "N/A"}</td>
                                         <td>
-                                          {kategori?.subkategori?.length > 0
-                                            ? kategori.subkategori.map(
-                                                (sub, subIndex) => (
-                                                  <div
-                                                    key={sub.uuid || subIndex}
-                                                  >
-                                                    {subIndex + 1}.{" "}
-                                                    {sub.name || "N/A"}
-                                                  </div>
-                                                )
+                                          {keuangan.kategori?.length > 0 ? (
+                                            keuangan.kategori.map(
+                                              (kategori, kategoriIndex) => (
+                                                <div
+                                                  key={
+                                                    kategori.uuid ||
+                                                    kategoriIndex
+                                                  }
+                                                >
+                                                  <strong>
+                                                    {kategori.name || "N/A"}
+                                                  </strong>
+                                                  {kategori.subkategori
+                                                    ?.length > 0 ? (
+                                                    kategori.subkategori.map(
+                                                      (sub, subIndex) => (
+                                                        <div
+                                                          key={
+                                                            sub.uuid || subIndex
+                                                          }
+                                                        >
+                                                          {subIndex + 1}.{" "}
+                                                          {sub.name || "N/A"}
+                                                        </div>
+                                                      )
+                                                    )
+                                                  ) : (
+                                                    <div>
+                                                      Tidak ada subkategori
+                                                    </div>
+                                                  )}
+                                                </div>
                                               )
-                                            : "Tidak ada subkategori"}
+                                            )
+                                          ) : (
+                                            <div>Tidak ada kategori</div>
+                                          )}
                                         </td>
                                         <td>
-                                          {kategori?.subkategori
+                                          {keuangan.kategori
                                             ?.reduce(
-                                              (acc, sub) =>
+                                              (acc, kategori) =>
                                                 acc +
-                                                parseFloat(
-                                                  sub.totalBudget || 0
+                                                kategori.subkategori?.reduce(
+                                                  (subAcc, sub) =>
+                                                    subAcc +
+                                                    parseFloat(
+                                                      sub.totalBudget || 0
+                                                    ),
+                                                  0
                                                 ),
                                               0
                                             )
@@ -1016,12 +1046,17 @@ const Modalt = () => {
                                             })}
                                         </td>
                                         <td>
-                                          {kategori?.subkategori
+                                          {keuangan.kategori
                                             ?.reduce(
-                                              (acc, sub) =>
+                                              (acc, kategori) =>
                                                 acc +
-                                                parseFloat(
-                                                  sub.totalRealization || 0
+                                                kategori.subkategori?.reduce(
+                                                  (subAcc, sub) =>
+                                                    subAcc +
+                                                    parseFloat(
+                                                      sub.totalRealization || 0
+                                                    ),
+                                                  0
                                                 ),
                                               0
                                             )
@@ -1031,11 +1066,18 @@ const Modalt = () => {
                                             })}
                                         </td>
                                         <td>
-                                          {kategori?.subkategori
+                                          {keuangan.kategori
                                             ?.reduce(
-                                              (acc, sub) =>
+                                              (acc, kategori) =>
                                                 acc +
-                                                parseFloat(sub.remaining || 0),
+                                                kategori.subkategori?.reduce(
+                                                  (subAcc, sub) =>
+                                                    subAcc +
+                                                    parseFloat(
+                                                      sub.remaining || 0
+                                                    ),
+                                                  0
+                                                ),
                                               0
                                             )
                                             .toLocaleString("id-ID", {
@@ -1049,7 +1091,7 @@ const Modalt = () => {
                                 ) : (
                                   <tr>
                                     <td colSpan="6">
-                                      Tidak ada data kategori.
+                                      Tidak ada data keuangan.
                                     </td>
                                   </tr>
                                 )}
