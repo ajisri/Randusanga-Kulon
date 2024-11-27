@@ -909,6 +909,7 @@ const Modalt = () => {
                               width: "100%",
                               border: "1px solid #e0e0e0",
                               borderRadius: "8px",
+                              padding: "1rem",
                             }}
                           >
                             <table
@@ -930,6 +931,7 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
+                                      textAlign: "center",
                                     }}
                                   >
                                     No
@@ -938,6 +940,7 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
+                                      textAlign: "center",
                                     }}
                                   >
                                     Kategori
@@ -946,6 +949,7 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
+                                      textAlign: "center",
                                     }}
                                   >
                                     Subkategori
@@ -986,11 +990,30 @@ const Modalt = () => {
                                       <React.Fragment
                                         key={keuangan.uuid || keuanganIndex}
                                       >
+                                        {/* Header for Keuangan */}
                                         <tr>
-                                          <td colSpan="6">
-                                            <strong>{keuangan.name}</strong>
+                                          <td
+                                            colSpan="6"
+                                            style={{
+                                              padding: "1rem",
+                                              backgroundColor: "#f0f0f0",
+                                            }}
+                                          >
+                                            <strong>{keuangan.name}</strong>{" "}
+                                            <br />
+                                            <span
+                                              style={{
+                                                fontSize: "0.9rem",
+                                                color: "#666",
+                                              }}
+                                            >
+                                              {keuangan.year} -{" "}
+                                              {keuangan.created_at}
+                                            </span>
                                           </td>
                                         </tr>
+
+                                        {/* Kategori Iteration */}
                                         {keuangan.kategori?.length > 0 ? (
                                           keuangan.kategori.map(
                                             (kategori, kategoriIndex) => (
@@ -1000,17 +1023,26 @@ const Modalt = () => {
                                                 }
                                               >
                                                 <tr>
-                                                  <td colSpan="6">
+                                                  <td
+                                                    colSpan="6"
+                                                    style={{
+                                                      backgroundColor:
+                                                        "#e8f4fc",
+                                                      padding: "0.8rem",
+                                                    }}
+                                                  >
                                                     <strong>
                                                       Nomor Kategori:{" "}
                                                       {kategori.number}
-                                                    </strong>
+                                                    </strong>{" "}
                                                     <br />
                                                     <strong>
                                                       {kategori.name}
                                                     </strong>
                                                   </td>
                                                 </tr>
+
+                                                {/* Subkategori Iteration */}
                                                 {kategori.subkategori?.length >
                                                 0 ? (
                                                   kategori.subkategori.map(
@@ -1020,22 +1052,57 @@ const Modalt = () => {
                                                           sub.uuid || subIndex
                                                         }
                                                       >
-                                                        <td colSpan="6">
-                                                          <div>
-                                                            {sub.name}:{" "}
-                                                            {sub.totalBudget}{" "}
-                                                            {
-                                                              sub.totalRealization
-                                                            }{" "}
-                                                            {sub.remaining}
-                                                          </div>
+                                                        <td
+                                                          style={{
+                                                            padding: "0.8rem",
+                                                          }}
+                                                        ></td>
+                                                        <td
+                                                          colSpan="2"
+                                                          style={{
+                                                            padding: "0.8rem",
+                                                            backgroundColor:
+                                                              "#f8f8f8",
+                                                          }}
+                                                        >
+                                                          {sub.name}
+                                                        </td>
+                                                        <td
+                                                          style={{
+                                                            textAlign: "right",
+                                                            padding: "0.8rem",
+                                                          }}
+                                                        >
+                                                          {sub.totalBudget}
+                                                        </td>
+                                                        <td
+                                                          style={{
+                                                            textAlign: "right",
+                                                            padding: "0.8rem",
+                                                          }}
+                                                        >
+                                                          {sub.totalRealization}
+                                                        </td>
+                                                        <td
+                                                          style={{
+                                                            textAlign: "right",
+                                                            padding: "0.8rem",
+                                                          }}
+                                                        >
+                                                          {sub.remaining}
                                                         </td>
                                                       </tr>
                                                     )
                                                   )
                                                 ) : (
                                                   <tr>
-                                                    <td colSpan="6">
+                                                    <td
+                                                      colSpan="6"
+                                                      style={{
+                                                        padding: "1rem",
+                                                        textAlign: "center",
+                                                      }}
+                                                    >
                                                       Tidak ada subkategori
                                                     </td>
                                                   </tr>
@@ -1045,7 +1112,13 @@ const Modalt = () => {
                                           )
                                         ) : (
                                           <tr>
-                                            <td colSpan="6">
+                                            <td
+                                              colSpan="6"
+                                              style={{
+                                                padding: "1rem",
+                                                textAlign: "center",
+                                              }}
+                                            >
                                               Tidak ada kategori
                                             </td>
                                           </tr>
@@ -1055,7 +1128,13 @@ const Modalt = () => {
                                   )
                                 ) : (
                                   <tr>
-                                    <td colSpan="6">
+                                    <td
+                                      colSpan="6"
+                                      style={{
+                                        padding: "1rem",
+                                        textAlign: "center",
+                                      }}
+                                    >
                                       Tidak ada data keuangan.
                                     </td>
                                   </tr>
