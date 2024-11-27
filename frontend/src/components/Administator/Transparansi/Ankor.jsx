@@ -137,6 +137,9 @@ const Ankor = () => {
         });
       } else {
         console.log("Mengirim data baru...");
+        console.log("Data yang dikirim create:", {
+          name: formData.name,
+        });
         await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/cankor",
           formDataToSend,
