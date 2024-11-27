@@ -25,7 +25,7 @@ import Pendaftarannikah from "./Layanan/Pendaftarannikah";
 import Aktifasibpjs from "./Layanan/Aktifasibpjs";
 //Transparansi
 import Ankor from "./Transparansi/Ankor";
-import Kategoriankor from "./Transparansi/Kategoriankor";
+import KategoriAnkor from "./Transparansi/KategoriAnkor";
 import Produkhukum from "./Transparansi/ProdukHukum";
 import Apbd from "./Transparansi/Apbd";
 import Keuangan from "./Transparansi/Keuangan";
@@ -166,8 +166,8 @@ const Dashboard = () => {
         return <Pendaftarannikah />;
       case "Ankor":
         return <Ankor />;
-      case "Kategoriankor":
-        return <Kategoriankor />;
+      case "KategoriAnkor":
+        return <KategoriAnkor />;
       case "Produkhukum":
         return <Produkhukum />;
       case "Apbd":
