@@ -136,8 +136,7 @@ const KategoriAnkor = () => {
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${currentKategoriankor.uuid}`,
-          { name: formData.name },
-          { ankorId: formData.ankorId },
+          { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
               "Content-Type": "application/json",
@@ -153,8 +152,7 @@ const KategoriAnkor = () => {
       } else {
         await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/ckategoriankor",
-          { name: formData.name },
-          { ankorId: formData.ankorId },
+          { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
               "Content-Type": "application/json",
