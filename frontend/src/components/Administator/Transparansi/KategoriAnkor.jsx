@@ -27,7 +27,7 @@ const KategoriAnkor = () => {
   const [currentKategoriAnkor, setCurrentKategoriAnkor] = useState(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS }, // Use FilterMatchMode
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
   const [kategoriankorList, setKategoriankorList] = useState([]);
 
@@ -54,8 +54,7 @@ const KategoriAnkor = () => {
 
   useEffect(() => {
     if (kategoriankorData) {
-      // Periksa jika ada
-      setKategoriankorList(kategoriankorData); // Gunakan langsung
+      setKategoriankorList(kategoriankorData);
     }
   }, [kategoriankorData]);
 
@@ -70,10 +69,8 @@ const KategoriAnkor = () => {
 
   useEffect(() => {
     if (ankorData?.ankor && Array.isArray(ankorData.ankor)) {
-      // Set data if ankor is an array
       setAnkorOptions(ankorData.ankor);
     } else {
-      // Handle case where ankorData.ankor is empty or not an array
       setAnkorOptions([]);
     }
   }, [ankorData]);
@@ -106,7 +103,7 @@ const KategoriAnkor = () => {
             onChange={onGlobalFilterChange}
             placeholder="Pencarian"
             className="search-input"
-            style={{ width: "300px" }} // Increased width for search input
+            style={{ width: "300px" }}
           />
         </span>
         <div className="add-data-container">
@@ -115,7 +112,7 @@ const KategoriAnkor = () => {
             onClick={openDialog}
             className="add-data-button p-button-rounded p-button-success"
             icon="pi pi-plus"
-            style={{ backgroundColor: "#00796B", color: "#ffffff" }} // Elegant teal color
+            style={{ backgroundColor: "#00796B", color: "#ffffff" }}
           />
         </div>
       </div>
@@ -131,7 +128,6 @@ const KategoriAnkor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (isEditMode) {
         await axiosJWT.patch(
@@ -151,7 +147,7 @@ const KategoriAnkor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -169,7 +165,6 @@ const KategoriAnkor = () => {
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor"
       );
-
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -259,7 +254,7 @@ const KategoriAnkor = () => {
       <DataTable
         value={kategoriankorList}
         paginator
-        rows={rows} // Gunakan nilai rows dari state
+        rows={rows}
         first={first}
         onPage={handlePageChange}
         rowsPerPageOptions={[5, 10, 25, 50]}
@@ -271,10 +266,8 @@ const KategoriAnkor = () => {
         <Column
           header="No"
           body={(rowData, options) => {
-            const rowIndex = options.rowIndex % rows; // Reset rowIndex setiap halaman
-            const nomorUrut = first + rowIndex + 1; // Hitung nomor urut berdasarkan halaman
-            console.log("Row Index:", rowIndex, "Nomor Urut:", nomorUrut); // Log nomor urut pada setiap baris
-
+            const rowIndex = options.rowIndex % rows;
+            const nomorUrut = first + rowIndex + 1;
             return nomorUrut;
           }}
           style={{ width: "5%", minWidth: "5%" }}
@@ -376,7 +369,7 @@ const KategoriAnkor = () => {
                   optionLabel={(option) => `${option.name})`}
                   optionValue="id"
                   value={formData.ankorId}
-                  options={ankorData}
+                  options={ankorOptions}
                   onChange={handleChange}
                   placeholder="Pilih Parameter Ankor"
                   required
