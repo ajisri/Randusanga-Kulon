@@ -280,12 +280,12 @@ const KategoriAnkor = () => {
         <Column
           field="name"
           header="Nama"
-          style={{ width: "90%", minWidth: "15%" }}
+          style={{ width: "50%", minWidth: "15%" }}
         />
         <Column
           field="ankorId"
           header="Parameter Ankor"
-          style={{ width: "25%", minWidth: "20%" }}
+          style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const ankor = ankorOptions.find((kw) => kw.id === rowData.ankorId);
             return ankor ? `${ankor.name}` : "N/A";
@@ -350,7 +350,7 @@ const KategoriAnkor = () => {
               }}
             >
               <h3 className="section-title" style={{ color: "#00796B" }}>
-                Informasi Parameter Ankor
+                Informasi Kategori Parameter Ankor
               </h3>
 
               <div className="form-group">
