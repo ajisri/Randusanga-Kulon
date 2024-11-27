@@ -875,6 +875,7 @@ const Modalt = () => {
                     header="Detail Keuangan"
                     modal
                     dismissableMask
+                    maximizable
                   >
                     <div style={{ height: "calc(100% - 50px)" }}>
                       <div
@@ -1007,8 +1008,7 @@ const Modalt = () => {
                                                 color: "#666",
                                               }}
                                             >
-                                              {keuangan.year} -{" "}
-                                              {keuangan.created_at}
+                                              {keuangan.year}
                                             </span>
                                           </td>
                                         </tr>
@@ -1032,7 +1032,6 @@ const Modalt = () => {
                                                     }}
                                                   >
                                                     <strong>
-                                                      Nomor Kategori:{" "}
                                                       {kategori.number}
                                                     </strong>{" "}
                                                     <br />
