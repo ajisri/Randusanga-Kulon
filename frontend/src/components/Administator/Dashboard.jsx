@@ -78,7 +78,6 @@ const Dashboard = () => {
         "https://randusanga-kulonbackend-production.up.railway.app/token",
         { withCredentials: true }
       );
-      console.log("Access Token diperbarui:", response.data.accessToken);
       setToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
       setExpire(decoded.exp);

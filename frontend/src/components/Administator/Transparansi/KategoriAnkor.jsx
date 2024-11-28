@@ -383,15 +383,15 @@ const KategoriAnkor = () => {
     }
 
     // Format data yang akan dikirim ke backend
-    const formattedSubkategoriData = subkategoriFormData.map((item) => ({
+    const formattedSubkategoriAnkorData = subkategoriFormData.map((item) => ({
       uuid: item.uuid || null, // Gunakan null jika UUID kosong
       name: item.name || "", // Default ke string kosong jika nama tidak ada
       url: item.url || "", // Default ke string kosong jika URL tidak ada
       kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
     }));
 
-    // Pastikan bahwa subkategoriData tidak kosong
-    if (formattedSubkategoriData.length === 0) {
+    // Pastikan bahwa subkategoriAnkorData tidak kosong
+    if (formattedSubkategoriAnkorData.length === 0) {
       toast.current.show({
         severity: "error",
         summary: "Error",
@@ -403,10 +403,10 @@ const KategoriAnkor = () => {
     }
 
     try {
-      // Kirim data ke backend
+      // Kirim data ke backend dengan nama field 'subkategoriAnkorData'
       await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
-        { subkategoriData: formattedSubkategoriData } // Kirim data sebagai subkategoriData
+        { subkategoriAnkorData: formattedSubkategoriAnkorData } // Pastikan menggunakan subkategoriAnkorData
       );
 
       // Tampilkan notifikasi sukses
