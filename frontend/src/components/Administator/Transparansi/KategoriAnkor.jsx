@@ -376,73 +376,49 @@ const KategoriAnkor = () => {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "Subkategori tidak boleh kosong!",
+        detail: "Subkategori Ankor harus berupa array dan tidak boleh kosong!",
         life: 5000,
       });
       return;
     }
 
-    // Debug: Cek data sebelum pengiriman
-    console.log("Subkategori Form Data:", subkategoriankorFormData);
-
-    // Format data yang akan dikirim ke backend
+    // Format data yang akan dikirim
     const formattedSubkategoriAnkorData = subkategoriankorFormData.map(
-      (item) => ({
-        uuid: item.uuid || null, // Gunakan null jika UUID kosong
-        name: item.name || "", // Default ke string kosong jika nama tidak ada
-        url: item.url || "", // Default ke string kosong jika URL tidak ada
-        kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
-      })
+      (item, index) => {
+        return {
+          uuid: item.uuid || null, // Gunakan null jika UUID kosong
+          name: item.name || "", // Nama subkategori, default ke string kosong
+          url: item.url || "", // URL subkategori, default ke string kosong
+          kategoriankorId: item.kategoriankorId || currentKategoriAnkorId, // Ambil dari form atau konteks
+        };
+      }
     );
-
-    // Debug: Cek data yang diformat sebelum pengiriman
-    console.log(
-      "Formatted Subkategori Ankor Data:",
-      formattedSubkategoriAnkorData
-    );
-
-    // Pastikan bahwa subkategoriAnkorData tidak kosong
-    if (formattedSubkategoriAnkorData.length === 0) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail:
-          "Subkategori data tidak valid, pastikan ada minimal satu subkategori!",
-        life: 5000,
-      });
-      return;
-    }
 
     try {
-      // Kirim data ke backend dengan nama field 'subkategoriAnkorData'
-      const response = await axiosJWT.post(
+      // Kirim data ke backend
+      await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
-        { subkategoriAnkorData: formattedSubkategoriAnkorData } // Pastikan menggunakan subkategoriAnkorData
+        { subkategoriAnkorData: formattedSubkategoriAnkorData }
       );
-
-      // Debug: Cek response dari API
-      console.log("API Response:", response);
 
       // Tampilkan notifikasi sukses
       toast.current.show({
         severity: "success",
         summary: "Success",
-        detail: "Subkategori berhasil disimpan!",
+        detail: "Subkategori Ankor berhasil disimpan!",
         life: 3000,
       });
 
-      // Refresh data dan reset state
+      // Mutasi data dan refresh state terkait
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
+        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
 
-      // Tutup dialog
+      // Tutup dialog setelah sukses
       setSubkategoriAnkorDialogVisible(false);
     } catch (error) {
-      // Debug: Tampilkan error untuk mendiagnosis masalah
-      console.error("Error during submission:", error);
-
-      // Tangani error secara spesifik
+      // Tangani error dengan lebih informatif
+      console.error("DEBUG: Error saat mengirim data:", error);
       handleError(error);
     }
   };
