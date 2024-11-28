@@ -368,58 +368,82 @@ const KategoriAnkor = () => {
   const handleSubkategoriAnkorSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi input data
-    if (
-      !Array.isArray(subkategoriankorFormData) ||
-      subkategoriankorFormData.length === 0
-    ) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Subkategori Ankor harus berupa array dan tidak boleh kosong!",
-        life: 5000,
-      });
-      return;
-    }
-
-    // Format data yang akan dikirim
-    const formattedSubkategoriAnkorData = subkategoriankorFormData.map(
-      (item, index) => {
-        return {
-          uuid: item.uuid || null, // Gunakan null jika UUID kosong
-          name: item.name || "", // Nama subkategori, default ke string kosong
-          url: item.url || "", // URL subkategori, default ke string kosong
-          kategoriankorId: item.kategoriankorId || currentKategoriAnkorId, // Ambil dari form atau konteks
-        };
-      }
-    );
-
     try {
+      // Debug: Cek state awal
+      console.log("=== DEBUG: subkategoriankorFormData ===");
+      console.log(subkategoriankorFormData);
+
+      // Validasi input data
+      if (
+        !Array.isArray(subkategoriankorFormData) ||
+        subkategoriankorFormData.length === 0
+      ) {
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Subkategori tidak boleh kosong!",
+          life: 5000,
+        });
+        return;
+      }
+
+      // Format data untuk pengiriman
+      const formattedSubkategoriAnkorData = subkategoriankorFormData.map(
+        (item) => ({
+          uuid: item.uuid || null,
+          name: item.name || "",
+          url: item.url || "",
+          kategoriankorId: currentKategoriAnkorId,
+        })
+      );
+
+      // Debug: Cek data yang diformat
+      console.log("=== DEBUG: Formatted Payload ===");
+      console.log(JSON.stringify(formattedSubkategoriAnkorData, null, 2));
+
       // Kirim data ke backend
-      await axiosJWT.post(
+      const response = await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
         { subkategoriAnkorData: formattedSubkategoriAnkorData }
       );
+
+      // Debug: Cek respons API
+      console.log("=== DEBUG: API Response ===");
+      console.log(response.data);
 
       // Tampilkan notifikasi sukses
       toast.current.show({
         severity: "success",
         summary: "Success",
-        detail: "Subkategori Ankor berhasil disimpan!",
+        detail: "Subkategori berhasil disimpan!",
         life: 3000,
       });
 
-      // Mutasi data dan refresh state terkait
+      // Refresh data
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
+        "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
       );
 
-      // Tutup dialog setelah sukses
+      // Tutup dialog
       setSubkategoriAnkorDialogVisible(false);
     } catch (error) {
-      // Tangani error dengan lebih informatif
-      console.error("DEBUG: Error saat mengirim data:", error);
-      handleError(error);
+      // Debug: Log error detail
+      console.error("=== DEBUG: Error Detail ===");
+      console.error(error);
+
+      // Debug: Jika ada response dari server
+      if (error.response) {
+        console.error("=== DEBUG: Server Response ===");
+        console.error(error.response.data);
+      }
+
+      // Tampilkan notifikasi error
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: error.response?.data?.msg || "Terjadi kesalahan.",
+        life: 5000,
+      });
     }
   };
 
