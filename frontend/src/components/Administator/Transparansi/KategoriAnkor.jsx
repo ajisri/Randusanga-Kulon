@@ -368,7 +368,7 @@ const KategoriAnkor = () => {
   const handleSubkategoriAnkorSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi input data
+    // Validasi input data: Pastikan data tidak kosong
     if (
       !Array.isArray(subkategoriankorFormData) ||
       subkategoriankorFormData.length === 0
@@ -387,12 +387,22 @@ const KategoriAnkor = () => {
 
     // Format data yang akan dikirim ke backend
     const formattedSubkategoriAnkorData = subkategoriankorFormData.map(
-      (item) => ({
-        uuid: item.uuid || null, // Gunakan null jika UUID kosong
-        name: item.name || "", // Default ke string kosong jika nama tidak ada
-        url: item.url || "", // Default ke string kosong jika URL tidak ada
-        kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
-      })
+      (item, index) => {
+        const formattedItem = {
+          uuid: item.uuid || undefined, // Jangan kirim null, biarkan undefined jika UUID kosong
+          name: item.name || "", // Default ke string kosong jika nama tidak ada
+          url: item.url || "", // Default ke string kosong jika URL tidak ada
+          kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
+        };
+
+        // Debug: Cek setiap item yang diformat
+        console.log(
+          `Formatted Subkategori Ankor Item ${index}:`,
+          formattedItem
+        );
+
+        return formattedItem;
+      }
     );
 
     // Debug: Cek data yang diformat sebelum pengiriman
