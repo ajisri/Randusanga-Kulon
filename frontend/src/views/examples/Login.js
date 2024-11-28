@@ -26,9 +26,7 @@ const Login = () => {
         },
         { withCredentials: true } // Mengirim cookie refresh token ke backend
       );
-      console.log("Response dari login:", response.data);
       if (response.data.accessToken) {
-        console.log("Access Token diterima:", response.data.accessToken);
         navigate("/dashboard");
       } else {
         setMsg("Login gagal, tidak ada token yang diterima");
