@@ -262,7 +262,7 @@ const KategoriAnkor = () => {
   const fetchSubkategoriByKategoriId = async (kategoriankorId) => {
     try {
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriankorId}`
+        `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankorbykategoriankor/${kategoriankorId}`
       );
 
       // Cek apakah data ada atau kosong
@@ -299,7 +299,7 @@ const KategoriAnkor = () => {
       // Tangani error spesifik jika 404
       if (error.response && error.response.status === 404) {
         showNotification(
-          "Data subkategori tidak ditemukan untuk kategori ini.",
+          "Data subkategori ankor tidak ditemukan untuk kategori ankor ini.",
           "warning"
         );
 
