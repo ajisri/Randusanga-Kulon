@@ -213,13 +213,6 @@ const Kategori = () => {
       });
       return;
     }
-
-    // Log data subkategoriFormData sebelum diformat
-    console.log(
-      "DEBUG: Data subkategoriFormData sebelum diformat:",
-      JSON.stringify(subkategoriFormData, null, 2)
-    );
-
     // Format data yang akan dikirim
     const formattedSubkategoriData = subkategoriFormData.map((item, index) => {
       const budgetItems = [
@@ -229,17 +222,6 @@ const Kategori = () => {
           remaining: item.remaining || 0,
         },
       ];
-
-      // Log detail per form subkategori yang diisi
-      console.log(
-        `DEBUG: Form Subkategori ke-${index + 1} diisi dengan data berikut:`,
-        {
-          uuid: item.uuid || null,
-          kategoriId: item.kategoriId,
-          name: item.name,
-          budgetItems: budgetItems,
-        }
-      );
 
       const totalBudget = budgetItems.reduce(
         (sum, budgetItem) => sum + parseFloat(budgetItem.budget || 0),
@@ -253,18 +235,6 @@ const Kategori = () => {
         (sum, budgetItem) => sum + parseFloat(budgetItem.remaining || 0),
         0
       );
-
-      // Log data setelah diformat dan penghitungan total
-      console.log("DEBUG: Item setelah diformat:", {
-        uuid: item.uuid || null,
-        kategoriId: item.kategoriId,
-        name: item.name,
-        budgetItems: budgetItems,
-        totalBudget: totalBudget,
-        totalRealization: totalRealization,
-        remaining: remaining,
-      });
-
       return {
         uuid: item.uuid || null,
         kategoriId: item.kategoriId,
@@ -277,12 +247,6 @@ const Kategori = () => {
     });
 
     try {
-      // Log data yang akan dikirim ke backend
-      console.log(
-        "DEBUG: Data yang dikirim ke backend:",
-        JSON.stringify(formattedSubkategoriData, null, 2)
-      );
-
       // Kirim data ke backend
       await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
@@ -483,7 +447,7 @@ const Kategori = () => {
 
   return (
     <div>
-      <h1 className="kategori-header">Kategori</h1>
+      <h1 className="kategori-header">Sub Kategori</h1>
       <Toast ref={toast} />
       <DataTable
         value={kategoriList}

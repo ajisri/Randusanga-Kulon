@@ -19,6 +19,7 @@ const KategoriAnkor = () => {
     name: "",
     ankorId: "",
   });
+  const [currentKategoriAnkorId, setCurrentKategoriAnkorId] = useState("");
   const [ankorOptions, setAnkorOptions] = useState([]);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
@@ -30,6 +31,16 @@ const KategoriAnkor = () => {
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
   const [kategoriankorList, setKategoriankorList] = useState([]);
+  const [subkategoriFormData, setSubkategoriAnkorFormData] = useState([
+    {
+      uuid: "",
+      name: "",
+      kategoriId: "",
+      url: "",
+    },
+  ]);
+  const [isSubkategoriAnkorDialogVisible, setSubkategoriAnkorDialogVisible] =
+    useState(false);
 
   const navigate = useNavigate();
   const toast = useRef(null);
@@ -201,6 +212,15 @@ const KategoriAnkor = () => {
     }
   };
 
+  const showNotification = (message, severity = "info") => {
+    toast.current.show({
+      severity: severity, // Jenis notifikasi (info, success, warn, error)
+      summary: severity.charAt(0).toUpperCase() + severity.slice(1), // Mengubah huruf pertama menjadi kapital
+      detail: message, // Pesan notifikasi yang akan ditampilkan
+      life: 3000, // Durasi notifikasi dalam milidetik (5 detik)
+    });
+  };
+
   const resetForm = () => {
     setFormData({
       uuid: "",
@@ -239,9 +259,161 @@ const KategoriAnkor = () => {
     }
   };
 
+  const fetchSubkategoriByKategoriId = async (kategoriankorId) => {
+    try {
+      const response = await axiosJWT.get(
+        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriankorId}`
+      );
+
+      // Cek apakah data ada atau kosong
+      if (Array.isArray(response.data) && response.data.length === 0) {
+        showNotification(
+          "Data subkategori ankor kosong untuk kategori ini.",
+          "warning"
+        );
+
+        // Isi dengan data default jika kosong
+        setSubkategoriAnkorFormData([
+          {
+            uuid: null,
+            name: "",
+            kategoriankorId,
+            url: "",
+          },
+        ]);
+        return; // Keluar dari fungsi jika data kosong
+      }
+
+      // Jika data tidak kosong, map data seperti biasa
+      const data = response.data.map((subkategoriankor) => ({
+        uuid: subkategoriankor.uuid || null, // Pastikan UUID dikaitkan
+        name: subkategoriankor.name || "",
+        kategoriankorId: subkategoriankor.kategoriankorId || kategoriankorId,
+        url: subkategoriankor.url || "",
+      }));
+
+      setSubkategoriAnkorFormData(data); // Memperbarui state form
+    } catch (error) {
+      console.error("Error saat memfetch subkategori:", error);
+
+      // Tangani error spesifik jika 404
+      if (error.response && error.response.status === 404) {
+        showNotification(
+          "Data subkategori tidak ditemukan untuk kategori ini.",
+          "warning"
+        );
+
+        // Tetap tambahkan data default jika 404
+        setSubkategoriAnkorFormData([
+          {
+            uuid: null,
+            name: "",
+            kategoriankorId,
+            url: "",
+          },
+        ]);
+      } else if (error.response) {
+        // Tangani error lain dari API
+        handleError(error); // Fungsi handleError untuk log error dari API
+      } else {
+        // Tangani error jaringan atau lainnya
+        showNotification("Terjadi kesalahan pada jaringan", "error");
+      }
+    }
+  };
+
+  const handleSubkategoriAnkorDialogOpen = (kategoriankorId) => {
+    setCurrentKategoriAnkorId(kategoriankorId);
+    fetchSubkategoriByKategoriId(kategoriankorId);
+    setSubkategoriAnkorDialogVisible(true);
+  };
+
+  const addSubkategoriAnkorField = () => {
+    setSubkategoriAnkorFormData([
+      ...subkategoriFormData,
+      {
+        uuid: null,
+        name: "",
+        kategoriId: currentKategoriAnkorId,
+        url: "",
+      },
+    ]);
+  };
+
+  const removeSubkategoriField = (index) => {
+    const updatedFormData = [...subkategoriFormData];
+    updatedFormData.splice(index, 1);
+    setSubkategoriAnkorFormData(updatedFormData);
+  };
+
+  const handleSubkategoriChange = (index, event) => {
+    const { name, value } = event.target;
+
+    // Buat salinan data
+    const updatedFormData = [...subkategoriFormData];
+
+    updatedFormData[index] = {
+      ...updatedFormData[index],
+      [name]: value,
+    };
+
+    setSubkategoriAnkorFormData(updatedFormData);
+  };
+
   const handlePageChange = (e) => {
     setFirst(e.first);
     setRows(e.rows);
+  };
+
+  const handleSubkategoriAnkorSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validasi input data
+    if (
+      !Array.isArray(subkategoriFormData) ||
+      subkategoriFormData.length === 0
+    ) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Subkategori tidak boleh kosong!",
+        life: 5000,
+      });
+      return;
+    }
+
+    // Format data yang akan dikirim ke backend
+    const formattedSubkategoriData = subkategoriFormData.map((item) => ({
+      uuid: item.uuid || null, // Gunakan null jika UUID kosong
+      name: item.name || "", // Default ke string kosong jika nama tidak ada
+      url: item.url || "", // Default ke string kosong jika URL tidak ada
+    }));
+
+    try {
+      // Kirim data ke backend
+      await axiosJWT.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
+        { subkategoriData: formattedSubkategoriData }
+      );
+
+      // Tampilkan notifikasi sukses
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Subkategori berhasil disimpan!",
+        life: 3000,
+      });
+
+      // Refresh data dan reset state
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
+      );
+
+      // Tutup dialog
+      setSubkategoriAnkorDialogVisible(false);
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   if (isLoading || isAnkorLoading) return <p>Loading...</p>;
@@ -291,6 +463,18 @@ const KategoriAnkor = () => {
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => (
             <div style={{ display: "flex", gap: "0.5rem" }}>
+              <Button
+                icon="pi pi-pw pi-plus"
+                label="Subkategori"
+                onClick={() => {
+                  handleSubkategoriAnkorDialogOpen(rowData.uuid);
+                  setSubkategoriAnkorFormData([
+                    { name: "", kategoriankorId: rowData.uuid },
+                  ]);
+                  setSubkategoriAnkorDialogVisible(true);
+                }}
+                className="add-subkategori-button coastal-button p-button-rounded"
+              />
               <Button
                 icon="pi pi-pencil"
                 onClick={() => editkategoriankor(rowData)}
@@ -387,6 +571,96 @@ const KategoriAnkor = () => {
             </Card>
           </form>
         </div>
+      </Dialog>
+      <Dialog
+        header="Tambah Subkategori Ankor"
+        visible={isSubkategoriAnkorDialogVisible}
+        onHide={() => setSubkategoriAnkorDialogVisible(false)}
+        dismissableMask={true}
+        modal={true}
+        maximizable
+        style={{ width: "70vw" }}
+      >
+        <form onSubmit={handleSubkategoriAnkorSubmit}>
+          {subkategoriFormData.map((item, index) => (
+            <div
+              key={index}
+              className="subkategori-budget-field-container"
+              style={{
+                marginBottom: "30px", // Jarak antar form dinamis
+                borderBottom: "2px solid #ddd", // Garis pembatas
+                paddingBottom: "20px", // Jarak antara isi form dan garis
+              }}
+            >
+              {/* Field Subkategori Name */}
+              <div className="subkategori-field">
+                <label htmlFor={`subkategoriankorName_${index}`}>
+                  Subkategori Ankor:
+                </label>
+                <InputText
+                  id={`subkategoriankorName_${index}`}
+                  name="name"
+                  value={item.name}
+                  onChange={(e) => handleSubkategoriChange(index, e)}
+                  required
+                  className="input-field"
+                />
+              </div>
+
+              {/* Field URL */}
+              <div className="url-field">
+                <label htmlFor={`subkategoriankorUrl_${index}`}>URL:</label>
+                <InputText
+                  id={`subkategoriankorUrl_${index}`}
+                  name="url"
+                  value={item.url}
+                  onChange={(e) => handleSubkategoriChange(index, e)}
+                  required
+                  placeholder="https://example.com"
+                  pattern="https?://.+"
+                  title="Masukkan URL yang valid (contoh: https://example.com)"
+                  className="input-field"
+                />
+              </div>
+
+              {/* Hapus Field */}
+              <div
+                className="remove-button-container"
+                style={{ marginTop: "10px" }}
+              >
+                <Button
+                  type="button"
+                  label="Hapus"
+                  className="remove-button"
+                  disabled={subkategoriFormData.length === 1}
+                  onClick={() => removeSubkategoriField(index)}
+                />
+              </div>
+            </div>
+          ))}
+
+          {/* Tambah Field */}
+          <div className="add-jabatan-container" style={{ marginTop: "20px" }}>
+            <Button
+              type="button"
+              label="Tambah"
+              className="add-button coastal-button p-button-rounded"
+              raised
+              rounded
+              icon="pi pi-plus"
+              onClick={addSubkategoriAnkorField}
+            />
+          </div>
+
+          {/* Simpan Button */}
+          <div className="button-sub" style={{ marginTop: "20px" }}>
+            <Button
+              type="submit"
+              label="Simpan"
+              className="coastal-button submit-button p-button-rounded"
+            />
+          </div>
+        </form>
       </Dialog>
     </div>
   );
