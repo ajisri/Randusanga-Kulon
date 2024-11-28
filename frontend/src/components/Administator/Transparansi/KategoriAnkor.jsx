@@ -31,7 +31,7 @@ const KategoriAnkor = () => {
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
   const [kategoriankorList, setKategoriankorList] = useState([]);
-  const [subkategoriFormData, setSubkategoriAnkorFormData] = useState([
+  const [subkategoriankorFormData, setSubkategoriAnkorFormData] = useState([
     {
       uuid: "",
       name: "",
@@ -330,7 +330,7 @@ const KategoriAnkor = () => {
 
   const addSubkategoriAnkorField = () => {
     setSubkategoriAnkorFormData([
-      ...subkategoriFormData,
+      ...subkategoriankorFormData,
       {
         uuid: null,
         name: "",
@@ -341,7 +341,7 @@ const KategoriAnkor = () => {
   };
 
   const removeSubkategoriField = (index) => {
-    const updatedFormData = [...subkategoriFormData];
+    const updatedFormData = [...subkategoriankorFormData];
     updatedFormData.splice(index, 1);
     setSubkategoriAnkorFormData(updatedFormData);
   };
@@ -350,7 +350,7 @@ const KategoriAnkor = () => {
     const { name, value } = event.target;
 
     // Buat salinan data
-    const updatedFormData = [...subkategoriFormData];
+    const updatedFormData = [...subkategoriankorFormData];
 
     updatedFormData[index] = {
       ...updatedFormData[index],
@@ -370,8 +370,8 @@ const KategoriAnkor = () => {
 
     // Validasi input data
     if (
-      !Array.isArray(subkategoriFormData) ||
-      subkategoriFormData.length === 0
+      !Array.isArray(subkategoriankorFormData) ||
+      subkategoriankorFormData.length === 0
     ) {
       toast.current.show({
         severity: "error",
@@ -383,12 +383,14 @@ const KategoriAnkor = () => {
     }
 
     // Format data yang akan dikirim ke backend
-    const formattedSubkategoriAnkorData = subkategoriFormData.map((item) => ({
-      uuid: item.uuid || null, // Gunakan null jika UUID kosong
-      name: item.name || "", // Default ke string kosong jika nama tidak ada
-      url: item.url || "", // Default ke string kosong jika URL tidak ada
-      kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
-    }));
+    const formattedSubkategoriAnkorData = subkategoriankorFormData.map(
+      (item) => ({
+        uuid: item.uuid || null, // Gunakan null jika UUID kosong
+        name: item.name || "", // Default ke string kosong jika nama tidak ada
+        url: item.url || "", // Default ke string kosong jika URL tidak ada
+        kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
+      })
+    );
 
     // Pastikan bahwa subkategoriAnkorData tidak kosong
     if (formattedSubkategoriAnkorData.length === 0) {
@@ -595,7 +597,7 @@ const KategoriAnkor = () => {
         style={{ width: "70vw" }}
       >
         <form onSubmit={handleSubkategoriAnkorSubmit}>
-          {subkategoriFormData.map((item, index) => (
+          {subkategoriankorFormData.map((item, index) => (
             <div
               key={index}
               className="subkategori-budget-field-container"
@@ -645,7 +647,7 @@ const KategoriAnkor = () => {
                   type="button"
                   label="Hapus"
                   className="remove-button"
-                  disabled={subkategoriFormData.length === 1}
+                  disabled={subkategoriankorFormData.length === 1}
                   onClick={() => removeSubkategoriField(index)}
                 />
               </div>
