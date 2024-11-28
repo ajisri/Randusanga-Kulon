@@ -260,13 +260,18 @@ const KategoriAnkor = () => {
   };
 
   const fetchSubkategoriByKategoriId = async (kategoriankorId) => {
+    console.log("=== DEBUG: fetchSubkategoriByKategoriId ===", kategoriankorId); // Debugging input kategoriankorId
+
     try {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankorbykategoriankor/${kategoriankorId}`
       );
 
+      console.log("=== DEBUG: API Response ===", response.data); // Debugging response dari API
+
       // Cek apakah data ada atau kosong
       if (Array.isArray(response.data) && response.data.length === 0) {
+        console.log("=== DEBUG: Data kosong ===");
         showNotification(
           "Data subkategori ankor kosong untuk kategori ini.",
           "warning"
@@ -285,19 +290,27 @@ const KategoriAnkor = () => {
       }
 
       // Jika data tidak kosong, map data seperti biasa
-      const data = response.data.map((subkategoriankor) => ({
-        uuid: subkategoriankor.uuid || null, // Pastikan UUID dikaitkan
-        name: subkategoriankor.name || "",
-        kategoriankorId: subkategoriankor.kategoriankorId || kategoriankorId,
-        url: subkategoriankor.url || "",
-      }));
+      const data = response.data.map((subkategoriankor) => {
+        console.log(
+          "=== DEBUG: Mapping subkategoriankor ===",
+          subkategoriankor
+        ); // Debugging data yang dimapping
+        return {
+          uuid: subkategoriankor.uuid || null, // Pastikan UUID dikaitkan
+          name: subkategoriankor.name || "",
+          kategoriankorId: subkategoriankor.kategoriankorId || kategoriankorId,
+          url: subkategoriankor.url || "",
+        };
+      });
 
+      console.log("=== DEBUG: Data yang sudah dimapping ===", data); // Debugging data hasil mapping
       setSubkategoriAnkorFormData(data); // Memperbarui state form
     } catch (error) {
-      console.error("Error saat memfetch subkategori:", error);
+      console.error("Error saat memfetch subkategori:", error); // Debugging error umum
 
       // Tangani error spesifik jika 404
       if (error.response && error.response.status === 404) {
+        console.log("=== DEBUG: Error 404 ===");
         showNotification(
           "Data subkategori ankor tidak ditemukan untuk kategori ankor ini.",
           "warning"
@@ -314,6 +327,7 @@ const KategoriAnkor = () => {
         ]);
       } else if (error.response) {
         // Tangani error lain dari API
+        console.log("=== DEBUG: Error lainnya ===", error.response); // Debugging error lainnya
         handleError(error); // Fungsi handleError untuk log error dari API
       } else {
         // Tangani error jaringan atau lainnya
