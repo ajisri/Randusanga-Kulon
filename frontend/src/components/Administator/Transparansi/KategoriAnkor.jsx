@@ -382,6 +382,9 @@ const KategoriAnkor = () => {
       return;
     }
 
+    // Debug: Cek data sebelum pengiriman
+    console.log("Subkategori Form Data:", subkategoriankorFormData);
+
     // Format data yang akan dikirim ke backend
     const formattedSubkategoriAnkorData = subkategoriankorFormData.map(
       (item) => ({
@@ -390,6 +393,12 @@ const KategoriAnkor = () => {
         url: item.url || "", // Default ke string kosong jika URL tidak ada
         kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
       })
+    );
+
+    // Debug: Cek data yang diformat sebelum pengiriman
+    console.log(
+      "Formatted Subkategori Ankor Data:",
+      formattedSubkategoriAnkorData
     );
 
     // Pastikan bahwa subkategoriAnkorData tidak kosong
@@ -406,10 +415,13 @@ const KategoriAnkor = () => {
 
     try {
       // Kirim data ke backend dengan nama field 'subkategoriAnkorData'
-      await axiosJWT.post(
+      const response = await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
         { subkategoriAnkorData: formattedSubkategoriAnkorData } // Pastikan menggunakan subkategoriAnkorData
       );
+
+      // Debug: Cek response dari API
+      console.log("API Response:", response);
 
       // Tampilkan notifikasi sukses
       toast.current.show({
@@ -427,6 +439,10 @@ const KategoriAnkor = () => {
       // Tutup dialog
       setSubkategoriAnkorDialogVisible(false);
     } catch (error) {
+      // Debug: Tampilkan error untuk mendiagnosis masalah
+      console.error("Error during submission:", error);
+
+      // Tangani error secara spesifik
       handleError(error);
     }
   };
