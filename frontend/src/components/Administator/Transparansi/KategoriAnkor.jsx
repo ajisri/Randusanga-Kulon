@@ -387,13 +387,26 @@ const KategoriAnkor = () => {
       uuid: item.uuid || null, // Gunakan null jika UUID kosong
       name: item.name || "", // Default ke string kosong jika nama tidak ada
       url: item.url || "", // Default ke string kosong jika URL tidak ada
+      kategoriankorId: currentKategoriAnkorId, // Pastikan kategoriankorId terisi
     }));
+
+    // Pastikan bahwa subkategoriData tidak kosong
+    if (formattedSubkategoriData.length === 0) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail:
+          "Subkategori data tidak valid, pastikan ada minimal satu subkategori!",
+        life: 5000,
+      });
+      return;
+    }
 
     try {
       // Kirim data ke backend
       await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
-        { subkategoriData: formattedSubkategoriData }
+        { subkategoriData: formattedSubkategoriData } // Kirim data sebagai subkategoriData
       );
 
       // Tampilkan notifikasi sukses
@@ -469,7 +482,7 @@ const KategoriAnkor = () => {
                 onClick={() => {
                   handleSubkategoriAnkorDialogOpen(rowData.uuid);
                   setSubkategoriAnkorFormData([
-                    { name: "", kategoriankorId: rowData.uuid },
+                    { name: "", url: "", kategoriankorId: rowData.uuid },
                   ]);
                   setSubkategoriAnkorDialogVisible(true);
                 }}
