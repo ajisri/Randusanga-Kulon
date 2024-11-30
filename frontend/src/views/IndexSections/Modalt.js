@@ -59,6 +59,7 @@ const Modalt = () => {
     "https://randusanga-kulonbackend-production.up.railway.app/ankorp",
     fetcher
   );
+  console.log("allankorData:", allankorData);
   const loadingAnkor = !allankorData && !allankorError;
 
   const dialogFooterTemplate = () => {
