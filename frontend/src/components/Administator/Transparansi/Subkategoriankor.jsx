@@ -170,110 +170,70 @@ const SubkategoriAnkor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validasi input formData
+    if (
+      !formData.name ||
+      !formData.kategoriankorId ||
+      !Array.isArray(formData.poinsubkategoriankor) ||
+      formData.poinsubkategoriankor.length === 0
+    ) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Form tidak lengkap, pastikan semua field diisi dengan benar!",
+        life: 5000,
+      });
+      return;
+    }
+
     try {
+      const subkategoriData = {
+        name: formData.name,
+        kategoriankorId: formData.kategoriankorId,
+        poinsubkategoriankor: formData.poinsubkategoriankor,
+      };
+
+      // Jika mode edit
       if (isEditMode) {
-        // Update Subkategoriankor (data utama)
+        // Kirim data untuk memperbarui SubkategoriAnkor
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
+          subkategoriData,
           {
-            name: formData.name,
-            kategoriankorId: formData.kategoriankorId, // Data lain yang relevan
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
           }
         );
-
-        // Update Poinsubkategoriankor (dynamic URL inputs)
-        // First, delete existing Poinsubkategoriankor if needed, or handle the logic accordingly
-        for (let i = 0; i < formData.poinsubkategoriankor.length; i++) {
-          const currentPoinsubkategoriankor = formData.poinsubkategoriankor[i];
-          if (currentPoinsubkategoriankor.id) {
-            // If it has an ID, update it
-            await axiosJWT.patch(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${currentPoinsubkategoriankor.id}`,
-              {
-                name: currentPoinsubkategoriankor.name, // Field update
-                subkategoriankorId: currentSubkategoriankor.uuid, // Hubungkan dengan Subkategoriankor
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-          } else {
-            // If it's a new entry, create a new Poinsubkategoriankor
-            await axiosJWT.post(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
-              {
-                name: currentPoinsubkategoriankor.name, // Field input for dynamic names
-                subkategoriankorId: currentSubkategoriankor.uuid,
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-          }
-        }
 
         toast.current.show({
           severity: "success",
           summary: "Success",
-          detail: "Data updated successfully!",
+          detail: "Data berhasil diperbarui!",
           life: 3000,
         });
       } else {
-        // Create Subkategoriankor (data utama)
-        const subkategoriResponse = await axiosJWT.post(
+        // Jika mode add, buat SubkategoriAnkor baru
+        await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
+          subkategoriData,
           {
-            name: formData.name,
-            kategoriankorId: formData.kategoriankorId,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
           }
         );
-
-        // Menyimpan data Poinsubkategoriankor (dynamic fields)
-        const subkategoriId = subkategoriResponse.data.uuid; // ID subkategori yang baru dibuat
-        for (let i = 0; i < formData.poinsubkategoriankor.length; i++) {
-          const currentPoinsubkategoriankor = formData.poinsubkategoriankor[i];
-          await axiosJWT.post(
-            `https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor`,
-            {
-              name: currentPoinsubkategoriankor.name, // Field input for dynamic names
-              subkategoriankorId: subkategoriId, // Link to the created SubkategoriAnkor
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-        }
 
         toast.current.show({
           severity: "success",
           summary: "Success",
-          detail: "Data saved successfully!",
+          detail: "Data berhasil disimpan!",
           life: 3000,
         });
       }
 
-      // Refresh data after successful submit
+      // Refresh data setelah sukses
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
 
-      // Reset the form and hide the dialog
+      // Reset form dan tutup dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
