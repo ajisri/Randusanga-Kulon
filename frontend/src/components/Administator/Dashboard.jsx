@@ -25,8 +25,8 @@ import Pendaftarannikah from "./Layanan/Pendaftarannikah";
 import Aktifasibpjs from "./Layanan/Aktifasibpjs";
 //Transparansi
 import Ankor from "./Transparansi/Ankor";
-import KategoriAnkor from "./Transparansi/KategoriAnkor";
-import SubkategoriAnkor from "./Transparansi/SubkategoriAnkor";
+import Kategoriankor from "./Transparansi/Kategoriankor";
+import Subkategoriankor from "./Transparansi/Subkategoriankor";
 import Produkhukum from "./Transparansi/ProdukHukum";
 import Apbd from "./Transparansi/Apbd";
 import Keuangan from "./Transparansi/Keuangan";
@@ -166,10 +166,10 @@ const Dashboard = () => {
         return <Pendaftarannikah />;
       case "Ankor":
         return <Ankor />;
-      case "KategoriAnkor":
-        return <KategoriAnkor />;
-      case "SubkategoriAnkor":
-        return <SubkategoriAnkor />;
+      case "Kategoriankor":
+        return <Kategoriankor />;
+      case "Subkategoriankor":
+        return <Subkategoriankor />;
       case "Produkhukum":
         return <Produkhukum />;
       case "Apbd":
@@ -643,7 +643,7 @@ const Dashboard = () => {
                   <Ripple />
                 </div>
                 <div
-                  onClick={() => setActiveMenu("KategoriAnkor")}
+                  onClick={() => setActiveMenu("Kategoriankor")}
                   className="menu-item"
                   style={{
                     marginBottom: "10px",
@@ -659,7 +659,7 @@ const Dashboard = () => {
                   <Ripple />
                 </div>
                 <div
-                  onClick={() => setActiveMenu("SubkategoriAnkor")}
+                  onClick={() => setActiveMenu("Subkategoriankor")}
                   className="menu-item"
                   style={{
                     marginBottom: "10px",
