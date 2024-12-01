@@ -13,24 +13,24 @@ import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import "./ProdukHukum.css"; // Custom CSS for styling
 
-const KategoriAnkor = () => {
+const SubkategoriAnkor = () => {
   const [formData, setFormData] = useState({
     uuid: "",
     name: "",
-    ankorId: "",
+    kategoriankorId: "",
+    url: "",
   });
-  const [ankorOptions, setAnkorOptions] = useState([]);
+  const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
+  const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [currentKategoriAnkor, setCurrentKategoriAnkor] = useState(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
-  const [kategoriankorList, setKategoriankorList] = useState([]);
-
+  const [subKategoriankorList, setSubkategoriankorList] = useState([]);
   const navigate = useNavigate();
   const toast = useRef(null);
   const axiosJWT = useAuth(navigate);
@@ -44,36 +44,39 @@ const KategoriAnkor = () => {
   );
 
   const {
-    data: kategoriankorData,
+    data: subkategoriankorData,
     error,
     isLoading,
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor",
+    fetcher
+  );
+
+  useEffect(() => {
+    if (subkategoriankorData) {
+      setSubkategoriankorList(subkategoriankorData);
+    }
+  }, [subkategoriankorData]);
+
+  const {
+    data: kategoriankorData,
+    error: kategoriankorError,
+    isLoading: isKategoriankorLoading,
   } = useSWR(
     "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor",
     fetcher
   );
 
   useEffect(() => {
-    if (kategoriankorData) {
-      setKategoriankorList(kategoriankorData);
+    if (
+      kategoriankorData?.kategoriankor &&
+      Array.isArray(kategoriankorData.kategoriankor)
+    ) {
+      setKategoriankorOptions(kategoriankorData.kategoriankor);
+    } else {
+      setKategoriankorOptions([]);
     }
   }, [kategoriankorData]);
-
-  const {
-    data: ankorData,
-    error: ankorError,
-    isLoading: isAnkorLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/ankor",
-    fetcher
-  );
-
-  useEffect(() => {
-    if (ankorData?.ankor && Array.isArray(ankorData.ankor)) {
-      setAnkorOptions(ankorData.ankor);
-    } else {
-      setAnkorOptions([]);
-    }
-  }, [ankorData]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -131,8 +134,12 @@ const KategoriAnkor = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${currentKategoriAnkor.uuid}`,
-          { name: formData.name, ankorId: formData.ankorId },
+          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
+          {
+            name: formData.name,
+            url: formData.url,
+            kategoriankorId: formData.kategoriankorId,
+          },
           {
             headers: {
               "Content-Type": "application/json",
@@ -147,7 +154,7 @@ const KategoriAnkor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -163,7 +170,7 @@ const KategoriAnkor = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor"
+        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
       resetForm();
       setDialogVisible(false);
@@ -205,24 +212,25 @@ const KategoriAnkor = () => {
     setFormData({
       uuid: "",
       name: "",
+      url: "",
       ankorId: "",
     });
     setEditMode(false);
-    setCurrentKategoriAnkor(null);
+    setCurrentSubkategoriankor(null);
   };
 
-  const editkategoriankor = (kategoriankor) => {
-    setFormData(kategoriankor);
-    setCurrentKategoriAnkor(kategoriankor);
+  const editsubkategoriankor = (subkategoriankor) => {
+    setFormData(subkategoriankor);
+    setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
   };
 
-  const deletekategoriankor = async (id) => {
+  const deletesubkategoriankor = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${id}`
+          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -231,7 +239,7 @@ const KategoriAnkor = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor"
+          "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
         );
       } catch (error) {
         handleError(error);
@@ -244,15 +252,15 @@ const KategoriAnkor = () => {
     setRows(e.rows);
   };
 
-  if (isLoading || isAnkorLoading) return <p>Loading...</p>;
-  if (error || ankorError) return <p>{error.message}</p>;
+  if (isLoading || isKategoriankorLoading) return <p>Loading...</p>;
+  if (error || kategoriankorError) return <p>{error.message}</p>;
 
   return (
     <div>
       <h1 className="demografi-header">Kategori Parameter Ankor</h1>
       <Toast ref={toast} />
       <DataTable
-        value={kategoriankorList}
+        value={subKategoriankorList}
         paginator
         rows={rows}
         first={first}
@@ -261,7 +269,7 @@ const KategoriAnkor = () => {
         filters={filters}
         globalFilterFields={["name"]}
         header={header}
-        footer={`Total data: ${kategoriankorList.length}`}
+        footer={`Total data: ${subKategoriankorList.length}`}
       >
         <Column
           header="No"
@@ -278,12 +286,14 @@ const KategoriAnkor = () => {
           style={{ width: "50%", minWidth: "15%" }}
         />
         <Column
-          field="ankorId"
+          field="kategoriankorId"
           header="Parameter Ankor"
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
-            const ankor = ankorOptions.find((kw) => kw.id === rowData.ankorId);
-            return ankor ? `${ankor.name}` : "N/A";
+            const kategoriankor = kategoriankorOptions.find(
+              (kw) => kw.id === rowData.ankorId
+            );
+            return kategoriankor ? `${kategoriankor.name}` : "N/A";
           }}
         />
         <Column
@@ -293,7 +303,7 @@ const KategoriAnkor = () => {
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
                 icon="pi pi-pencil"
-                onClick={() => editkategoriankor(rowData)}
+                onClick={() => editsubkategoriankor(rowData)}
                 className="edit-button coastal-button p-button-rounded"
                 tooltip="Edit"
                 tooltipOptions={{ position: "bottom" }}
@@ -305,7 +315,7 @@ const KategoriAnkor = () => {
               />
               <Button
                 icon="pi pi-trash"
-                onClick={() => deletekategoriankor(rowData.uuid)}
+                onClick={() => deletesubkategoriankor(rowData.uuid)}
                 className="delete-button coastal-button p-button-rounded"
                 tooltip="Delete"
                 tooltipOptions={{ position: "bottom" }}
@@ -364,12 +374,12 @@ const KategoriAnkor = () => {
               <div className="field">
                 <label htmlFor="ankorId">Pilih Parameter Ankor:</label>
                 <Dropdown
-                  id="ankorId"
-                  name="ankorId"
+                  id="kategoriankorId"
+                  name="kategoriankorId"
                   optionLabel={(option) => `${option.name})`}
                   optionValue="id"
                   value={formData.ankorId}
-                  options={ankorOptions}
+                  options={kategoriankorOptions}
                   onChange={handleChange}
                   placeholder="Pilih Parameter Ankor"
                   required
@@ -392,4 +402,4 @@ const KategoriAnkor = () => {
   );
 };
 
-export default KategoriAnkor;
+export default SubkategoriAnkor;

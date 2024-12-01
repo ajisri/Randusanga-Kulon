@@ -26,6 +26,7 @@ import Aktifasibpjs from "./Layanan/Aktifasibpjs";
 //Transparansi
 import Ankor from "./Transparansi/Ankor";
 import KategoriAnkor from "./Transparansi/KategoriAnkor";
+import SubkategoriAnkor from "./Transparansi/SubkategoriAnkor";
 import Produkhukum from "./Transparansi/ProdukHukum";
 import Apbd from "./Transparansi/Apbd";
 import Keuangan from "./Transparansi/Keuangan";
@@ -82,7 +83,7 @@ const Dashboard = () => {
       const decoded = jwt_decode(response.data.accessToken);
       setExpire(decoded.exp);
     } catch (error) {
-      console.error("Gagal memperbarui token:", error);
+      // console.error("Gagal memperbarui token:", error);
       if (error.response) {
         navigate("/"); // Redirect ke halaman login jika token tidak valid
       }
@@ -167,6 +168,8 @@ const Dashboard = () => {
         return <Ankor />;
       case "KategoriAnkor":
         return <KategoriAnkor />;
+      case "SubkategoriAnkor":
+        return <SubkategoriAnkor />;
       case "Produkhukum":
         return <Produkhukum />;
       case "Apbd":
@@ -656,7 +659,7 @@ const Dashboard = () => {
                   <Ripple />
                 </div>
                 <div
-                  onClick={() => setActiveMenu("Kategori")}
+                  onClick={() => setActiveMenu("SubkategoriAnkor")}
                   className="menu-item"
                   style={{
                     marginBottom: "10px",
