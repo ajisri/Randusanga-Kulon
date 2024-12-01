@@ -471,8 +471,8 @@ const SubkategoriAnkor = () => {
                   <div key={index} className="subkategori-url-field">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <InputText
-                        id={`url_${index}`}
-                        name={`url_${index}`}
+                        id={`name_${index}`}
+                        name={`name_${index}`}
                         value={item.url}
                         onChange={(e) => handleUrlChange(index, e)}
                         className="input-field"
