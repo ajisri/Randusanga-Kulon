@@ -193,6 +193,8 @@ const SubkategoriAnkor = () => {
         poinsubkategoriankor: formData.poinsubkategoriankor,
       };
 
+      console.log("Sending data to backend:", subkategoriData); // Menampilkan data yang dikirim
+
       // Jika mode edit
       if (isEditMode) {
         // Kirim data untuk memperbarui SubkategoriAnkor
@@ -212,13 +214,14 @@ const SubkategoriAnkor = () => {
         });
       } else {
         // Jika mode add, buat SubkategoriAnkor baru
-        await axiosJWT.post(
+        const response = await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           subkategoriData,
           {
             headers: { "Content-Type": "application/json" },
           }
         );
+        console.log("Response from server:", response);
 
         toast.current.show({
           severity: "success",
@@ -237,7 +240,7 @@ const SubkategoriAnkor = () => {
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      console.error("Terjadi kesalahan saat mengirim form:", error);
+      console.error("Error response:", error.response); // Memeriksa response error
       handleError(error);
     }
   };
