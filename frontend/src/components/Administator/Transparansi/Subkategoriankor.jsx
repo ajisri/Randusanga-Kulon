@@ -315,6 +315,7 @@ const SubkategoriAnkor = () => {
       uuid: "",
       name: "",
       kategoriankorId: "",
+      poinsubkategoriankor: [{ name: "" }],
     });
     setEditMode(false);
     setCurrentSubkategoriankor(null);
