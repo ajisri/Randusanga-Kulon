@@ -502,7 +502,7 @@ const SubkategoriAnkor = () => {
                     className="subkategori-url-field"
                     style={{
                       marginBottom: "30px", // Jarak antar form dinamis
-                      borderBottom: "2px solid #ddd", // Garis pembatas
+                      borderTop: "2px solid #ddd", // Garis pembatas
                       paddingBottom: "20px", // Jarak antara isi form dan garis
                     }}
                   >
