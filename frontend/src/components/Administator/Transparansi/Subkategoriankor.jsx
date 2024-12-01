@@ -292,7 +292,7 @@ const SubkategoriAnkor = () => {
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
-              (kw) => kw.id === rowData.ankorId
+              (kw) => kw.id === rowData.Id
             );
             return kategoriankor ? `${kategoriankor.name}` : "N/A";
           }}
@@ -374,7 +374,9 @@ const SubkategoriAnkor = () => {
                 />
               </div>
               <div className="field">
-                <label htmlFor="ankorId">Pilih Kategori Parameter Ankor:</label>
+                <label htmlFor="kategoriankorId">
+                  Pilih Kategori Parameter Ankor:
+                </label>
                 <Dropdown
                   id="kategoriankorId"
                   name="kategoriankorId"
