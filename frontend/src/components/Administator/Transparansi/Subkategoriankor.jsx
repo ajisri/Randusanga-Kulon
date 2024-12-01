@@ -497,7 +497,15 @@ const SubkategoriAnkor = () => {
                   <span className="required">*</span>
                 </label>
                 {formData.poinsubkategoriankor.map((item, index) => (
-                  <div key={index} className="subkategori-url-field">
+                  <div
+                    key={index}
+                    className="subkategori-url-field"
+                    style={{
+                      marginBottom: "30px", // Jarak antar form dinamis
+                      borderBottom: "2px solid #ddd", // Garis pembatas
+                      paddingBottom: "20px", // Jarak antara isi form dan garis
+                    }}
+                  >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <InputText
                         id={`poinsubkategoriankor_${index}`}
