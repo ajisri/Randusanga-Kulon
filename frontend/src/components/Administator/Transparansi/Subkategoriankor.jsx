@@ -68,12 +68,9 @@ const SubkategoriAnkor = () => {
   );
 
   useEffect(() => {
-    if (
-      kategoriankorData?.kategoriankor &&
-      Array.isArray(kategoriankorData.kategoriankor)
-    ) {
-      setKategoriankorOptions(kategoriankorData.kategoriankor);
-      console.log("Dropdown Options Set:", kategoriankorData.kategoriankor);
+    if (Array.isArray(kategoriankorData)) {
+      setKategoriankorOptions(kategoriankorData);
+      console.log("Dropdown Options Set:", kategoriankorData);
     } else {
       setKategoriankorOptions([]);
       console.log("No valid options found:", kategoriankorData);
