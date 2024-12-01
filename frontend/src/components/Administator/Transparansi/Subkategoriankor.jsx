@@ -18,7 +18,7 @@ const SubkategoriAnkor = () => {
     uuid: "",
     name: "",
     kategoriankorId: "",
-    url: "",
+    urls: [{ url: "" }], // Array of URL objects
   });
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
   const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
@@ -54,26 +54,20 @@ const SubkategoriAnkor = () => {
 
   useEffect(() => {
     if (subkategoriankorData) {
-      // Jika data ada dan valid
       if (
         Array.isArray(subkategoriankorData) &&
         subkategoriankorData.length > 0
       ) {
         setSubkategoriankorList(subkategoriankorData);
       } else {
-        // Jika data kosong, set ke array kosong
+        // Jika data kosong (array kosong)
         setSubkategoriankorList([]);
         console.log("No subkategoriankor data available");
       }
     } else if (error) {
-      // Menangani error respons API
-      if (error.response?.status === 404) {
-        console.log("Data not found (404), setting list to empty");
-        setSubkategoriankorList([]); // Set ke array kosong jika data tidak ditemukan
-      } else {
-        console.error("Error fetching subkategoriankor data:", error);
-        setSubkategoriankorList([]); // Mengatur list ke array kosong pada error lainnya
-      }
+      // Menangani error jika ada
+      console.error("Error fetching subkategoriankor data:", error);
+      setSubkategoriankorList([]); // Set ke array kosong pada error lainnya
     }
   }, [subkategoriankorData, error]);
 
@@ -89,10 +83,8 @@ const SubkategoriAnkor = () => {
   useEffect(() => {
     if (Array.isArray(kategoriankorData)) {
       setKategoriankorOptions(kategoriankorData);
-      console.log("Dropdown Options Set:", kategoriankorData);
     } else {
       setKategoriankorOptions([]);
-      console.log("No valid options found:", kategoriankorData);
     }
   }, [kategoriankorData]);
 
@@ -147,15 +139,74 @@ const SubkategoriAnkor = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const addUrlField = () => {
+    setFormData({
+      ...formData,
+      urls: [...formData.urls, { url: "" }],
+    });
+  };
+
+  // Menghapus field berdasarkan index
+  const removeUrlField = (index) => {
+    const updatedUrls = [...formData.urls];
+    updatedUrls.splice(index, 1);
+    setFormData({ ...formData, urls: updatedUrls });
+  };
+
+  // Menangani perubahan input URL
+  const handleUrlChange = (index, event) => {
+    const updatedUrls = [...formData.urls];
+    updatedUrls[index].url = event.target.value;
+    setFormData({ ...formData, urls: updatedUrls });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       if (isEditMode) {
+        // Update Subkategoriankor (data utama)
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           {
             name: formData.name,
-            url: formData.url,
+            kategoriankorId: formData.kategoriankorId, // Data lain yang relevan
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // Update Poinsubkategoriankor (URL) - iterasi untuk tiap URL
+        for (let url of formData.urls) {
+          await axiosJWT.post(
+            `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
+            {
+              url: url.url,
+              subkategoriankorId: currentSubkategoriankor.uuid, // Hubungkan dengan Subkategoriankor yang sudah ada
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        }
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data updated successfully!",
+          life: 3000,
+        });
+      } else {
+        // Simpan Subkategoriankor (data utama)
+        const subkategoriResponse = await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
+          {
+            name: formData.name,
             kategoriankorId: formData.kategoriankorId,
           },
           {
@@ -164,22 +215,24 @@ const SubkategoriAnkor = () => {
             },
           }
         );
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Data updated successfully!",
-          life: 3000,
-        });
-      } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
-          { name: formData.name, ankorId: formData.ankorId },
-          {
-            headers: {
-              "Content-Type": "application/json",
+
+        // Menyimpan data URL ke Poinsubkategoriankor
+        const subkategoriId = subkategoriResponse.data.uuid; // ID subkategori yang baru dibuat
+        for (let url of formData.urls) {
+          await axiosJWT.post(
+            `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
+            {
+              url: url.url,
+              subkategoriankorId: subkategoriId, // Menyimpan ID subkategori
             },
-          }
-        );
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        }
+
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -187,6 +240,8 @@ const SubkategoriAnkor = () => {
           life: 3000,
         });
       }
+
+      // Memperbarui data setelah submit berhasil
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
@@ -390,20 +445,6 @@ const SubkategoriAnkor = () => {
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="name">
-                  Poin Sub Kategori Parameter Ankor{" "}
-                  <span className="required">*</span>
-                </label>
-                <InputText
-                  id="url"
-                  name="url"
-                  value={formData.url}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
               <div className="field">
                 <label htmlFor="kategoriankorId">
                   Pilih Kategori Parameter Ankor:
@@ -421,10 +462,45 @@ const SubkategoriAnkor = () => {
                   className="input-field"
                 />
               </div>
+              <div>
+                <label htmlFor="url">
+                  Poin Sub Kategori Parameter Ankor{" "}
+                  <span className="required">*</span>
+                </label>
+                {formData.urls.map((item, index) => (
+                  <div key={index} className="subkategori-url-field">
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <InputText
+                        id={`url_${index}`}
+                        name={`url_${index}`}
+                        value={item.url}
+                        onChange={(e) => handleUrlChange(index, e)}
+                        className="input-field"
+                        required
+                      />
+                      <Button
+                        type="button"
+                        label="Hapus"
+                        className="remove-button"
+                        disabled={formData.urls.length === 1}
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => removeUrlField(index)}
+                      />
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  label="Tambah Poin"
+                  className="coastal-button p-button-rounded"
+                  onClick={addUrlField}
+                />
+              </div>
+
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label="Simpan"
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />
