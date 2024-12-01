@@ -13,7 +13,7 @@ import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import "./ProdukHukum.css"; // Custom CSS for styling
 
-const KategoriAnkor = () => {
+const Kategoriankor = () => {
   const [formData, setFormData] = useState({
     uuid: "",
     name: "",
@@ -392,4 +392,4 @@ const KategoriAnkor = () => {
   );
 };
 
-export default KategoriAnkor;
+export default Kategoriankor;
