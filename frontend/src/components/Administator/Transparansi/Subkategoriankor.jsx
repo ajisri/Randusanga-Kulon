@@ -68,19 +68,17 @@ const SubkategoriAnkor = () => {
   );
 
   useEffect(() => {
-    if (Array.isArray(kategoriankorData)) {
-      setKategoriankorOptions(kategoriankorData);
-      console.log("Dropdown Options Set:", kategoriankorData);
+    if (
+      kategoriankorData?.kategoriankor &&
+      Array.isArray(kategoriankorData.kategoriankor)
+    ) {
+      setKategoriankorOptions(kategoriankorData.kategoriankor);
+      console.log("Dropdown Options Set:", kategoriankorData.kategoriankor);
     } else {
       setKategoriankorOptions([]);
       console.log("No valid options found:", kategoriankorData);
     }
   }, [kategoriankorData]);
-
-  useEffect(() => {
-    console.log("API Response:", kategoriankorData);
-    console.log("Processed Options:", kategoriankorOptions);
-  }, [kategoriankorData, kategoriankorOptions]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;

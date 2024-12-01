@@ -366,7 +366,7 @@ const Kategoriankor = () => {
                 <Dropdown
                   id="ankorId"
                   name="ankorId"
-                  optionLabel={(option) => `${option.name})`}
+                  optionLabel={(option) => `${option.name}`}
                   optionValue="id"
                   value={formData.ankorId}
                   options={ankorOptions}
