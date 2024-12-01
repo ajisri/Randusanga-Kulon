@@ -288,11 +288,11 @@ const SubkategoriAnkor = () => {
     setDialogVisible(true);
   };
 
-  const deletesubkategoriankor = async (id) => {
+  const deletesubkategoriankor = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${id}`
+          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${uuid}`
         );
         toast.current.show({
           severity: "success",
