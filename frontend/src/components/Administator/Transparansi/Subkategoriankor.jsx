@@ -257,7 +257,7 @@ const SubkategoriAnkor = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">Kategori Parameter Ankor</h1>
+      <h1 className="demografi-header">Sub Kategori Parameter Ankor</h1>
       <Toast ref={toast} />
       <DataTable
         value={subKategoriankorList}
@@ -287,7 +287,7 @@ const SubkategoriAnkor = () => {
         />
         <Column
           field="kategoriankorId"
-          header="Parameter Ankor"
+          header="Kategori Parameter Ankor"
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
@@ -355,12 +355,13 @@ const SubkategoriAnkor = () => {
               }}
             >
               <h3 className="section-title" style={{ color: "#00796B" }}>
-                Informasi Kategori Parameter Ankor
+                Sub Kategori Parameter Ankor
               </h3>
 
               <div className="form-group">
                 <label htmlFor="name">
-                  Kategori Parameter Ankor <span className="required">*</span>
+                  Sub Kategori Parameter Ankor{" "}
+                  <span className="required">*</span>
                 </label>
                 <InputText
                   id="name"
@@ -372,13 +373,13 @@ const SubkategoriAnkor = () => {
                 />
               </div>
               <div className="field">
-                <label htmlFor="ankorId">Pilih Parameter Ankor:</label>
+                <label htmlFor="ankorId">Pilih Kategori Parameter Ankor:</label>
                 <Dropdown
                   id="kategoriankorId"
                   name="kategoriankorId"
                   optionLabel={(option) => `${option.name})`}
                   optionValue="id"
-                  value={formData.ankorId}
+                  value={formData.kategoriankorId}
                   options={kategoriankorOptions}
                   onChange={handleChange}
                   placeholder="Pilih Parameter Ankor"
