@@ -68,13 +68,12 @@ const SubkategoriAnkor = () => {
   );
 
   useEffect(() => {
-    console.log(kategoriankorData);
-
     if (
       kategoriankorData?.kategoriankor &&
       Array.isArray(kategoriankorData.kategoriankor)
     ) {
       setKategoriankorOptions(kategoriankorData.kategoriankor);
+      console.log("Kategoriankor Options:", kategoriankorData.kategoriankor);
     } else {
       setKategoriankorOptions([]);
     }
