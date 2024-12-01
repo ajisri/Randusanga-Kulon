@@ -68,6 +68,8 @@ const SubkategoriAnkor = () => {
   );
 
   useEffect(() => {
+    console.log("Kategoriankor Data:", kategoriankorData);
+
     if (
       kategoriankorData?.kategoriankor &&
       Array.isArray(kategoriankorData.kategoriankor)
@@ -382,7 +384,7 @@ const SubkategoriAnkor = () => {
                   value={formData.kategoriankorId}
                   options={kategoriankorOptions}
                   onChange={handleChange}
-                  placeholder="Pilih Parameter Ankor"
+                  placeholder="Pilih Kategori Parameter Ankor"
                   required
                   className="input-field"
                 />
