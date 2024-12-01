@@ -68,17 +68,19 @@ const SubkategoriAnkor = () => {
   );
 
   useEffect(() => {
-    if (
-      kategoriankorData?.kategoriankor &&
-      Array.isArray(kategoriankorData.kategoriankor)
-    ) {
-      setKategoriankorOptions(kategoriankorData.kategoriankor);
-      console.log("Dropdown Options Set:", kategoriankorData.kategoriankor);
+    if (Array.isArray(kategoriankorData)) {
+      setKategoriankorOptions(kategoriankorData);
+      console.log("Dropdown Options Set:", kategoriankorData);
     } else {
       setKategoriankorOptions([]);
       console.log("No valid options found:", kategoriankorData);
     }
   }, [kategoriankorData]);
+
+  useEffect(() => {
+    console.log("API Response:", kategoriankorData);
+    console.log("Processed Options:", kategoriankorOptions);
+  }, [kategoriankorData, kategoriankorOptions]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -381,11 +383,11 @@ const SubkategoriAnkor = () => {
                 <Dropdown
                   id="kategoriankorId"
                   name="kategoriankorId"
-                  optionLabel={(option) => `${option.name})`}
-                  optionValue="id"
-                  value={formData.kategoriankorId}
-                  options={kategoriankorOptions}
-                  onChange={handleChange}
+                  optionLabel="name" // Properti "name" akan ditampilkan sebagai label
+                  optionValue="uuid" // Properti "uuid" digunakan sebagai nilai unik
+                  value={formData.kategoriankorId} // Nilai yang dipilih harus cocok dengan "uuid"
+                  options={kategoriankorOptions} // Data opsi
+                  onChange={handleChange} // Fungsi untuk menangani perubahan
                   placeholder="Pilih Kategori Parameter Ankor"
                   required
                   className="input-field"
