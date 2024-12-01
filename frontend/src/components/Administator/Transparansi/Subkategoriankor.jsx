@@ -467,7 +467,7 @@ const SubkategoriAnkor = () => {
                   Poin Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
                 </label>
-                {formData.urls.map((item, index) => (
+                {(formData.urls || []).map((item, index) => (
                   <div key={index} className="subkategori-url-field">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <InputText
