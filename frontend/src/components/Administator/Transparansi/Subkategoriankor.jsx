@@ -359,13 +359,27 @@ const SubkategoriAnkor = () => {
 
               <div className="form-group">
                 <label htmlFor="name">
-                  Sub Kategori Parameter Ankor{" "}
+                  Nama Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
                 </label>
                 <InputText
                   id="name"
                   name="name"
                   value={formData.name}
+                  onChange={handleChange}
+                  className="input-field"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="name">
+                  Poin Sub Kategori Parameter Ankor{" "}
+                  <span className="required">*</span>
+                </label>
+                <InputText
+                  id="url"
+                  name="url"
+                  value={formData.url}
                   onChange={handleChange}
                   className="input-field"
                   required
