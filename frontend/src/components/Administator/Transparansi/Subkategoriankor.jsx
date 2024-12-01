@@ -18,7 +18,7 @@ const SubkategoriAnkor = () => {
     uuid: "",
     name: "",
     kategoriankorId: "",
-    urls: [{ url: "" }], // Array of URL objects
+    poinsubkategoriankor: [{ name: "" }],
   });
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
   const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
@@ -139,25 +139,31 @@ const SubkategoriAnkor = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addUrlField = () => {
+  const addPoinsubkategoriankorField = () => {
     setFormData({
       ...formData,
-      urls: [...formData.urls, { url: "" }],
+      poinsubkategoriankor: [...formData.poinsubkategoriankor, { name: "" }],
     });
   };
 
-  // Menghapus field berdasarkan index
-  const removeUrlField = (index) => {
-    const updatedUrls = [...formData.urls];
-    updatedUrls.splice(index, 1);
-    setFormData({ ...formData, urls: updatedUrls });
+  // Remove a dynamic field for Poinsubkategoriankor
+  const removePoinsubkategoriankorField = (index) => {
+    const updatedPoinsubkategoriankor = [...formData.poinsubkategoriankor];
+    updatedPoinsubkategoriankor.splice(index, 1);
+    setFormData({
+      ...formData,
+      poinsubkategoriankor: updatedPoinsubkategoriankor,
+    });
   };
 
-  // Menangani perubahan input URL
-  const handleUrlChange = (index, event) => {
-    const updatedUrls = [...formData.urls];
-    updatedUrls[index].url = event.target.value;
-    setFormData({ ...formData, urls: updatedUrls });
+  // Handle input changes for each dynamic Poinsubkategoriankor field
+  const handlePoinsubkategoriankorChange = (index, event) => {
+    const updatedPoinsubkategoriankor = [...formData.poinsubkategoriankor];
+    updatedPoinsubkategoriankor[index].name = event.target.value;
+    setFormData({
+      ...formData,
+      poinsubkategoriankor: updatedPoinsubkategoriankor,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -179,20 +185,39 @@ const SubkategoriAnkor = () => {
           }
         );
 
-        // Update Poinsubkategoriankor (URL) - iterasi untuk tiap URL
-        for (let url of formData.urls) {
-          await axiosJWT.post(
-            `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
-            {
-              url: url.url,
-              subkategoriankorId: currentSubkategoriankor.uuid, // Hubungkan dengan Subkategoriankor yang sudah ada
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
+        // Update Poinsubkategoriankor (dynamic URL inputs)
+        // First, delete existing Poinsubkategoriankor if needed, or handle the logic accordingly
+        for (let i = 0; i < formData.poinsubkategoriankor.length; i++) {
+          const currentPoinsubkategoriankor = formData.poinsubkategoriankor[i];
+          if (currentPoinsubkategoriankor.id) {
+            // If it has an ID, update it
+            await axiosJWT.patch(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${currentPoinsubkategoriankor.id}`,
+              {
+                name: currentPoinsubkategoriankor.name, // Field update
+                subkategoriankorId: currentSubkategoriankor.uuid, // Hubungkan dengan Subkategoriankor
               },
-            }
-          );
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          } else {
+            // If it's a new entry, create a new Poinsubkategoriankor
+            await axiosJWT.post(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
+              {
+                name: currentPoinsubkategoriankor.name, // Field input for dynamic names
+                subkategoriankorId: currentSubkategoriankor.uuid,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          }
         }
 
         toast.current.show({
@@ -202,9 +227,9 @@ const SubkategoriAnkor = () => {
           life: 3000,
         });
       } else {
-        // Simpan Subkategoriankor (data utama)
+        // Create Subkategoriankor (data utama)
         const subkategoriResponse = await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor",
           {
             name: formData.name,
             kategoriankorId: formData.kategoriankorId,
@@ -216,14 +241,15 @@ const SubkategoriAnkor = () => {
           }
         );
 
-        // Menyimpan data URL ke Poinsubkategoriankor
+        // Menyimpan data Poinsubkategoriankor (dynamic fields)
         const subkategoriId = subkategoriResponse.data.uuid; // ID subkategori yang baru dibuat
-        for (let url of formData.urls) {
+        for (let i = 0; i < formData.poinsubkategoriankor.length; i++) {
+          const currentPoinsubkategoriankor = formData.poinsubkategoriankor[i];
           await axiosJWT.post(
             `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
             {
-              url: url.url,
-              subkategoriankorId: subkategoriId, // Menyimpan ID subkategori
+              name: currentPoinsubkategoriankor.name, // Field input for dynamic names
+              subkategoriankorId: subkategoriId, // Link to the created SubkategoriAnkor
             },
             {
               headers: {
@@ -241,10 +267,12 @@ const SubkategoriAnkor = () => {
         });
       }
 
-      // Memperbarui data setelah submit berhasil
+      // Refresh data after successful submit
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
+
+      // Reset the form and hide the dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -285,7 +313,6 @@ const SubkategoriAnkor = () => {
     setFormData({
       uuid: "",
       name: "",
-      url: "",
       kategoriankorId: "",
     });
     setEditMode(false);
@@ -463,18 +490,20 @@ const SubkategoriAnkor = () => {
                 />
               </div>
               <div>
-                <label htmlFor="url">
+                <label htmlFor="poinsubkategoriankor">
                   Poin Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
                 </label>
-                {(formData.urls || []).map((item, index) => (
+                {formData.poinsubkategoriankor.map((item, index) => (
                   <div key={index} className="subkategori-url-field">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <InputText
-                        id={`name_${index}`}
-                        name={`name_${index}`}
-                        value={item.url}
-                        onChange={(e) => handleUrlChange(index, e)}
+                        id={`poinsubkategoriankor_${index}`}
+                        name={`poinsubkategoriankor_${index}`}
+                        value={item.name}
+                        onChange={(e) =>
+                          handlePoinsubkategoriankorChange(index, e)
+                        }
                         className="input-field"
                         required
                       />
@@ -482,18 +511,19 @@ const SubkategoriAnkor = () => {
                         type="button"
                         label="Hapus"
                         className="remove-button"
-                        disabled={formData.urls.length === 1}
+                        disabled={formData.poinsubkategoriankor.length === 1}
                         style={{ marginLeft: "10px" }}
-                        onClick={() => removeUrlField(index)}
+                        onClick={() => removePoinsubkategoriankorField(index)}
                       />
                     </div>
                   </div>
                 ))}
+
                 <Button
                   type="button"
                   label="Tambah Poin"
                   className="coastal-button p-button-rounded"
-                  onClick={addUrlField}
+                  onClick={addPoinsubkategoriankorField}
                 />
               </div>
 
