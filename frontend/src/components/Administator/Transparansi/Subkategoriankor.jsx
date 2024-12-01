@@ -98,6 +98,7 @@ const SubkategoriAnkor = () => {
   };
 
   const openDialog = () => {
+    console.log("Opening dialog...");
     resetForm();
     setDialogVisible(true);
   };
