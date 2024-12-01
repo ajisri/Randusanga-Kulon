@@ -54,9 +54,28 @@ const SubkategoriAnkor = () => {
 
   useEffect(() => {
     if (subkategoriankorData) {
-      setSubkategoriankorList(subkategoriankorData);
+      // Jika data ada dan valid
+      if (
+        Array.isArray(subkategoriankorData) &&
+        subkategoriankorData.length > 0
+      ) {
+        setSubkategoriankorList(subkategoriankorData);
+      } else {
+        // Jika data kosong, set ke array kosong
+        setSubkategoriankorList([]);
+        console.log("No subkategoriankor data available");
+      }
+    } else if (error) {
+      // Menangani error respons API
+      if (error.response?.status === 404) {
+        console.log("Data not found (404), setting list to empty");
+        setSubkategoriankorList([]); // Set ke array kosong jika data tidak ditemukan
+      } else {
+        console.error("Error fetching subkategoriankor data:", error);
+        setSubkategoriankorList([]); // Mengatur list ke array kosong pada error lainnya
+      }
     }
-  }, [subkategoriankorData]);
+  }, [subkategoriankorData, error]);
 
   const {
     data: kategoriankorData,
