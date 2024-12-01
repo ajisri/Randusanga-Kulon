@@ -68,7 +68,7 @@ const SubkategoriAnkor = () => {
   );
 
   useEffect(() => {
-    console.log("Kategoriankor Data:", kategoriankorData);
+    console.log(kategoriankorData);
 
     if (
       kategoriankorData?.kategoriankor &&
