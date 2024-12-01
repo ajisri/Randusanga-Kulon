@@ -230,7 +230,7 @@ const SubkategoriAnkor = () => {
       } else {
         // Create Subkategoriankor (data utama)
         const subkategoriResponse = await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           {
             name: formData.name,
             kategoriankorId: formData.kategoriankorId,
@@ -247,7 +247,7 @@ const SubkategoriAnkor = () => {
         for (let i = 0; i < formData.poinsubkategoriankor.length; i++) {
           const currentPoinsubkategoriankor = formData.poinsubkategoriankor[i];
           await axiosJWT.post(
-            `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
+            `https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor`,
             {
               name: currentPoinsubkategoriankor.name, // Field input for dynamic names
               subkategoriankorId: subkategoriId, // Link to the created SubkategoriAnkor
