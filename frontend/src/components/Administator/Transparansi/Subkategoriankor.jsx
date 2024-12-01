@@ -381,7 +381,7 @@ const SubkategoriAnkor = () => {
                 <Dropdown
                   id="kategoriankorId"
                   name="kategoriankorId"
-                  optionLabel="name" // Properti "name" akan ditampilkan sebagai label
+                  optionLabel={(option) => `${option.name}`}
                   optionValue="uuid" // Properti "uuid" digunakan sebagai nilai unik
                   value={formData.kategoriankorId} // Nilai yang dipilih harus cocok dengan "uuid"
                   options={kategoriankorOptions} // Data opsi
