@@ -73,9 +73,10 @@ const SubkategoriAnkor = () => {
       Array.isArray(kategoriankorData.kategoriankor)
     ) {
       setKategoriankorOptions(kategoriankorData.kategoriankor);
-      console.log("Kategoriankor Options:", kategoriankorData.kategoriankor);
+      console.log("Dropdown Options Set:", kategoriankorData.kategoriankor);
     } else {
       setKategoriankorOptions([]);
+      console.log("No valid options found:", kategoriankorData);
     }
   }, [kategoriankorData]);
 
@@ -214,7 +215,7 @@ const SubkategoriAnkor = () => {
       uuid: "",
       name: "",
       url: "",
-      ankorId: "",
+      kategoriankorId: "",
     });
     setEditMode(false);
     setCurrentSubkategoriankor(null);
@@ -292,7 +293,7 @@ const SubkategoriAnkor = () => {
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
-              (kw) => kw.id === rowData.Id
+              (kw) => kw.id === rowData.uuid
             );
             return kategoriankor ? `${kategoriankor.name}` : "N/A";
           }}
