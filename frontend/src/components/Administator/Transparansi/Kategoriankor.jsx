@@ -275,12 +275,12 @@ const Kategoriankor = () => {
         <Column
           field="name"
           header="Nama"
-          style={{ width: "50%", minWidth: "15%" }}
+          style={{ width: "60%", minWidth: "15%" }}
         />
         <Column
           field="ankorId"
           header="Parameter Ankor"
-          style={{ width: "40%", minWidth: "20%" }}
+          style={{ width: "30%", minWidth: "20%" }}
           body={(rowData) => {
             const ankor = ankorOptions.find((kw) => kw.id === rowData.ankorId);
             return ankor ? `${ankor.name}` : "N/A";
