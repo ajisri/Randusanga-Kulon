@@ -491,7 +491,13 @@ const SubkategoriAnkor = () => {
                   className="input-field"
                 />
               </div>
-              <div>
+              <div
+                style={{
+                  marginTop: "30px", // Jarak antar form dinamis
+                  borderTop: "2px solid #ddd", // Garis pembatas
+                  paddingTop: "20px", // Jarak antara isi form dan garis
+                }}
+              >
                 <label htmlFor="poinsubkategoriankor">
                   Poin Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
@@ -501,8 +507,7 @@ const SubkategoriAnkor = () => {
                     key={index}
                     className="subkategori-url-field"
                     style={{
-                      marginBottom: "30px", // Jarak antar form dinamis
-                      borderTop: "2px solid #ddd", // Garis pembatas
+                      marginBottom: "30px",
                       paddingBottom: "20px", // Jarak antara isi form dan garis
                     }}
                   >
