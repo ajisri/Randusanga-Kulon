@@ -257,25 +257,26 @@ const SubkategoriAnkor = () => {
           name: formData.name,
           kategoriankorId: formData.kategoriankorId,
         };
-        console.log(subkategoriPayload);
 
         // // Menyimpan subkategori terlebih dahulu
         const subkategoriResponse = await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           subkategoriPayload
         );
-        console.log(subkategoriResponse);
 
         // // Mendapatkan subkategoriankorId dari response
-        // const subkategoriankorId = subkategoriResponse.data.uuid;
-
-        // // Menyiapkan payload untuk menyimpan poinsubkategoriankor
+        const subkategoriankorId = subkategoriResponse.data.ankor.uuid;
+        // // Menyiapkan pa yload untuk menyimpan poinsubkategoriankor
         // const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
         //   (poin) => ({
         //     name: poin.name,
         //     subkategoriankorId, // Gunakan subkategoriankorId yang didapatkan
         //   })
         // );
+        console.log(
+          "🚀 ~ handleSubmit ~ formData.poinsubkategoriankor:",
+          formData.poinsubkategoriankor
+        );
 
         // // Menyimpan poinsubkategoriankor setelah subkategori berhasil disimpan
         // await axiosJWT.post(
