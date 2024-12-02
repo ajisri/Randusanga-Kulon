@@ -185,36 +185,23 @@ const SubkategoriAnkor = () => {
       return;
     }
 
-    // Pastikan kategoriankorId dan poinsubkategoriankorId ada
-    if (!formData.kategoriankorId) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Kategori Parameter Ankor harus dipilih!",
-        life: 5000,
-      });
-      return;
-    }
-
     // Menyiapkan payload
     const payload = {
-      uuid: formData.uuid, // Jika dalam mode edit, kirim UUID
       name: formData.name,
       kategoriankorId: formData.kategoriankorId,
       poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
-        name: poin.name, // Nama untuk setiap Poinsubkategoriankor yang ditambahkan
+        name: poin.name,
         subkategoriankor: {
-          connect: { uuid: formData.kategoriankorId }, // Menghubungkan ke Subkategoriankor berdasarkan kategoriankorId
+          connect: { uuid: formData.kategoriankorId }, // Pastikan subkategoriankorId valid
         },
       })),
-      deletePoinsubkategoriankorIds: [], // Jika ada poin yang harus dihapus
     };
 
     try {
       let response;
 
       if (isEditMode) {
-        // Mengupdate data jika mode edit
+        // Update jika mode edit
         response = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${formData.uuid}`,
           payload
@@ -227,7 +214,7 @@ const SubkategoriAnkor = () => {
           life: 3000,
         });
       } else {
-        // Menambah data baru jika mode add
+        // Menambahkan data baru
         response = await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           payload
