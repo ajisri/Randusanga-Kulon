@@ -185,22 +185,24 @@ const SubkategoriAnkor = () => {
       return;
     }
 
-    // Menyiapkan payload
+    // Menyiapkan payload dengan memastikan subkategoriData adalah array
     const payload = {
-      name: formData.name,
-      kategoriankorId: formData.kategoriankorId,
-      poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
-        name: poin.name,
-        subkategoriankorId: formData.kategoriankorId, // Kirimkan subkategoriankorId yang sudah ada
-      })),
+      subkategoriData: [
+        {
+          name: formData.name,
+          kategoriId: formData.kategoriankorId,
+          poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
+            name: poin.name,
+            subkategoriankorId: formData.kategoriankorId, // Kirimkan subkategoriankorId yang sudah ada
+          })),
+        },
+      ],
     };
 
     try {
-      let response;
-
       if (isEditMode) {
         // Update jika mode edit
-        response = await axiosJWT.patch(
+        await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${formData.uuid}`,
           payload
         );
@@ -213,7 +215,7 @@ const SubkategoriAnkor = () => {
         });
       } else {
         // Menambahkan data baru
-        response = await axiosJWT.post(
+        await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           payload
         );
