@@ -193,7 +193,7 @@ const SubkategoriAnkor = () => {
           kategoriankorId: formData.kategoriankorId,
           poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
             name: poin.name, // Menyertakan nama poin yang sudah ada
-            subkategoriankorId: formData.subkategoriankorId, // Kirimkan subkategoriankorId yang sesuai
+            subkategoriankorId: formData.subkategoriankorId || "", // Menggunakan subkategoriankorId jika sudah ada
           })),
         },
       ],
@@ -227,7 +227,7 @@ const SubkategoriAnkor = () => {
           updateSubkategoriPayload
         );
 
-        // Menggunakan subkategoriankorId yang sudah ada
+        // Menggunakan subkategoriankorId yang sudah ada (didapatkan dari response)
         const subkategoriankorId = subkategoriResponse.data.uuid;
 
         // Menyiapkan payload untuk menyimpan atau meng-update poinsubkategoriankor
@@ -259,7 +259,7 @@ const SubkategoriAnkor = () => {
 
         // Menyimpan subkategori terlebih dahulu
         const subkategoriResponse = await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           subkategoriPayload
         );
 
@@ -276,7 +276,7 @@ const SubkategoriAnkor = () => {
 
         // Menyimpan poinsubkategoriankor setelah subkategori berhasil disimpan
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
           { poinsubkategoriankor: poinsubkategoriankorPayload }
         );
 
