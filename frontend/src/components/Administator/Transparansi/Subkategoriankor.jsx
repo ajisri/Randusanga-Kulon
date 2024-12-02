@@ -171,48 +171,48 @@ const SubkategoriAnkor = () => {
     e.preventDefault();
 
     // Validasi form data
-    if (
-      !formData.name ||
-      !formData.kategoriankorId ||
-      !formData.poinsubkategoriankor.length
-    ) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Form tidak lengkap, pastikan semua field diisi dengan benar!",
-        life: 5000,
-      });
-      return;
-    }
+    // if (
+    //   !formData.name ||
+    //   !formData.kategoriankorId ||
+    //   !formData.poinsubkategoriankor.length
+    // ) {
+    //   toast.current.show({
+    //     severity: "error",
+    //     summary: "Error",
+    //     detail: "Form tidak lengkap, pastikan semua field diisi dengan benar!",
+    //     life: 5000,
+    //   });
+    //   return;
+    // }
 
-    // Menyiapkan payload dengan memastikan subkategoriData adalah array
-    const payload = {
-      subkategoriankorData: [
-        // Pastikan nama properti ini cocok dengan yang di backend
-        {
-          name: formData.name,
-          kategoriankorId: formData.kategoriankorId,
-          poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
-            name: poin.name,
-            subkategoriankorId: formData.subkategoriankorId || "", // Pastikan subkategoriankorId ada jika diperlukan
-          })),
-        },
-      ],
-    };
+    // // Menyiapkan payload dengan memastikan subkategoriData adalah array
+    // const payload = {
+    //   subkategoriankorData: [
+    //     // Pastikan nama properti ini cocok dengan yang di backend
+    //     {
+    //       name: formData.name,
+    //       kategoriankorId: formData.kategoriankorId,
+    //       poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
+    //         name: poin.name,
+    //         subkategoriankorId: formData.subkategoriankorId || "", // Pastikan subkategoriankorId ada jika diperlukan
+    //       })),
+    //     },
+    //   ],
+    // };
 
-    // Pastikan subkategoriData adalah array yang tidak kosong
-    if (
-      !Array.isArray(payload.subkategoriData) ||
-      payload.subkategoriData.length === 0
-    ) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "subkategoriData harus berupa array dan tidak boleh kosong.",
-        life: 5000,
-      });
-      return;
-    }
+    // // Pastikan subkategoriData adalah array yang tidak kosong
+    // if (
+    //   !Array.isArray(payload.subkategoriankorData) ||
+    //   payload.subkategoriankorData.length === 0
+    // ) {
+    //   toast.current.show({
+    //     severity: "error",
+    //     summary: "Error",
+    //     detail: "subkategoriData harus berupa array dan tidak boleh kosong.",
+    //     life: 5000,
+    //   });
+    //   return;
+    // }
 
     try {
       if (isEditMode) {
