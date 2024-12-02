@@ -191,9 +191,7 @@ const SubkategoriAnkor = () => {
       kategoriankorId: formData.kategoriankorId,
       poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
         name: poin.name,
-        subkategoriankor: {
-          connect: { uuid: formData.kategoriankorId }, // Pastikan subkategoriankorId valid
-        },
+        subkategoriankorId: formData.kategoriankorId, // Kirimkan subkategoriankorId yang sudah ada
       })),
     };
 
