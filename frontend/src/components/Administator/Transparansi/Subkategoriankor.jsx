@@ -175,7 +175,7 @@ const SubkategoriAnkor = () => {
       !formData.name ||
       !formData.kategoriankorId ||
       !Array.isArray(formData.poinsubkategoriankor) ||
-      formData.poinsubkategoriankor.length === 0
+      formData.poinsubkategoriankor.some((p) => !p.name)
     ) {
       toast.current.show({
         severity: "error",
@@ -183,8 +183,11 @@ const SubkategoriAnkor = () => {
         detail: "Form tidak lengkap, pastikan semua field diisi dengan benar!",
         life: 5000,
       });
+      console.error("Form tidak valid:", formData);
       return;
     }
+
+    isLoading(true); // Aktifkan state loading (opsional)
 
     try {
       const subkategoriData = {
@@ -193,55 +196,60 @@ const SubkategoriAnkor = () => {
         poinsubkategoriankor: formData.poinsubkategoriankor,
       };
 
-      console.log("Sending data to backend:", subkategoriData); // Menampilkan data yang dikirim
+      console.log("Mengirim data ke backend:", subkategoriData);
 
-      // Jika mode edit
+      let response;
       if (isEditMode) {
-        // Kirim data untuk memperbarui SubkategoriAnkor
-        await axiosJWT.patch(
+        // Mode edit
+        response = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           subkategoriData,
           {
             headers: { "Content-Type": "application/json" },
           }
         );
-
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Data berhasil diperbarui!",
-          life: 3000,
-        });
       } else {
-        // Jika mode add, buat SubkategoriAnkor baru
-        const response = await axiosJWT.post(
+        // Mode add
+        response = await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           subkategoriData,
           {
             headers: { "Content-Type": "application/json" },
           }
         );
-        console.log("Response from server:", response);
-
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Data berhasil disimpan!",
-          life: 3000,
-        });
       }
+
+      console.log("Response server:", response.data);
+
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: isEditMode
+          ? "Data berhasil diperbarui!"
+          : "Data berhasil disimpan!",
+        life: 3000,
+      });
 
       // Refresh data setelah sukses
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
 
-      // Reset form dan tutup dialog
       resetForm();
       setDialogVisible(false);
     } catch (error) {
-      console.error("Error response:", error.response); // Memeriksa response error
-      handleError(error);
+      console.error("Error response:", error.response || error);
+
+      const errorMessage =
+        error.response?.data?.error || "Terjadi kesalahan saat memproses data.";
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: errorMessage,
+        life: 5000,
+      });
+    } finally {
+      isLoading(false); // Nonaktifkan loading setelah request selesai
     }
   };
 
