@@ -169,6 +169,7 @@ const SubkategoriAnkor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("handleSubmit called with formData:", formData);
 
     // Validasi input formData
     if (
