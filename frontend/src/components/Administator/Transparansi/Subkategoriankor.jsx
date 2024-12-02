@@ -185,6 +185,17 @@ const SubkategoriAnkor = () => {
       return;
     }
 
+    // Pastikan subkategoriankorId ada
+    if (!formData.kategoriankorId) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Kategori Parameter Ankor harus dipilih!",
+        life: 5000,
+      });
+      return;
+    }
+
     // Menyiapkan payload
     const payload = {
       uuid: formData.uuid, // Jika dalam mode edit, kirim UUID
