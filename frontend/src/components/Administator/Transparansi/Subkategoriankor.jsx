@@ -185,7 +185,7 @@ const SubkategoriAnkor = () => {
       return;
     }
 
-    // Pastikan subkategoriankorId ada
+    // Pastikan kategoriankorId dan poinsubkategoriankorId ada
     if (!formData.kategoriankorId) {
       toast.current.show({
         severity: "error",
@@ -202,11 +202,12 @@ const SubkategoriAnkor = () => {
       name: formData.name,
       kategoriankorId: formData.kategoriankorId,
       poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
-        uuid: poin.uuid, // Menambahkan UUID untuk poin yang sudah ada
-        name: poin.name,
-        createdById: poin.createdById,
+        name: poin.name, // Nama untuk setiap Poinsubkategoriankor yang ditambahkan
+        subkategoriankor: {
+          connect: { uuid: formData.kategoriankorId }, // Menghubungkan ke Subkategoriankor berdasarkan kategoriankorId
+        },
       })),
-      deletePoinsubkategoriankorIds: [], // Isi jika ada poin yang harus dihapus
+      deletePoinsubkategoriankorIds: [], // Jika ada poin yang harus dihapus
     };
 
     try {
