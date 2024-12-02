@@ -187,13 +187,13 @@ const SubkategoriAnkor = () => {
 
     // Menyiapkan payload dengan memastikan subkategoriData adalah array
     const payload = {
-      subkategoriData: [
+      subkategoriankorData: [
         {
           name: formData.name,
-          kategoriId: formData.kategoriankorId,
+          kategoriankorId: formData.kategoriankorId,
           poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
             name: poin.name,
-            subkategoriankorId: formData.kategoriankorId, // Kirimkan subkategoriankorId yang sudah ada
+            subkategoriankorId: formData.subkategoriankorId, // Kirimkan subkategoriankorId yang sudah ada
           })),
         },
       ],
