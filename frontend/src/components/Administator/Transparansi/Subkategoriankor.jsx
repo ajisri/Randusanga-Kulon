@@ -260,10 +260,11 @@ const SubkategoriAnkor = () => {
         console.log(subkategoriPayload);
 
         // // Menyimpan subkategori terlebih dahulu
-        // const subkategoriResponse = await axiosJWT.post(
-        //   "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
-        //   subkategoriPayload
-        // );
+        const subkategoriResponse = await axiosJWT.post(
+          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
+          subkategoriPayload
+        );
+        console.log(subkategoriResponse);
 
         // // Mendapatkan subkategoriankorId dari response
         // const subkategoriankorId = subkategoriResponse.data.uuid;
