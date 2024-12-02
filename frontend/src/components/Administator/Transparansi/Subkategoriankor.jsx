@@ -194,7 +194,7 @@ const SubkategoriAnkor = () => {
     try {
       // Menyimpan subkategori terlebih dahulu
       const subkategoriResponse = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor",
+        "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
         subkategoriPayload
       );
 
@@ -211,7 +211,7 @@ const SubkategoriAnkor = () => {
 
       // Menyimpan poinsubkategoriankor setelah subkategori berhasil disimpan
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor",
+        "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
         { poinsubkategoriankor: poinsubkategoriankorPayload }
       );
 
