@@ -263,17 +263,18 @@ const SubkategoriAnkor = () => {
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           subkategoriPayload
         );
-
-        // // Mendapatkan subkategoriankorId dari response
+        //kalau subkategoriresponse error maka throw error.
+        if (subkategoriResponse.status !== 200) {
+          toast.current.show({
+            severity: "warning",
+            summary: "Warning",
+            detail: subkategoriResponse.msg,
+            life: 3000,
+          });
+        }
+        // Mendapatkan subkategoriankorId dari response
         const subkategoriankorId = subkategoriResponse.data.ankor.uuid;
-        // // Menyiapkan pa yload untuk menyimpan poinsubkategoriankor
-        // const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
-        //   (poin) => ({
-        //     name: poin.name,
-        //     subkategoriankorId, // Gunakan subkategoriankorId yang didapatkan
-        //   })
-        // );
-        const results = await Promise.allSettled(
+        await Promise.allSettled(
           formData.poinsubkategoriankor.map((element) =>
             axiosJWT.post(
               "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
@@ -284,20 +285,18 @@ const SubkategoriAnkor = () => {
             )
           )
         );
-        console.log("🚀 ~ handleSubmit ~ results:", results);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data berhasil disimpan!",
+          life: 3000,
+        });
 
         // // Menyimpan poinsubkategoriankor setelah subkategori berhasil disimpan
         // await axiosJWT.post(
         //   "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
         //   { poinsubkategoriankor: poinsubkategoriankorPayload }
         // );
-
-        // toast.current.show({
-        //   severity: "success",
-        //   summary: "Success",
-        //   detail: "Data berhasil disimpan!",
-        //   life: 3000,
-        // });
       }
 
       // Refresh data setelah sukses
@@ -357,8 +356,6 @@ const SubkategoriAnkor = () => {
   };
 
   const editsubkategoriankor = (subkategoriankor) => {
-    setFormData(subkategoriankor);
-    setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
   };
