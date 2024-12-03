@@ -356,7 +356,7 @@ const SubkategoriAnkor = () => {
   };
 
   const editsubkategoriankor = (subkategoriankor) => {
-    setFormData(subkategoriankor);
+    setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
   };
