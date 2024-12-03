@@ -98,7 +98,6 @@ const SubkategoriAnkor = () => {
   };
 
   const openDialog = () => {
-    console.log("Opening dialog...");
     resetForm();
     setDialogVisible(true);
   };
@@ -356,8 +355,18 @@ const SubkategoriAnkor = () => {
     setCurrentSubkategoriankor(null);
   };
 
+  const normalizeSubkategoriankor = (data) => ({
+    uuid: data.uuid || "",
+    name: data.name || "",
+    kategoriankorId: data.kategoriankorId || "",
+    poinsubkategoriankor: data.poinsubkategoriankor?.length
+      ? data.poinsubkategoriankor.map((poin) => ({ name: poin.name }))
+      : [{ name: "" }],
+  });
+
   const editsubkategoriankor = (subkategoriankor) => {
-    setFormData(subkategoriankor);
+    const normalizedData = normalizeSubkategoriankor(subkategoriankor);
+    setFormData(normalizedData);
     setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
@@ -503,7 +512,7 @@ const SubkategoriAnkor = () => {
                 <InputText
                   id="name"
                   name="name"
-                  value={formData.name}
+                  value={formData.name || ""}
                   onChange={handleChange}
                   className="input-field"
                   required
@@ -518,7 +527,7 @@ const SubkategoriAnkor = () => {
                   name="kategoriankorId"
                   optionLabel="name" // Properti "name" akan ditampilkan sebagai label
                   optionValue="uuid" // Properti "uuid" digunakan sebagai nilai unik
-                  value={formData.kategoriankorId} // Nilai yang dipilih harus cocok dengan "uuid"
+                  value={formData.kategoriankorId || ""} // Nilai yang dipilih harus cocok dengan "uuid"
                   options={kategoriankorOptions} // Data opsi
                   onChange={handleChange} // Fungsi untuk menangani perubahan
                   placeholder="Pilih Kategori Parameter Ankor"
