@@ -533,12 +533,12 @@ const SubkategoriAnkor = () => {
                   >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <InputText
-                        id={`poinsubkategoriankor_${index}`}
-                        name={`poinsubkategoriankor_${index}`}
-                        value={item.name}
+                        id={`poinsubkategoriankor_${item.uuid || index}`} // Gunakan UUID atau index untuk ID unik
+                        name={`poinsubkategoriankor_${item.uuid || index}`} // Sama seperti id, pastikan nama unik
+                        value={item.name || ""} // Pastikan value sesuai data
                         onChange={(e) =>
                           handlePoinsubkategoriankorChange(index, e)
-                        }
+                        } // Fungsi handle perubahan
                         className="input-field"
                         required
                       />
