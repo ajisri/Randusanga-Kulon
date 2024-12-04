@@ -340,10 +340,15 @@ const SubkategoriAnkor = () => {
   });
 
   const editsubkategoriankor = (subkategoriankor) => {
+    console.log(
+      "🚀 ~ editsubkategoriankor ~ subkategoriankor:",
+      subkategoriankor
+    );
     const normalizedData = normalizeSubkategoriankor(subkategoriankor);
     console.log("🚀 ~ editsubkategoriankor ~ normalizedData:", normalizedData);
 
     setFormData(normalizedData);
+    console.log("🚀 ~ editsubkategoriankor ~ normalizedData:", normalizedData);
     setInitialPoins(normalizedData.poinsubkategoriankor); // Simpan data awal
     setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
