@@ -234,15 +234,24 @@ const SubkategoriAnkor = () => {
         // Menyiapkan payload untuk menyimpan atau meng-update poinsubkategoriankor
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
           (poin) => ({
+            uuid: poin.uuid,
             name: poin.name,
             subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
           })
         );
 
         // Meng-update atau menambah poin subkategori
-        await axiosJWT.patch(
-          "https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor",
-          { poinsubkategoriankor: poinsubkategoriankorPayload }
+        await Promise.allSettled(
+          poinsubkategoriankorPayload.map((poin) =>
+            // Jika poin memiliki uuid, kita lakukan update
+            axiosJWT.patch(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+              {
+                name: poin.name,
+                subkategoriankorId: poin.subkategoriankorId,
+              }
+            )
+          )
         );
 
         toast.current.show({
