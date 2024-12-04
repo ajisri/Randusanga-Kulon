@@ -240,8 +240,8 @@ const SubkategoriAnkor = () => {
         );
 
         // Meng-update atau menambah poin subkategori
-        await axiosJWT.put(
-          "https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor",
+        await axiosJWT.patch(
+          "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
           { poinsubkategoriankor: poinsubkategoriankorPayload }
         );
 
@@ -437,7 +437,7 @@ const SubkategoriAnkor = () => {
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
-              (kw) => kw.id === rowData.uuid
+              (kw) => kw.uuid === rowData.uuid
             );
             return kategoriankor ? `${kategoriankor.name}` : "N/A";
           }}
