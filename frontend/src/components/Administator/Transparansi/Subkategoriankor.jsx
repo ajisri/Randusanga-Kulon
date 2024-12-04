@@ -533,7 +533,14 @@ const SubkategoriAnkor = () => {
                   console.log("Poin:", item); // Debugging: Melihat data poin yang sedang dirender
                   return (
                     <div key={index} className="subkategori-url-field">
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <div
+                        style={{
+                          marginBottom: "10px",
+                          paddingBottom: "10px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
                         <InputText
                           id={`poinsubkategoriankor_${item.uuid || index}`} // Gunakan UUID atau index untuk ID unik
                           name={`poinsubkategoriankor_${item.uuid || index}`} // Sama seperti id, pastikan nama unik
