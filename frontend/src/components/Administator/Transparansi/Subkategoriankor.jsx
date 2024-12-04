@@ -264,7 +264,7 @@ const SubkategoriAnkor = () => {
           subkategoriPayload
         );
         //kalau subkategoriresponse error maka throw error.
-        if (subkategoriResponse.status !== 200) {
+        if (![200, 201].includes(subkategoriResponse.status)) {
           toast.current.show({
             severity: "warning",
             summary: "Warning",
