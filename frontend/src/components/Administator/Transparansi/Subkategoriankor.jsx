@@ -375,6 +375,7 @@ const SubkategoriAnkor = () => {
 
   const editsubkategoriankor = (subkategoriankor) => {
     const normalizedData = normalizeSubkategoriankor(subkategoriankor);
+    console.log("🚀 ~ editsubkategoriankor ~ normalizedData:", normalizedData);
     setFormData(normalizedData);
     setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
