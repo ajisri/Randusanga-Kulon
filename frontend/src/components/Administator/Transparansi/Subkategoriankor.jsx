@@ -206,7 +206,7 @@ const SubkategoriAnkor = () => {
           ),
           ...poinsToUpdate.map((poin) =>
             axiosJWT.patch(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${currentSubkategoriankor.uuid}`,
               { name: poin.name }
             )
           ),
