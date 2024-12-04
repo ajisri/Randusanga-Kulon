@@ -216,7 +216,7 @@ const SubkategoriAnkor = () => {
     try {
       if (isEditMode) {
         // Jika mode edit, kita perlu menggunakan subkategoriId yang sudah ada dan meng-update subkategori
-        const updateSubkategoriPayload = {
+        const updateSubkategoriankorPayload = {
           uuid: currentSubkategoriankor.uuid,
           name: formData.name,
           kategoriankorId: formData.kategoriankorId,
@@ -225,12 +225,12 @@ const SubkategoriAnkor = () => {
         // Update subkategori yang ada berdasarkan UUID
         const subkategoriResponse = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
-          updateSubkategoriPayload
+          updateSubkategoriankorPayload
         );
+        console.log("Sending UUID:", currentSubkategoriankor.uuid);
 
         // Menggunakan subkategoriankorId yang sudah ada (didapatkan dari response)
         const subkategoriankorId = subkategoriResponse.data.uuid;
-
         // Menyiapkan payload untuk menyimpan atau meng-update poinsubkategoriankor
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
           (poin) => ({
