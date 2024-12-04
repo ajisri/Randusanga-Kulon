@@ -413,9 +413,9 @@ const SubkategoriAnkor = () => {
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
-              (kw) => kw.uuid === rowData.uuid
+              (kw) => kw.uuid === rowData.kategoriankorId
             );
-            return kategoriankor ? `${kategoriankor.name}` : "N/A";
+            return kategoriankor ? kategoriankor.name : "N/A";
           }}
         />
         <Column
