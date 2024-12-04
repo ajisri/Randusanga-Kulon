@@ -179,22 +179,24 @@ const SubkategoriAnkor = () => {
         // Identifikasi data berdasarkan perbedaan
         const poinsToCreate = formData.poinsubkategoriankor.filter(
           (poin) => !poin.uuid
-        );
+        ); // Data baru, belum ada uuid (create)
+
         const poinsToUpdate = formData.poinsubkategoriankor.filter((poin) =>
           initialPoins.some(
             (initial) =>
-              initial.uuid === poin.uuid && initial.name !== poin.name
+              initial.uuid === poin.uuid && initial.name !== poin.name // Jika ada perubahan nama
           )
-        );
+        ); // Data yang ada, tapi diubah (update)
+
         const poinsToDelete = initialPoins.filter(
           (initial) =>
             !formData.poinsubkategoriankor.some(
-              (updated) => updated.uuid === initial.uuid
+              (updated) => updated.uuid === initial.uuid // Jika data tidak ada di form baru (delete)
             )
-        );
+        ); // Data yang ada di database, tapi dihapus dari form (delete)
 
-        // Kirim permintaan ke backend
-        await Promise.allSettled([
+        // Gabungkan proses create, update, dan delete
+        const allPromises = [
           ...poinsToCreate.map((poin) =>
             axiosJWT.post(
               "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
@@ -206,17 +208,29 @@ const SubkategoriAnkor = () => {
           ),
           ...poinsToUpdate.map((poin) =>
             axiosJWT.patch(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${currentSubkategoriankor.uuid}`,
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`, // Gunakan UUID dari poin yang akan diupdate
               { name: poin.name }
             )
           ),
           ...poinsToDelete.map((poin) =>
             axiosJWT.delete(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}` // Gunakan UUID dari poin yang akan dihapus
             )
           ),
-        ]);
+        ];
 
+        const results = await Promise.allSettled(allPromises);
+
+        // Debugging untuk melihat hasil dari masing-masing request
+        results.forEach((result, index) => {
+          if (result.status === "rejected") {
+            console.error(`Request ${index} failed:`, result.reason);
+          } else {
+            console.log(`Request ${index} succeeded:`, result.value);
+          }
+        });
+
+        // Tampilkan pesan sukses setelah proses selesai
         toast.current.show({
           severity: "success",
           summary: "Success",
