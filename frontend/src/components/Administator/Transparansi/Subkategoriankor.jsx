@@ -341,6 +341,8 @@ const SubkategoriAnkor = () => {
 
   const editsubkategoriankor = (subkategoriankor) => {
     const normalizedData = normalizeSubkategoriankor(subkategoriankor);
+    console.log("🚀 ~ editsubkategoriankor ~ normalizedData:", normalizedData);
+
     setFormData(normalizedData);
     setInitialPoins(normalizedData.poinsubkategoriankor); // Simpan data awal
     setCurrentSubkategoriankor(subkategoriankor);
@@ -522,37 +524,33 @@ const SubkategoriAnkor = () => {
                   Poin Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
                 </label>
-                {formData.poinsubkategoriankor.map((item, index) => (
-                  <div
-                    key={index}
-                    className="subkategori-url-field"
-                    style={{
-                      marginBottom: "30px",
-                      paddingBottom: "20px", // Jarak antara isi form dan garis
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <InputText
-                        id={`poinsubkategoriankor_${item.uuid || index}`} // Gunakan UUID atau index untuk ID unik
-                        name={`poinsubkategoriankor_${item.uuid || index}`} // Sama seperti id, pastikan nama unik
-                        value={item.name || ""} // Pastikan value sesuai data
-                        onChange={(e) =>
-                          handlePoinsubkategoriankorChange(index, e)
-                        } // Fungsi handle perubahan
-                        className="input-field"
-                        required
-                      />
-                      <Button
-                        type="button"
-                        label="Hapus"
-                        className="remove-button"
-                        disabled={formData.poinsubkategoriankor.length === 1}
-                        style={{ marginLeft: "10px" }}
-                        onClick={() => removePoinsubkategoriankorField(index)}
-                      />
+                {formData.poinsubkategoriankor.map((item, index) => {
+                  console.log("Poin:", item); // Debugging: Melihat data poin yang sedang dirender
+                  return (
+                    <div key={index} className="subkategori-url-field">
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <InputText
+                          id={`poinsubkategoriankor_${item.uuid || index}`} // Gunakan UUID atau index untuk ID unik
+                          name={`poinsubkategoriankor_${item.uuid || index}`} // Sama seperti id, pastikan nama unik
+                          value={item.name || ""} // Pastikan value sesuai data
+                          onChange={(e) =>
+                            handlePoinsubkategoriankorChange(index, e)
+                          }
+                          className="input-field"
+                          required
+                        />
+                        <Button
+                          type="button"
+                          label="Hapus"
+                          className="remove-button"
+                          disabled={formData.poinsubkategoriankor.length === 1}
+                          style={{ marginLeft: "10px" }}
+                          onClick={() => removePoinsubkategoriankorField(index)}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
 
                 <Button
                   type="button"
