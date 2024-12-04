@@ -20,6 +20,8 @@ const SubkategoriAnkor = () => {
     kategoriankorId: "",
     poinsubkategoriankor: [{ name: "" }],
   });
+
+  const [initialPoins, setInitialPoins] = useState([]);
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
   const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -142,7 +144,10 @@ const SubkategoriAnkor = () => {
   const addPoinsubkategoriankorField = () => {
     setFormData({
       ...formData,
-      poinsubkategoriankor: [...formData.poinsubkategoriankor, { name: "" }],
+      poinsubkategoriankor: [
+        ...formData.poinsubkategoriankor,
+        { uuid: "", name: "" },
+      ],
     });
   };
 
@@ -169,81 +174,48 @@ const SubkategoriAnkor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi form data
-    // if (
-    //   !formData.name ||
-    //   !formData.kategoriankorId ||
-    //   !formData.poinsubkategoriankor.length
-    // ) {
-    //   toast.current.show({
-    //     severity: "error",
-    //     summary: "Error",
-    //     detail: "Form tidak lengkap, pastikan semua field diisi dengan benar!",
-    //     life: 5000,
-    //   });
-    //   return;
-    // }
-
-    // // Menyiapkan payload dengan memastikan subkategoriData adalah array
-    // const payload = {
-    //   subkategoriankorData: [
-    //     // Pastikan nama properti ini cocok dengan yang di backend
-    //     {
-    //       name: formData.name,
-    //       kategoriankorId: formData.kategoriankorId,
-    //       poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
-    //         name: poin.name,
-    //         subkategoriankorId: formData.subkategoriankorId || "", // Pastikan subkategoriankorId ada jika diperlukan
-    //       })),
-    //     },
-    //   ],
-    // };
-
-    // // Pastikan subkategoriData adalah array yang tidak kosong
-    // if (
-    //   !Array.isArray(payload.subkategoriankorData) ||
-    //   payload.subkategoriankorData.length === 0
-    // ) {
-    //   toast.current.show({
-    //     severity: "error",
-    //     summary: "Error",
-    //     detail: "subkategoriData harus berupa array dan tidak boleh kosong.",
-    //     life: 5000,
-    //   });
-    //   return;
-    // }
-
     try {
       if (isEditMode) {
-        // Jika mode edit, kita perlu menggunakan subkategoriId yang sudah ada dan meng-update subkategori
-        const updateSubkategoriPayload = {
-          uuid: currentSubkategoriankor.uuid,
-          name: formData.name,
-          kategoriankorId: formData.kategoriankorId,
-        };
-
-        // Update subkategori yang ada berdasarkan UUID
-        const subkategoriResponse = await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
-          updateSubkategoriPayload
+        // Identifikasi data berdasarkan perbedaan
+        const poinsToCreate = formData.poinsubkategoriankor.filter(
+          (poin) => !poin.uuid
+        );
+        const poinsToUpdate = formData.poinsubkategoriankor.filter((poin) =>
+          initialPoins.some(
+            (initial) =>
+              initial.uuid === poin.uuid && initial.name !== poin.name
+          )
+        );
+        const poinsToDelete = initialPoins.filter(
+          (initial) =>
+            !formData.poinsubkategoriankor.some(
+              (updated) => updated.uuid === initial.uuid
+            )
         );
 
-        // Menggunakan subkategoriankorId yang sudah ada (didapatkan dari response)
-        const subkategoriankorId = subkategoriResponse.data.uuid;
-
-        // Menyiapkan payload untuk menyimpan atau meng-update poinsubkategoriankor
-        const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
-          (poin) => ({
-            name: poin.name,
-            subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
-          })
-        );
-
-        // Meng-update atau menambah poin subkategori
-        await axiosJWT.patch(
-          "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-          { poinsubkategoriankor: poinsubkategoriankorPayload }
-        );
+        // Kirim permintaan ke backend
+        await Promise.allSettled([
+          ...poinsToCreate.map((poin) =>
+            axiosJWT.post(
+              "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
+              {
+                name: poin.name,
+                subkategoriankorId: currentSubkategoriankor.uuid,
+              }
+            )
+          ),
+          ...poinsToUpdate.map((poin) =>
+            axiosJWT.patch(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+              { name: poin.name }
+            )
+          ),
+          ...poinsToDelete.map((poin) =>
+            axiosJWT.delete(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`
+            )
+          ),
+        ]);
 
         toast.current.show({
           severity: "success",
@@ -360,13 +332,17 @@ const SubkategoriAnkor = () => {
     name: data.name || "",
     kategoriankorId: data.kategoriankorId || "",
     poinsubkategoriankor: data.poinsubkategoriankor?.length
-      ? data.poinsubkategoriankor.map((poin) => ({ name: poin.name }))
-      : [{ name: "" }],
+      ? data.poinsubkategoriankor.map((poin) => ({
+          uuid: poin.uuid || "", // Pastikan UUID disertakan jika ada
+          name: poin.name || "",
+        }))
+      : [{ uuid: "", name: "" }], // Data default untuk poin baru
   });
 
   const editsubkategoriankor = (subkategoriankor) => {
     const normalizedData = normalizeSubkategoriankor(subkategoriankor);
     setFormData(normalizedData);
+    setInitialPoins(normalizedData.poinsubkategoriankor); // Simpan data awal
     setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
