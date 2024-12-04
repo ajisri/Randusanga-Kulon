@@ -369,7 +369,10 @@ const SubkategoriAnkor = () => {
     name: data.name || "",
     kategoriankorId: data.kategoriankorId || "",
     poinsubkategoriankor: data.poinsubkategoriankor?.length
-      ? data.poinsubkategoriankor.map((poin) => ({ name: poin.name }))
+      ? data.poinsubkategoriankor.map((poin) => ({
+          uuid: poin.uuid || "",
+          name: poin.name,
+        }))
       : [{ name: "" }],
   });
 
