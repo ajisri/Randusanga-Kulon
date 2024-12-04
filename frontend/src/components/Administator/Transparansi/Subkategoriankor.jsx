@@ -20,8 +20,6 @@ const SubkategoriAnkor = () => {
     kategoriankorId: "",
     poinsubkategoriankor: [{ name: "" }],
   });
-
-  const [initialPoins, setInitialPoins] = useState([]);
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
   const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -144,10 +142,7 @@ const SubkategoriAnkor = () => {
   const addPoinsubkategoriankorField = () => {
     setFormData({
       ...formData,
-      poinsubkategoriankor: [
-        ...formData.poinsubkategoriankor,
-        { uuid: "", name: "" },
-      ],
+      poinsubkategoriankor: [...formData.poinsubkategoriankor, { name: "" }],
     });
   };
 
@@ -174,63 +169,82 @@ const SubkategoriAnkor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validasi form data
+    // if (
+    //   !formData.name ||
+    //   !formData.kategoriankorId ||
+    //   !formData.poinsubkategoriankor.length
+    // ) {
+    //   toast.current.show({
+    //     severity: "error",
+    //     summary: "Error",
+    //     detail: "Form tidak lengkap, pastikan semua field diisi dengan benar!",
+    //     life: 5000,
+    //   });
+    //   return;
+    // }
+
+    // // Menyiapkan payload dengan memastikan subkategoriData adalah array
+    // const payload = {
+    //   subkategoriankorData: [
+    //     // Pastikan nama properti ini cocok dengan yang di backend
+    //     {
+    //       name: formData.name,
+    //       kategoriankorId: formData.kategoriankorId,
+    //       poinsubkategoriankor: formData.poinsubkategoriankor.map((poin) => ({
+    //         name: poin.name,
+    //         subkategoriankorId: formData.subkategoriankorId || "", // Pastikan subkategoriankorId ada jika diperlukan
+    //       })),
+    //     },
+    //   ],
+    // };
+
+    // // Pastikan subkategoriData adalah array yang tidak kosong
+    // if (
+    //   !Array.isArray(payload.subkategoriankorData) ||
+    //   payload.subkategoriankorData.length === 0
+    // ) {
+    //   toast.current.show({
+    //     severity: "error",
+    //     summary: "Error",
+    //     detail: "subkategoriData harus berupa array dan tidak boleh kosong.",
+    //     life: 5000,
+    //   });
+    //   return;
+    // }
+
     try {
       if (isEditMode) {
-        // Identifikasi data berdasarkan perbedaan
-        const poinsToCreate = formData.poinsubkategoriankor.filter(
-          (poin) => !poin.uuid
-        ); // Data baru, belum ada uuid (create)
+        // Jika mode edit, kita perlu menggunakan subkategoriId yang sudah ada dan meng-update subkategori
+        const updateSubkategoriPayload = {
+          uuid: currentSubkategoriankor.uuid,
+          name: formData.name,
+          kategoriankorId: formData.kategoriankorId,
+        };
 
-        const poinsToUpdate = formData.poinsubkategoriankor.filter((poin) =>
-          initialPoins.some(
-            (initial) =>
-              initial.uuid === poin.uuid && initial.name !== poin.name // Jika ada perubahan nama
-          )
-        ); // Data yang ada, tapi diubah (update)
+        // Update subkategori yang ada berdasarkan UUID
+        const subkategoriResponse = await axiosJWT.patch(
+          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
+          updateSubkategoriPayload
+        );
 
-        const poinsToDelete = initialPoins.filter(
-          (initial) =>
-            !formData.poinsubkategoriankor.some(
-              (updated) => updated.uuid === initial.uuid // Jika data tidak ada di form baru (delete)
-            )
-        ); // Data yang ada di database, tapi dihapus dari form (delete)
+        // Menggunakan subkategoriankorId yang sudah ada (didapatkan dari response)
+        const subkategoriankorId = subkategoriResponse.data.uuid;
 
-        // Gabungkan proses create, update, dan delete
-        const allPromises = [
-          ...poinsToCreate.map((poin) =>
-            axiosJWT.post(
-              "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-              {
-                name: poin.name,
-                subkategoriankorId: currentSubkategoriankor.uuid,
-              }
-            )
-          ),
-          ...poinsToUpdate.map((poin) =>
-            axiosJWT.patch(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`, // Gunakan UUID dari poin yang akan diupdate
-              { name: poin.name }
-            )
-          ),
-          ...poinsToDelete.map((poin) =>
-            axiosJWT.delete(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}` // Gunakan UUID dari poin yang akan dihapus
-            )
-          ),
-        ];
+        // Menyiapkan payload untuk menyimpan atau meng-update poinsubkategoriankor
+        const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
+          (poin) => ({
+            name: poin.name,
+            subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
+          })
+        );
 
-        const results = await Promise.allSettled(allPromises);
+        // Meng-update atau menambah poin subkategori
+        await axiosJWT.patch(
+          "https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor",
+          { poinsubkategoriankor: poinsubkategoriankorPayload }
+        );
 
-        // Debugging untuk melihat hasil dari masing-masing request
-        results.forEach((result, index) => {
-          if (result.status === "rejected") {
-            console.error(`Request ${index} failed:`, result.reason);
-          } else {
-            console.log(`Request ${index} succeeded:`, result.value);
-          }
-        });
-
-        // Tampilkan pesan sukses setelah proses selesai
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -346,24 +360,13 @@ const SubkategoriAnkor = () => {
     name: data.name || "",
     kategoriankorId: data.kategoriankorId || "",
     poinsubkategoriankor: data.poinsubkategoriankor?.length
-      ? data.poinsubkategoriankor.map((poin) => ({
-          uuid: poin.uuid || "", // Pastikan UUID disertakan jika ada
-          name: poin.name || "",
-        }))
-      : [{ uuid: "", name: "" }], // Data default untuk poin baru
+      ? data.poinsubkategoriankor.map((poin) => ({ name: poin.name }))
+      : [{ name: "" }],
   });
 
   const editsubkategoriankor = (subkategoriankor) => {
-    console.log(
-      "🚀 ~ editsubkategoriankor ~ subkategoriankor:",
-      subkategoriankor
-    );
     const normalizedData = normalizeSubkategoriankor(subkategoriankor);
-    console.log("🚀 ~ editsubkategoriankor ~ normalizedData:", normalizedData);
-
     setFormData(normalizedData);
-    console.log("🚀 ~ editsubkategoriankor ~ normalizedData:", normalizedData);
-    setInitialPoins(normalizedData.poinsubkategoriankor); // Simpan data awal
     setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
@@ -434,9 +437,9 @@ const SubkategoriAnkor = () => {
           style={{ width: "40%", minWidth: "20%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
-              (kw) => kw.uuid === rowData.kategoriankorId
+              (kw) => kw.id === rowData.uuid
             );
-            return kategoriankor ? kategoriankor.name : "N/A";
+            return kategoriankor ? `${kategoriankor.name}` : "N/A";
           }}
         />
         <Column
@@ -543,40 +546,37 @@ const SubkategoriAnkor = () => {
                   Poin Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
                 </label>
-                {formData.poinsubkategoriankor.map((item, index) => {
-                  console.log("Poin:", item); // Debugging: Melihat data poin yang sedang dirender
-                  return (
-                    <div key={index} className="subkategori-url-field">
-                      <div
-                        style={{
-                          marginBottom: "10px",
-                          paddingBottom: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        <InputText
-                          id={`poinsubkategoriankor_${item.uuid || index}`} // Gunakan UUID atau index untuk ID unik
-                          name={`poinsubkategoriankor_${item.uuid || index}`} // Sama seperti id, pastikan nama unik
-                          value={item.name || ""} // Pastikan value sesuai data
-                          onChange={(e) =>
-                            handlePoinsubkategoriankorChange(index, e)
-                          }
-                          className="input-field"
-                          required
-                        />
-                        <Button
-                          type="button"
-                          label="Hapus"
-                          className="remove-button"
-                          disabled={formData.poinsubkategoriankor.length === 1}
-                          style={{ marginLeft: "10px" }}
-                          onClick={() => removePoinsubkategoriankorField(index)}
-                        />
-                      </div>
+                {formData.poinsubkategoriankor.map((item, index) => (
+                  <div
+                    key={index}
+                    className="subkategori-url-field"
+                    style={{
+                      marginBottom: "30px",
+                      paddingBottom: "20px", // Jarak antara isi form dan garis
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <InputText
+                        id={`poinsubkategoriankor_${index}`}
+                        name={`poinsubkategoriankor_${index}`}
+                        value={item.name}
+                        onChange={(e) =>
+                          handlePoinsubkategoriankorChange(index, e)
+                        }
+                        className="input-field"
+                        required
+                      />
+                      <Button
+                        type="button"
+                        label="Hapus"
+                        className="remove-button"
+                        disabled={formData.poinsubkategoriankor.length === 1}
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => removePoinsubkategoriankorField(index)}
+                      />
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
 
                 <Button
                   type="button"
