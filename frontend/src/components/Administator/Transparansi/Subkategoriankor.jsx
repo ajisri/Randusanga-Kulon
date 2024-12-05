@@ -171,41 +171,47 @@ const SubkategoriAnkor = () => {
 
     try {
       if (isEditMode) {
-        // **Update Subkategoriankor**
+        // Jika mode edit, kita perlu menggunakan subkategoriId yang sudah ada dan meng-update subkategori
         const updateSubkategoriankorPayload = {
           uuid: currentSubkategoriankor.uuid,
           name: formData.name,
           kategoriankorId: formData.kategoriankorId,
         };
 
-        // Update subkategoriankor
+        // Update subkategori yang ada berdasarkan UUID
         const subkategoriResponse = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           updateSubkategoriankorPayload
         );
+        console.log("Sending UUID:", currentSubkategoriankor.uuid);
 
-        // Ambil subkategoriankorId dari respons
+        // Menggunakan subkategoriankorId yang sudah ada (didapatkan dari response)
         const subkategoriankorId = subkategoriResponse.data.uuid;
-
-        // **Siapkan Payload untuk Batch Update Poinsubkategoriankor**
+        // Menyiapkan payload untuk menyimpan atau meng-update poinsubkategoriankor
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
           (poin) => ({
-            uuid: poin.uuid || null, // UUID null jika poin baru
+            uuid: poin.uuid,
             name: poin.name,
-            subkategoriankorId, // Semua poin terkait subkategori ini
+            subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
           })
         );
 
-        // Kirim batch update untuk poinsubkategoriankor
-        await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor`,
-          {
-            subkategoriankorId,
-            poinsubkategoriankor: poinsubkategoriankorPayload,
-          }
+        // Meng-update atau menambah poin subkategori
+        await Promise.allSettled(
+          poinsubkategoriankorPayload.map((poin) => {
+            // Tempatkan console.log di sini untuk mengetahui poin.uuid
+            console.log("🚀 ~ handleSubmit ~ poin.uuid:", poin.uuid);
+
+            return axiosJWT.patch(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+              {
+                name: poin.name,
+                subkategoriankorId: poin.subkategoriankorId,
+              }
+            );
+          })
         );
 
-        // Beri notifikasi jika berhasil
         toast.current.show({
           severity: "success",
           summary: "Success",
