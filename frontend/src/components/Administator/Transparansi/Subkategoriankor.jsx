@@ -191,6 +191,10 @@ const SubkategoriAnkor = () => {
           "🚀 ~ handleSubmit ~ subkategoriResponseuuid:",
           subkategoriResponse.data
         );
+        console.log(
+          "🚀 ~ handleSubmit ~ type of subkategoriResponse.data:",
+          typeof subkategoriResponse.data
+        );
 
         // if (
         //   subkategoriResponse &&
