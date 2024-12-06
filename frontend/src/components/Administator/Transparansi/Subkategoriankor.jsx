@@ -218,7 +218,7 @@ const SubkategoriAnkor = () => {
         );
         console.log(
           "🚀 ~ subkategoriResponse.data.uuid boy 3:",
-          subkategoriResponse.data?.uuid
+          subkategoriResponse.data.data.uuid
         );
 
         // Menyiapkan payload untuk update atau tambah poin
