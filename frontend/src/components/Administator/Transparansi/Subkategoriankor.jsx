@@ -244,28 +244,63 @@ const SubkategoriAnkor = () => {
 
         // Meng-update atau menambah poin subkategori
         const updateResult = await Promise.allSettled(
-          poinsubkategoriankorPayload.map((poin) => {
+          poinsubkategoriankorPayload.map(async (poin) => {
             if (!poin.subkategoriankorId) {
               throw new Error(
                 `Poin dengan name "${poin.name}" tidak memiliki subkategoriankorId.`
               );
             }
-            return poin.uuid
-              ? axiosJWT.patch(
+
+            console.log("🚀 ~ Poin yang akan dikirim:", poin);
+
+            try {
+              if (poin.uuid) {
+                console.log(
+                  "🚀 ~ PATCH Request URL:",
+                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`
+                );
+                console.log("🚀 ~ PATCH Request Payload:", {
+                  uuid: poin.uuid,
+                  name: poin.name,
+                  subkategoriankorId: poin.subkategoriankorId,
+                });
+
+                const response = await axiosJWT.patch(
                   `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
                   {
                     uuid: poin.uuid,
                     name: poin.name,
                     subkategoriankorId: poin.subkategoriankorId,
                   }
-                )
-              : axiosJWT.post(
+                );
+
+                console.log("🚀 ~ PATCH Response:", response.data);
+                return response.data;
+              } else {
+                console.log(
+                  "🚀 ~ POST Request URL:",
+                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor"
+                );
+                console.log("🚀 ~ POST Request Payload:", {
+                  name: poin.name,
+                  subkategoriankorId: poin.subkategoriankorId,
+                });
+
+                const response = await axiosJWT.post(
                   "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
                   {
                     name: poin.name,
                     subkategoriankorId: poin.subkategoriankorId,
                   }
                 );
+
+                console.log("🚀 ~ POST Response:", response.data);
+                return response.data;
+              }
+            } catch (error) {
+              console.error("🚀 ~ Error saat mengirim request:", error);
+              throw error; // Menangani error agar Promise.allSettled tetap menangkapnya
+            }
           })
         );
         console.log("🚀 ~ Hasil Promise:", updateResult);
