@@ -188,8 +188,8 @@ const SubkategoriAnkor = () => {
           updateSubkategoriankorPayload
         );
         console.log(
-          "🚀 ~ handleSubmit ~ subkategoriResponse:",
-          subkategoriResponse
+          "🚀 ~ handleSubmit ~ subkategoriResponseuuid:",
+          subkategoriResponse.data.uuid
         );
 
         // if (
