@@ -238,9 +238,18 @@ const SubkategoriAnkor = () => {
           }
         );
 
+        poinsubkategoriankorPayload.forEach((poin) =>
+          console.log("🚀 ~ Poin yang dikirim:", poin)
+        );
+
         // Meng-update atau menambah poin subkategori
         const updateResult = await Promise.allSettled(
           poinsubkategoriankorPayload.map((poin) => {
+            if (!poin.subkategoriankorId) {
+              throw new Error(
+                `Poin dengan name "${poin.name}" tidak memiliki subkategoriankorId.`
+              );
+            }
             return poin.uuid
               ? axiosJWT.patch(
                   `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
@@ -259,13 +268,24 @@ const SubkategoriAnkor = () => {
                 );
           })
         );
+        console.log("🚀 ~ Hasil Promise:", updateResult);
+        updateResult.forEach((result, index) => {
+          if (result.status === "rejected") {
+            console.error(`🚨 ~ Error pada poin ke-${index}:`, result.reason);
+          }
+        });
 
         // Mengecek hasil dari Promise.allSettled
         const errors = updateResult.filter(
           (result) => result.status === "rejected"
         );
         if (errors.length > 0) {
-          throw new Error("Terjadi kesalahan saat memperbarui data poin.");
+          console.error("🚨 ~ Errors detail:", errors);
+          throw new Error(
+            `Terjadi kesalahan saat memperbarui data poin: ${errors
+              .map((e) => e.reason.message)
+              .join(", ")}`
+          );
         }
 
         toast.current.show({
