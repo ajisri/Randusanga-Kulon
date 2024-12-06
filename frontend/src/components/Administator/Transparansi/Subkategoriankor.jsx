@@ -189,7 +189,7 @@ const SubkategoriAnkor = () => {
         );
         console.log(
           "🚀 ~ handleSubmit ~ subkategoriResponseuuid:",
-          subkategoriResponse.data.uuid
+          subkategoriResponse.data
         );
 
         // if (
