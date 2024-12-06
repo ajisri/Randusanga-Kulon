@@ -245,6 +245,7 @@ const SubkategoriAnkor = () => {
               ? axiosJWT.patch(
                   `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
                   {
+                    uuid: poin.uuid,
                     name: poin.name,
                     subkategoriankorId: poin.subkategoriankorId,
                   }
