@@ -188,6 +188,20 @@ const SubkategoriAnkor = () => {
           updateSubkategoriankorPayload
         );
 
+        if (
+          subkategoriResponse &&
+          subkategoriResponse.data &&
+          subkategoriResponse.data.uuid
+        ) {
+          const subkategoriankorId = subkategoriResponse.data.uuid;
+          console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
+        } else {
+          // Menangani kasus jika subkategoriankorId tidak tersedia
+          throw new Error(
+            "Subkategoriankor ID tidak ditemukan dalam response."
+          );
+        }
+
         const subkategoriankorId = subkategoriResponse.data.uuid;
         console.log("🚀 ~ subkategoriResponse:", subkategoriResponse);
 
