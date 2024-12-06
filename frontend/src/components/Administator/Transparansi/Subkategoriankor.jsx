@@ -178,49 +178,16 @@ const SubkategoriAnkor = () => {
           kategoriankorId: formData.kategoriankorId,
         };
 
-        console.log(
-          "🚀 ~ updateSubkategoriankorPayload:",
-          updateSubkategoriankorPayload
-        );
-
         const subkategoriResponse = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           updateSubkategoriankorPayload
         );
-        console.log(
-          "🚀 ~ handleSubmit ~ subkategoriResponseuuid:",
-          subkategoriResponse.data
-        );
-        console.log(
-          "🚀 ~ handleSubmit ~ type of subkategoriResponse.data:",
-          typeof subkategoriResponse.data
-        );
-
-        // if (
-        //   subkategoriResponse &&
-        //   subkategoriResponse.data &&
-        //   subkategoriResponse.data.uuid
-        // ) {
-        //   const subkategoriankorId = subkategoriResponse.uuid;
-        //   console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
-        // } else {
-        //   // Menangani kasus jika subkategoriankorId tidak tersedia
-        //   throw new Error(
-        //     "Subkategoriankor ID tidak ditemukan dalam response."
-        //   );
-        // }
 
         const subkategoriankorId = subkategoriResponse.data.data.uuid;
 
         // Menyiapkan payload untuk update atau tambah poin
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
           (poin) => {
-            console.log("🚀 ~ Payload Poin: ", {
-              uuid: poin.uuid || null, // Pastikan ada UUID atau null
-              name: poin.name,
-              subkategoriankorId, // Pastikan subkategoriankorId sudah ada
-            });
-
             // Jika poin sudah ada (memiliki UUID), lakukan update
             if (poin.uuid) {
               return {
@@ -250,21 +217,8 @@ const SubkategoriAnkor = () => {
                 `Poin dengan name "${poin.name}" tidak memiliki subkategoriankorId.`
               );
             }
-
-            console.log("🚀 ~ Poin yang akan dikirim:", poin);
-
             try {
               if (poin.uuid) {
-                console.log(
-                  "🚀 ~ PATCH Request URL:",
-                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`
-                );
-                console.log("🚀 ~ PATCH Request Payload:", {
-                  uuid: poin.uuid,
-                  name: poin.name,
-                  subkategoriankorId: poin.subkategoriankorId,
-                });
-
                 const response = await axiosJWT.patch(
                   `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
                   {
@@ -273,19 +227,8 @@ const SubkategoriAnkor = () => {
                     subkategoriankorId: poin.subkategoriankorId,
                   }
                 );
-
-                console.log("🚀 ~ PATCH Response:", response.data);
                 return response.data;
               } else {
-                console.log(
-                  "🚀 ~ POST Request URL:",
-                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor"
-                );
-                console.log("🚀 ~ POST Request Payload:", {
-                  name: poin.name,
-                  subkategoriankorId: poin.subkategoriankorId,
-                });
-
                 const response = await axiosJWT.post(
                   "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
                   {
@@ -293,8 +236,6 @@ const SubkategoriAnkor = () => {
                     subkategoriankorId: poin.subkategoriankorId,
                   }
                 );
-
-                console.log("🚀 ~ POST Response:", response.data);
                 return response.data;
               }
             } catch (error) {
@@ -303,7 +244,6 @@ const SubkategoriAnkor = () => {
             }
           })
         );
-        console.log("🚀 ~ Hasil Promise:", updateResult);
         updateResult.forEach((result, index) => {
           if (result.status === "rejected") {
             console.error(`🚨 ~ Error pada poin ke-${index}:`, result.reason);
