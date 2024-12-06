@@ -187,20 +187,24 @@ const SubkategoriAnkor = () => {
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           updateSubkategoriankorPayload
         );
+        console.log(
+          "🚀 ~ handleSubmit ~ subkategoriResponse:",
+          subkategoriResponse
+        );
 
-        if (
-          subkategoriResponse &&
-          subkategoriResponse.data &&
-          subkategoriResponse.data.uuid
-        ) {
-          const subkategoriankorId = subkategoriResponse.uuid;
-          console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
-        } else {
-          // Menangani kasus jika subkategoriankorId tidak tersedia
-          throw new Error(
-            "Subkategoriankor ID tidak ditemukan dalam response."
-          );
-        }
+        // if (
+        //   subkategoriResponse &&
+        //   subkategoriResponse.data &&
+        //   subkategoriResponse.data.uuid
+        // ) {
+        //   const subkategoriankorId = subkategoriResponse.uuid;
+        //   console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
+        // } else {
+        //   // Menangani kasus jika subkategoriankorId tidak tersedia
+        //   throw new Error(
+        //     "Subkategoriankor ID tidak ditemukan dalam response."
+        //   );
+        // }
 
         const subkategoriankorId = subkategoriResponse.data.uuid;
         console.log("🚀 ~ subkategoriResponse:", subkategoriResponse);
