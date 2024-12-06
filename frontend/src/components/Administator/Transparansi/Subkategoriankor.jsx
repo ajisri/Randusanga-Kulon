@@ -188,6 +188,11 @@ const SubkategoriAnkor = () => {
         // Menyiapkan payload untuk update atau tambah poin
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
           (poin) => {
+            console.log("🚀 ~ Payload Poin: ", {
+              uuid: poin.uuid || null, // Pastikan ada UUID atau null
+              name: poin.name,
+              subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
+            });
             // Jika poin sudah ada (memiliki UUID), lakukan update
             if (poin.uuid) {
               return {
@@ -299,7 +304,9 @@ const SubkategoriAnkor = () => {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "Gagal menyimpan data.",
+        detail: `Gagal mengupdate data poin. ${
+          error.response?.data?.message || error.message
+        }`,
         life: 5000,
       });
     }
