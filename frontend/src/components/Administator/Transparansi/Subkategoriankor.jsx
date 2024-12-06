@@ -210,16 +210,7 @@ const SubkategoriAnkor = () => {
         //   );
         // }
 
-        const subkategoriankorId = subkategoriResponse.data.uuid;
-        console.log("🚀 ~ subkategoriankorId boy:", subkategoriankorId);
-        console.log(
-          "🚀 ~ subkategoriResponse.data boy 2:",
-          subkategoriResponse.data
-        );
-        console.log(
-          "🚀 ~ subkategoriResponse.data.uuid boy 3:",
-          subkategoriResponse.data.data.uuid
-        );
+        const subkategoriankorId = subkategoriResponse.data.data.uuid;
 
         // Menyiapkan payload untuk update atau tambah poin
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
