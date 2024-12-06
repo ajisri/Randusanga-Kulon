@@ -187,11 +187,22 @@ const SubkategoriAnkor = () => {
 
         // Menyiapkan payload untuk update atau tambah poin
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
-          (poin) => ({
-            uuid: poin.uuid || null, // Pastikan kalau uuid tidak ada, ditandai null
-            name: poin.name,
-            subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
-          })
+          (poin) => {
+            // Jika poin sudah ada (memiliki UUID), lakukan update
+            if (poin.uuid) {
+              return {
+                uuid: poin.uuid, // Mengirim UUID untuk update
+                name: poin.name,
+                subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
+              };
+            } else {
+              // Jika poin baru, kirim data tanpa UUID
+              return {
+                name: poin.name,
+                subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
+              };
+            }
+          }
         );
 
         // Meng-update atau menambah poin subkategori
