@@ -178,18 +178,12 @@ const SubkategoriAnkor = () => {
           kategoriankorId: formData.kategoriankorId,
         };
 
-        console.log(
-          "🚀 ~ updateSubkategoriankorPayload:",
-          updateSubkategoriankorPayload
-        );
-
         const subkategoriResponse = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           updateSubkategoriankorPayload
         );
 
         const subkategoriankorId = subkategoriResponse.data.uuid;
-        console.log("🚀 ~ subkategoriResponse:", subkategoriResponse);
 
         // Menyiapkan payload untuk update atau tambah poin
         const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
@@ -197,21 +191,20 @@ const SubkategoriAnkor = () => {
             console.log("🚀 ~ Payload Poin: ", {
               uuid: poin.uuid || null, // Pastikan ada UUID atau null
               name: poin.name,
-              subkategoriankorId, // Pastikan subkategoriankorId sudah ada
+              subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
             });
-
             // Jika poin sudah ada (memiliki UUID), lakukan update
             if (poin.uuid) {
               return {
-                uuid: poin.uuid,
+                uuid: poin.uuid, // Mengirim UUID untuk update
                 name: poin.name,
-                subkategoriankorId, // Pastikan subkategoriankorId sudah ada
+                subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
               };
             } else {
               // Jika poin baru, kirim data tanpa UUID
               return {
                 name: poin.name,
-                subkategoriankorId, // Pastikan subkategoriankorId sudah ada
+                subkategoriankorId, // Gunakan subkategoriankorId yang sudah ada
               };
             }
           }
