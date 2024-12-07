@@ -218,6 +218,7 @@ const SubkategoriAnkor = () => {
         }
 
         // Format data poin untuk dikirim
+        // Format data poin untuk dikirim
         const formattedSubkategoriAnkorData = poinsubkategoriankorFormData.map(
           (item) => ({
             uuid: item.uuid || null,
@@ -226,16 +227,16 @@ const SubkategoriAnkor = () => {
           })
         );
 
-        // Kirim data poin ke backend
+        // Kirim data poin ke backend hanya jika uuid tersedia
         await Promise.allSettled(
-          formattedSubkategoriAnkorData.map((poin) =>
-            axiosJWT.patch(
-              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${
-                poin.uuid || ""
-              }`,
-              poin
+          formattedSubkategoriAnkorData
+            .filter((poin) => poin.uuid) // Hanya objek dengan uuid yang dikirim
+            .map((poin) =>
+              axiosJWT.patch(
+                `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+                poin
+              )
             )
-          )
         );
 
         // Tampilkan notifikasi sukses
