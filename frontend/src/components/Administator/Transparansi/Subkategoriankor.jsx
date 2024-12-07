@@ -20,6 +20,14 @@ const SubkategoriAnkor = () => {
     kategoriankorId: "",
     poinsubkategoriankor: [{ name: "" }],
   });
+  const [poinsubkategoriankorFormData, setPoinSubkategoriAnkorFormData] =
+    useState([
+      {
+        uuid: "",
+        name: "",
+        subkategoriankorId: "",
+      },
+    ]);
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
   const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -139,31 +147,39 @@ const SubkategoriAnkor = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Tambahkan field dinamis untuk Poinsubkategoriankor
   const addPoinsubkategoriankorField = () => {
-    setFormData({
-      ...formData,
-      poinsubkategoriankor: [...formData.poinsubkategoriankor, { name: "" }],
-    });
+    setPoinSubkategoriAnkorFormData([
+      ...poinsubkategoriankorFormData,
+      {
+        name: "", // Kolom 'name'
+        subkategoriankorId: currentSubkategoriankor.uuid, // Tambahkan kolom 'subkategoriankorId'
+      },
+    ]);
   };
 
-  // Remove a dynamic field for Poinsubkategoriankor
+  // Hapus field dinamis berdasarkan index
   const removePoinsubkategoriankorField = (index) => {
-    const updatedPoinsubkategoriankor = [...formData.poinsubkategoriankor];
-    updatedPoinsubkategoriankor.splice(index, 1);
-    setFormData({
-      ...formData,
-      poinsubkategoriankor: updatedPoinsubkategoriankor,
-    });
+    const updatedFormData = [...poinsubkategoriankorFormData];
+    updatedFormData.splice(index, 1); // Menghapus elemen berdasarkan indeks
+    setPoinSubkategoriAnkorFormData(updatedFormData); // Perbarui state
   };
 
-  // Handle input changes for each dynamic Poinsubkategoriankor field
+  // Tangani perubahan input pada setiap field dinamis
   const handlePoinsubkategoriankorChange = (index, event) => {
-    const updatedPoinsubkategoriankor = [...formData.poinsubkategoriankor];
-    updatedPoinsubkategoriankor[index].name = event.target.value;
-    setFormData({
-      ...formData,
-      poinsubkategoriankor: updatedPoinsubkategoriankor,
-    });
+    const { name, value } = event.target;
+
+    // Buat salinan data
+    const updatedFormData = [...poinsubkategoriankorFormData];
+
+    // Perbarui data field berdasarkan name
+    updatedFormData[index] = {
+      ...updatedFormData[index],
+      [name]: value,
+    };
+
+    // Perbarui state
+    setPoinSubkategoriAnkorFormData(updatedFormData);
   };
 
   const handleSubmit = async (e) => {
@@ -178,143 +194,109 @@ const SubkategoriAnkor = () => {
           kategoriankorId: formData.kategoriankorId,
         };
 
+        // Kirim permintaan PATCH untuk memperbarui subkategori
         const subkategoriResponse = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           updateSubkategoriankorPayload
         );
 
+        // Ambil subkategoriankorId dari respons
         const subkategoriankorId = subkategoriResponse.data.data.uuid;
 
-        // Menyiapkan payload untuk update atau tambah poin
-        const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
-          (poin) => {
-            // Jika poin sudah ada (memiliki UUID), lakukan update
-            if (poin.uuid) {
-              return {
-                uuid: poin.uuid,
-                name: poin.name,
-                subkategoriankorId, // Pastikan subkategoriankorId sudah ada
-              };
-            } else {
-              // Jika poin baru, kirim data tanpa UUID
-              return {
-                name: poin.name,
-                subkategoriankorId, // Pastikan subkategoriankorId sudah ada
-              };
-            }
-          }
-        );
-
-        poinsubkategoriankorPayload.forEach((poin) =>
-          console.log("🚀 ~ Poin yang dikirim:", poin)
-        );
-
-        // Meng-update atau menambah poin subkategori
-        const updateResult = await Promise.allSettled(
-          poinsubkategoriankorPayload.map(async (poin) => {
-            if (!poin.subkategoriankorId) {
-              throw new Error(
-                `Poin dengan name "${poin.name}" tidak memiliki subkategoriankorId.`
-              );
-            }
-            try {
-              if (poin.uuid) {
-                const response = await axiosJWT.patch(
-                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
-                  {
-                    uuid: poin.uuid,
-                    name: poin.name,
-                    subkategoriankorId: poin.subkategoriankorId,
-                  }
-                );
-                return response.data;
-              } else {
-                const response = await axiosJWT.post(
-                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-                  {
-                    name: poin.name,
-                    subkategoriankorId: poin.subkategoriankorId,
-                  }
-                );
-                return response.data;
-              }
-            } catch (error) {
-              console.error("🚀 ~ Error saat mengirim request:", error);
-              throw error; // Menangani error agar Promise.allSettled tetap menangkapnya
-            }
-          })
-        );
-        updateResult.forEach((result, index) => {
-          if (result.status === "rejected") {
-            console.error(`🚨 ~ Error pada poin ke-${index}:`, result.reason);
-          }
-        });
-
-        // Mengecek hasil dari Promise.allSettled
-        const errors = updateResult.filter(
-          (result) => result.status === "rejected"
-        );
-        if (errors.length > 0) {
-          console.error("🚨 ~ Errors detail:", errors);
-          throw new Error(
-            `Terjadi kesalahan saat memperbarui data poin: ${errors
-              .map((e) => e.reason.message)
-              .join(", ")}`
-          );
+        // Validasi data poin
+        if (
+          !Array.isArray(poinsubkategoriankorFormData) ||
+          poinsubkategoriankorFormData.length === 0
+        ) {
+          toast.current.show({
+            severity: "error",
+            summary: "Error",
+            detail: "Subkategori harus berupa array dan tidak boleh kosong!",
+            life: 5000,
+          });
+          return;
         }
 
+        // Format data poin untuk dikirim
+        const formattedSubkategoriAnkorData = poinsubkategoriankorFormData.map(
+          (item) => ({
+            uuid: item.uuid || null,
+            subkategoriankorId: subkategoriankorId,
+            name: item.name || "",
+          })
+        );
+
+        // Kirim data poin ke backend
+        await Promise.allSettled(
+          formattedSubkategoriAnkorData.map((poin) =>
+            axiosJWT.patch(
+              `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${
+                poin.uuid || ""
+              }`,
+              poin
+            )
+          )
+        );
+
+        // Tampilkan notifikasi sukses
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data berhasil diperbarui!",
           life: 3000,
         });
+
+        // Refresh data dan tutup dialog
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
+        );
       } else {
-        // Jika mode tambah, simpan subkategori dan poinsubkategoriankor seperti sebelumnya
+        // Mode tambah data baru
         const subkategoriPayload = {
           name: formData.name,
           kategoriankorId: formData.kategoriankorId,
         };
 
-        // // Menyimpan subkategori terlebih dahulu
+        // Simpan subkategori
         const subkategoriResponse = await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
           subkategoriPayload
         );
-        //kalau subkategoriresponse error maka throw error.
+
+        // Validasi respons
         if (![200, 201].includes(subkategoriResponse.status)) {
           toast.current.show({
             severity: "warning",
             summary: "Warning",
-            detail: subkategoriResponse.msg,
+            detail: subkategoriResponse.msg || "Gagal menyimpan subkategori.",
             life: 3000,
           });
+          return;
         }
-        // Mendapatkan subkategoriankorId dari response
+
+        // Ambil subkategoriankorId
         const subkategoriankorId = subkategoriResponse.data.ankor.uuid;
+
+        // Simpan data poin terkait
         await Promise.allSettled(
           formData.poinsubkategoriankor.map((element) =>
             axiosJWT.post(
               "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
               {
-                poinsubkategoriankor: element,
+                name: element.name,
                 subkategoriankorId: subkategoriankorId,
               }
             )
           )
         );
+
+        // Tampilkan notifikasi sukses
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data berhasil disimpan!",
           life: 3000,
         });
-
-        // // Menyimpan poinsubkategoriankor setelah subkategori berhasil disimpan
-        // await axiosJWT.post(
-        //   "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-        //   { poinsubkategoriankor: poinsubkategoriankorPayload }
-        // );
       }
 
       // Refresh data setelah sukses
@@ -322,13 +304,13 @@ const SubkategoriAnkor = () => {
         "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
 
-      closeDialog(); // Menutup dialog setelah sukses
+      closeDialog(); // Menutup dialog setelah berhasil
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: `Gagal mengupdate data poin. ${
+        detail: `Gagal menyimpan data. ${
           error.response?.data?.message || error.message
         }`,
         life: 5000,
