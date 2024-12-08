@@ -214,24 +214,41 @@ const SubkategoriAnkor = () => {
 
         const updateResult = await Promise.allSettled(
           poinsubkategoriankorPayload.map((poin) => {
+            console.log("🚀 ~ poinsubkategoriankorPayload.map ~ poin:", poin);
             // Jika UUID ada, lakukan PATCH (update)
             if (poin.uuid) {
-              return axiosJWT.patch(
-                `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+              return axiosJWT
+                .patch(
+                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+                  {
+                    name: poin.name,
+                    subkategoriankorId: poin.subkategoriankorId,
+                  }
+                )
+                .catch((err) => {
+                  console.error(
+                    "Error pada PATCH:",
+                    err.response?.data || err.message
+                  );
+                  throw err;
+                });
+            }
+            // Jika UUID tidak ada, lakukan POST (create)
+            return axiosJWT
+              .post(
+                "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
                 {
                   name: poin.name,
                   subkategoriankorId: poin.subkategoriankorId,
                 }
-              );
-            }
-            // Jika UUID tidak ada, lakukan POST (create)
-            return axiosJWT.post(
-              "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-              {
-                name: poin.name,
-                subkategoriankorId: poin.subkategoriankorId,
-              }
-            );
+              )
+              .catch((err) => {
+                console.error(
+                  "Error pada POST:",
+                  err.response?.data || err.message
+                );
+                throw err;
+              });
           })
         );
 
