@@ -589,6 +589,37 @@ const SubkategoriAnkor = () => {
                   Poin Sub Kategori Parameter Ankor{" "}
                   <span className="required">*</span>
                 </label>
+                {poinFormData.map((item, index) => (
+                  <div
+                    key={index}
+                    className="subkategori-url-field"
+                    style={{
+                      marginBottom: "30px",
+                      paddingBottom: "20px", // Jarak antara isi form dan garis
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <InputText
+                        id={`poinsubkategoriankor_${index}`}
+                        name={`poinsubkategoriankor_${index}`}
+                        value={item.name}
+                        onChange={(e) =>
+                          handlePoinsubkategoriankorChange(index, e)
+                        }
+                        className="input-field"
+                        required
+                      />
+                      <Button
+                        type="button"
+                        label="Hapus"
+                        className="remove-button"
+                        disabled={formData.poinsubkategoriankor.length === 1}
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => removePoinsubkategoriankorField(index)}
+                      />
+                    </div>
+                  </div>
+                ))}
 
                 <Button
                   type="button"
