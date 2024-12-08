@@ -201,7 +201,7 @@ const SubkategoriAnkor = () => {
           subkategoriResponse.data &&
           subkategoriResponse.data.data.uuid
         ) {
-          const subkategoriankorId = subkategoriResponse.uuid;
+          const subkategoriankorId = subkategoriResponse.data.data.uuid;
           console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
         } else {
           // Menangani kasus jika subkategoriankorId tidak tersedia
