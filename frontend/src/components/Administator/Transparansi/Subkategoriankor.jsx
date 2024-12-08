@@ -347,80 +347,37 @@ const SubkategoriAnkor = () => {
 
   const fetchPoinBySubKategoriAnkorId = async (subkategoriankorId) => {
     try {
-      console.log("Kategori ID yang dikirim:", subkategoriankorId);
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/poinbysubkategoriankor/${subkategoriankorId}`
       );
 
-      console.log("Response status:", response.status); // Debug status
-      console.log("Response data:", response.data); // Debug data yang diterima
+      console.log("Response from API:", response.data); // Log untuk melihat data yang diterima
 
-      if (Array.isArray(response.data) && response.data.length === 0) {
-        showNotification(
-          "Data subkategori kosong untuk kategori ini.",
-          "warning"
-        );
-
-        // Isi dengan data default jika kosong
-        setPoinSubkategoriAnkorFormData([
-          {
-            uuid: null,
-            name: "",
-            subkategoriankorId,
-          },
-        ]);
-        return; // Keluar dari fungsi jika data kosong
-      }
-
-      // Jika data tidak kosong, map data seperti biasa
-      const data = response.data.map((poin) => ({
-        uuid: poin.uuid || null, // Pastikan UUID dikaitkan
-        name: poin.name || "",
-        subkategoriankorId: poin.subkategoriankorId || subkategoriankorId,
-      }));
-
-      setPoinSubkategoriAnkorFormData(data); // Memperbarui state form
-    } catch (error) {
-      console.error("Error saat memfetch data:", error);
-
-      // Tangani error spesifik jika 404
-      if (error.response && error.response.status === 404) {
-        showNotification(
-          "Data subkategori ankor tidak ditemukan untuk kategori ini.",
-          "warning"
-        );
-
-        // Tetap tambahkan data default jika 404
-        setPoinSubkategoriAnkorFormData([
-          {
-            uuid: null,
-            name: "",
-            subkategoriankorId,
-          },
-        ]);
-      } else if (error.response) {
-        // Tangani error lain dari API
-        handleError(error); // Fungsi handleError untuk log error dari API
+      if (response.status === 200 && Array.isArray(response.data)) {
+        const formattedData = response.data.map((poin) => ({
+          uuid: poin.uuid || null,
+          name: poin.name || "",
+          subkategoriankorId: poin.subkategoriankorId || subkategoriankorId,
+        }));
+        console.log("Formatted Data:", formattedData); // Log untuk melihat data yang sudah diformat
+        setPoinSubkategoriAnkorFormData(formattedData);
       } else {
-        // Tangani error jaringan atau lainnya
-        showNotification("Terjadi kesalahan pada jaringan", "error");
+        console.warn("Empty or unexpected data format:", response.data);
+        setPoinSubkategoriAnkorFormData([
+          { uuid: null, name: "", subkategoriankorId },
+        ]);
       }
+    } catch (error) {
+      console.error("Error fetching poin data:", error);
+      setPoinSubkategoriAnkorFormData([
+        { uuid: null, name: "", subkategoriankorId },
+      ]);
     }
   };
 
   const handlePoinSubkategoriAnkorDialogOpen = (subkategoriankorId) => {
     setCurrentSubkategoriankorId(subkategoriankorId);
-    fetchPoinBySubKategoriAnkorId(subkategoriankorId);
     setPoinSubkategoriAnkorDialogVisible(true);
-  };
-
-  const showNotification = (message, severity = "info") => {
-    toast.current.show({
-      severity: severity, // Jenis notifikasi (info, success, warn, error)
-      summary: severity.charAt(0).toUpperCase() + severity.slice(1), // Mengubah huruf pertama menjadi kapital
-      detail: message, // Pesan notifikasi yang akan ditampilkan
-      life: 3000, // Durasi notifikasi dalam milidetik (5 detik)
-    });
   };
 
   const handlePageChange = (e) => {
