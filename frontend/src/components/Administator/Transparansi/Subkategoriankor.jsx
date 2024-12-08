@@ -153,7 +153,6 @@ const SubkategoriAnkor = () => {
       ...poinsubkategoriankorFormData,
       {
         name: "", // Kolom 'name'
-        subkategoriankorId: currentSubkategoriankor.uuid, // Tambahkan kolom 'subkategoriankorId'
       },
     ]);
   };
