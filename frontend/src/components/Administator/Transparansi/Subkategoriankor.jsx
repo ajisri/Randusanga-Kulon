@@ -134,11 +134,9 @@ const SubkategoriAnkor = () => {
 
   const header = renderHeader();
 
-  const handleChange = (e, index) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    const updatedPoins = [...formData.poinsubkategoriankor];
-    updatedPoins[index][name] = value;
-    setFormData({ ...formData, poinsubkategoriankor: updatedPoins });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const addPoinsubkategoriankorField = () => {
@@ -178,13 +176,27 @@ const SubkategoriAnkor = () => {
       if (isEditMode) {
         // Update subkategori yang ada berdasarkan UUID
         const updateSubkategoriankorPayload = {
-          uuid: formData.uuid,
+          uuid: currentSubkategoriankor.uuid,
           name: formData.name,
           kategoriankorId: formData.kategoriankorId,
         };
+
+        console.log(
+          "🚀 ~ updateSubkategoriankorPayload:",
+          updateSubkategoriankorPayload
+        );
+
         const subkategoriResponse = await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           updateSubkategoriankorPayload
+        );
+        console.log(
+          "🚀 ~ handleSubmit ~ subkategoriResponseuuid:",
+          subkategoriResponse.data
+        );
+        console.log(
+          "🚀 ~ handleSubmit ~ type of subkategoriResponse.data:",
+          typeof subkategoriResponse.data
         );
 
         if (
@@ -200,6 +212,71 @@ const SubkategoriAnkor = () => {
             "Subkategoriankor ID tidak ditemukan dalam response."
           );
         }
+
+        const subkategoriankorId = subkategoriResponse.data.data.uuid;
+        console.log("🚀 ~ subkategoriResponse:", subkategoriResponse);
+
+        // Menyiapkan payload untuk update atau tambah poin
+        const poinsubkategoriankorPayload = formData.poinsubkategoriankor.map(
+          (poin) => {
+            console.log("🚀 ~ Payload Poin: ", {
+              uuid: poin.uuid || null, // Pastikan ada UUID atau null
+              name: poin.name,
+              subkategoriankorId, // Pastikan subkategoriankorId sudah ada
+            });
+
+            // Jika poin sudah ada (memiliki UUID), lakukan update
+            if (poin.uuid) {
+              return {
+                uuid: poin.uuid,
+                name: poin.name,
+                subkategoriankorId, // Pastikan subkategoriankorId sudah ada
+              };
+            } else {
+              // Jika poin baru, kirim data tanpa UUID
+              return {
+                name: poin.name,
+                subkategoriankorId, // Pastikan subkategoriankorId sudah ada
+              };
+            }
+          }
+        );
+
+        // Meng-update atau menambah poin subkategori
+        const updateResult = await Promise.allSettled(
+          poinsubkategoriankorPayload.map((poin) => {
+            return poin.uuid
+              ? axiosJWT.patch(
+                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+                  {
+                    name: poin.name,
+                    subkategoriankorId: poin.subkategoriankorId,
+                  }
+                )
+              : axiosJWT.post(
+                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
+                  {
+                    name: poin.name,
+                    subkategoriankorId: poin.subkategoriankorId,
+                  }
+                );
+          })
+        );
+
+        // Mengecek hasil dari Promise.allSettled
+        const errors = updateResult.filter(
+          (result) => result.status === "rejected"
+        );
+        if (errors.length > 0) {
+          throw new Error("Terjadi kesalahan saat memperbarui data poin.");
+        }
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data berhasil diperbarui!",
+          life: 3000,
+        });
       } else {
         // Jika mode tambah, simpan subkategori dan poinsubkategoriankor seperti sebelumnya
         const subkategoriPayload = {
