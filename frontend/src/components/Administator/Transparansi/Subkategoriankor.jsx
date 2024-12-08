@@ -263,56 +263,56 @@ const SubkategoriAnkor = () => {
     }
   };
 
-  // const handlePoinSubmit = async (e) => {
-  //   e.preventDefault();
+  const handlePoinSubmit = async (e) => {
+    e.preventDefault();
 
-  //   // Validasi input data
-  //   if (!Array.isArray(poinFormData) || poinFormData.length === 0) {
-  //     toast.current.show({
-  //       severity: "error",
-  //       summary: "Error",
-  //       detail: "Subkategori harus berupa array dan tidak boleh kosong!",
-  //       life: 5000,
-  //     });
-  //     return;
-  //   }
-  //   // Format data yang akan dikirim
-  //   const formattedPoinData = poinFormData.map((item, index) => {
-  //     return {
-  //       uuid: item.uuid || null,
-  //       subkategoriankorId: item.subkategoriankorId,
-  //       name: item.name,
-  //     };
-  //   });
+    // Validasi input data
+    if (!Array.isArray(poinFormData) || poinFormData.length === 0) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Subkategori harus berupa array dan tidak boleh kosong!",
+        life: 5000,
+      });
+      return;
+    }
+    // Format data yang akan dikirim
+    const formattedPoinData = poinFormData.map((item, index) => {
+      return {
+        uuid: item.uuid || null,
+        subkategoriankorId: item.subkategoriankorId,
+        name: item.name,
+      };
+    });
 
-  //   try {
-  //     // Kirim data ke backend
-  //     await axiosJWT.post(
-  //       "https://randusanga-kulonbackend-production.up.railway.app/cpoin",
-  //       { poinData: formattedPoinData }
-  //     );
+    try {
+      // Kirim data ke backend
+      await axiosJWT.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/cpoin",
+        { poinData: formattedPoinData }
+      );
 
-  //     // Tampilkan notifikasi sukses
-  //     toast.current.show({
-  //       severity: "success",
-  //       summary: "Success",
-  //       detail: "Subkategori berhasil disimpan!",
-  //       life: 3000,
-  //     });
+      // Tampilkan notifikasi sukses
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Subkategori berhasil disimpan!",
+        life: 3000,
+      });
 
-  //     // Mutasi data dan refresh state terkait
-  //     await mutate(
-  //       "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
-  //     );
+      // Mutasi data dan refresh state terkait
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
+      );
 
-  //     // Tutup dialog setelah sukses
-  //     setPoinSubkategoriAnkorDialogVisible(false);
-  //   } catch (error) {
-  //     // Tangani error dengan lebih informatif
-  //     console.error("DEBUG: Error saat mengirim data:", error);
-  //     handleError(error);
-  //   }
-  // };
+      // Tutup dialog setelah sukses
+      setPoinSubkategoriAnkorDialogVisible(false);
+    } catch (error) {
+      // Tangani error dengan lebih informatif
+      console.error("DEBUG: Error saat mengirim data:", error);
+      handleError(error);
+    }
+  };
 
   const addPoinsubkategoriankorField = () => {
     setPoinSubkategoriAnkorFormData([
@@ -650,7 +650,7 @@ const SubkategoriAnkor = () => {
         maximizable
         style={{ width: "70vw" }}
       >
-        <form>
+        <form onSubmit={handlePoinSubmit}>
           {poinFormData.map((item, index) => (
             <div
               key={index}
