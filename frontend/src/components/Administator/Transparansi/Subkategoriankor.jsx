@@ -438,6 +438,13 @@ const SubkategoriAnkor = () => {
     <div>
       <h1 className="demografi-header">Sub Kategori Parameter Ankor</h1>
       <Toast ref={toast} />
+      Jika data memang kosong, ada beberapa hal yang perlu diperhatikan agar UI
+      tetap memberikan pengalaman yang baik kepada pengguna. Berikut adalah cara
+      menangani kasus tersebut: 1. Menangani Tampilan Saat Data Kosong Tambahkan
+      elemen atau teks untuk memberikan informasi kepada pengguna bahwa tidak
+      ada data yang tersedia. Pada DataTable, PrimeReact menyediakan properti
+      emptyMessage yang bisa digunakan untuk menampilkan pesan saat data kosong.
+      Berikut contohnya: jsx Copy code
       <DataTable
         value={subKategoriankorList}
         paginator
@@ -449,6 +456,7 @@ const SubkategoriAnkor = () => {
         globalFilterFields={["name"]}
         header={header}
         footer={`Total data: ${subKategoriankorList.length}`}
+        emptyMessage="Data tidak tersedia."
       >
         <Column
           header="No"
@@ -520,7 +528,98 @@ const SubkategoriAnkor = () => {
           )}
         />
       </DataTable>
-
+      2. Memberikan Feedback Visual di Luar DataTable Selain emptyMessage, Anda
+      bisa menambahkan komponen atau elemen yang menampilkan pesan jika data
+      kosong. Contohnya: jsx Copy code
+      {!subKategoriankorList || subKategoriankorList.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "1rem" }}>
+          <h3>Tidak ada data yang tersedia</h3>
+        </div>
+      ) : (
+        <DataTable
+          value={subKategoriankorList}
+          paginator
+          rows={rows}
+          first={first}
+          onPage={handlePageChange}
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          filters={filters}
+          globalFilterFields={["name"]}
+          header={header}
+          footer={`Total data: ${subKategoriankorList.length}`}
+          emptyMessage="Data tidak tersedia."
+        >
+          <Column
+            header="No"
+            body={(rowData, options) => {
+              const rowIndex = options.rowIndex % rows;
+              const nomorUrut = first + rowIndex + 1;
+              return nomorUrut;
+            }}
+            style={{ width: "5%", minWidth: "5%" }}
+          />
+          <Column
+            field="name"
+            header="Nama"
+            style={{ width: "45%", minWidth: "15%" }}
+          />
+          <Column
+            field="kategoriankorId"
+            header="Kategori Parameter Ankor"
+            style={{ width: "45%", minWidth: "20%" }}
+            body={(rowData) => {
+              const kategoriankor = kategoriankorOptions.find(
+                (kw) => kw.uuid === rowData.kategoriankorId
+              );
+              return kategoriankor ? kategoriankor.name : "N/A";
+            }}
+          />
+          <Column
+            header="Actions"
+            style={{ width: "5%", minWidth: "5%" }}
+            body={(rowData) => (
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <Button
+                  icon="pi pi-pw pi-plus"
+                  label="Poin Subkategori Ankor"
+                  onClick={() => {
+                    handlePoinSubkategoriAnkorDialogOpen(rowData.uuid);
+                    setPoinSubkategoriAnkorFormData([
+                      { name: "", subkategoriankorId: rowData.uuid },
+                    ]);
+                    setPoinSubkategoriAnkorDialogVisible(true);
+                  }}
+                  className="add-subkategori-button coastal-button p-button-rounded"
+                />
+                <Button
+                  icon="pi pi-pencil"
+                  onClick={() => editsubkategoriankor(rowData)}
+                  className="edit-button coastal-button p-button-rounded"
+                  tooltip="Edit"
+                  tooltipOptions={{ position: "bottom" }}
+                  style={{
+                    backgroundColor: "#4DB6AC",
+                    border: "none",
+                    color: "white",
+                  }}
+                />
+                <Button
+                  icon="pi pi-trash"
+                  onClick={() => deletesubkategoriankor(rowData.uuid)}
+                  className="delete-button coastal-button p-button-rounded"
+                  tooltip="Delete"
+                  tooltipOptions={{ position: "bottom" }}
+                  style={{
+                    backgroundColor: "#009688",
+                    border: "none",
+                    color: "white",
+                  }}
+                />
+              </div>
+            )}
+          />
+        </DataTable>
+      )}
       <Dialog
         header={isEditMode ? "Edit Data" : "Add Data"}
         visible={isDialogVisible}
