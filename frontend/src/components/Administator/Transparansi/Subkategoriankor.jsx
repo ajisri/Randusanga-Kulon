@@ -212,44 +212,6 @@ const SubkategoriAnkor = () => {
           poinsubkategoriankorPayload
         );
 
-        // Meng-update atau menambah poin subkategori
-        const updateResult = await Promise.allSettled(
-          poinsubkategoriankorPayload.map((poin) => {
-            const request = poin.uuid
-              ? axiosJWT.patch(
-                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
-                  {
-                    name: poin.name,
-                    subkategoriankorId: poin.subkategoriankorId,
-                  }
-                )
-              : axiosJWT.post(
-                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-                  {
-                    name: poin.name,
-                    subkategoriankorId: poin.subkategoriankorId,
-                  }
-                );
-            return request
-              .then((response) => ({
-                status: "fulfilled",
-                value: response.data,
-              }))
-              .catch((error) => ({
-                status: "rejected",
-                reason: error.response ? error.response.data : error.message,
-              }));
-          })
-        );
-
-        // Mengecek hasil dari Promise.allSettled
-        const errors = updateResult.filter(
-          (result) => result.status === "rejected"
-        );
-        if (errors.length > 0) {
-          throw new Error("Terjadi kesalahan saat memperbarui data poin.");
-        }
-
         toast.current.show({
           severity: "success",
           summary: "Success",
