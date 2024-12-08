@@ -21,7 +21,6 @@ const SubkategoriAnkor = () => {
     poinsubkategoriankor: [{ uuid: null, name: "" }],
   });
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
-  const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
@@ -201,14 +200,14 @@ const SubkategoriAnkor = () => {
         const updateResult = await Promise.allSettled(
           poinsubkategoriankorPayload.map((poin) =>
             poin.uuid
-              ? axios.patch(
+              ? axiosJWT.patch(
                   `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
                   {
                     name: poin.name,
                     subkategoriankorId: poin.subkategoriankorId,
                   }
                 )
-              : axios.post(
+              : axiosJWT.post(
                   "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
                   {
                     name: poin.name,
@@ -335,7 +334,6 @@ const SubkategoriAnkor = () => {
       poinsubkategoriankor: [{ uuid: null, name: "" }],
     });
     setEditMode(false);
-    setCurrentSubkategoriankor(null);
   };
 
   const normalizeSubkategoriankor = (data) => ({
@@ -358,7 +356,6 @@ const SubkategoriAnkor = () => {
       subkategoriankor
     );
     setFormData(normalizedData);
-    setCurrentSubkategoriankor(subkategoriankor);
     setEditMode(true);
     setDialogVisible(true);
   };
