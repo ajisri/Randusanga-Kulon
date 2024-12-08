@@ -350,9 +350,14 @@ const SubkategoriAnkor = () => {
 
   const fetchPoinBySubKategoriAnkorId = async (subkategoriankorId) => {
     try {
+      console.log("Kategori ID yang dikirim:", subkategoriankorId);
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/poinbysubkategoriankor/${subkategoriankorId}`
       );
+
+      console.log("Response status:", response.status); // Debug status
+      console.log("Response data:", response.data); // Debug data yang diterima
+
       if (Array.isArray(response.data) && response.data.length === 0) {
         showNotification(
           "Data subkategori kosong untuk kategori ini.",
@@ -379,7 +384,7 @@ const SubkategoriAnkor = () => {
 
       setPoinSubkategoriAnkorFormData(data); // Memperbarui state form
     } catch (error) {
-      console.error("Error saat memfetch subkategori:", error);
+      console.error("Error saat memfetch data:", error);
 
       // Tangani error spesifik jika 404
       if (error.response && error.response.status === 404) {
