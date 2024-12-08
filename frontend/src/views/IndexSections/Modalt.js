@@ -185,7 +185,7 @@ const Modalt = () => {
               onHide={hideDialog}
             >
               <TabView>
-                {ankorpList.map((tab, index) => (
+                {ankorpList?.map((tab, index) => (
                   <TabPanel
                     key={index}
                     headerTemplate={createTabHeaderTemplate(
@@ -193,23 +193,39 @@ const Modalt = () => {
                       tab.title // Judul tab dari API
                     )}
                   >
-                    <Accordion activeIndex={0}>
-                      {tab.sections.map((section, idx) => (
-                        <AccordionTab
-                          key={idx}
-                          header={
-                            <span className="flex align-items-center gap-2 w-full">
-                              <span className="font-bold white-space-nowrap">
-                                {section.title} {/* Judul accordion dari API */}
-                              </span>
-                            </span>
-                          }
-                        >
-                          <p className="m-0">{section.content}</p>{" "}
-                          {/* Isi konten accordion */}
-                        </AccordionTab>
+                    {Array.isArray(tab.kategoriankor) &&
+                      tab.kategoriankor.map((kategori, kategoriIdx) => (
+                        <Accordion key={kategoriIdx} activeIndex={0}>
+                          {Array.isArray(kategori.subkategoriankor) &&
+                            kategori.subkategoriankor.map(
+                              (subkategori, subIdx) => (
+                                <AccordionTab
+                                  key={subIdx}
+                                  header={
+                                    <span className="flex align-items-center gap-2 w-full">
+                                      <span className="font-bold white-space-nowrap">
+                                        {subkategori.name || "No Title"}{" "}
+                                        {/* Judul accordion dari API */}
+                                      </span>
+                                    </span>
+                                  }
+                                >
+                                  {Array.isArray(
+                                    subkategori.poinsubkategoriankor
+                                  ) &&
+                                    subkategori.poinsubkategoriankor.map(
+                                      (poin, poinIdx) => (
+                                        <p key={poinIdx}>
+                                          {poin.name || "No Content"}
+                                        </p>
+                                      )
+                                    )}
+                                  {/* Isi konten accordion */}
+                                </AccordionTab>
+                              )
+                            )}
+                        </Accordion>
                       ))}
-                    </Accordion>
                   </TabPanel>
                 ))}
               </TabView>
