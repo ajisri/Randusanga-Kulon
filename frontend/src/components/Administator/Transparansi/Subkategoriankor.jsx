@@ -238,6 +238,7 @@ const SubkategoriAnkor = () => {
               .post(
                 "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
                 {
+                  uuid: poin.uuid,
                   name: poin.name,
                   subkategoriankorId: poin.subkategoriankorId,
                 }
