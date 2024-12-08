@@ -600,8 +600,8 @@ const SubkategoriAnkor = () => {
                   >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <InputText
-                        id={`poinsubkategoriankor_${index}`}
-                        name={`poinsubkategoriankor_${index}`}
+                        id={`poin_${index}`}
+                        name={`poin_${index}`}
                         value={item.name}
                         onChange={(e) =>
                           handlePoinsubkategoriankorChange(index, e)
@@ -654,7 +654,7 @@ const SubkategoriAnkor = () => {
           {poinFormData.map((item, index) => (
             <div
               key={index}
-              className="subkategori-budget-field-container"
+              className="subkategoriankor-field-container"
               style={{
                 marginBottom: "30px", // Jarak antar form dinamis
                 borderBottom: "2px solid #ddd", // Garis pembatas
@@ -662,9 +662,9 @@ const SubkategoriAnkor = () => {
               }}
             >
               {/* Subkategori Field */}
-              <div className="subkategori-field">
+              <div className="poin-field">
                 <label htmlFor={`poinsubkategoriankorName_${index}`}>
-                  Subkategori:
+                  Poin Subkategori:
                 </label>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Button
