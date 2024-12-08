@@ -578,56 +578,6 @@ const SubkategoriAnkor = () => {
                   className="input-field"
                 />
               </div>
-              <div
-                style={{
-                  marginTop: "30px", // Jarak antar form dinamis
-                  borderTop: "2px solid #ddd", // Garis pembatas
-                  paddingTop: "20px", // Jarak antara isi form dan garis
-                }}
-              >
-                <label htmlFor="poinsubkategoriankor">
-                  Poin Sub Kategori Parameter Ankor{" "}
-                  <span className="required">*</span>
-                </label>
-                {poinFormData.map((item, index) => (
-                  <div
-                    key={index}
-                    className="subkategori-url-field"
-                    style={{
-                      marginBottom: "30px",
-                      paddingBottom: "20px", // Jarak antara isi form dan garis
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <InputText
-                        id={`poin_${index}`}
-                        name={`poin_${index}`}
-                        value={item.name}
-                        onChange={(e) =>
-                          handlePoinsubkategoriankorChange(index, e)
-                        }
-                        className="input-field"
-                        required
-                      />
-                      <Button
-                        type="button"
-                        label="Hapus"
-                        className="remove-button"
-                        disabled={poinFormData.length === 1}
-                        style={{ marginLeft: "10px" }}
-                        onClick={() => removePoinsubkategoriankorField(index)}
-                      />
-                    </div>
-                  </div>
-                ))}
-
-                <Button
-                  type="button"
-                  label="Tambah Poin"
-                  className="coastal-button p-button-rounded"
-                  onClick={addPoinsubkategoriankorField}
-                />
-              </div>
 
               <div className="button-sub">
                 <Button
@@ -654,7 +604,7 @@ const SubkategoriAnkor = () => {
           {poinFormData.map((item, index) => (
             <div
               key={index}
-              className="subkategoriankor-field-container"
+              className="subkategori-budget-field-container"
               style={{
                 marginBottom: "30px", // Jarak antar form dinamis
                 borderBottom: "2px solid #ddd", // Garis pembatas
@@ -662,9 +612,9 @@ const SubkategoriAnkor = () => {
               }}
             >
               {/* Subkategori Field */}
-              <div className="poin-field">
+              <div className="subkategori-field">
                 <label htmlFor={`poinsubkategoriankorName_${index}`}>
-                  Poin Subkategori:
+                  Subkategori:
                 </label>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Button
