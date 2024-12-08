@@ -288,7 +288,7 @@ const SubkategoriAnkor = () => {
     try {
       // Kirim data ke backend
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/cpoin",
+        "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
         { poinData: formattedPoinData }
       );
 
