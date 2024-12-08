@@ -283,7 +283,7 @@ const SubkategoriAnkor = () => {
     const formattedPoinData = poinFormData.map((item, index) => {
       return {
         uuid: item.uuid || null,
-        subkategoriankorIdkategoriId: item.subkategoriankorId,
+        subkategoriankorId: item.subkategoriankorId,
         name: item.name,
       };
     });
