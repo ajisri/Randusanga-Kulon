@@ -210,7 +210,7 @@ const SubkategoriAnkor = () => {
         //   );
         // }
 
-        const subkategoriankorId = subkategoriResponse.data.uuid;
+        const subkategoriankorId = subkategoriResponse.data.data.uuid;
         console.log("🚀 ~ subkategoriResponse:", subkategoriResponse);
 
         // Menyiapkan payload untuk update atau tambah poin
