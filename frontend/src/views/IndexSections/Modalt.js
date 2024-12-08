@@ -14,6 +14,7 @@ import "primereact/resources/primereact.min.css"; // Import CSS utama PrimeReact
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Modalt = () => {
+  const [ankorpList, setAnkorpList] = useState([]);
   const [apbdpList, setApbdpList] = useState([]);
   const [isDetailDialogVisible, setDetailDialogVisible] = useState(false);
   const [selectedKeuangan, setSelectedKeuangan] = useState(null);
@@ -53,6 +54,29 @@ const Modalt = () => {
       );
     }
   }, [allapbdData]);
+
+  //ankor
+  const { data: allankorData } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/ankorp",
+    fetcher
+  );
+
+  // Ambil data APBD dari API dan simpan ke state
+  useEffect(() => {
+    if (allankorData?.data) {
+      setAnkorpList(allankorData.data);
+    }
+  }, [allankorData]);
+
+  // Debugging: log struktur data
+  useEffect(() => {
+    if (allankorData) {
+      console.log(
+        "Struktur data dari API:",
+        JSON.stringify(allankorData, null, 2)
+      );
+    }
+  }, [allankorData]);
 
   const dialogFooterTemplate = () => {
     return (
@@ -106,61 +130,18 @@ const Modalt = () => {
     setDialogVisiblePH(false);
   };
 
-  const tab1HeaderTemplate = (options) => (
-    <div
-      className="flex align-items-center gap-2 p-3"
-      style={{ cursor: "pointer" }}
-      onClick={options.onClick}
-    >
-      <i className="ni ni-paper-diploma"></i>
-      <span className="font-bold white-space-nowrap">Tata Laksana</span>
-    </div>
-  );
-
-  const tab2HeaderTemplate = (options) => (
-    <div
-      className="flex align-items-center gap-2 p-3"
-      style={{ cursor: "pointer" }}
-      onClick={options.onClick}
-    >
-      <i className="ni ni-tv-2"></i>
-      <span className="font-bold white-space-nowrap">Pengawasan</span>
-    </div>
-  );
-
-  const tab3HeaderTemplate = (options) => (
-    <div
-      className="flex align-items-center gap-2 p-3"
-      style={{ cursor: "pointer" }}
-      onClick={options.onClick}
-    >
-      <i className="ni ni-building"></i>
-      <span className="font-bold white-space-nowrap">Kualitas Layanan</span>
-      {/* <Badge value="2" /> */}
-    </div>
-  );
-
-  const tab4HeaderTemplate = (options) => (
-    <div
-      className="flex align-items-center gap-2 p-3"
-      style={{ cursor: "pointer" }}
-      onClick={options.onClick}
-    >
-      <i className="ni ni-user-run"></i>
-      <span className="font-bold white-space-nowrap">Partisipasi</span>
-    </div>
-  );
-
-  const tab5HeaderTemplate = (options) => (
-    <div
-      className="flex align-items-center gap-2 p-3"
-      style={{ cursor: "pointer" }}
-      onClick={options.onClick}
-    >
-      <i className="ni ni-badge"></i>
-      <span className="font-bold white-space-nowrap">Kearifan Lokal</span>
-    </div>
-  );
+  // Fungsi untuk membuat header tab secara dinamis
+  const createTabHeaderTemplate = (icon, label) => (options) =>
+    (
+      <div
+        className="flex align-items-center gap-2 p-3"
+        style={{ cursor: "pointer" }}
+        onClick={options.onClick}
+      >
+        <i className={icon}></i>
+        <span className="font-bold white-space-nowrap">{label}</span>
+      </div>
+    );
 
   const openDetailDialog = (rowData) => {
     if (Array.isArray(rowData.keuangan) && rowData.keuangan.length > 0) {
@@ -202,355 +183,50 @@ const Modalt = () => {
               modal
               contentStyle={{ height: "300px" }}
               onHide={hideDialog}
-              footer={dialogFooterTemplate}
             >
               <TabView>
-                <TabPanel header="Header I" headerTemplate={tab1HeaderTemplate}>
-                  <Accordion activeIndex={0}>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Perdes Tentang Perencanaan, Pelaksanaan,
-                            Penatausahaan, dan Pertanggungjawaban APBDes
-                          </span>
-                          {/* <Badge value="3" className="ml-auto" /> */}
-                        </span>
-                      }
+                {ankorpList.length > 0 ? (
+                  ankorpList.map((tab, index) => (
+                    <TabPanel
+                      key={index}
+                      headerTemplate={createTabHeaderTemplate(
+                        tab.icon || "pi pi-folder", // Ikon default jika `tab.icon` kosong
+                        tab.name || "Unknown Tab" // Nama tab dari data API
+                      )}
                     >
-                      <p className="m-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan SOP Mengenai Mekanisme Pengawasan dan
-                            Evaluasi Kinerja Perangkat Desa
-                          </span>
-                          {/* <Badge value="4" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Perdes/Keputusan Kepala Desa Tentang
-                            Pengendalian Penerimaan Gratifikasi, Suap, dan
-                            Konflik Kepentingan
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus qui blanditiis praesentium voluptatum deleniti
-                        atque corrupti.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Perjanjian Kerjasama Antara Pelaksana
-                            Kegiatan Anggaran dengan Pihak Penyedia dan Telah
-                            Melalui Proses PBJ di Desa
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus qui.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Perdes/Keputusan Kepala Desa/SOP Tentang
-                            Pakta Integritas dan Sejenisnya
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                  </Accordion>
-                </TabPanel>
-                <TabPanel
-                  headerTemplate={tab2HeaderTemplate}
-                  headerClassName="flex align-items-center"
-                >
-                  <Accordion activeIndex={0}>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Kegiatan Pengawasan dan Evaluasi Kinerja
-                            Perangkat Desa
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Tindak Lanjut Pembinaan, Petunjuk,
-                            Arahan, Pengawasan, dan Pemeriksaan Dari Pemerintah
-                            Pusat/Daerah
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Tidak adanya Aparatur Desa yang Terjerat Tindak
-                            Kriminal Dalam 3 (Tiga) Tahun Terakhir
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                  </Accordion>
-                </TabPanel>
-                <TabPanel
-                  headerTemplate={tab3HeaderTemplate}
-                  headerClassName="flex align-items-center"
-                >
-                  <Accordion activeIndex={0}>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Layanan Pengaduan Bagi Masyarakat
-                          </span>
-                          {/* <Badge value="3" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Survei Kepuasan Masyarakat Terhadap
-                            Layanan Pemerintah Desa
-                          </span>
-                          {/* <Badge value="4" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keterbukaan dan Akses Masyarakat Desa Terhadap
-                            Informasi Standar Pelayanan Minimal
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Media Informasi Tentang Apbdes di Balai
-                            Desa dan atau Tempat Lain yang Mudah di Akses Warga
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus qui blanditiis praesentium voluptatum deleniti
-                        atque corrupti.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Maklumat Pelayanan
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                  </Accordion>
-                </TabPanel>
-                <TabPanel
-                  headerTemplate={tab4HeaderTemplate}
-                  headerClassName="flex align-items-center"
-                >
-                  <Accordion activeIndex={0}>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Survei Kepuasan Masyarakat Terhadap
-                            Layanan Pemerintah Desa
-                          </span>
-                          {/* <Badge value="4" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Kesadaran Masyarakat Dalam Mencegah Terjadinya
-                            Praktik Gratifikasi Suap dan Konflik Kepentingan
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keterlibatan Lembaga Kemasyarakatan Desa dan
-                            Masyarakat Dalam Pelaksanaan Pembangunan Desa
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus qui.
-                      </p>
-                    </AccordionTab>
-                  </Accordion>
-                </TabPanel>
-                <TabPanel
-                  headerTemplate={tab5HeaderTemplate}
-                  headerClassName="flex align-items-center"
-                >
-                  <Accordion activeIndex={0}>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Budaya Lokal/Hukum Adat Yang Mendorong
-                            Upaya Pencegahan Tindak Pidana Korupsi\
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                    <AccordionTab
-                      header={
-                        <span className="flex align-items-center gap-2 w-full">
-                          {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" /> */}
-                          <span className="font-bold white-space-nowrap">
-                            Keberadaan Tokoh Masyarakat, Agama, Adat, Pemuda,
-                            Kaum Perempuan yang Mendorong Upaya Pencegahan
-                            Tindak Pidana Korupsi
-                          </span>
-                          {/* <Badge value="2" className="ml-auto" /> */}
-                        </span>
-                      }
-                    >
-                      <p className="m-0">
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus.
-                      </p>
-                    </AccordionTab>
-                  </Accordion>
-                </TabPanel>
+                      {/* Konten tab berdasarkan data API */}
+                      {Array.isArray(tab.kategoriankor) &&
+                        tab.kategoriankor.map((kategori, kategoriIdx) => (
+                          <Accordion key={kategoriIdx} activeIndex={0}>
+                            {Array.isArray(kategori.subkategoriankor) &&
+                              kategori.subkategoriankor.map(
+                                (subkategori, subIdx) => (
+                                  <AccordionTab
+                                    key={subIdx}
+                                    header={subkategori.name || "No Title"}
+                                  >
+                                    {Array.isArray(
+                                      subkategori.poinsubkategoriankor
+                                    ) &&
+                                      subkategori.poinsubkategoriankor.map(
+                                        (poin, poinIdx) => (
+                                          <p key={poinIdx}>
+                                            {poin.name || "No Content"}
+                                          </p>
+                                        )
+                                      )}
+                                  </AccordionTab>
+                                )
+                              )}
+                          </Accordion>
+                        ))}
+                    </TabPanel>
+                  ))
+                ) : (
+                  <p>Data tidak tersedia</p>
+                )}
               </TabView>
+              ;
             </Dialog>
           </div>
         </Col>
