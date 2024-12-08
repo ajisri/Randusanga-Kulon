@@ -613,7 +613,7 @@ const SubkategoriAnkor = () => {
                         type="button"
                         label="Hapus"
                         className="remove-button"
-                        disabled={formData.poinsubkategoriankor.length === 1}
+                        disabled={poinFormData.length === 1}
                         style={{ marginLeft: "10px" }}
                         onClick={() => removePoinsubkategoriankorField(index)}
                       />
