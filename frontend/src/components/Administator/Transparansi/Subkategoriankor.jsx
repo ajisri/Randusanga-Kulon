@@ -211,25 +211,42 @@ const SubkategoriAnkor = () => {
           "🚀 ~ handleSubmit ~ poinsubkategoriankorPayload:",
           poinsubkategoriankorPayload
         );
-        await Promise.allSettled(
-          poinsubkategoriankorPayload.map((poin) =>
-            poin.uuid
-              ? axiosJWT.patch(
-                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
-                  {
-                    name: poin.name,
-                    subkategoriankorId: poin.subkategoriankorId,
-                  }
-                )
-              : axiosJWT.post(
-                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
-                  {
-                    name: poin.name,
-                    subkategoriankorId: poin.subkategoriankorId,
-                  }
-                )
-          )
+
+        const updateResult = await Promise.allSettled(
+          poinsubkategoriankorPayload.map((poin) => {
+            // Jika UUID ada, lakukan PATCH (update)
+            if (poin.uuid) {
+              return axiosJWT.patch(
+                `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+                {
+                  name: poin.name,
+                  subkategoriankorId: poin.subkategoriankorId,
+                }
+              );
+            }
+            // Jika UUID tidak ada, lakukan POST (create)
+            return axiosJWT.post(
+              "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
+              {
+                name: poin.name,
+                subkategoriankorId: poin.subkategoriankorId,
+              }
+            );
+          })
         );
+
+        // Mengecek hasil dari Promise.allSettled
+        const errors = updateResult.filter(
+          (result) => result.status === "rejected"
+        );
+
+        if (errors.length > 0) {
+          console.error("Kesalahan saat memperbarui data:", errors);
+          throw new Error("Terjadi kesalahan saat memperbarui data poin.");
+        }
+
+        console.log("Semua data berhasil diproses:", updateResult);
+
         toast.current.show({
           severity: "success",
           summary: "Success",
