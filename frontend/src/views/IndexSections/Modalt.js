@@ -56,11 +56,10 @@ const Modalt = () => {
   }, [allapbdData]);
 
   //ankor
-  const { data: allankorData, error: allankorError } = useSWR(
+  const { data: allankorData } = useSWR(
     "https://randusanga-kulonbackend-production.up.railway.app/ankorp",
     fetcher
   );
-  // const loadingAnkor = !allankorData && !allankorError;
 
   // Ambil data APBD dari API dan simpan ke state
   useEffect(() => {
