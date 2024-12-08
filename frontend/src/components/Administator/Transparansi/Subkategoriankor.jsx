@@ -211,7 +211,25 @@ const SubkategoriAnkor = () => {
           "🚀 ~ handleSubmit ~ poinsubkategoriankorPayload:",
           poinsubkategoriankorPayload
         );
-
+        await Promise.allSettled(
+          poinsubkategoriankorPayload.map((poin) =>
+            poin.uuid
+              ? axiosJWT.patch(
+                  `https://randusanga-kulonbackend-production.up.railway.app/poinsubkategoriankor/${poin.uuid}`,
+                  {
+                    name: poin.name,
+                    subkategoriankorId: poin.subkategoriankorId,
+                  }
+                )
+              : axiosJWT.post(
+                  "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
+                  {
+                    name: poin.name,
+                    subkategoriankorId: poin.subkategoriankorId,
+                  }
+                )
+          )
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
