@@ -265,7 +265,18 @@ const SubkategoriAnkor = () => {
           (result) => result.status === "rejected"
         );
         if (errors.length > 0) {
-          throw new Error("Terjadi kesalahan saat memperbarui data poin.");
+          // Mengambil pesan error lebih detail dari setiap item yang gagal
+          const errorDetails = errors
+            .map((error, index) => {
+              return `Error ${index + 1}: ${
+                error.reason.message || "Tidak ada pesan error"
+              } | Stack: ${error.reason.stack || "Tidak ada stack trace"}`;
+            })
+            .join("\n");
+
+          throw new Error(
+            `Terjadi kesalahan saat memperbarui data poin:\n${errorDetails}`
+          );
         }
 
         toast.current.show({
