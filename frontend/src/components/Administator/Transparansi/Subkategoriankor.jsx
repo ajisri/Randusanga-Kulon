@@ -196,19 +196,19 @@ const SubkategoriAnkor = () => {
           typeof subkategoriResponse.data
         );
 
-        // if (
-        //   subkategoriResponse &&
-        //   subkategoriResponse.data &&
-        //   subkategoriResponse.data.uuid
-        // ) {
-        //   const subkategoriankorId = subkategoriResponse.uuid;
-        //   console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
-        // } else {
-        //   // Menangani kasus jika subkategoriankorId tidak tersedia
-        //   throw new Error(
-        //     "Subkategoriankor ID tidak ditemukan dalam response."
-        //   );
-        // }
+        if (
+          subkategoriResponse &&
+          subkategoriResponse.data &&
+          subkategoriResponse.data.data.uuid
+        ) {
+          const subkategoriankorId = subkategoriResponse.uuid;
+          console.log("🚀 ~ subkategoriankorId:", subkategoriankorId);
+        } else {
+          // Menangani kasus jika subkategoriankorId tidak tersedia
+          throw new Error(
+            "Subkategoriankor ID tidak ditemukan dalam response."
+          );
+        }
 
         const subkategoriankorId = subkategoriResponse.data.data.uuid;
         console.log("🚀 ~ subkategoriResponse:", subkategoriResponse);
