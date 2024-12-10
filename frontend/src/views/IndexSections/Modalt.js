@@ -157,6 +157,13 @@ const Modalt = () => {
     setSelectedKeuangan(null);
   };
 
+  const isValidURL = (text) => {
+    return (
+      typeof text === "string" &&
+      (text.startsWith("http://") || text.startsWith("https://"))
+    );
+  };
+
   return (
     <>
       <style jsx>{`
@@ -223,7 +230,17 @@ const Modalt = () => {
                                       subkategori.poinsubkategoriankor.map(
                                         (poin, poinIdx) => (
                                           <p key={poinIdx}>
-                                            {poin.name || "No Content"}
+                                            {isValidURL(poin.name) ? (
+                                              <a
+                                                href={poin.name}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                              >
+                                                {poin.name}
+                                              </a>
+                                            ) : (
+                                              poin.name || "No Content"
+                                            )}
                                           </p>
                                         )
                                       )}
