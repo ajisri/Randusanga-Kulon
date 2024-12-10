@@ -159,6 +159,14 @@ const Modalt = () => {
 
   return (
     <>
+      <style jsx>{`
+        .custom-tabpanel-header .p-tabview-title {
+          color: black !important; /* Ubah warna teks header Tab ke hitam */
+        }
+        .custom-accordion-header .p-accordion-header-link {
+          color: black !important; /* Ubah warna teks header Accordion ke hitam */
+        }
+      `}</style>
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
@@ -197,7 +205,11 @@ const Modalt = () => {
                       {/* Konten tab berdasarkan data API */}
                       {Array.isArray(tab.kategoriankor) &&
                         tab.kategoriankor.map((kategori, kategoriIdx) => (
-                          <Accordion key={kategoriIdx} activeIndex={0}>
+                          <Accordion
+                            key={kategoriIdx}
+                            activeIndex={0}
+                            className="custom-accordion-header"
+                          >
                             {Array.isArray(kategori.subkategoriankor) &&
                               kategori.subkategoriankor.map(
                                 (subkategori, subIdx) => (
@@ -226,7 +238,6 @@ const Modalt = () => {
                   <p>Data tidak tersedia</p>
                 )}
               </TabView>
-              ;
             </Dialog>
           </div>
         </Col>

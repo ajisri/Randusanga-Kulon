@@ -167,6 +167,8 @@ const SubkategoriAnkor = () => {
           detail: "Data updated successfully!",
           life: 3000,
         });
+        resetForm();
+        setDialogVisible(false);
       } else {
         await axiosJWT.post(
           "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
@@ -351,10 +353,6 @@ const SubkategoriAnkor = () => {
       const response = await axiosJWT.get(
         `https://randusanga-kulonbackend-production.up.railway.app/poinbysubkategoriankor/${subkategoriankorId}`
       );
-
-      console.log("Response status:", response.status); // Debug status
-      console.log("Response data:", response.data); // Debug data yang diterima
-
       if (Array.isArray(response.data) && response.data.length === 0) {
         showNotification(
           "Data subkategori kosong untuk kategori ini.",
@@ -480,7 +478,7 @@ const SubkategoriAnkor = () => {
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
                 icon="pi pi-pw pi-plus"
-                label="Poin Subkategori Ankor"
+                label="Poin"
                 onClick={() => {
                   handlePoinSubkategoriAnkorDialogOpen(rowData.uuid);
                   setPoinSubkategoriAnkorFormData([

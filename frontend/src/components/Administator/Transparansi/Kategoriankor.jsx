@@ -249,7 +249,7 @@ const Kategoriankor = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">Kategori Parameter Ankor</h1>
+      <h1 className="demografi-header">Komponen Parameter Ankor</h1>
       <Toast ref={toast} />
       <DataTable
         value={kategoriankorList}
