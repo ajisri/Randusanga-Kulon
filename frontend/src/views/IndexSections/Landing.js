@@ -943,65 +943,61 @@ const Landing = () => {
                   points="2560 0 2560 100 0 100"
                 />
               </svg>
+            </div>
 
-              {/* Data Kontak di Separator */}
-              <div className="text-center py-4">
-                <h4 className="text-primary font-weight-bold">Kontak Kami</h4>
-                <p className="text-muted">
-                  Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
-                </p>
-                <p className="text-muted">
-                  Kontak: <a href="tel:085712790338">085712790338</a>
-                </p>
-                <p className="text-muted">
-                  Email:{" "}
-                  <a href="mailto:randusangakulon99@gmail.com">
-                    randusangakulon99@gmail.com
-                  </a>
-                </p>
+            {/* Data Kontak dan Sosial Media di Separator */}
+            <div className="text-center py-4">
+              <h4 className="text-primary font-weight-bold">Kontak Kami</h4>
+              <p className="text-muted">
+                Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
+              </p>
+              <p className="text-muted">
+                Kontak: <a href="tel:085712790338">085712790338</a>
+              </p>
+              <p className="text-muted">
+                Email:{" "}
+                <a href="mailto:randusangakulon99@gmail.com">
+                  randusangakulon99@gmail.com
+                </a>
+              </p>
+
+              <h4 className="text-primary font-weight-bold mt-4">Ikuti Kami</h4>
+              <div className="d-flex justify-content-center">
+                <Button
+                  className="btn-icon btn-round mr-2"
+                  color="facebook"
+                  href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-facebook" />
+                </Button>
+                <Button
+                  className="btn-icon btn-round mr-2"
+                  color="twitter"
+                  href="http://www.tiktok.com/@pemdesrangkul"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-twitter" />
+                </Button>
+                <Button
+                  className="btn-icon btn-round"
+                  color="youtube"
+                  href="https://www.youtube.com/@pemerintahdesarandusangakulon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-youtube" />
+                </Button>
               </div>
             </div>
           </Container>
         </section>
 
-        <section className="section section-lg pt-lg-0 section-contact-us">
+        {/* Footer */}
+        <section>
           <Container className="py-5">
-            <Row className="align-items-center text-center">
-              <Col lg="6" className="mb-4 mb-lg-0">
-                <h4 className="text-primary font-weight-bold">Ikuti Kami</h4>
-                <div className="d-flex justify-content-center">
-                  <Button
-                    className="btn-icon btn-round mr-2"
-                    color="facebook"
-                    href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fab fa-facebook" />
-                  </Button>
-                  <Button
-                    className="btn-icon btn-round mr-2"
-                    color="twitter"
-                    href="http://www.tiktok.com/@pemdesrangkul"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fab fa-twitter" />
-                  </Button>
-                  <Button
-                    className="btn-icon btn-round"
-                    color="youtube"
-                    href="https://www.youtube.com/@pemerintahdesarandusangakulon"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fab fa-youtube" />
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-
-            {/* Footer */}
             <Row className="text-center mt-4">
               <Col>
                 <p className="text-muted small mb-0">
