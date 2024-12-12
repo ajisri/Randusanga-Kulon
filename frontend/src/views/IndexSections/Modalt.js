@@ -230,9 +230,9 @@ const Modalt = () => {
                                       subkategori.poinsubkategoriankor.map(
                                         (poin, poinIdx) => (
                                           <p key={poinIdx}>
-                                            {isValidURL(poin.name) ? (
+                                            {isValidURL(poin.url) ? (
                                               <a
-                                                href={poin.name}
+                                                href={poin.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                               >
