@@ -777,7 +777,7 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        {/* <Col className="mt-1" md="3" xs="6">
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -836,7 +836,7 @@ const Modalt = () => {
               </DataTable>
             </Dialog>
           </div>
-        </Col>
+        </Col> */}
       </Row>
     </>
   );
