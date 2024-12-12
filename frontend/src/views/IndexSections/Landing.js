@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr"; // Import SWR
 // nodejs library that concatenates classes
-import classnames from "classnames";
+// import classnames from "classnames";
 // import { Calendar } from "primereact/calendar";
 // import { Link } from "react-router-dom";
 import { Button } from "primereact/button";
@@ -21,12 +21,12 @@ import "primeflex/primeflex.css";
 
 // reactstrap components
 import {
-  CardBody,
-  FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
+  // CardBody,
+  // FormGroup,
+  // Input,
+  // InputGroupAddon,
+  // InputGroupText,
+  // InputGroup,
   Container,
   Row,
   Col,
@@ -42,27 +42,27 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const Landing = () => {
   const [agendas, setAgendas] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const [nameFocused, setNameFocused] = useState(false);
-  const [emailFocused, setEmailFocused] = useState(false);
+  // const [nameFocused, setNameFocused] = useState(false);
+  // const [emailFocused, setEmailFocused] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   const [selectedAgenda, setSelectedAgenda] = useState(null);
 
-  const handleFocus = () => {
-    setNameFocused(true);
-  };
+  // const handleFocus = () => {
+  //   setNameFocused(true);
+  // };
 
-  const handleBlur = () => {
-    setNameFocused(false);
-  };
+  // const handleBlur = () => {
+  //   setNameFocused(false);
+  // };
 
-  const handleEmailFocus = () => {
-    setEmailFocused(true);
-  };
+  // const handleEmailFocus = () => {
+  //   setEmailFocused(true);
+  // };
 
-  const handleEmailBlur = () => {
-    setEmailFocused(false);
-  };
+  // const handleEmailBlur = () => {
+  //   setEmailFocused(false);
+  // };
 
   const handleResize = () => {
     setIsSmallScreen(window.innerWidth < 768);
@@ -943,72 +943,62 @@ const Landing = () => {
           </div>
         </section>
         <section className="section section-lg pt-lg-0 section-contact-us">
-          <Container>
-            <Row className="justify-content-center mt--300">
-              <Col lg="8">
-                <Card className="bg-gradient-secondary shadow">
-                  <CardBody className="p-lg-5">
-                    <h4 className="mb-1">Saran dan Kritik</h4>
-                    <p className="mt-0">Suaramu akan membantu perbaikan.</p>
-                    <FormGroup
-                      className={classnames("mt-5", { focused: nameFocused })}
-                    >
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-user-run" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Your name"
-                          type="text"
-                          onFocus={handleFocus}
-                          onBlur={handleBlur}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup
-                      className={classnames({
-                        focused: emailFocused,
-                      })}
-                    >
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-email-83" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Email address"
-                          type="email"
-                          onFocus={handleEmailFocus}
-                          onBlur={handleEmailBlur}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup className="mb-4">
-                      <Input
-                        className="form-control-alternative"
-                        cols="80"
-                        name="name"
-                        placeholder="Type a message..."
-                        rows="4"
-                        type="textarea"
-                      />
-                    </FormGroup>
-                    <div>
-                      <Button
-                        block
-                        className="btn-round"
-                        color="default"
-                        size="lg"
-                        type="button"
-                      >
-                        Send Message
-                      </Button>
-                    </div>
-                  </CardBody>
-                </Card>
+          <Container className="py-5">
+            <Row className="align-items-center text-center">
+              <Col lg="6" className="mb-4 mb-lg-0">
+                <h4 className="text-primary font-weight-bold">Kontak Kami</h4>
+                <p className="text-muted">
+                  Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
+                </p>
+                <p className="text-muted">
+                  Kontak: <a href="tel:085712790338">085712790338</a>
+                </p>
+                <p className="text-muted">
+                  Email:{" "}
+                  <a href="mailto:randusangakulon99@gmail.com">
+                    randusangakulon99@gmail.com
+                  </a>
+                </p>
+              </Col>
+              <Col lg="6" className="text-center">
+                <h4 className="text-primary font-weight-bold">Ikuti Kami</h4>
+                <div className="d-flex justify-content-center">
+                  <Button
+                    className="btn-icon btn-round mr-2"
+                    color="facebook"
+                    href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-facebook" />
+                  </Button>
+                  <Button
+                    className="btn-icon btn-round mr-2"
+                    color="twitter"
+                    href="http://www.tiktok.com/@pemdesrangkul"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-twitter" />
+                  </Button>
+                  <Button
+                    className="btn-icon btn-round"
+                    color="youtube"
+                    href="https://www.youtube.com/@pemerintahdesarandusangakulon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-youtube" />
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+            <Row className="text-center mt-4">
+              <Col>
+                <p className="text-muted small mb-0">
+                  &copy; {new Date().getFullYear()} Pemerintah Desa Randusanga
+                  Kulon. All rights reserved.
+                </p>
               </Col>
             </Row>
           </Container>
