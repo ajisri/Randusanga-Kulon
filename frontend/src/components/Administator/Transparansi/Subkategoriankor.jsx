@@ -645,10 +645,10 @@ const SubkategoriAnkor = () => {
                 </label>
                 <InputText
                   id={`poinsubkategoriankorDescription_${index}`}
-                  name="description"
-                  value={item.description || ""}
+                  name="url"
+                  value={item.url || ""}
                   onChange={(e) =>
-                    handlePoinsubkategoriankorChange(index, e, "description")
+                    handlePoinsubkategoriankorChange(index, e, "url")
                   }
                   required
                   className="input-field"
