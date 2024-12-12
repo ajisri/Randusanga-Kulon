@@ -946,72 +946,71 @@ const Landing = () => {
             </div>
 
             {/* Data Kontak dan Sosial Media di Separator */}
-            <div className="text-center py-4">
-              <h4 className="text-light font-weight-bold">Kontak Kami</h4>
-              <p className="text-light">
-                Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
-              </p>
-              <p className="text-light">
-                Kontak:{" "}
-                <a className="text-light" href="tel:085712790338">
-                  085712790338
-                </a>
-              </p>
-              <p className="text-light">
-                Email:{" "}
-                <a
-                  className="text-light"
-                  href="mailto:randusangakulon99@gmail.com"
-                >
-                  randusangakulon99@gmail.com
-                </a>
-              </p>
-
-              <h4 className="text-light font-weight-bold mt-4">Ikuti Kami</h4>
-              <div className="d-flex justify-content-center">
-                <Button
-                  className="btn-icon btn-round mr-2"
-                  color="facebook"
-                  href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-facebook" />
-                </Button>
-                <Button
-                  className="btn-icon btn-round mr-2"
-                  color="twitter"
-                  href="http://www.tiktok.com/@pemdesrangkul"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-twitter" />
-                </Button>
-                <Button
-                  className="btn-icon btn-round"
-                  color="youtube"
-                  href="https://www.youtube.com/@pemerintahdesarandusangakulon"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-youtube" />
-                </Button>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* Footer */}
-        <section>
-          <Container className="py-5">
-            <Row className="text-center mt-4">
-              <Col>
-                <p className="text-muted small mb-0">
-                  &copy; {new Date().getFullYear()} Pemerintah Desa Randusanga
-                  Kulon. All rights reserved.
+            <Row className="text-center py-4">
+              {/* Kontak Kami */}
+              <Col lg="6" className="mb-4 mb-lg-0">
+                <h4 className="text-light font-weight-bold">Kontak Kami</h4>
+                <p className="text-light">
+                  Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
+                </p>
+                <p className="text-light">
+                  Kontak:{" "}
+                  <a className="text-light" href="tel:085712790338">
+                    085712790338
+                  </a>
+                </p>
+                <p className="text-light">
+                  Email:{" "}
+                  <a
+                    className="text-light"
+                    href="mailto:randusangakulon99@gmail.com"
+                  >
+                    randusangakulon99@gmail.com
+                  </a>
                 </p>
               </Col>
+
+              {/* Ikuti Kami */}
+              <Col lg="6" className="text-center">
+                <h4 className="text-light font-weight-bold mt-4 mt-lg-0">
+                  Ikuti Kami
+                </h4>
+                <div className="d-flex justify-content-center">
+                  <Button
+                    className="btn-icon btn-round mr-2"
+                    color="facebook"
+                    href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-facebook" />
+                  </Button>
+                  <Button
+                    className="btn-icon btn-round mr-2"
+                    color="twitter"
+                    href="http://www.tiktok.com/@pemdesrangkul"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-twitter" />
+                  </Button>
+                  <Button
+                    className="btn-icon btn-round"
+                    color="youtube"
+                    href="https://www.youtube.com/@pemerintahdesarandusangakulon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-youtube" />
+                  </Button>
+                </div>
+              </Col>
             </Row>
+
+            <p className="text-muted small mb-0">
+              &copy; {new Date().getFullYear()} Pemerintah Desa Randusanga
+              Kulon. All rights reserved.
+            </p>
           </Container>
         </section>
       </main>
