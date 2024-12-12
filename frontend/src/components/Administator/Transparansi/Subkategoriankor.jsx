@@ -36,6 +36,7 @@ const SubkategoriAnkor = () => {
     {
       uuid: "",
       name: "",
+      url: "",
       subkategoriankorId: "",
     },
   ]);
@@ -284,6 +285,7 @@ const SubkategoriAnkor = () => {
         uuid: item.uuid || null,
         subkategoriankorId: item.subkategoriankorId,
         name: item.name,
+        url: item.url,
       };
     });
 
@@ -322,6 +324,7 @@ const SubkategoriAnkor = () => {
       {
         uuid: null,
         name: "",
+        url: "",
         subkategoriankorId: currentSubkategoriankorId,
       },
     ]);
@@ -364,6 +367,7 @@ const SubkategoriAnkor = () => {
           {
             uuid: null,
             name: "",
+            url: "",
             subkategoriankorId,
           },
         ]);
@@ -374,6 +378,7 @@ const SubkategoriAnkor = () => {
       const data = response.data.map((poin) => ({
         uuid: poin.uuid || null, // Pastikan UUID dikaitkan
         name: poin.name || "",
+        url: poin.url || "",
         subkategoriankorId: poin.subkategoriankorId || subkategoriankorId,
       }));
 
@@ -393,6 +398,7 @@ const SubkategoriAnkor = () => {
           {
             uuid: null,
             name: "",
+            url: "",
             subkategoriankorId,
           },
         ]);
@@ -482,7 +488,7 @@ const SubkategoriAnkor = () => {
                 onClick={() => {
                   handlePoinSubkategoriAnkorDialogOpen(rowData.uuid);
                   setPoinSubkategoriAnkorFormData([
-                    { name: "", subkategoriankorId: rowData.uuid },
+                    { name: "", url: "", subkategoriankorId: rowData.uuid },
                   ]);
                   setPoinSubkategoriAnkorDialogVisible(true);
                 }}
@@ -590,7 +596,7 @@ const SubkategoriAnkor = () => {
         </div>
       </Dialog>
       <Dialog
-        header="Tambah Subkategori dan Budget"
+        header="Tambah Poin"
         visible={isPoinSubkategoriAnkorDialogVisible}
         onHide={() => setPoinSubkategoriAnkorDialogVisible(false)}
         dismissableMask={true}
@@ -632,6 +638,21 @@ const SubkategoriAnkor = () => {
                     className="input-field"
                   />
                 </div>
+              </div>
+              <div className="additional-field">
+                <label htmlFor={`poinsubkategoriankorDescription_${index}`}>
+                  Deskripsi:
+                </label>
+                <InputText
+                  id={`poinsubkategoriankorDescription_${index}`}
+                  name="description"
+                  value={item.description || ""}
+                  onChange={(e) =>
+                    handlePoinsubkategoriankorChange(index, e, "description")
+                  }
+                  required
+                  className="input-field"
+                />
               </div>
             </div>
           ))}
