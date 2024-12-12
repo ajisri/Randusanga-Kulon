@@ -927,21 +927,26 @@ const Landing = () => {
           className="section section-lg"
           style={{ backgroundColor: "#4183b5" }}
         >
-          <Container className="pt-lg pb-100"></Container>
-          {/* SVG separator */}
-          <div className="separator separator-bottom separator-skew zindex-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
-            </svg>
-          </div>
+          <Container className="pt-lg pb-5">
+            {/* SVG separator */}
+            <div className="separator separator-bottom separator-skew zindex-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+                version="1.1"
+                viewBox="0 0 2560 100"
+                x="0"
+                y="0"
+              >
+                <polygon
+                  className="fill-white"
+                  points="2560 0 2560 100 0 100"
+                />
+              </svg>
+            </div>
+          </Container>
         </section>
+
         <section className="section section-lg pt-lg-0 section-contact-us">
           <Container className="py-5">
             <Row className="align-items-center text-center">
@@ -993,6 +998,8 @@ const Landing = () => {
                 </div>
               </Col>
             </Row>
+
+            {/* Footer */}
             <Row className="text-center mt-4">
               <Col>
                 <p className="text-muted small mb-0">
