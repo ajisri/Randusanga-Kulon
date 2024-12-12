@@ -943,14 +943,9 @@ const Landing = () => {
                   points="2560 0 2560 100 0 100"
                 />
               </svg>
-            </div>
-          </Container>
-        </section>
 
-        <section className="section section-lg pt-lg-0 section-contact-us">
-          <Container className="py-5">
-            <Row className="align-items-center text-center">
-              <Col lg="6" className="mb-4 mb-lg-0">
+              {/* Data Kontak di Separator */}
+              <div className="text-center py-4">
                 <h4 className="text-primary font-weight-bold">Kontak Kami</h4>
                 <p className="text-muted">
                   Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
@@ -964,8 +959,15 @@ const Landing = () => {
                     randusangakulon99@gmail.com
                   </a>
                 </p>
-              </Col>
-              <Col lg="6" className="text-center">
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        <section className="section section-lg pt-lg-0 section-contact-us">
+          <Container className="py-5">
+            <Row className="align-items-center text-center">
+              <Col lg="6" className="mb-4 mb-lg-0">
                 <h4 className="text-primary font-weight-bold">Ikuti Kami</h4>
                 <div className="d-flex justify-content-center">
                   <Button
