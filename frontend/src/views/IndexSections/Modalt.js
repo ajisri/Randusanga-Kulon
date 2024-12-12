@@ -21,7 +21,7 @@ const Modalt = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogVisiblePH, setDialogVisiblePH] = useState(false);
   const [dialogVisibleAPB, setDialogVisibleAPB] = useState(false);
-  const [dialogVisibleD, setDialogVisibleD] = useState(false);
+  // const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
     "https://randusanga-kulonbackend-production.up.railway.app/produk_hukump",
@@ -110,17 +110,17 @@ const Modalt = () => {
     setDialogVisibleAPB(true);
   };
 
-  const showDialogD = () => {
-    setDialogVisibleD(true);
-  };
+  // const showDialogD = () => {
+  //   setDialogVisibleD(true);
+  // };
 
   const hideDialog = () => {
     setDialogVisible(false);
   };
 
-  const hideDialogD = () => {
-    setDialogVisibleD(false);
-  };
+  // const hideDialogD = () => {
+  //   setDialogVisibleD(false);
+  // };
 
   const hideDialogAPB = () => {
     setDialogVisibleAPB(false);
@@ -178,7 +178,7 @@ const Modalt = () => {
         <span></span>
       </h2>
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col className="mt-1" md="4" xs="6">
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -258,7 +258,7 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col className="mt-1" md="4" xs="6">
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -351,7 +351,7 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col className="mt-1" md="4" xs="6">
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
