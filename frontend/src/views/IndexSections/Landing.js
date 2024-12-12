@@ -947,21 +947,27 @@ const Landing = () => {
 
             {/* Data Kontak dan Sosial Media di Separator */}
             <div className="text-center py-4">
-              <h4 className="text-primary font-weight-bold">Kontak Kami</h4>
-              <p className="text-muted">
+              <h4 className="text-light font-weight-bold">Kontak Kami</h4>
+              <p className="text-light">
                 Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos 52219
               </p>
-              <p className="text-muted">
-                Kontak: <a href="tel:085712790338">085712790338</a>
+              <p className="text-light">
+                Kontak:{" "}
+                <a className="text-light" href="tel:085712790338">
+                  085712790338
+                </a>
               </p>
-              <p className="text-muted">
+              <p className="text-light">
                 Email:{" "}
-                <a href="mailto:randusangakulon99@gmail.com">
+                <a
+                  className="text-light"
+                  href="mailto:randusangakulon99@gmail.com"
+                >
                   randusangakulon99@gmail.com
                 </a>
               </p>
 
-              <h4 className="text-primary font-weight-bold mt-4">Ikuti Kami</h4>
+              <h4 className="text-light font-weight-bold mt-4">Ikuti Kami</h4>
               <div className="d-flex justify-content-center">
                 <Button
                   className="btn-icon btn-round mr-2"
