@@ -104,11 +104,50 @@ class CardsFooter extends React.Component {
               </Col>
             </Row>
             <hr style={{ borderColor: "#dee2e6" }} />
+            <Row className="text-center mb-3">
+              <Col>
+                <p className="font-weight-light text-muted mb-0">
+                  Alamat: Jalan Kebandengan No.01 Randusanga Kulon, Kode Pos
+                  52219
+                  <br />
+                  Kontak: 085712790338
+                  <br />
+                  Email:{" "}
+                  <a href="mailto:randusangakulon99@gmail.com">
+                    randusangakulon99@gmail.com
+                  </a>
+                  <br />
+                  Facebook:{" "}
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
+                    target="_blank"
+                  >
+                    Pemerintah Desa Randusanga Kulon
+                  </a>
+                  <br />
+                  TikTok:{" "}
+                  <a
+                    href="http://www.tiktok.com/@pemdesrangkul"
+                    target="_blank"
+                  >
+                    @pemdesrangkul
+                  </a>
+                  <br />
+                  YouTube:{" "}
+                  <a
+                    href="https://www.youtube.com/@pemerintahdesarandusangakulon"
+                    target="_blank"
+                  >
+                    Pemerintah Desa Randusanga Kulon
+                  </a>
+                </p>
+              </Col>
+            </Row>
             <Row className="text-center">
               <Col>
                 <p className="font-weight-light text-muted mb-0">
-                  &copy; {new Date().getFullYear()} Pemerintah Desa Rangkul. All
-                  rights reserved.
+                  &copy; {new Date().getFullYear()} Pemerintah Desa Randusanga
+                  Kulon. All rights reserved.
                 </p>
               </Col>
             </Row>
