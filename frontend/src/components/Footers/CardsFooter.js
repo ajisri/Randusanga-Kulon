@@ -51,7 +51,9 @@ class CardsFooter extends React.Component {
                   Terima kasih atas kunjungannya!
                 </h3>
                 <h4 className="mb-0 font-weight-light">
-                  Ayo kunjungi platform media sosial kami.
+                  <span style={{ color: "#ffc107", fontWeight: "bold" }}>
+                    Ayo kunjungi platform media sosial kami.
+                  </span>
                 </h4>
               </Col>
               <Col lg="6" className="text-center text-lg-right btn-wrapper">
