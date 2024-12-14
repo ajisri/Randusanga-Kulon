@@ -36,77 +36,82 @@ class CardsFooter extends React.Component {
   render() {
     return (
       <>
-        <footer className="footer has-cards">
+        <footer
+          className="footer has-cards"
+          style={{ backgroundColor: "#f8f9fa", padding: "2rem 0" }}
+        >
           <Container>
             <Row className="row-grid align-items-center my-md">
-              <Col lg="6">
+              <Col lg="6" className="text-center text-lg-left mb-4 mb-lg-0">
                 <h3 className="text-primary font-weight-light mb-2">
-                  Terimakasih atas kunjungannya!
+                  Terima kasih atas kunjungannya!
                 </h3>
                 <h4 className="mb-0 font-weight-light">
                   Ayo kunjungi platform media sosial kami.
                 </h4>
               </Col>
-              <Col className="text-lg-center btn-wrapper" lg="6">
+              <Col lg="6" className="text-center text-lg-right btn-wrapper">
+                {/* TikTok Button */}
                 <Button
                   className="btn-icon-only rounded-circle"
-                  color="tiktok"
+                  color="dark"
                   href="http://www.tiktok.com/@pemdesrangkul"
                   id="tooltip475038074"
                   target="_blank"
+                  style={{ margin: "0 0.5rem", fontSize: "1.5rem" }}
                 >
                   <span className="btn-inner--icon">
-                    <i className="fa fa-tiktok" />
+                    <i className="fab fa-tiktok" />
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip475038074">
-                  Follow kami
+                  Follow kami di TikTok
                 </UncontrolledTooltip>
+
+                {/* Facebook Button */}
                 <Button
-                  className="btn-icon-only rounded-circle ml-1"
-                  color="facebook"
+                  className="btn-icon-only rounded-circle"
+                  color="primary"
                   href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
                   id="tooltip837440414"
                   target="_blank"
+                  style={{ margin: "0 0.5rem", fontSize: "1.5rem" }}
                 >
                   <span className="btn-inner--icon">
-                    <i className="fa fa-facebook-square" />
+                    <i className="fab fa-facebook-square" />
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip837440414">
-                  Like us
+                  Like kami di Facebook
                 </UncontrolledTooltip>
+
+                {/* YouTube Button */}
                 <Button
-                  className="btn-icon-only rounded-circle ml-1"
-                  color="youtube"
+                  className="btn-icon-only rounded-circle"
+                  color="danger"
                   href="https://www.youtube.com/@pemerintahdesarandusangakulon"
                   id="tooltip829810202"
                   target="_blank"
+                  style={{ margin: "0 0.5rem", fontSize: "1.5rem" }}
                 >
                   <span className="btn-inner--icon">
-                    <i className="fa fa-youtube" />
+                    <i className="fab fa-youtube" />
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip829810202">
-                  Follow us
+                  Subscribe di YouTube
                 </UncontrolledTooltip>
-                {/* <Button
-                  className="btn-icon-only rounded-circle ml-1"
-                  color="github"
-                  href="https://github.com/creativetimofficial"
-                  id="tooltip495507257"
-                  target="_blank"
-                >
-                  <span className="btn-inner--icon">
-                    <i className="fa fa-github" />
-                  </span>
-                </Button>
-                <UncontrolledTooltip delay={0} target="tooltip495507257">
-                  Star on Github
-                </UncontrolledTooltip> */}
               </Col>
             </Row>
-            <hr />
+            <hr style={{ borderColor: "#dee2e6" }} />
+            <Row className="text-center">
+              <Col>
+                <p className="font-weight-light text-muted mb-0">
+                  &copy; {new Date().getFullYear()} Pemerintah Desa Rangkul. All
+                  rights reserved.
+                </p>
+              </Col>
+            </Row>
           </Container>
         </footer>
       </>
