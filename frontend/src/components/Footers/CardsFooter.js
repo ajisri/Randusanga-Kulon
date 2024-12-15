@@ -126,7 +126,7 @@ class CardsFooter extends React.Component {
                 <div className="btn-wrapper">
                   {/* TikTok Button */}
                   <Button
-                    className="btn-icon-only rounded-circle"
+                    className="btn-icon-only rounded-circle d-flex justify-content-center align-items-center"
                     color="light"
                     href="http://www.tiktok.com/@pemdesrangkul"
                     id="tooltip475038074"
@@ -137,9 +137,11 @@ class CardsFooter extends React.Component {
                       backgroundColor: "#ff0050",
                       border: "none",
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      width: "50px",
+                      height: "50px",
                     }}
                   >
-                    <span className="btn-inner--icon">
+                    <span className="btn-inner--icon d-flex justify-content-center align-items-center">
                       <i className="pi pi-tiktok" />
                     </span>
                   </Button>
@@ -149,7 +151,7 @@ class CardsFooter extends React.Component {
 
                   {/* Facebook Button */}
                   <Button
-                    className="btn-icon-only rounded-circle"
+                    className="btn-icon-only rounded-circle d-flex justify-content-center align-items-center"
                     color="light"
                     href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
                     id="tooltip837440414"
@@ -160,9 +162,11 @@ class CardsFooter extends React.Component {
                       backgroundColor: "#3b5998",
                       border: "none",
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      width: "50px",
+                      height: "50px",
                     }}
                   >
-                    <span className="btn-inner--icon">
+                    <span className="btn-inner--icon d-flex justify-content-center align-items-center">
                       <i className="pi pi-facebook" />
                     </span>
                   </Button>
@@ -172,7 +176,7 @@ class CardsFooter extends React.Component {
 
                   {/* YouTube Button */}
                   <Button
-                    className="btn-icon-only rounded-circle"
+                    className="btn-icon-only rounded-circle d-flex justify-content-center align-items-center"
                     color="light"
                     href="https://www.youtube.com/@pemerintahdesarandusangakulon"
                     id="tooltip829810202"
@@ -183,9 +187,11 @@ class CardsFooter extends React.Component {
                       backgroundColor: "#ff0000",
                       border: "none",
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      width: "50px",
+                      height: "50px",
                     }}
                   >
-                    <span className="btn-inner--icon">
+                    <span className="btn-inner--icon d-flex justify-content-center align-items-center">
                       <i className="pi pi-youtube" />
                     </span>
                   </Button>
