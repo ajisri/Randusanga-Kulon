@@ -192,6 +192,10 @@ const Modalt = () => {
             icon="pi pi-external-link"
             onClick={showDialog}
           >
+            <i
+              className="pi pi-globe"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Desa Ankor
           </Button>
           <div className="card">
@@ -277,6 +281,10 @@ const Modalt = () => {
             icon="pi pi-external-link"
             onClick={showDialogPH}
           >
+            <i
+              className="pi pi-gavel"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Produk Hukum
           </Button>
           <div className="card">
@@ -375,6 +383,10 @@ const Modalt = () => {
             icon="pi pi-external-link"
             onClick={showDialogAPB}
           >
+            <i
+              className="pi pi-wallet"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             APB Desa
           </Button>
           <div className="card">

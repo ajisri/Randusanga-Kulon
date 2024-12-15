@@ -400,6 +400,10 @@ const Modals = () => {
             icon="pi pi-eye"
             onClick={() => setDialogVisiblevm(true)}
           >
+            <i
+              className="pi pi-eye"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Visi dan Misi
           </Button>
           <div className="card">
@@ -443,6 +447,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisibleso(true)}
           >
+            <i
+              className="pi pi-users"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Struktur Organisasi
           </Button>
           <div className="card">
@@ -511,6 +519,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblele(true)}
           >
+            <i
+              className="pi pi-building"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Lembaga
           </Button>
           <div className="card">
@@ -649,6 +661,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblege(true)}
           >
+            <i
+              className="pi pi-map"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Geografi
           </Button>
           <div className="card">
@@ -683,6 +699,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisible(true)}
           >
+            <i
+              className="pi pi-chart-bar"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Demografi
           </Button>
           <div className="card">
