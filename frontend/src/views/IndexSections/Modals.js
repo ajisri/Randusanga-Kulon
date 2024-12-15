@@ -304,7 +304,7 @@ const Modals = () => {
             icon="pi pi-info-circle"
             onClick={() => setDialogVisiblettg(true)}
           >
-            <i className="pi pi-info-circle"></i>
+            <i className="pi pi-info-circle" style={{ marginRight: "8px" }}></i>
             Tentang
           </Button>
           <div className="card">
