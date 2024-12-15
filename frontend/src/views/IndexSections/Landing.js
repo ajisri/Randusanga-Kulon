@@ -456,7 +456,10 @@ const Landing = () => {
                 <Row>
                   <Col lg="10"></Col>
                   <Col lg="2">
-                    <div className="align-items-end mt-2">
+                    <div
+                      className="align-items-end mt-2"
+                      style={{ fontFamily: "Nautical, sans-serif" }}
+                    >
                       <Button
                         block
                         className="btn-white"
@@ -469,7 +472,10 @@ const Landing = () => {
                     </div>
                   </Col>
                 </Row>
-                <div className="py-5">
+                <div
+                  className="py-5"
+                  style={{ fontFamily: "Nautical, sans-serif" }}
+                >
                   <div className="container">
                     <div className="row g-4">
                       <Row className="justify-content-md-center">
