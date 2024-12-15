@@ -282,7 +282,7 @@ const Modalt = () => {
             onClick={showDialogPH}
           >
             <i
-              className="pi pi-gavel"
+              className="pi pi-briefcase"
               style={{ marginRight: "8px", fontSize: "1.2em" }}
             ></i>
             Produk Hukum
