@@ -290,13 +290,18 @@ const Modals = () => {
         <span></span>
       </h2>
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
-            icon="pi pi-external-link"
+            icon="pi pi-info-circle"
             onClick={() => setDialogVisiblettg(true)}
           >
             Tentang
@@ -329,13 +334,18 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
-            icon="pi pi-external-link"
+            icon="pi pi-history"
             onClick={() => setDialogVisiblesd(true)}
           >
             Sejarah
@@ -368,12 +378,18 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
+            icon="pi pi-eye"
             onClick={() => setDialogVisiblevm(true)}
           >
             Visi dan Misi
@@ -405,7 +421,12 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -468,7 +489,12 @@ const Modals = () => {
       </Row>
 
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -601,7 +627,12 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -630,7 +661,12 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"

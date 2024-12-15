@@ -62,6 +62,7 @@ const Galeri = () => {
         style={{
           width: "100%",
           height: isWideScreen ? "70vh" : "60vh",
+          fontFamily: "Nautical, sans-serif",
           maxHeight: "80vh",
           overflow: "hidden",
           display: "flex",
@@ -79,6 +80,7 @@ const Galeri = () => {
             height: "auto",
             objectFit: "cover",
             display: "block",
+            fontFamily: "Nautical, sans-serif",
             maxHeight: isWideScreen ? "70vh" : "60vh",
           }}
         />
@@ -100,6 +102,7 @@ const Galeri = () => {
           margin: "2px",
           border: "2px solid black",
           padding: "2px",
+          fontFamily: "Nautical, sans-serif",
         }}
       />
     );
@@ -127,6 +130,7 @@ const Galeri = () => {
         boxSizing: "border-box",
         padding: "10px",
         borderRadius: "5px",
+        fontFamily: "Nautical, sans-serif",
       }}
     >
       <Galleria
@@ -140,6 +144,7 @@ const Galeri = () => {
           maxWidth: "100%",
           height: "100%",
           background: "none",
+          fontFamily: "Nautical, sans-serif",
         }}
         showItemNavigators
         showThumbnailNavigators

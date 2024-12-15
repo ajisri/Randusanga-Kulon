@@ -154,7 +154,12 @@ const Modall = () => {
       </h2>
       {/* <h3 className="h4 text-success font-weight-bold mb-4">Modals</h3> */}
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -213,7 +218,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -272,7 +282,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -333,7 +348,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -396,7 +416,12 @@ const Modall = () => {
         </Col>
       </Row>
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -455,7 +480,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
