@@ -308,7 +308,7 @@ const Modall = () => {
               className="pi pi-credit-card"
               style={{ marginRight: "8px", fontSize: "1.2em" }}
             ></i>
-            Kartu Tanda Penduduk
+            KTP
           </Button>
           <div className="card">
             <Dialog
