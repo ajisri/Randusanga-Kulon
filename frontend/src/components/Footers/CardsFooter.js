@@ -47,83 +47,6 @@ class CardsFooter extends React.Component {
           <Container>
             <Row className="row-grid align-items-center my-md">
               <Col lg="6" className="text-center text-lg-left mb-4 mb-lg-0">
-                <h4 className="mb-0 font-weight-light">
-                  <span style={{ color: "#ffc107", fontWeight: "bold" }}>
-                    Ayo kunjungi media sosial kami.
-                  </span>
-                </h4>
-              </Col>
-              <Col lg="6" className="text-center text-lg-right btn-wrapper">
-                {/* TikTok Button */}
-                <Button
-                  className="btn-icon-only rounded-circle"
-                  color="light"
-                  href="http://www.tiktok.com/@pemdesrangkul"
-                  id="tooltip475038074"
-                  target="_blank"
-                  style={{
-                    margin: "0 0.5rem",
-                    fontSize: "1.5rem",
-                    backgroundColor: "#ff0050",
-                    border: "none",
-                  }}
-                >
-                  <span className="btn-inner--icon">
-                    <i className="fab fa-tiktok" />
-                  </span>
-                </Button>
-                <UncontrolledTooltip delay={0} target="tooltip475038074">
-                  Follow kami di TikTok
-                </UncontrolledTooltip>
-
-                {/* Facebook Button */}
-                <Button
-                  className="btn-icon-only rounded-circle"
-                  color="light"
-                  href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
-                  id="tooltip837440414"
-                  target="_blank"
-                  style={{
-                    margin: "0 0.5rem",
-                    fontSize: "1.5rem",
-                    backgroundColor: "#3b5998",
-                    border: "none",
-                  }}
-                >
-                  <span className="btn-inner--icon">
-                    <i className="fab fa-facebook-square" />
-                  </span>
-                </Button>
-                <UncontrolledTooltip delay={0} target="tooltip837440414">
-                  Like kami di Facebook
-                </UncontrolledTooltip>
-
-                {/* YouTube Button */}
-                <Button
-                  className="btn-icon-only rounded-circle"
-                  color="light"
-                  href="https://www.youtube.com/@pemerintahdesarandusangakulon"
-                  id="tooltip829810202"
-                  target="_blank"
-                  style={{
-                    margin: "0 0.5rem",
-                    fontSize: "1.5rem",
-                    backgroundColor: "#ff0000",
-                    border: "none",
-                  }}
-                >
-                  <span className="btn-inner--icon">
-                    <i className="fab fa-youtube" />
-                  </span>
-                </Button>
-                <UncontrolledTooltip delay={0} target="tooltip829810202">
-                  Subscribe di YouTube
-                </UncontrolledTooltip>
-              </Col>
-            </Row>
-            <hr style={{ borderColor: "#495057" }} />
-            <Row className="text-left mb-4">
-              <Col>
                 <p className="font-weight-light mb-2">
                   <strong>Alamat:</strong> Jalan Kebandengan No.01 Randusanga
                   Kulon, Kode Pos 52219
@@ -172,7 +95,82 @@ class CardsFooter extends React.Component {
                   </a>
                 </p>
               </Col>
+              <Col lg="6" className="text-center text-lg-right">
+                <h4 className="mb-0 font-weight-light">
+                  <span style={{ color: "#ffc107", fontWeight: "bold" }}>
+                    Ayo kunjungi media sosial kami.
+                  </span>
+                </h4>
+                <div className="btn-wrapper mt-3">
+                  {/* TikTok Button */}
+                  <Button
+                    className="btn-icon-only rounded-circle"
+                    color="light"
+                    href="http://www.tiktok.com/@pemdesrangkul"
+                    id="tooltip475038074"
+                    target="_blank"
+                    style={{
+                      margin: "0 0.5rem",
+                      fontSize: "1.5rem",
+                      backgroundColor: "#ff0050",
+                      border: "none",
+                    }}
+                  >
+                    <span className="btn-inner--icon">
+                      <i className="fab fa-tiktok" />
+                    </span>
+                  </Button>
+                  <UncontrolledTooltip delay={0} target="tooltip475038074">
+                    Follow kami di TikTok
+                  </UncontrolledTooltip>
+
+                  {/* Facebook Button */}
+                  <Button
+                    className="btn-icon-only rounded-circle"
+                    color="light"
+                    href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
+                    id="tooltip837440414"
+                    target="_blank"
+                    style={{
+                      margin: "0 0.5rem",
+                      fontSize: "1.5rem",
+                      backgroundColor: "#3b5998",
+                      border: "none",
+                    }}
+                  >
+                    <span className="btn-inner--icon">
+                      <i className="fab fa-facebook-square" />
+                    </span>
+                  </Button>
+                  <UncontrolledTooltip delay={0} target="tooltip837440414">
+                    Like kami di Facebook
+                  </UncontrolledTooltip>
+
+                  {/* YouTube Button */}
+                  <Button
+                    className="btn-icon-only rounded-circle"
+                    color="light"
+                    href="https://www.youtube.com/@pemerintahdesarandusangakulon"
+                    id="tooltip829810202"
+                    target="_blank"
+                    style={{
+                      margin: "0 0.5rem",
+                      fontSize: "1.5rem",
+                      backgroundColor: "#ff0000",
+                      border: "none",
+                    }}
+                  >
+                    <span className="btn-inner--icon">
+                      <i className="fab fa-youtube" />
+                    </span>
+                  </Button>
+                  <UncontrolledTooltip delay={0} target="tooltip829810202">
+                    Subscribe di YouTube
+                  </UncontrolledTooltip>
+                </div>
+              </Col>
             </Row>
+            <hr style={{ borderColor: "#495057" }} />
             <Row className="text-center">
               <Col>
                 <p className="font-weight-light text-muted mb-0">
