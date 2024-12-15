@@ -42,6 +42,7 @@ class CardsFooter extends React.Component {
             backgroundColor: "#2d2f33",
             color: "#f8f9fa",
             padding: "3rem 0",
+            fontFamily: "Nautical, sans-serif",
           }}
         >
           <Container>
@@ -139,7 +140,7 @@ class CardsFooter extends React.Component {
                     }}
                   >
                     <span className="btn-inner--icon">
-                      <i className="fab fa-tiktok" />
+                      <i className="pi pi-tiktok" />
                     </span>
                   </Button>
                   <UncontrolledTooltip delay={0} target="tooltip475038074">
@@ -162,7 +163,7 @@ class CardsFooter extends React.Component {
                     }}
                   >
                     <span className="btn-inner--icon">
-                      <i className="fab fa-facebook-square" />
+                      <i className="pi pi-facebook" />
                     </span>
                   </Button>
                   <UncontrolledTooltip delay={0} target="tooltip837440414">
@@ -185,7 +186,7 @@ class CardsFooter extends React.Component {
                     }}
                   >
                     <span className="btn-inner--icon">
-                      <i className="fab fa-youtube" />
+                      <i className="pi pi-youtube" />
                     </span>
                   </Button>
                   <UncontrolledTooltip delay={0} target="tooltip829810202">
