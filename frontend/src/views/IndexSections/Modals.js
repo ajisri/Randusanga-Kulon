@@ -304,8 +304,11 @@ const Modals = () => {
             icon="pi pi-info-circle"
             onClick={() => setDialogVisiblettg(true)}
           >
-            <i className="pi pi-info-circle" style={{ marginRight: "8px" }}></i>
-            Tentang
+            <i
+              className="pi pi-info-circle"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
+            <span style={{ display: "inline-block" }}>Tentang</span>
           </Button>
           <div className="card">
             <Dialog
