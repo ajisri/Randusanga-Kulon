@@ -127,7 +127,7 @@ class CardsFooter extends React.Component {
                   className="btn-wrapper"
                   style={{
                     display: "flex",
-                    flexDirection: "column",
+                    justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
@@ -139,7 +139,7 @@ class CardsFooter extends React.Component {
                     id="tooltip475038074"
                     target="_blank"
                     style={{
-                      margin: "0 0 1rem 0", // Memberikan jarak vertikal antar tombol
+                      margin: "0 0.5rem", // Memberikan jarak horizontal antar tombol
                       fontSize: "1.5rem",
                       backgroundColor: "#ff0050",
                       border: "none",
@@ -164,7 +164,7 @@ class CardsFooter extends React.Component {
                     id="tooltip837440414"
                     target="_blank"
                     style={{
-                      margin: "0 0 1rem 0", // Memberikan jarak vertikal antar tombol
+                      margin: "0 0.5rem", // Memberikan jarak horizontal antar tombol
                       fontSize: "1.5rem",
                       backgroundColor: "#3b5998",
                       border: "none",
@@ -189,7 +189,7 @@ class CardsFooter extends React.Component {
                     id="tooltip829810202"
                     target="_blank"
                     style={{
-                      margin: "0", // Memberikan jarak vertikal antar tombol
+                      margin: "0 0.5rem", // Memberikan jarak horizontal antar tombol
                       fontSize: "1.5rem",
                       backgroundColor: "#ff0000",
                       border: "none",
