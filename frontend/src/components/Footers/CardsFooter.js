@@ -122,7 +122,7 @@ class CardsFooter extends React.Component {
               </Col>
             </Row>
             <hr style={{ borderColor: "#495057" }} />
-            <Row className="text-center mb-4">
+            <Row className="text-left mb-4">
               <Col>
                 <p className="font-weight-light mb-2">
                   <strong>Alamat:</strong> Jalan Kebandengan No.01 Randusanga
