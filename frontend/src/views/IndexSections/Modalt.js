@@ -178,7 +178,12 @@ const Modalt = () => {
         <span></span>
       </h2>
       <Row>
-        <Col className="mt-1" md="4" xs="6">
+        <Col
+          className="mt-1"
+          md="4"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -258,7 +263,12 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="4" xs="6">
+        <Col
+          className="mt-1"
+          md="4"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -351,7 +361,12 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="4" xs="6">
+        <Col
+          className="mt-1"
+          md="4"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"

@@ -159,11 +159,15 @@ const Landing = () => {
       <DemoNavbar />
       <main>
         {/* Pengumuman */}
-        <section className="section-shaped">
+        <section
+          className="section-shaped"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <div className="grid">
             <div
               className="col-12 md:col-12 lg:col-12"
               style={{
+                fontFamily: "Nautical, sans-serif",
                 backgroundColor: "#fdfff5", // Latar belakang oranye
                 backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
@@ -178,8 +182,17 @@ const Landing = () => {
         </section>
 
         {/* agenda kegiatan */}
-        <section className="section section-lg section-shaped">
-          <div style={{ backgroundColor: "#5dade2" }} className="shape"></div>
+        <section
+          className="section section-lg section-shaped"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
+          <div
+            style={{
+              backgroundColor: "#5dade2",
+              fontFamily: "Nautical, sans-serif",
+            }}
+            className="shape"
+          ></div>
           <Container
             className="container-fluid py-lg-md d-flex"
             style={{ minHeight: "500px" }}
@@ -405,15 +418,24 @@ const Landing = () => {
         </section>
         {/* Potensi */}
         <div className="position-relative">
-          <section className="section section-lg section-shaped ">
-            <div style={{ backgroundColor: "#45b39d" }} className="shape"></div>
+          <section
+            className="section section-lg section-shaped"
+            style={{ fontFamily: "Nautical, sans-serif" }}
+          >
+            <div
+              style={{
+                backgroundColor: "#45b39d",
+                fontFamily: "Nautical, sans-serif",
+              }}
+              className="shape"
+            ></div>
             <Container className="py-lg-md d-flex">
               <div className="col px-0">
                 <Row>
                   <Col lg="8">
                     <h1
                       style={{
-                        fontFamily: "'Poppins', sans-serif", // Font modern populer
+                        fontFamily: "Nautical, sans-serif", // Font modern populer
                         fontWeight: "700", // Tebal
                         fontSize: "2.5rem", // Ukuran font besar untuk judul
                         letterSpacing: "1.5px", // Spasi antar huruf untuk kesan modern
@@ -757,6 +779,7 @@ const Landing = () => {
             padding: "10px",
             borderRadius: "2px",
             position: "relative",
+            fontFamily: "Nautical, sans-serif",
           }}
         >
           <Container
@@ -888,7 +911,10 @@ const Landing = () => {
         </section>
 
         {/* pegawai */}
-        <section className="lg-12">
+        <section
+          className="lg-12"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <div className="py-5 bg-secondary">
             <Container fluid>
               {/* Inputs (alternative) */}
@@ -925,7 +951,10 @@ const Landing = () => {
         {/*  */}
         <section
           className="section section-lg"
-          style={{ backgroundColor: "#FFFFFF" }}
+          style={{
+            backgroundColor: "#FFFFFF",
+            fontFamily: "Nautical, sans-serif",
+          }}
         >
           <Container className="pt-lg pb-5">
             {/* SVG separator */}
