@@ -29,10 +29,7 @@ class Hero extends React.Component {
         <div className="position-relative">
           {/* Hero for FREE version */}
           {/* <Videofull /> */}
-          <section
-            className="section section-hero bg-gradient-cyan embed-responsive"
-            style={{ fontFamily: "Nautical, sans-serif" }}
-          >
+          <section className="section section-hero bg-gradient-cyan embed-responsive">
             <video
               style={{
                 position: "absolute",
@@ -63,7 +60,7 @@ class Hero extends React.Component {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    fontFamily: "Nautical, sans-serif", // Font modern populer
+                    fontFamily: "'Poppins', sans-serif", // Font modern populer
                     fontWeight: "700", // Tebal
                     fontSize: "2.5rem", // Ukuran font besar untuk judul
                     letterSpacing: "1.5px", // Spasi antar huruf untuk kesan modern
