@@ -39,69 +39,89 @@ class CardsFooter extends React.Component {
         <footer
           className="footer has-cards"
           style={{
-            backgroundColor: "#343a40",
+            backgroundColor: "#2d2f33",
             color: "#f8f9fa",
-            padding: "2rem 0",
+            padding: "3rem 0",
           }}
         >
           <Container>
             <Row className="row-grid align-items-center my-md">
-              <Col lg="6" className="text-center text-lg-left mb-4 mb-lg-0">
-                <p className="font-weight-light mb-2">
-                  <strong>Alamat:</strong> Jalan Kebandengan No.01 Randusanga
-                  Kulon, Kode Pos 52219
-                  <br />
-                  <strong>Kontak:</strong> 085712790338
-                  <br />
-                  <strong>Email:</strong>{" "}
-                  <a
-                    href="mailto:randusangakulon99@gmail.com"
-                    style={{ color: "#f8f9fa", textDecoration: "underline" }}
+              {/* Informasi Kontak */}
+              <Col lg="6" className="text-left mb-4 mb-lg-0">
+                <div
+                  style={{
+                    padding: "1rem",
+                    backgroundColor: "#3e4147",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <p
+                    className="font-weight-light mb-2"
+                    style={{ fontSize: "1.1rem", lineHeight: "1.8" }}
                   >
-                    randusangakulon99@gmail.com
-                  </a>
-                </p>
-                <p className="font-weight-light">
-                  <strong>Sosial Media:</strong>
-                  <br />
-                  <a
-                    href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
-                    target="_blank"
-                    style={{
-                      color: "#3b5998",
-                      textDecoration: "none",
-                      marginRight: "1rem",
-                    }}
-                  >
-                    Facebook
-                  </a>
-                  <a
-                    href="http://www.tiktok.com/@pemdesrangkul"
-                    target="_blank"
-                    style={{
-                      color: "#ff0050",
-                      textDecoration: "none",
-                      marginRight: "1rem",
-                    }}
-                  >
-                    TikTok
-                  </a>
-                  <a
-                    href="https://www.youtube.com/@pemerintahdesarandusangakulon"
-                    target="_blank"
-                    style={{ color: "#ff0000", textDecoration: "none" }}
-                  >
-                    YouTube
-                  </a>
-                </p>
+                    <strong>Alamat:</strong> Jalan Kebandengan No.01 Randusanga
+                    Kulon, Kode Pos 52219
+                    <br />
+                    <strong>Kontak:</strong> 085712790338
+                    <br />
+                    <strong>Email:</strong>{" "}
+                    <a
+                      href="mailto:randusangakulon99@gmail.com"
+                      style={{ color: "#ffc107", textDecoration: "underline" }}
+                    >
+                      randusangakulon99@gmail.com
+                    </a>
+                  </p>
+                  <p className="font-weight-light">
+                    <strong>Sosial Media:</strong>
+                    <br />
+                    <a
+                      href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
+                      target="_blank"
+                      style={{
+                        color: "#3b5998",
+                        textDecoration: "none",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      Facebook
+                    </a>
+                    <a
+                      href="http://www.tiktok.com/@pemdesrangkul"
+                      target="_blank"
+                      style={{
+                        color: "#ff0050",
+                        textDecoration: "none",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      TikTok
+                    </a>
+                    <a
+                      href="https://www.youtube.com/@pemerintahdesarandusangakulon"
+                      target="_blank"
+                      style={{ color: "#ff0000", textDecoration: "none" }}
+                    >
+                      YouTube
+                    </a>
+                  </p>
+                </div>
               </Col>
+
+              {/* Ayo Kunjungi Media Sosial Kami */}
               <Col lg="6" className="text-center text-lg-right">
-                <h4 className="mb-0 font-weight-light">
-                  <span style={{ color: "#ffc107", fontWeight: "bold" }}>
-                    Ayo kunjungi media sosial kami.
-                  </span>
+                <h4
+                  className="mb-0 font-weight-light"
+                  style={{
+                    color: "#ffc107",
+                    fontWeight: "bold",
+                    fontSize: "1.5rem",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  Ayo kunjungi media sosial kami.
                 </h4>
-                <div className="btn-wrapper mt-3">
+                <div className="btn-wrapper">
                   {/* TikTok Button */}
                   <Button
                     className="btn-icon-only rounded-circle"
@@ -114,6 +134,7 @@ class CardsFooter extends React.Component {
                       fontSize: "1.5rem",
                       backgroundColor: "#ff0050",
                       border: "none",
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <span className="btn-inner--icon">
@@ -136,6 +157,7 @@ class CardsFooter extends React.Component {
                       fontSize: "1.5rem",
                       backgroundColor: "#3b5998",
                       border: "none",
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <span className="btn-inner--icon">
@@ -158,6 +180,7 @@ class CardsFooter extends React.Component {
                       fontSize: "1.5rem",
                       backgroundColor: "#ff0000",
                       border: "none",
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <span className="btn-inner--icon">
