@@ -307,10 +307,8 @@ const Modals = () => {
             <i
               className="pi pi-info-circle"
               style={{ marginRight: "8px", fontSize: "1.2em" }}
-            >
-              Tentang
-            </i>
-            <span style={{ display: "inline-block" }}></span>
+            ></i>
+            <span style={{ display: "inline-block" }}>Tentang</span>
           </Button>
           <div className="card">
             <Dialog
@@ -354,6 +352,10 @@ const Modals = () => {
             icon="pi pi-history"
             onClick={() => setDialogVisiblesd(true)}
           >
+            <i
+              className="pi pi-history"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Sejarah
           </Button>
           <div className="card">
