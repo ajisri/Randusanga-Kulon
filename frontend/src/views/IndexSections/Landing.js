@@ -925,7 +925,7 @@ const Landing = () => {
         {/*  */}
         <section
           className="section section-lg"
-          style={{ backgroundColor: "#4183b5" }}
+          style={{ backgroundColor: "#FFFFFF" }}
         >
           <Container className="pt-lg pb-5">
             {/* SVG separator */}

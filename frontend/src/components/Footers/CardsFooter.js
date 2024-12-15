@@ -47,12 +47,9 @@ class CardsFooter extends React.Component {
           <Container>
             <Row className="row-grid align-items-center my-md">
               <Col lg="6" className="text-center text-lg-left mb-4 mb-lg-0">
-                <h3 className="text-warning font-weight-light mb-2">
-                  Terima kasih atas kunjungannya!
-                </h3>
                 <h4 className="mb-0 font-weight-light">
                   <span style={{ color: "#ffc107", fontWeight: "bold" }}>
-                    Ayo kunjungi platform media sosial kami.
+                    Ayo kunjungi media sosial kami.
                   </span>
                 </h4>
               </Col>
