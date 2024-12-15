@@ -45,9 +45,9 @@ class CardsFooter extends React.Component {
           }}
         >
           <Container>
-            <Row className="row-grid align-items-center my-md">
+            <Row className="row-grid align-items-start my-md">
               {/* Informasi Kontak */}
-              <Col lg="6" className="text-left mb-4 mb-lg-0">
+              <Col lg="6" className="text-left">
                 <div
                   style={{
                     padding: "1rem",
@@ -110,17 +110,18 @@ class CardsFooter extends React.Component {
 
               {/* Ayo Kunjungi Media Sosial Kami */}
               <Col lg="6" className="text-center text-lg-right">
-                <h4
-                  className="mb-0 font-weight-light"
-                  style={{
-                    color: "#ffc107",
-                    fontWeight: "bold",
-                    fontSize: "1.5rem",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  Ayo kunjungi media sosial kami.
-                </h4>
+                <div style={{ marginBottom: "1rem" }}>
+                  <h4
+                    className="mb-0 font-weight-light"
+                    style={{
+                      color: "#ffc107",
+                      fontWeight: "bold",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    Ayo kunjungi media sosial kami.
+                  </h4>
+                </div>
                 <div className="btn-wrapper">
                   {/* TikTok Button */}
                   <Button
