@@ -73,39 +73,6 @@ class CardsFooter extends React.Component {
                       randusangakulon99@gmail.com
                     </a>
                   </p>
-                  <p className="font-weight-light">
-                    <strong>Sosial Media:</strong>
-                    <br />
-                    <a
-                      href="https://www.facebook.com/profile.php?id=100087590198004&mibextid=rS40aB7S9Ucbxw6v"
-                      target="_blank"
-                      style={{
-                        color: "#3b5998",
-                        textDecoration: "none",
-                        marginRight: "1rem",
-                      }}
-                    >
-                      Facebook
-                    </a>
-                    <a
-                      href="http://www.tiktok.com/@pemdesrangkul"
-                      target="_blank"
-                      style={{
-                        color: "#ff0050",
-                        textDecoration: "none",
-                        marginRight: "1rem",
-                      }}
-                    >
-                      TikTok
-                    </a>
-                    <a
-                      href="https://www.youtube.com/@pemerintahdesarandusangakulon"
-                      target="_blank"
-                      style={{ color: "#ff0000", textDecoration: "none" }}
-                    >
-                      YouTube
-                    </a>
-                  </p>
                 </div>
               </Col>
 
