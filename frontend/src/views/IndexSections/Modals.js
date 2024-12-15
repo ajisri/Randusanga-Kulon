@@ -307,8 +307,10 @@ const Modals = () => {
             <i
               className="pi pi-info-circle"
               style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
-            <span style={{ display: "inline-block" }}>Tentang</span>
+            >
+              Tentang
+            </i>
+            <span style={{ display: "inline-block" }}></span>
           </Button>
           <div className="card">
             <Dialog
