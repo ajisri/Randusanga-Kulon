@@ -280,6 +280,7 @@ const Landing = () => {
                               minHeight: "514px",
                               height: "514px",
                               display: "flex",
+                              overflowY: "auto",
                               flexDirection: "column",
                             }}
                           >
@@ -287,6 +288,7 @@ const Landing = () => {
                               style={{
                                 position: "absolute",
                                 top: "10px",
+                                overflowY: "auto",
                                 right: "10px",
                               }}
                             >
