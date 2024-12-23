@@ -466,10 +466,7 @@ const Dashboard = () => {
             paddingLeft: "5px",
           }}
         >
-          <i
-            className="pi pi-fw pi-briefcase"
-            style={{ marginRight: "20px" }}
-          ></i>
+          <i className="pi pi-fw pi-cogs" style={{ marginRight: "20px" }}></i>
           {isSidebarHovered && <span>Layanan</span>}
           <i
             className={`pi pi-fw ${
