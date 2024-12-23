@@ -18,8 +18,8 @@
 .demografi-card {
   background: #ffffff; /* Latar belakang putih */
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 20px; /* Jarak yang cukup untuk isi card */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem; /* Jarak yang cukup untuk isi card */
   margin: 1rem 0;
   width: 100%; /* Memastikan card mengambil lebar penuh */
   min-width: 60vw;
@@ -29,6 +29,12 @@
 
 .demografi-card:hover {
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+}
+
+.datagrid .p-datatable-footer {
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 1rem;
 }
 
 .file-input {
@@ -61,11 +67,9 @@
 }
 
 .input-field {
-  width: 100%;
-  border: 1px solid #ccc; /* Warna border default */
-  border-radius: 0.5rem; /* Menambahkan sudut melengkung */
-  padding: 0.5rem; /* Menambahkan padding untuk tampilan lebih baik */
-  transition: border-color 0.3s ease; /* Transisi smooth untuk border saat hover */
+  border: 1px solid #ccc; /* Default border color */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  padding: 8px;
 }
 
 .input-field:hover {
@@ -83,14 +87,68 @@
   border-radius: 0.5rem;
 }
 
-.dropdown-field:hover {
-  border-color: #00796b !important; /* Teal border on hover */
+.ha-field {
+  width: 150px;
+  border-radius: 0.5rem;
 }
 
-.dropdown-field:focus {
-  border-color: #00796b; /* Teal border when focused */
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 0.5rem rgba(0, 121, 107, 0.5); /* Optional shadow effect */
+.jabatan-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.jabatan-input,
+.dropdown-field {
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.remove-button {
+  align-self: flex-start; /* Posisi tombol hapus di bagian atas */
+  margin-top: 1.5rem;
+}
+
+.remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: darkred;
+}
+
+.add-jabatan-container {
+  display: flex;
+  justify-content: flex-end; /* Posisikan tombol ke kanan */
+  margin-top: 20px;
+}
+
+.dropdown-input {
+  width: 45%;
+  padding: 8px;
+  border-radius: 8px;
+  height: 40px; /* Sama dengan form lainnya */
 }
 
 .detail-container {
@@ -121,14 +179,16 @@
   text-align: right; /* Align values to the right */
 }
 
-.datagrid .p-datatable-footer {
-  display: flex;
-  justify-content: flex-start;
-  padding-right: 1rem;
-}
-
 .required {
   color: red;
+}
+
+.rounded-addon {
+  background-color: #f1f1f1; /* Ubah warna sesuai kebutuhan */
+  border: 1px solid #ccc; /* Ubah warna border sesuai kebutuhan */
+  border-radius: 12px; /* Mengatur border radius untuk rounded */
+  padding: 0.5rem 1rem; /* Tambahkan padding untuk memberi ruang */
+  margin-left: 1px; /* Menyelaraskan dengan border input text */
 }
 
 .submit-button {
@@ -184,4 +244,20 @@
   display: flex;
   justify-content: flex-end; /* Aligns buttons to the right */
   margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .jabatan-container {
+    flex-direction: column; /* Ubah ke kolom pada layar kecil */
+  }
+
+  .jabatan-input {
+    width: 100%; /* Buat input full width pada layar kecil */
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .remove-button {
+    width: 100%; /* Buat tombol full width pada layar kecil */
+  }
 }

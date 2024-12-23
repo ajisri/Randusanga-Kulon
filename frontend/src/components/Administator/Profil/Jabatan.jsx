@@ -4,37 +4,51 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
-import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import { Tooltip } from "primereact/tooltip";
 import { DataTable } from "primereact/datatable";
+import { Dropdown } from "primereact/dropdown";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
+import { Image } from "primereact/image";
+// import { Dropdown } from "primereact/dropdown";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+
 import "./Jabatan.css"; // Custom CSS for styling
 
 const Jabatan = () => {
   const [formData, setFormData] = useState({
-    uuid: "",
-    nama_agenda: "",
-    deskripsi: "",
-    tempat_pelaksanaan: "",
-    tanggal_agenda: null,
-    tanggal_akhir_agenda: null,
+    nama: "",
+    singkatan: "",
+    dasar_hukum: "",
+    alamat_kantor: "",
+    file_url: null,
+    profil: "",
+    visimisi: "",
+    tugaspokok: "",
   });
 
+  const [jabatans, setJabatans] = useState([
+    { uuid: "", namaJabatan: "", demografiId: "" },
+  ]);
+
+  const [demografiOptions, setDemografiOptions] = useState([]); // State untuk menyimpan data demografi dari API
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
-  const [currentAgenda, setCurrentAgenda] = useState(null);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
-  const [agendaList, setAgendaList] = useState([]);
+  const [currentData, setCurrentData] = useState(null);
+  const [dataList, setDataList] = useState([]);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
+  const [imagePreview, setImagePreview] = useState(null); // State untuk menyimpan URL gambar
 
   const navigate = useNavigate();
   const toast = useRef(null);
@@ -48,20 +62,75 @@ const Jabatan = () => {
     [axiosJWT]
   );
 
-  const {
-    data: agendaData,
-    error,
-    isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agenda",
+  const { data, error, isLoading } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/lembaga",
     fetcher
   );
 
   useEffect(() => {
-    if (agendaData?.agenda) {
-      setAgendaList(agendaData.agenda);
+    if (data?.lembaga && data.lembaga.length > 0) {
+      setDataList(data.lembaga);
     }
-  }, [agendaData]);
+  }, [data]);
+
+  useEffect(() => {
+    if (data && data.lembaga && data.lembaga.length > 0) {
+      setDataList(data.lembaga);
+      const lembagaData = data.lembaga[0]; // Ambil lembaga pertama jika ada
+      setFormData({
+        uuid: lembagaData.uuid,
+        nama: lembagaData.nama,
+        singkatan: lembagaData.singkatan,
+        dasar_hukum: lembagaData.dasar_hukum,
+        alamat_kantor: lembagaData.alamat_kantor,
+        file_url: lembagaData.file_url,
+        profil:
+          lembagaData.profil_lembaga?.map((p) => p.content).join("") || "",
+        visimisi: lembagaData.visi_misi?.map((v) => v.content).join("") || "",
+        tugaspokok:
+          lembagaData.tugas_pokok?.map((t) => t.content).join("") || "",
+      });
+    } else if (data && (!data.lembaga || data.lembaga.length === 0)) {
+      console.error("Data lembaga tidak tersedia atau kosong");
+    }
+  }, [data]);
+
+  const {
+    data: demografiData,
+    error: demografiError,
+    isLoading: demografiLoading,
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/demografi", // Endpoint API demografi
+    fetcher
+  );
+
+  useEffect(() => {
+    if (demografiData && demografiData.demographics) {
+      console.log("Data Demografi:", demografiData.demographics); // Logging untuk cek isi data
+
+      const formattedDemografi = demografiData.demographics.map((item) => ({
+        label: item.name, // Ubah ini sesuai properti yang benar, dalam kasus ini `name`
+        value: item.uuid, // Gunakan `id` sebagai value
+      }));
+      setDemografiOptions(formattedDemografi); // Update dropdown options dengan data yang sudah di-format
+    }
+  }, [demografiData]);
+
+  useEffect(() => {
+    if (demografiLoading) {
+      // Jika sedang loading, tampilkan teks atau spinner
+      console.log("Sedang memuat data demografi...");
+    }
+  }, [demografiLoading]);
+
+  useEffect(() => {
+    if (demografiError) {
+      console.error(
+        "Terjadi kesalahan saat memuat data demografi:",
+        demografiError
+      );
+    }
+  }, [demografiError]);
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -74,61 +143,123 @@ const Jabatan = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleDateChange = (e) => {
-    const selectedDate = e.value;
-    const year = selectedDate.getFullYear();
-    const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // Tambahkan padding 0 untuk bulan
-    const day = ("0" + selectedDate.getDate()).slice(-2); // Tambahkan padding 0 untuk hari
-    const formattedDate = `${year}-${month}-${day}`; // Format yyyy-mm-dd
-    setFormData({
-      ...formData,
-      tanggal_agenda: formattedDate,
+  const handleQuillChange = useCallback((value, field) => {
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+  }, []);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, file_url: file });
+
+    // Buat URL untuk menampilkan gambar
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImagePreview(url);
+    }
+  };
+
+  // Fungsi untuk menambah jabatan baru
+  const handleJabatanChange = (index, e) => {
+    const { name, value } = e.target;
+
+    setJabatans((prevJabatans) => {
+      const updatedJabatans = [...prevJabatans];
+      if (name === "namaJabatan") {
+        updatedJabatans[index].namaJabatan = value; // Update nama jabatan
+      } else if (name === "demografiId") {
+        updatedJabatans[index].demografiId = value; // Update demografiId
+        const selectedDemografi = demografiOptions.find(
+          (option) => option.value === value
+        );
+        updatedJabatans[index].uuid = selectedDemografi
+          ? selectedDemografi.uuid
+          : null; // Ambil UUID dari demografi
+      }
+      return updatedJabatans;
     });
   };
 
-  const handleEndDateChange = (e) => {
-    const selectedDate = e.value;
-    const year = selectedDate.getFullYear();
-    const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // Tambahkan padding 0 untuk bulan
-    const day = ("0" + selectedDate.getDate()).slice(-2); // Tambahkan padding 0 untuk hari
-    const formattedakhirDate = `${year}-${month}-${day}`; // Format yyyy-mm-dd
-    setFormData({
-      ...formData,
-      tanggal_akhir_agenda: formattedakhirDate,
-    });
+  // Fungsi untuk menghapus jabatan
+  const handleRemoveJabatan = (index) => {
+    const newJabatans = [...jabatans];
+    newJabatans.splice(index, 1); // Hapus jabatan berdasarkan index
+    setJabatans(newJabatans);
+  };
+
+  const handleAddJabatan = () => {
+    setJabatans([...jabatans, { namaJabatan: "", demografiId: "" }]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Jabatans yang akan dikirim:", jabatans);
+
+    // Pastikan semua jabatans memiliki uuid yang valid sebelum dikirim
+    const updatedJabatans = jabatans.map((jabatan) => {
+      return {
+        ...jabatan,
+        uuid: jabatan.uuid || null, // Set uuid ke null jika tidak ada
+      };
+    });
+
+    // Buat data payload untuk dikirim
+    const data = new FormData();
+    data.append("nama", formData.nama);
+    data.append("singkatan", formData.singkatan);
+    data.append("dasar_hukum", formData.dasar_hukum);
+    data.append("alamat_kantor", formData.alamat_kantor);
+
+    if (formData.file_url) {
+      data.append("file", formData.file_url); // Upload file
+    }
+
+    data.append("profil", formData.profil);
+    data.append("visimisi", formData.visimisi);
+    data.append("tugaspokok", formData.tugaspokok);
+    console.log("Jabatans yang disimpan:", updatedJabatans);
+
+    data.append("jabatans", JSON.stringify(updatedJabatans)); // Simpan jabatans yang sudah di-update
+
     try {
       if (isEditMode) {
-        await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/agenda/${currentAgenda.uuid}`,
-          formData
+        console.log("currentData.uuid:", currentData.uuid);
+        await axiosJWT.put(
+          `https://randusanga-kulonbackend-production.up.railway.app/ulembaga/${currentData.uuid}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         toast.current.show({
           severity: "success",
           summary: "Success",
-          detail: "Agenda updated successfully!",
+          detail: "Data updated successfully!",
           life: 3000,
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cagenda",
-          formData
+          "https://randusanga-kulonbackend-production.up.railway.app/clembaga",
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         toast.current.show({
           severity: "success",
           summary: "Success",
-          detail: "Agenda created successfully!",
+          detail: "Data created successfully!",
           life: 3000,
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/agenda"
+        "https://randusanga-kulonbackend-production.up.railway.app/lembaga"
       );
       resetForm();
       setDialogVisible(false);
@@ -150,43 +281,97 @@ const Jabatan = () => {
 
   const resetForm = () => {
     setFormData({
-      uuid: "",
-      nama_agenda: "",
-      deskripsi: "",
-      tempat_pelaksanaan: "",
-      tanggal_agenda: null,
-      tanggal_akhir_agenda: null,
+      nama: "",
+      singkatan: "",
+      dasar_hukum: "",
+      alamat_kantor: "",
+      file_url: null,
+      profil: "",
+      visimisi: "",
+      tugaspokok: "",
     });
+    setImagePreview(null);
     setEditMode(false);
-    setCurrentAgenda(null);
+    setCurrentData(null);
+    setJabatans([{ namaJabatan: "", demografiId: "" }]); // Reset jabatan
   };
 
-  const editAgenda = (agenda) => {
-    setFormData(agenda);
-    setCurrentAgenda(agenda);
-    setEditMode(true);
-    setDialogVisible(true);
-  };
+  // const editData = (data) => {
+  //   setFormData(data);
+  //   setCurrentData(data);
+  //   setEditMode(true);
+  //   setDialogVisible(true);
+  // };
 
-  const deleteAgenda = async (uuid) => {
-    if (window.confirm("Are you sure you want to delete this agenda?")) {
+  const deleteData = async (uuid) => {
+    if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/agenda/${uuid}`
+          `https://randusanga-kulonbackend-production.up.railway.app/lembaga/${uuid}`
         );
         toast.current.show({
           severity: "success",
           summary: "Success",
-          detail: "Agenda deleted successfully!",
+          detail: "Data deleted successfully!",
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/agenda"
+          "https://randusanga-kulonbackend-production.up.railway.app/lembaga"
         );
       } catch (error) {
         handleError(error);
       }
     }
+  };
+
+  const openEditDialog = (rowData) => {
+    console.log("Row Data yang diterima:", rowData);
+    if (!rowData) {
+      console.error("rowData tidak terdefinisi");
+      return;
+    }
+    setFormData({
+      uuid: rowData.uuid,
+      nama: rowData.nama,
+      singkatan: rowData.singkatan,
+      dasar_hukum: rowData.dasar_hukum,
+      alamat_kantor: rowData.alamat_kantor,
+      file_url: rowData.file_url,
+      profil: rowData.profil_lembaga.map((p) => p.content).join(""),
+      visimisi: rowData.visi_misi.map((v) => v.content).join(""),
+      tugaspokok: rowData.tugas_pokok.map((t) => t.content).join(""),
+    });
+    setCurrentData(rowData);
+
+    if (rowData.Anggota) {
+      // Sesuaikan dengan struktur data dari controller
+      console.log("Data Anggota:", rowData.Anggota);
+      if (rowData.Anggota.length > 0) {
+        const formattedJabatans = rowData.Anggota.map((anggota) => ({
+          uuid: anggota.uuid || null,
+          namaJabatan: anggota.jabatan,
+          demografiId: anggota.demografi.uuid,
+        }));
+        setJabatans(formattedJabatans);
+      } else {
+        console.warn("Tidak ada data Anggota yang ditemukan");
+        setJabatans([{ namaJabatan: "", demografiId: "" }]);
+      }
+    } else {
+      console.error("rowData.Anggota tidak ada");
+      setJabatans([{ namaJabatan: "", demografiId: "" }]);
+    }
+    console.log("Data Jabatan saat dibuka:", rowData.jabatans);
+    if (typeof rowData.file_url === "string") {
+      const fullUrl = `https://randusanga-kulonbackend-production.up.railway.app/${rowData.file_url}`;
+      console.log("Full URL gambar:", fullUrl); // Debug URL absolut
+      setImagePreview(fullUrl);
+    } else if (rowData.file_url instanceof File) {
+      const url = URL.createObjectURL(rowData.file_url);
+      setImagePreview(url); // Buat preview jika file baru di-upload
+    }
+    setEditMode(true);
+    setDialogVisible(true);
   };
 
   const openDialog = () => {
@@ -196,26 +381,6 @@ const Jabatan = () => {
 
   const closeDialog = () => {
     setDialogVisible(false);
-  };
-
-  const customFilter = (value, filter) => {
-    if (!filter) return true;
-
-    // Konversi nilai tanggal yang ada di rowData
-    const dateValue = new Date(value);
-
-    if (isNaN(dateValue.getTime())) {
-      return false; // Jika tanggal tidak valid, return false
-    }
-
-    // Format tanggal menjadi "MMMM yyyy" (contoh: "September 2024")
-    const formattedDate = dateValue.toLocaleDateString("id-ID", {
-      month: "long",
-      year: "numeric",
-    });
-
-    // Cek apakah nilai filter (misal: "September") ada di formattedDate
-    return formattedDate.toLowerCase().includes(filter.toLowerCase());
   };
 
   const renderHeader = () => {
@@ -228,30 +393,15 @@ const Jabatan = () => {
             onChange={onGlobalFilterChange}
             placeholder="Pencarian"
             className="search-input"
-            style={{ width: "300px" }} // Increased width for search input
+            style={{ width: "300px" }}
           />
         </span>
-        <div
-          className="date-format-info"
-          style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}
-        >
-          <i
-            className="pi pi-question-circle"
-            data-pr-tooltip="Gunakan format yyyy-mm-dd untuk pencarian tanggal"
-            data-pr-position="right"
-            style={{ fontSize: "1.5em", cursor: "pointer" }}
-          ></i>
-          <Tooltip target=".pi-question-circle" />
-        </div>
-        <div className="add-data-container">
-          <Button
-            label="Add Data"
-            onClick={openDialog}
-            className="add-data-button p-button-rounded p-button-success"
-            icon="pi pi-plus"
-            style={{ backgroundColor: "#00796B", color: "#ffffff" }} // Elegant teal color
-          />
-        </div>
+        <Button
+          label="Add Data"
+          onClick={openDialog}
+          className="add-data-button p-button-rounded p-button-success"
+          icon="pi pi-plus"
+        />
       </div>
     );
   };
@@ -268,10 +418,10 @@ const Jabatan = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">Agenda</h1>
+      <h1 className="demografi-header">Lembaga</h1>
       <Toast ref={toast} />
       <DataTable
-        value={agendaList}
+        value={dataList || []}
         paginator
         rows={rows} // Gunakan nilai rows dari state
         first={first}
@@ -279,9 +429,10 @@ const Jabatan = () => {
         rowsPerPageOptions={[5, 10, 25, 50]}
         filters={filters}
         header={header}
-        footer={`Total data: ${agendaList.length}`}
+        footer={`Total data: ${dataList ? dataList.length : 0} | Halaman ${
+          Math.floor(first / rows) + 1
+        } dari ${Math.ceil((dataList ? dataList.length : 0) / rows)}`}
         filterDisplay="menu"
-        tableStyle={{ tableLayout: "fixed", width: "100%", minWidth: "50rem" }} // Atur tata letak tabel agar tetap
       >
         <Column
           header="No"
@@ -294,61 +445,10 @@ const Jabatan = () => {
           }}
           style={{ width: "5%", minWidth: "5%" }}
         />
-        <Column
-          field="nama_agenda"
-          header="Nama Agenda"
-          style={{ width: "15%", minWidth: "12%" }}
-        />
-        <Column
-          field="deskripsi"
-          header="Deskripsi"
-          style={{ width: "35%", minWidth: "12%" }}
-          bodyStyle={{
-            whiteSpace: "normal",
-            wordWrap: "break-word",
-            overflowWrap: "break-word",
-          }}
-        />
-        <Column
-          field="tempat_pelaksanaan"
-          header="Tempat Pelaksanaan"
-          style={{ width: "15%", minWidth: "12%" }}
-          bodyStyle={{
-            whiteSpace: "normal",
-            wordWrap: "break-word",
-            overflowWrap: "break-word",
-          }}
-        />
-        <Column
-          field="tanggal_agenda"
-          header="Tanggal Mulai"
-          style={{ width: "10%", minWidth: "12%" }}
-          body={(rowData) =>
-            new Date(rowData.tanggal_agenda).toLocaleDateString("id-ID", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })
-          }
-          filter
-          filterFunction={customFilter} // Menerapkan custom filter
-          showFilterMenu={false} // Hanya akan menggunakan filter custom
-        />
-        <Column
-          field="tanggal_akhir_agenda"
-          header="Tanggal Akhir"
-          style={{ width: "10%", minWidth: "12%" }}
-          body={(rowData) =>
-            new Date(rowData.tanggal_akhir_agenda).toLocaleDateString("id-ID", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })
-          }
-          filter
-          filterFunction={customFilter} // Menerapkan custom filter
-          showFilterMenu={false} // Hanya akan menggunakan filter custom
-        />
+        <Column field="nama" header="Nama Lembaga" />
+        <Column field="singkatan" header="Singkatan" />
+        <Column field="dasar_hukum" header="Dasar Hukum" />
+        <Column field="alamat_kantor" header="Alamat Kantor" />
         <Column
           body={(rowData) => (
             <div
@@ -358,24 +458,12 @@ const Jabatan = () => {
               <Button
                 icon="pi pi-pencil"
                 className="edit-button coastal-button p-button-rounded"
-                onClick={() => editAgenda(rowData)}
-                tooltip="Edit"
-                style={{
-                  backgroundColor: "#4DB6AC",
-                  border: "none",
-                  color: "white",
-                }}
+                onClick={() => openEditDialog(rowData)}
               />
               <Button
                 icon="pi pi-trash"
                 className="delete-button coastal-button p-button-rounded"
-                onClick={() => deleteAgenda(rowData.uuid)}
-                tooltip="Delete"
-                style={{
-                  backgroundColor: "#009688",
-                  border: "none",
-                  color: "white",
-                }}
+                onClick={() => deleteData(rowData.uuid)}
               />
             </div>
           )}
@@ -383,7 +471,7 @@ const Jabatan = () => {
       </DataTable>
 
       <Dialog
-        header={isEditMode ? "Edit Agenda" : "Add Agenda"}
+        header={isEditMode ? "Edit Lembaga" : "Add Lembaga"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}
@@ -395,90 +483,188 @@ const Jabatan = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "100%",
           }}
         >
           <form onSubmit={handleSubmit}>
-            <Card className="demografi-card">
-              <h3 className="section-title" style={{ color: "#00796B" }}>
-                Agenda Information
-              </h3>
+            <Card className="demografi-card" style={{ padding: "20px" }}>
+              <h3 className="section-title">Informasi Lembaga</h3>
               <div className="form-group">
-                <label htmlFor="nama_agenda">Nama Agenda</label>
+                <label htmlFor="nama">Nama Lembaga</label>
                 <InputText
-                  id="nama_agenda"
-                  name="nama_agenda"
-                  value={formData.nama_agenda}
+                  id="nama"
+                  name="nama"
+                  value={formData.nama}
                   onChange={handleChange}
                   className="input-field"
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="deskripsi">Deskripsi</label>
-                <InputTextarea
-                  id="deskripsi"
-                  name="deskripsi"
-                  value={formData.deskripsi}
-                  onChange={handleChange}
-                  className="input-field"
-                  rows={5}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="tempat_pelaksanaan">Tempat Pelaksanaan</label>
+                <label htmlFor="singkatan">Singkatan</label>
                 <InputText
-                  id="tempat_pelaksanaan"
-                  name="tempat_pelaksanaan"
-                  value={formData.tempat_pelaksanaan}
+                  id="singkatan"
+                  name="singkatan"
+                  value={formData.singkatan}
                   onChange={handleChange}
                   className="input-field"
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="tanggal_agenda">Tanggal Mulai Agenda</label>
-                <Calendar
-                  id="tanggal_agenda"
-                  name="tanggal_agenda"
-                  value={
-                    formData.tanggal_agenda
-                      ? new Date(formData.tanggal_agenda)
-                      : null
-                  }
-                  onChange={handleDateChange}
-                  showIcon
+                <label htmlFor="alamat_kantor">Alamat Kantor</label>
+                <InputText
+                  id="alamat_kantor"
+                  name="alamat_kantor"
+                  value={formData.alamat_kantor}
+                  onChange={handleChange}
                   className="input-field"
-                  dateFormat="yy-mm-dd"
+                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="tanggal_akhir_agenda">
-                  Tanggal Akhir Agenda
-                </label>
-                <Calendar
-                  id="tanggal_akhir_agenda"
-                  name="tanggal_akhir_agenda"
-                  value={
-                    formData.tanggal_akhir_agenda
-                      ? new Date(formData.tanggal_akhir_agenda)
-                      : null
-                  }
-                  onChange={handleEndDateChange}
-                  showIcon
+                <label htmlFor="dasar_hukum">Dasar Hukum</label>
+                <InputText
+                  id="dasar_hukum"
+                  name="dasar_hukum"
+                  value={formData.dasar_hukum}
+                  onChange={handleChange}
                   className="input-field"
-                  dateFormat="yy-mm-dd"
+                  required
                 />
               </div>
-              <div className="button-sub">
+              <div className="form-group">
+                <label>Profil Lembaga</label>
+                <ReactQuill
+                  value={formData.profil}
+                  onChange={(value) => handleQuillChange(value, "profil")}
+                  className="quill-editor"
+                />
+              </div>
+              <div className="form-group">
+                <label>Visi Misi</label>
+                <ReactQuill
+                  value={formData.visimisi}
+                  onChange={(value) => handleQuillChange(value, "visimisi")}
+                  className="quill-editor"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Tugas Pokok</label>
+                <CKEditor
+                  editor={DecoupledEditor}
+                  data={formData.tugaspokok}
+                  onReady={(editor) => {
+                    console.log("Editor is ready to use!", editor);
+                    const toolbarContainer =
+                      document.querySelector(".toolbar-container");
+                    toolbarContainer.appendChild(
+                      editor.ui.view.toolbar.element
+                    );
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    console.log("Editor data changed:", data);
+                    handleQuillChange(data, "tugaspokok");
+                  }}
+                />
+
+                <div className="toolbar-container" />
+                <style jsx>
+                  {`
+                    .custom-dialog-content table {
+                      margin-left: 20px; /* Mengatur margin kiri tabel */
+                      border-collapse: collapse; /* Menghindari jarak antar sel */
+                    }
+
+                    .custom-dialog-content table td,
+                    .custom-dialog-content table th {
+                      padding: 10px; /* Menambahkan padding di dalam sel */
+                      border: none; /* Menghilangkan border */
+                    }
+                  `}
+                </style>
+              </div>
+              <div className="form-group">
+                <label>Upload Lambang</label>
+                <input type="file" onChange={handleFileChange} />
+                {imagePreview && (
+                  <div style={{ marginTop: "10px" }}>
+                    <Image
+                      src={imagePreview}
+                      alt="Preview"
+                      width="150"
+                      height="150"
+                      preview
+                      style={{
+                        objectFit: "cover",
+                        marginTop: "10px",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <h3 className="section-title">Jabatan dalam Lembaga</h3>
+              {jabatans.map((jabatan, index) => (
+                <div key={index} className="jabatan-row">
+                  <div className="form-group">
+                    <label htmlFor={`namaJabatan-${index}`}>Nama Jabatan</label>
+                    <InputText
+                      id={`namaJabatan-${index}`}
+                      name="namaJabatan"
+                      className="jabatan-input input-field"
+                      value={jabatan.namaJabatan}
+                      onChange={(e) => handleJabatanChange(index, e)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor={`demografiId-${index}`}>Nama Anggota</label>
+                    {demografiLoading ? (
+                      <p>Loading data demografi...</p>
+                    ) : demografiError ? (
+                      <p>Terjadi kesalahan: {demografiError.message}</p>
+                    ) : (
+                      <Dropdown
+                        id={`demografiId-${index}`}
+                        name="demografiId"
+                        value={jabatan.demografiId}
+                        className="input-field"
+                        options={demografiOptions}
+                        onChange={(e) => handleJabatanChange(index, e)}
+                        required
+                      />
+                    )}
+                  </div>
+                  <div className="remove-button-container">
+                    <Button
+                      type="button"
+                      label="Hapus"
+                      className="remove-button"
+                      onClick={() => handleRemoveJabatan(index)}
+                    />
+                  </div>
+                </div>
+              ))}
+              <div className="add-jabatan-container">
+                {" "}
+                {/* Tambahkan container untuk tombol Add Jabatan */}
                 <Button
-                  type="submit"
-                  label={isEditMode ? "Update" : "Save"}
-                  className="coastal-button submit-button p-button-rounded"
-                  style={{ marginTop: "20px" }}
+                  type="button"
+                  label="Tambah"
+                  raised
+                  rounded
+                  icon="pi pi-plus"
+                  onClick={handleAddJabatan}
                 />
               </div>
+              <Button
+                type="submit"
+                label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                icon="pi pi-check"
+                className="p-button-rounded p-button-success submit-button"
+                style={{ width: "100%" }}
+              />
             </Card>
           </form>
         </div>
