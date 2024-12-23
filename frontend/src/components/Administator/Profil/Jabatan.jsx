@@ -531,7 +531,7 @@ const Jabatan = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Profil Lembaga</label>
+                <label>Ringkasan Tentang Jabatan</label>
                 <ReactQuill
                   value={formData.profil}
                   onChange={(value) => handleQuillChange(value, "profil")}
@@ -539,7 +539,7 @@ const Jabatan = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Visi Misi</label>
+                <label>Fungsi</label>
                 <ReactQuill
                   value={formData.visimisi}
                   onChange={(value) => handleQuillChange(value, "visimisi")}
