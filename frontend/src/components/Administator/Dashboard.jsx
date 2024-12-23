@@ -312,7 +312,7 @@ const Dashboard = () => {
               }}
             >
               <i
-                className="pi pi-fw pi-sitemap"
+                className="pi pi-fw pi-briefcase"
                 style={{ marginRight: "10px" }}
               ></i>
               {isSidebarHovered && <span>Jabatan</span>}
