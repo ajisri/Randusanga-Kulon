@@ -10,6 +10,7 @@ import Sejarah from "./Profil/Sejarah";
 import Demografi from "./Profil/Demografi";
 import Lembaga from "./Profil/Lembaga";
 import Strukturorganisasi from "./Profil/Strukturorganisasi";
+import Jabatan from "./Profil/Jabatan";
 import Visimisi from "./Profil/Visimisi";
 // import Geografi from "./Profil/Geografi";
 import BatasWilayah from "./Profil/BatasWilayah";
@@ -140,6 +141,8 @@ const Dashboard = () => {
         return <Lembaga />;
       case "Strukturorganisasi":
         return <Strukturorganisasi />;
+      case "Jabatan":
+        return <Jabatan />;
       case "Visimisi":
         return <Visimisi />;
       // case "Geografi":
@@ -297,6 +300,22 @@ const Dashboard = () => {
                 style={{ marginRight: "10px" }}
               ></i>
               {isSidebarHovered && <span>Struktur Organisasi</span>}
+              <Ripple />
+            </div>
+            <div
+              onClick={() => setActiveMenu("Jabatan")}
+              className="menu-item"
+              style={{
+                marginBottom: "10px",
+                cursor: "pointer",
+                padding: "10px",
+              }}
+            >
+              <i
+                className="pi pi-fw pi-sitemap"
+                style={{ marginRight: "10px" }}
+              ></i>
+              {isSidebarHovered && <span>Jabatan</span>}
               <Ripple />
             </div>
             <div
