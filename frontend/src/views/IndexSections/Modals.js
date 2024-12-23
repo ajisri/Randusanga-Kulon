@@ -290,16 +290,25 @@ const Modals = () => {
         <span></span>
       </h2>
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
-            icon="pi pi-external-link"
+            icon="pi pi-info-circle"
             onClick={() => setDialogVisiblettg(true)}
           >
-            Tentang
+            <i
+              className="pi pi-info-circle"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
+            <span style={{ display: "inline-block" }}>Tentang</span>
           </Button>
           <div className="card">
             <Dialog
@@ -329,15 +338,24 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
-            icon="pi pi-external-link"
+            icon="pi pi-history"
             onClick={() => setDialogVisiblesd(true)}
           >
+            <i
+              className="pi pi-history"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Sejarah
           </Button>
           <div className="card">
@@ -368,14 +386,24 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
+            icon="pi pi-eye"
             onClick={() => setDialogVisiblevm(true)}
           >
+            <i
+              className="pi pi-eye"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Visi dan Misi
           </Button>
           <div className="card">
@@ -405,7 +433,12 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -414,6 +447,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisibleso(true)}
           >
+            <i
+              className="pi pi-users"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Struktur Organisasi
           </Button>
           <div className="card">
@@ -468,7 +505,12 @@ const Modals = () => {
       </Row>
 
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -477,6 +519,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblele(true)}
           >
+            <i
+              className="pi pi-building"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Lembaga
           </Button>
           <div className="card">
@@ -601,7 +647,12 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -610,6 +661,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblege(true)}
           >
+            <i
+              className="pi pi-map"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Geografi
           </Button>
           <div className="card">
@@ -630,7 +685,12 @@ const Modals = () => {
           </div>
         </Col>
 
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -639,6 +699,10 @@ const Modals = () => {
             icon="pi pi-external-link"
             onClick={() => setDialogVisible(true)}
           >
+            <i
+              className="pi pi-chart-bar"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Demografi
           </Button>
           <div className="card">

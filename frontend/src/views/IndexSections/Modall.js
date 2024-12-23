@@ -154,7 +154,12 @@ const Modall = () => {
       </h2>
       {/* <h3 className="h4 text-success font-weight-bold mb-4">Modals</h3> */}
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -163,6 +168,10 @@ const Modall = () => {
             icon="pi pi-external-link"
             onClick={showDialog}
           >
+            <i
+              className="pi pi-file"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Akta Kelahiran
           </Button>
           <div className="card">
@@ -213,7 +222,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -222,6 +236,10 @@ const Modall = () => {
             icon="pi pi-external-link"
             onClick={showDialogkk}
           >
+            <i
+              className="pi pi-id-card"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Kartu Keluarga
           </Button>
           <div className="card">
@@ -272,7 +290,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -281,7 +304,11 @@ const Modall = () => {
             icon="pi pi-external-link"
             onClick={showDialogktp}
           >
-            Kartu Tanda Penduduk
+            <i
+              className="pi pi-credit-card"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
+            KTP
           </Button>
           <div className="card">
             <Dialog
@@ -333,7 +360,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -342,6 +374,10 @@ const Modall = () => {
             icon="pi pi-external-link"
             onClick={showDialogpn}
           >
+            <i
+              className="pi pi-heart"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Pendaftaran Nikah
           </Button>
           <div className="card">
@@ -396,7 +432,12 @@ const Modall = () => {
         </Col>
       </Row>
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -405,6 +446,10 @@ const Modall = () => {
             icon="pi pi-external-link"
             onClick={showDialogabp}
           >
+            <i
+              className="pi pi-shield"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Aktifasi BPJS PBI-JKN
           </Button>
           <div className="card">
@@ -455,7 +500,12 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -464,6 +514,10 @@ const Modall = () => {
             icon="pi pi-external-link"
             onClick={showDialogpsktm}
           >
+            <i
+              className="pi pi-file"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Pembuatan SKTM
           </Button>
           <div className="card">

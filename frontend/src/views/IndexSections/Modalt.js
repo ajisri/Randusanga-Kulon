@@ -21,7 +21,7 @@ const Modalt = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogVisiblePH, setDialogVisiblePH] = useState(false);
   const [dialogVisibleAPB, setDialogVisibleAPB] = useState(false);
-  const [dialogVisibleD, setDialogVisibleD] = useState(false);
+  // const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
     "https://randusanga-kulonbackend-production.up.railway.app/produk_hukump",
@@ -110,17 +110,17 @@ const Modalt = () => {
     setDialogVisibleAPB(true);
   };
 
-  const showDialogD = () => {
-    setDialogVisibleD(true);
-  };
+  // const showDialogD = () => {
+  //   setDialogVisibleD(true);
+  // };
 
   const hideDialog = () => {
     setDialogVisible(false);
   };
 
-  const hideDialogD = () => {
-    setDialogVisibleD(false);
-  };
+  // const hideDialogD = () => {
+  //   setDialogVisibleD(false);
+  // };
 
   const hideDialogAPB = () => {
     setDialogVisibleAPB(false);
@@ -178,7 +178,12 @@ const Modalt = () => {
         <span></span>
       </h2>
       <Row>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="4"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -187,6 +192,10 @@ const Modalt = () => {
             icon="pi pi-external-link"
             onClick={showDialog}
           >
+            <i
+              className="pi pi-globe"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Desa Ankor
           </Button>
           <div className="card">
@@ -230,9 +239,9 @@ const Modalt = () => {
                                       subkategori.poinsubkategoriankor.map(
                                         (poin, poinIdx) => (
                                           <p key={poinIdx}>
-                                            {isValidURL(poin.name) ? (
+                                            {isValidURL(poin.url) ? (
                                               <a
-                                                href={poin.name}
+                                                href={poin.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                               >
@@ -258,7 +267,12 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="4"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -267,6 +281,10 @@ const Modalt = () => {
             icon="pi pi-external-link"
             onClick={showDialogPH}
           >
+            <i
+              className="pi pi-briefcase"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             Produk Hukum
           </Button>
           <div className="card">
@@ -351,7 +369,12 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        <Col
+          className="mt-1"
+          md="4"
+          xs="6"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -360,6 +383,10 @@ const Modalt = () => {
             icon="pi pi-external-link"
             onClick={showDialogAPB}
           >
+            <i
+              className="pi pi-wallet"
+              style={{ marginRight: "8px", fontSize: "1.2em" }}
+            ></i>
             APB Desa
           </Button>
           <div className="card">
@@ -777,7 +804,7 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        <Col className="mt-1" md="3" xs="6">
+        {/* <Col className="mt-1" md="3" xs="6">
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
@@ -836,7 +863,7 @@ const Modalt = () => {
               </DataTable>
             </Dialog>
           </div>
-        </Col>
+        </Col> */}
       </Row>
     </>
   );

@@ -51,6 +51,7 @@ const Berita = () => {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      fontFamily: "Nautical, sans-serif",
     },
     card: {
       display: "flex",
@@ -63,9 +64,11 @@ const Berita = () => {
       marginBottom: "20px",
       transition: "box-shadow 0.3s ease",
       width: "95%",
+      fontFamily: "Nautical, sans-serif",
     },
     cardHover: {
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      fontFamily: "Nautical, sans-serif",
     },
     imageContainer: {
       width: isSmallScreen ? "100px" : "150px",
@@ -73,33 +76,39 @@ const Berita = () => {
       borderRadius: "8px",
       overflow: "hidden",
       marginRight: "10px",
+      fontFamily: "Nautical, sans-serif",
     },
     image: {
       width: "100%",
       height: "100%",
       objectFit: "cover",
+      fontFamily: "Nautical, sans-serif",
     },
     content: {
       flex: "1",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
+      fontFamily: "Nautical, sans-serif",
     },
     title: {
       fontWeight: "bold",
       fontSize: isSmallScreen ? "0.9rem" : "1rem",
       margin: 0,
+      fontFamily: "Nautical, sans-serif",
       color: "#333",
     },
     date: {
       color: "#888",
       fontSize: "0.8rem",
       marginTop: "5px",
+      fontFamily: "Nautical, sans-serif",
     },
     description: {
       color: "#616161",
       fontSize: "1rem",
       marginTop: "10px",
+      fontFamily: "Nautical, sans-serif",
       lineHeight: "1.5",
     },
     dialogImage: {
@@ -109,16 +118,19 @@ const Berita = () => {
       objectFit: "contain",
       borderRadius: "8px",
       marginBottom: "10px",
+      fontFamily: "Nautical, sans-serif",
     },
     dialogDate: {
       color: "#888",
       fontSize: "1rem",
       textAlign: "right",
       marginBottom: "20px",
+      fontFamily: "Nautical, sans-serif",
     },
     dialogContent: {
       fontSize: "1.1rem",
       lineHeight: "1.6",
+      fontFamily: "Nautical, sans-serif",
       color: "#333",
     },
   };
@@ -163,7 +175,7 @@ const Berita = () => {
           visible={!!selectedBerita}
           onHide={() => setSelectedBerita(null)}
           maximizable
-          style={{ width: "90vw" }}
+          style={{ width: "90vw", fontFamily: "Nautical, sans-serif" }}
         >
           <img
             src={

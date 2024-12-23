@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr"; // Import SWR
 // nodejs library that concatenates classes
-import classnames from "classnames";
+// import classnames from "classnames";
 // import { Calendar } from "primereact/calendar";
 // import { Link } from "react-router-dom";
 import { Button } from "primereact/button";
@@ -21,12 +21,12 @@ import "primeflex/primeflex.css";
 
 // reactstrap components
 import {
-  CardBody,
-  FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
+  // CardBody,
+  // FormGroup,
+  // Input,
+  // InputGroupAddon,
+  // InputGroupText,
+  // InputGroup,
   Container,
   Row,
   Col,
@@ -42,27 +42,27 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const Landing = () => {
   const [agendas, setAgendas] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const [nameFocused, setNameFocused] = useState(false);
-  const [emailFocused, setEmailFocused] = useState(false);
+  // const [nameFocused, setNameFocused] = useState(false);
+  // const [emailFocused, setEmailFocused] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   const [selectedAgenda, setSelectedAgenda] = useState(null);
 
-  const handleFocus = () => {
-    setNameFocused(true);
-  };
+  // const handleFocus = () => {
+  //   setNameFocused(true);
+  // };
 
-  const handleBlur = () => {
-    setNameFocused(false);
-  };
+  // const handleBlur = () => {
+  //   setNameFocused(false);
+  // };
 
-  const handleEmailFocus = () => {
-    setEmailFocused(true);
-  };
+  // const handleEmailFocus = () => {
+  //   setEmailFocused(true);
+  // };
 
-  const handleEmailBlur = () => {
-    setEmailFocused(false);
-  };
+  // const handleEmailBlur = () => {
+  //   setEmailFocused(false);
+  // };
 
   const handleResize = () => {
     setIsSmallScreen(window.innerWidth < 768);
@@ -159,11 +159,15 @@ const Landing = () => {
       <DemoNavbar />
       <main>
         {/* Pengumuman */}
-        <section className="section-shaped">
+        <section
+          className="section-shaped"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <div className="grid">
             <div
               className="col-12 md:col-12 lg:col-12"
               style={{
+                fontFamily: "Nautical, sans-serif",
                 backgroundColor: "#fdfff5", // Latar belakang oranye
                 backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
@@ -178,8 +182,17 @@ const Landing = () => {
         </section>
 
         {/* agenda kegiatan */}
-        <section className="section section-lg section-shaped">
-          <div style={{ backgroundColor: "#5dade2" }} className="shape"></div>
+        <section
+          className="section section-lg section-shaped"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
+          <div
+            style={{
+              backgroundColor: "#5dade2",
+              fontFamily: "Nautical, sans-serif",
+            }}
+            className="shape"
+          ></div>
           <Container
             className="container-fluid py-lg-md d-flex"
             style={{ minHeight: "500px" }}
@@ -267,6 +280,7 @@ const Landing = () => {
                               minHeight: "514px",
                               height: "514px",
                               display: "flex",
+                              overflowY: "auto",
                               flexDirection: "column",
                             }}
                           >
@@ -274,6 +288,7 @@ const Landing = () => {
                               style={{
                                 position: "absolute",
                                 top: "10px",
+                                overflowY: "auto",
                                 right: "10px",
                               }}
                             >
@@ -405,15 +420,24 @@ const Landing = () => {
         </section>
         {/* Potensi */}
         <div className="position-relative">
-          <section className="section section-lg section-shaped ">
-            <div style={{ backgroundColor: "#45b39d" }} className="shape"></div>
+          <section
+            className="section section-lg section-shaped"
+            style={{ fontFamily: "Nautical, sans-serif" }}
+          >
+            <div
+              style={{
+                backgroundColor: "#45b39d",
+                fontFamily: "Nautical, sans-serif",
+              }}
+              className="shape"
+            ></div>
             <Container className="py-lg-md d-flex">
               <div className="col px-0">
                 <Row>
                   <Col lg="8">
                     <h1
                       style={{
-                        fontFamily: "'Poppins', sans-serif", // Font modern populer
+                        fontFamily: "Nautical, sans-serif", // Font modern populer
                         fontWeight: "700", // Tebal
                         fontSize: "2.5rem", // Ukuran font besar untuk judul
                         letterSpacing: "1.5px", // Spasi antar huruf untuk kesan modern
@@ -434,7 +458,10 @@ const Landing = () => {
                 <Row>
                   <Col lg="10"></Col>
                   <Col lg="2">
-                    <div className="align-items-end mt-2">
+                    <div
+                      className="align-items-end mt-2"
+                      style={{ fontFamily: "Nautical, sans-serif" }}
+                    >
                       <Button
                         block
                         className="btn-white"
@@ -447,7 +474,10 @@ const Landing = () => {
                     </div>
                   </Col>
                 </Row>
-                <div className="py-5">
+                <div
+                  className="py-5"
+                  style={{ fontFamily: "Nautical, sans-serif" }}
+                >
                   <div className="container">
                     <div className="row g-4">
                       <Row className="justify-content-md-center">
@@ -757,6 +787,7 @@ const Landing = () => {
             padding: "10px",
             borderRadius: "2px",
             position: "relative",
+            fontFamily: "Nautical, sans-serif",
           }}
         >
           <Container
@@ -888,7 +919,10 @@ const Landing = () => {
         </section>
 
         {/* pegawai */}
-        <section className="lg-12">
+        <section
+          className="lg-12"
+          style={{ fontFamily: "Nautical, sans-serif" }}
+        >
           <div className="py-5 bg-secondary">
             <Container fluid>
               {/* Inputs (alternative) */}
@@ -922,95 +956,39 @@ const Landing = () => {
             </Container>
           </div>
         </section>
-        {/* saran dan kritik */}
+        {/*  */}
         <section
           className="section section-lg"
-          style={{ backgroundColor: "#4183b5" }}
+          style={{
+            backgroundColor: "#FFFFFF",
+            fontFamily: "Nautical, sans-serif",
+          }}
         >
-          <Container className="pt-lg pb-100"></Container>
-          {/* SVG separator */}
-          <div className="separator separator-bottom separator-skew zindex-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
-            </svg>
-          </div>
-        </section>
-        <section className="section section-lg pt-lg-0 section-contact-us">
-          <Container>
-            <Row className="justify-content-center mt--300">
-              <Col lg="8">
-                <Card className="bg-gradient-secondary shadow">
-                  <CardBody className="p-lg-5">
-                    <h4 className="mb-1">Saran dan Kritik</h4>
-                    <p className="mt-0">Suaramu akan membantu perbaikan.</p>
-                    <FormGroup
-                      className={classnames("mt-5", { focused: nameFocused })}
-                    >
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-user-run" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Your name"
-                          type="text"
-                          onFocus={handleFocus}
-                          onBlur={handleBlur}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup
-                      className={classnames({
-                        focused: emailFocused,
-                      })}
-                    >
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-email-83" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Email address"
-                          type="email"
-                          onFocus={handleEmailFocus}
-                          onBlur={handleEmailBlur}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup className="mb-4">
-                      <Input
-                        className="form-control-alternative"
-                        cols="80"
-                        name="name"
-                        placeholder="Type a message..."
-                        rows="4"
-                        type="textarea"
-                      />
-                    </FormGroup>
-                    <div>
-                      <Button
-                        block
-                        className="btn-round"
-                        color="default"
-                        size="lg"
-                        type="button"
-                      >
-                        Send Message
-                      </Button>
-                    </div>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
+          <Container className="pt-lg pb-5">
+            {/* SVG separator */}
+            <div className="separator separator-bottom separator-skew zindex-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+                version="1.1"
+                viewBox="0 0 2560 100"
+                x="0"
+                y="0"
+              >
+                <polygon
+                  className="fill-white"
+                  points="2560 0 2560 100 0 100"
+                />
+              </svg>
+            </div>
+
+            {/* Data Kontak dan Sosial Media di Separator */}
+            <Row className="text-center py-4"></Row>
+
+            <p className="text-muted small mb-0">
+              &copy; {new Date().getFullYear()} Pemerintah Desa Randusanga
+              Kulon. All rights reserved.
+            </p>
           </Container>
         </section>
       </main>
