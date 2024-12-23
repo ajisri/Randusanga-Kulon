@@ -418,7 +418,7 @@ const Jabatan = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">Lembaga</h1>
+      <h1 className="demografi-header">Jabatan Kantor Desa</h1>
       <Toast ref={toast} />
       <DataTable
         value={dataList || []}
@@ -445,10 +445,8 @@ const Jabatan = () => {
           }}
           style={{ width: "5%", minWidth: "5%" }}
         />
-        <Column field="nama" header="Nama Lembaga" />
-        <Column field="singkatan" header="Singkatan" />
-        <Column field="dasar_hukum" header="Dasar Hukum" />
-        <Column field="alamat_kantor" header="Alamat Kantor" />
+        <Column field="nama" header="Nama Jabatan" />
+        <Column field="singkatan" header="Periode" />
         <Column
           body={(rowData) => (
             <div
@@ -471,7 +469,7 @@ const Jabatan = () => {
       </DataTable>
 
       <Dialog
-        header={isEditMode ? "Edit Lembaga" : "Add Lembaga"}
+        header={isEditMode ? "Edit Jabatan" : "Add Jabatan"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}
@@ -487,9 +485,9 @@ const Jabatan = () => {
         >
           <form onSubmit={handleSubmit}>
             <Card className="demografi-card" style={{ padding: "20px" }}>
-              <h3 className="section-title">Informasi Lembaga</h3>
+              <h3 className="section-title">Informasi Jabatan</h3>
               <div className="form-group">
-                <label htmlFor="nama">Nama Lembaga</label>
+                <label htmlFor="nama">Nama Jabatan</label>
                 <InputText
                   id="nama"
                   name="nama"
@@ -604,7 +602,7 @@ const Jabatan = () => {
                   </div>
                 )}
               </div>
-              <h3 className="section-title">Jabatan dalam Lembaga</h3>
+              <h3 className="section-title">Tugas Pokok</h3>
               {jabatans.map((jabatan, index) => (
                 <div key={index} className="jabatan-row">
                   <div className="form-group">
