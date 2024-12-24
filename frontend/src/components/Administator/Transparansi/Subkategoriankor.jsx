@@ -248,7 +248,7 @@ const SubkategoriAnkor = () => {
   };
 
   const deletesubkategoriankor = async (uuid) => {
-    if (window.confirm("Are you sure you want to delete this record?")) {
+    if (window.confirm("Are you surddde you want to delete this record?")) {
       try {
         await axiosJWT.delete(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${uuid}`
