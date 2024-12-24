@@ -248,7 +248,7 @@ const SubkategoriAnkor = () => {
   };
 
   const deletesubkategoriankor = async (uuid) => {
-    if (window.confirm("Are you surddde you want to delete this record?")) {
+    if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
           `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${uuid}`
@@ -574,7 +574,7 @@ const SubkategoriAnkor = () => {
                 <Dropdown
                   id="kategoriankorId"
                   name="kategoriankorId"
-                  optionLabel="name" // Properti "name" akan ditampilkan sebagai label
+                  optionLabel="uuid" // Properti "name" akan ditampilkan sebagai label
                   optionValue="uuid" // Properti "uuid" digunakan sebagai nilai unik
                   value={formData.kategoriankorId || ""} // Nilai yang dipilih harus cocok dengan "uuid"
                   options={kategoriankorOptions} // Data opsi
