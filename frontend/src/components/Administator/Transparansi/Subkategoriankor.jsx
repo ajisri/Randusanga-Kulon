@@ -188,6 +188,8 @@ const SubkategoriAnkor = () => {
       await mutate(
         "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
       );
+      resetForm();
+      setDialogVisible(false);
     } catch (error) {
       // Tangani error
       console.error("DEBUG: Error saat memproses data:", error);
@@ -650,7 +652,6 @@ const SubkategoriAnkor = () => {
                   onChange={(e) =>
                     handlePoinsubkategoriankorChange(index, e, "url")
                   }
-                  required
                   className="input-field"
                 />
               </div>
