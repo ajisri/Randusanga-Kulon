@@ -227,9 +227,10 @@ const Modalt = () => {
                             className="custom-accordion-header"
                           >
                             <AccordionTab
-                              header={kategori.name || "No Category Title"}
+                              key={kategoriIdx}
+                              header={kategori.name || "No Title"}
                             >
-                              {/* Menampilkan Subkategori Ankor */}
+                              {/* Data SubkategoriAnkor */}
                               {Array.isArray(kategori.subkategoriankor) &&
                                 kategori.subkategoriankor.map(
                                   (subkategori, subIdx) => (
@@ -241,13 +242,11 @@ const Modalt = () => {
                                         {subkategori.name ||
                                           "No Subcategory Title"}
                                       </h4>
-
-                                      {/* Menampilkan Poin Subkategori Ankor */}
-                                      {Array.isArray(
-                                        subkategori.poinsubkategoriankor
-                                      ) && (
-                                        <ul>
-                                          {subkategori.poinsubkategoriankor.map(
+                                      <ul>
+                                        {Array.isArray(
+                                          subkategori.poinsubkategoriankor
+                                        ) &&
+                                          subkategori.poinsubkategoriankor.map(
                                             (poin, poinIdx) => (
                                               <li key={poinIdx}>
                                                 {isValidURL(poin.url) ? (
@@ -264,8 +263,7 @@ const Modalt = () => {
                                               </li>
                                             )
                                           )}
-                                        </ul>
-                                      )}
+                                      </ul>
                                     </div>
                                   )
                                 )}
