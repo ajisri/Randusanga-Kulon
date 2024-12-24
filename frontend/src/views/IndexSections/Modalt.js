@@ -226,36 +226,48 @@ const Modalt = () => {
                             activeIndex={0}
                             className="custom-accordion-header"
                           >
-                            {Array.isArray(kategori.subkategoriankor) &&
-                              kategori.subkategoriankor.map(
-                                (subkategori, subIdx) => (
-                                  <AccordionTab
-                                    key={subIdx}
-                                    header={subkategori.name || "No Title"}
-                                  >
-                                    {Array.isArray(
-                                      subkategori.poinsubkategoriankor
-                                    ) &&
-                                      subkategori.poinsubkategoriankor.map(
-                                        (poin, poinIdx) => (
-                                          <p key={poinIdx}>
-                                            {isValidURL(poin.url) ? (
-                                              <a
-                                                href={poin.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                              >
-                                                {poin.name}
-                                              </a>
-                                            ) : (
-                                              poin.name || "No Content"
-                                            )}
-                                          </p>
-                                        )
-                                      )}
-                                  </AccordionTab>
-                                )
-                              )}
+                            <AccordionTab
+                              key={kategoriIdx}
+                              header={kategori.name || "No Title"}
+                            >
+                              {/* Data SubkategoriAnkor */}
+                              {Array.isArray(kategori.subkategoriankor) &&
+                                kategori.subkategoriankor.map(
+                                  (subkategori, subIdx) => (
+                                    <div
+                                      key={subIdx}
+                                      className="subkategori-section"
+                                    >
+                                      <h4>
+                                        {subkategori.name ||
+                                          "No Subcategory Title"}
+                                      </h4>
+                                      <ul>
+                                        {Array.isArray(
+                                          subkategori.poinsubkategoriankor
+                                        ) &&
+                                          subkategori.poinsubkategoriankor.map(
+                                            (poin, poinIdx) => (
+                                              <li key={poinIdx}>
+                                                {isValidURL(poin.url) ? (
+                                                  <a
+                                                    href={poin.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                  >
+                                                    {poin.name}
+                                                  </a>
+                                                ) : (
+                                                  poin.name || "No Content"
+                                                )}
+                                              </li>
+                                            )
+                                          )}
+                                      </ul>
+                                    </div>
+                                  )
+                                )}
+                            </AccordionTab>
                           </Accordion>
                         ))}
                     </TabPanel>
