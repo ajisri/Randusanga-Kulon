@@ -8,6 +8,7 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Calendar } from "primereact/calendar";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 // import { Dropdown } from "primereact/dropdown";
@@ -29,6 +30,7 @@ const Jabatan = () => {
     selesai: "",
   });
 
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [demografiOptions, setDemografiOptions] = useState([]); // State untuk menyimpan data demografi dari API
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
@@ -54,35 +56,31 @@ const Jabatan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/lembaga",
+    "https://randusanga-kulonbackend-production.up.railway.app/jabatan",
     fetcher
   );
 
   useEffect(() => {
-    if (data?.lembaga && data.lembaga.length > 0) {
-      setDataList(data.lembaga);
+    if (data?.jabatan && data.jabatan.length > 0) {
+      setDataList(data.jabatan);
     }
   }, [data]);
 
   useEffect(() => {
-    if (data && data.lembaga && data.lembaga.length > 0) {
-      setDataList(data.lembaga);
-      const lembagaData = data.lembaga[0]; // Ambil lembaga pertama jika ada
+    if (data && data.jabatan && data.jabatan.length > 0) {
+      setDataList(data.jabatan);
+      const jabatanData = data.jabatan[0]; // Ambil jabatan pertama jika ada
       setFormData({
-        uuid: lembagaData.uuid,
-        nama: lembagaData.nama,
-        singkatan: lembagaData.singkatan,
-        dasar_hukum: lembagaData.dasar_hukum,
-        alamat_kantor: lembagaData.alamat_kantor,
-        file_url: lembagaData.file_url,
-        profil:
-          lembagaData.profil_lembaga?.map((p) => p.content).join("") || "",
-        visimisi: lembagaData.visi_misi?.map((v) => v.content).join("") || "",
-        tugaspokok:
-          lembagaData.tugas_pokok?.map((t) => t.content).join("") || "",
+        uuid: jabatanData.uuid,
+        nama: jabatanData.nama,
+        ringkasan: jabatanData.ringkasan,
+        mulai: jabatanData.masajabatan.mulai,
+        selesai: jabatanData.masajabatan.selesai,
+        fungsi: jabatanData.fungsi?.map((f) => f.content).join("") || "",
+        tugas: jabatanData.tugas?.map((t) => t.content).join("") || "",
       });
-    } else if (data && (!data.lembaga || data.lembaga.length === 0)) {
-      console.error("Data lembaga tidak tersedia atau kosong");
+    } else if (data && (!data.jabatan || data.jabatan.length === 0)) {
+      console.error("Data jabatan tidak tersedia atau kosong");
     }
   }, [data]);
 
@@ -141,25 +139,44 @@ const Jabatan = () => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   }, []);
 
+  const handleDateChange = (e) => {
+    const selectedDate = e.value;
+    const year = selectedDate.getFullYear();
+    const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // Tambahkan padding 0 untuk bulan
+    const day = ("0" + selectedDate.getDate()).slice(-2); // Tambahkan padding 0 untuk hari
+    const formattedDate = `${year}-${month}-${day}`; // Format yyyy-mm-dd
+    setFormData({
+      ...formData,
+      tanggal_agenda: formattedDate,
+    });
+  };
+
+  const handleEndDateChange = (e) => {
+    const selectedDate = e.value;
+    const year = selectedDate.getFullYear();
+    const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // Tambahkan padding 0 untuk bulan
+    const day = ("0" + selectedDate.getDate()).slice(-2); // Tambahkan padding 0 untuk hari
+    const formattedakhirDate = `${year}-${month}-${day}`; // Format yyyy-mm-dd
+    setFormData({
+      ...formData,
+      tanggal_akhir_agenda: formattedakhirDate,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Buat data payload untuk dikirim
     const data = new FormData();
     data.append("nama", formData.nama);
-    data.append("singkatan", formData.singkatan);
-    data.append("dasar_hukum", formData.dasar_hukum);
-    data.append("alamat_kantor", formData.alamat_kantor);
-
-    if (formData.file_url) {
-      data.append("file", formData.file_url); // Upload file
-    }
-
-    data.append("profil", formData.profil);
-    data.append("visimisi", formData.visimisi);
-    data.append("tugaspokok", formData.tugaspokok);
+    data.append("ringkasan", formData.ringkasan);
+    data.append("fungsi", formData.profil);
+    data.append("tugas", formData.visimisi);
+    data.append("mulai", formData.mulai);
+    data.append("selesai", formData.selesai);
 
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
@@ -201,6 +218,8 @@ const Jabatan = () => {
       setDialogVisible(false);
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
@@ -218,13 +237,11 @@ const Jabatan = () => {
   const resetForm = () => {
     setFormData({
       nama: "",
-      singkatan: "",
-      dasar_hukum: "",
-      alamat_kantor: "",
-      file_url: null,
-      profil: "",
-      visimisi: "",
-      tugaspokok: "",
+      ringkasan: "",
+      fungsi: "",
+      tugas: "",
+      mulai: "",
+      selesai: "",
     });
     setEditMode(false);
     setCurrentData(null);
@@ -267,13 +284,11 @@ const Jabatan = () => {
     setFormData({
       uuid: rowData.uuid,
       nama: rowData.nama,
-      singkatan: rowData.singkatan,
-      dasar_hukum: rowData.dasar_hukum,
-      alamat_kantor: rowData.alamat_kantor,
-      file_url: rowData.file_url,
-      profil: rowData.profil_lembaga.map((p) => p.content).join(""),
-      visimisi: rowData.visi_misi.map((v) => v.content).join(""),
-      tugaspokok: rowData.tugas_pokok.map((t) => t.content).join(""),
+      ringkasan: rowData.singkatan,
+      mulai: rowData.masajabatan.mulai,
+      selesai: rowData.masajabatan.selesai,
+      fungsi: rowData.fungsi.map((f) => f.content).join(""),
+      tugas: rowData.tugas.map((t) => t.content).join(""),
     });
     setCurrentData(rowData);
 
@@ -406,6 +421,40 @@ const Jabatan = () => {
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="tanggal_agenda">Tanggal Mulai Agenda</label>
+                <Calendar
+                  id="tanggal_agenda"
+                  name="tanggal_agenda"
+                  value={
+                    formData.tanggal_agenda
+                      ? new Date(formData.tanggal_agenda)
+                      : null
+                  }
+                  onChange={handleDateChange}
+                  showIcon
+                  className="input-field"
+                  dateFormat="yy-mm-dd"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="tanggal_akhir_agenda">
+                  Tanggal Akhir Agenda
+                </label>
+                <Calendar
+                  id="tanggal_akhir_agenda"
+                  name="tanggal_akhir_agenda"
+                  value={
+                    formData.tanggal_akhir_agenda
+                      ? new Date(formData.tanggal_akhir_agenda)
+                      : null
+                  }
+                  onChange={handleEndDateChange}
+                  showIcon
+                  className="input-field"
+                  dateFormat="yy-mm-dd"
+                />
+              </div>
+              <div className="form-group">
                 <label>Ringkasan Tentang Jabatan</label>
                 <ReactQuill
                   value={formData.profil}
@@ -423,7 +472,7 @@ const Jabatan = () => {
               </div>
 
               <div className="form-group">
-                <label>Tugas Pokok</label>
+                <label>Tugas</label>
                 <CKEditor
                   editor={DecoupledEditor}
                   data={formData.tugaspokok}
@@ -458,10 +507,10 @@ const Jabatan = () => {
                   `}
                 </style>
               </div>
-              <h3 className="section-title">Tugas Pokok</h3>
               <Button
                 type="submit"
                 label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                disabled={isLoadingProcess}
                 icon="pi pi-check"
                 className="p-button-rounded p-button-success submit-button"
                 style={{ width: "100%" }}
