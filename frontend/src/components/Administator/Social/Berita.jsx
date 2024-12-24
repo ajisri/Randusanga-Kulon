@@ -25,6 +25,7 @@ const Berita = () => {
     file_url: "",
   });
 
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -162,6 +163,7 @@ const Berita = () => {
 
     // Lanjutkan proses submit jika data sudah lengkap
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/berita/${currentBerita.uuid}`,
@@ -199,6 +201,8 @@ const Berita = () => {
       setDialogVisible(false);
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
@@ -504,7 +508,8 @@ const Berita = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="submit-button coastal-button p-button-rounded p-button-primary"
                 />
               </div>

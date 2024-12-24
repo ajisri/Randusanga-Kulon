@@ -25,6 +25,7 @@ const Agenda = () => {
     tanggal_akhir_agenda: null,
   });
 
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [currentAgenda, setCurrentAgenda] = useState(null);
@@ -104,6 +105,7 @@ const Agenda = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/agenda/${currentAgenda.uuid}`,
@@ -134,6 +136,8 @@ const Agenda = () => {
       setDialogVisible(false);
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
@@ -474,7 +478,8 @@ const Agenda = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />

@@ -25,6 +25,7 @@ const Galeri = () => {
     file_url: "",
   });
 
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -162,6 +163,7 @@ const Galeri = () => {
 
     // Lanjutkan proses submit jika data sudah lengkap
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusanga-kulonbackend-production.up.railway.app/galeri/${currentGaleri.uuid}`,
@@ -199,6 +201,8 @@ const Galeri = () => {
       setDialogVisible(false);
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
@@ -504,8 +508,9 @@ const Galeri = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isLoadingProcess ? "Loading..." : "Simpan"}
                   className="submit-button coastal-button p-button-rounded p-button-primary"
+                  disabled={isLoadingProcess}
                 />
               </div>
             </Card>
