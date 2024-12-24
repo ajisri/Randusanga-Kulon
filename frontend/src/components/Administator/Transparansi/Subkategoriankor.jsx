@@ -19,6 +19,7 @@ const SubkategoriAnkor = () => {
     name: "",
     kategoriankorId: "",
   });
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [kategoriankorOptions, setKategoriankorOptions] = useState([]);
   const [currentSubkategoriankor, setCurrentSubkategoriankor] = useState(null);
   const [currentSubkategoriankorId, setCurrentSubkategoriankorId] =
@@ -150,10 +151,12 @@ const SubkategoriAnkor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const dataToSend = {
       ...formData,
     };
     try {
+      setIsLoadingProcess(true);
       // Cek apakah dalam mode edit atau tambah data
       if (isEditMode) {
         // Kirim request update subkategoriankor
@@ -199,6 +202,8 @@ const SubkategoriAnkor = () => {
         detail: "Terjadi kesalahan saat menyimpan data.",
         life: 5000,
       });
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
@@ -588,9 +593,10 @@ const SubkategoriAnkor = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label="Simpan"
+                  label={isLoadingProcess ? "Loading..." : "Simpan"}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
+                  disabled={isLoadingProcess}
                 />
               </div>
             </Card>
