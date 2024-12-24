@@ -7,11 +7,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
-import { Dropdown } from "primereact/dropdown";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
-import { Image } from "primereact/image";
 // import { Dropdown } from "primereact/dropdown";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -24,18 +22,12 @@ import "./Jabatan.css"; // Custom CSS for styling
 const Jabatan = () => {
   const [formData, setFormData] = useState({
     nama: "",
-    singkatan: "",
-    dasar_hukum: "",
-    alamat_kantor: "",
-    file_url: null,
-    profil: "",
-    visimisi: "",
-    tugaspokok: "",
+    ringkasan: "",
+    fungsi: "",
+    tugas: "",
+    mulai: "",
+    selesai: "",
   });
-
-  const [jabatans, setJabatans] = useState([
-    { uuid: "", namaJabatan: "", demografiId: "" },
-  ]);
 
   const [demografiOptions, setDemografiOptions] = useState([]); // State untuk menyimpan data demografi dari API
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -48,7 +40,6 @@ const Jabatan = () => {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
-  const [imagePreview, setImagePreview] = useState(null); // State untuk menyimpan URL gambar
 
   const navigate = useNavigate();
   const toast = useRef(null);
@@ -150,60 +141,8 @@ const Jabatan = () => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   }, []);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, file_url: file });
-
-    // Buat URL untuk menampilkan gambar
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImagePreview(url);
-    }
-  };
-
-  // Fungsi untuk menambah jabatan baru
-  const handleJabatanChange = (index, e) => {
-    const { name, value } = e.target;
-
-    setJabatans((prevJabatans) => {
-      const updatedJabatans = [...prevJabatans];
-      if (name === "namaJabatan") {
-        updatedJabatans[index].namaJabatan = value; // Update nama jabatan
-      } else if (name === "demografiId") {
-        updatedJabatans[index].demografiId = value; // Update demografiId
-        const selectedDemografi = demografiOptions.find(
-          (option) => option.value === value
-        );
-        updatedJabatans[index].uuid = selectedDemografi
-          ? selectedDemografi.uuid
-          : null; // Ambil UUID dari demografi
-      }
-      return updatedJabatans;
-    });
-  };
-
-  // Fungsi untuk menghapus jabatan
-  const handleRemoveJabatan = (index) => {
-    const newJabatans = [...jabatans];
-    newJabatans.splice(index, 1); // Hapus jabatan berdasarkan index
-    setJabatans(newJabatans);
-  };
-
-  const handleAddJabatan = () => {
-    setJabatans([...jabatans, { namaJabatan: "", demografiId: "" }]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Jabatans yang akan dikirim:", jabatans);
-
-    // Pastikan semua jabatans memiliki uuid yang valid sebelum dikirim
-    const updatedJabatans = jabatans.map((jabatan) => {
-      return {
-        ...jabatan,
-        uuid: jabatan.uuid || null, // Set uuid ke null jika tidak ada
-      };
-    });
 
     // Buat data payload untuk dikirim
     const data = new FormData();
@@ -219,9 +158,6 @@ const Jabatan = () => {
     data.append("profil", formData.profil);
     data.append("visimisi", formData.visimisi);
     data.append("tugaspokok", formData.tugaspokok);
-    console.log("Jabatans yang disimpan:", updatedJabatans);
-
-    data.append("jabatans", JSON.stringify(updatedJabatans)); // Simpan jabatans yang sudah di-update
 
     try {
       if (isEditMode) {
@@ -290,10 +226,8 @@ const Jabatan = () => {
       visimisi: "",
       tugaspokok: "",
     });
-    setImagePreview(null);
     setEditMode(false);
     setCurrentData(null);
-    setJabatans([{ namaJabatan: "", demografiId: "" }]); // Reset jabatan
   };
 
   // const editData = (data) => {
@@ -343,33 +277,7 @@ const Jabatan = () => {
     });
     setCurrentData(rowData);
 
-    if (rowData.Anggota) {
-      // Sesuaikan dengan struktur data dari controller
-      console.log("Data Anggota:", rowData.Anggota);
-      if (rowData.Anggota.length > 0) {
-        const formattedJabatans = rowData.Anggota.map((anggota) => ({
-          uuid: anggota.uuid || null,
-          namaJabatan: anggota.jabatan,
-          demografiId: anggota.demografi.uuid,
-        }));
-        setJabatans(formattedJabatans);
-      } else {
-        console.warn("Tidak ada data Anggota yang ditemukan");
-        setJabatans([{ namaJabatan: "", demografiId: "" }]);
-      }
-    } else {
-      console.error("rowData.Anggota tidak ada");
-      setJabatans([{ namaJabatan: "", demografiId: "" }]);
-    }
     console.log("Data Jabatan saat dibuka:", rowData.jabatans);
-    if (typeof rowData.file_url === "string") {
-      const fullUrl = `https://randusanga-kulonbackend-production.up.railway.app/${rowData.file_url}`;
-      console.log("Full URL gambar:", fullUrl); // Debug URL absolut
-      setImagePreview(fullUrl);
-    } else if (rowData.file_url instanceof File) {
-      const url = URL.createObjectURL(rowData.file_url);
-      setImagePreview(url); // Buat preview jika file baru di-upload
-    }
     setEditMode(true);
     setDialogVisible(true);
   };
@@ -498,39 +406,6 @@ const Jabatan = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="singkatan">Singkatan</label>
-                <InputText
-                  id="singkatan"
-                  name="singkatan"
-                  value={formData.singkatan}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="alamat_kantor">Alamat Kantor</label>
-                <InputText
-                  id="alamat_kantor"
-                  name="alamat_kantor"
-                  value={formData.alamat_kantor}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="dasar_hukum">Dasar Hukum</label>
-                <InputText
-                  id="dasar_hukum"
-                  name="dasar_hukum"
-                  value={formData.dasar_hukum}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
-              <div className="form-group">
                 <label>Ringkasan Tentang Jabatan</label>
                 <ReactQuill
                   value={formData.profil}
@@ -583,79 +458,7 @@ const Jabatan = () => {
                   `}
                 </style>
               </div>
-              <div className="form-group">
-                <label>Upload Lambang</label>
-                <input type="file" onChange={handleFileChange} />
-                {imagePreview && (
-                  <div style={{ marginTop: "10px" }}>
-                    <Image
-                      src={imagePreview}
-                      alt="Preview"
-                      width="150"
-                      height="150"
-                      preview
-                      style={{
-                        objectFit: "cover",
-                        marginTop: "10px",
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
               <h3 className="section-title">Tugas Pokok</h3>
-              {jabatans.map((jabatan, index) => (
-                <div key={index} className="jabatan-row">
-                  <div className="form-group">
-                    <label htmlFor={`namaJabatan-${index}`}>Nama Jabatan</label>
-                    <InputText
-                      id={`namaJabatan-${index}`}
-                      name="namaJabatan"
-                      className="jabatan-input input-field"
-                      value={jabatan.namaJabatan}
-                      onChange={(e) => handleJabatanChange(index, e)}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor={`demografiId-${index}`}>Nama Anggota</label>
-                    {demografiLoading ? (
-                      <p>Loading data demografi...</p>
-                    ) : demografiError ? (
-                      <p>Terjadi kesalahan: {demografiError.message}</p>
-                    ) : (
-                      <Dropdown
-                        id={`demografiId-${index}`}
-                        name="demografiId"
-                        value={jabatan.demografiId}
-                        className="input-field"
-                        options={demografiOptions}
-                        onChange={(e) => handleJabatanChange(index, e)}
-                        required
-                      />
-                    )}
-                  </div>
-                  <div className="remove-button-container">
-                    <Button
-                      type="button"
-                      label="Hapus"
-                      className="remove-button"
-                      onClick={() => handleRemoveJabatan(index)}
-                    />
-                  </div>
-                </div>
-              ))}
-              <div className="add-jabatan-container">
-                {" "}
-                {/* Tambahkan container untuk tombol Add Jabatan */}
-                <Button
-                  type="button"
-                  label="Tambah"
-                  raised
-                  rounded
-                  icon="pi pi-plus"
-                  onClick={handleAddJabatan}
-                />
-              </div>
               <Button
                 type="submit"
                 label={isEditMode ? "Simpan Data" : "Simpan Data"}
