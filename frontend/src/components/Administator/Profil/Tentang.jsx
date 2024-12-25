@@ -40,7 +40,7 @@ const Tentang = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/tentang",
+    "http://localhost:8080/tentang",
     fetcher
   );
 
@@ -56,7 +56,7 @@ const Tentang = () => {
 
   useEffect(() => {
     axiosJWT
-      .get("https://randusanga-kulonbackend-production.up.railway.app/tentang")
+      .get("http://localhost:8080/tentang")
       .then((response) => console.log("Data fetched manually:", response.data))
       .catch((error) =>
         console.error("Error fetching Tentang manually:", error)
@@ -93,7 +93,7 @@ const Tentang = () => {
 
     try {
       const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/ctentang",
+        "http://localhost:8080/ctentang",
         formData,
         {
           headers: {
@@ -107,9 +107,7 @@ const Tentang = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/tentang"
-      );
+      await mutate("http://localhost:8080/tentang");
 
       toast.current.show({
         severity: "success",

@@ -44,7 +44,7 @@ const BatasWilayah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah",
+    "http://localhost:8080/bataswilayah",
     fetcher
   );
 
@@ -73,7 +73,7 @@ const BatasWilayah = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/bataswilayah/${currentData.uuid}`,
+          `http://localhost:8080/bataswilayah/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -83,10 +83,7 @@ const BatasWilayah = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cbataswilayah",
-          formData
-        );
+        await axiosJWT.post("http://localhost:8080/cbataswilayah", formData);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -94,9 +91,7 @@ const BatasWilayah = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah"
-      );
+      await mutate("http://localhost:8080/bataswilayah");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -135,18 +130,14 @@ const BatasWilayah = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/bataswilayah/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/bataswilayah/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah"
-        );
+        await mutate("http://localhost:8080/bataswilayah");
       } catch (error) {
         handleError(error);
       }

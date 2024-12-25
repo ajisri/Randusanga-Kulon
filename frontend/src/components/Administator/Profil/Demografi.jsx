@@ -63,26 +63,17 @@ const Demografi = () => {
     data: demografiData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/demografi",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/demografi", fetcher);
   const {
     data: educationData,
     error: educationError,
     isLoading: isEducationLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/education-options",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/education-options", fetcher);
   const {
     data: religionData,
     error: religionError,
     isLoading: isReligionLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agama",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/agama", fetcher);
 
   useEffect(() => {
     if (demografiData?.demographics) {
@@ -195,7 +186,7 @@ const Demografi = () => {
     try {
       if (isEditMode) {
         await axiosJWT.put(
-          `https://randusanga-kulonbackend-production.up.railway.app/demografi/${currentDemographic.nik}`,
+          `http://localhost:8080/demografi/${currentDemographic.nik}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -208,13 +199,9 @@ const Demografi = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cdemografi",
-          dataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cdemografi", dataToSend, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -223,9 +210,7 @@ const Demografi = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/demografi"
-      );
+      await mutate("http://localhost:8080/demografi");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -311,18 +296,14 @@ const Demografi = () => {
   const deleteDemographic = async (nik) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/demografi/${nik}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/demografi/${nik}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/demografi"
-        );
+        await mutate("http://localhost:8080/demografi");
       } catch (error) {
         handleError(error);
       }

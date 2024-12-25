@@ -38,7 +38,7 @@ const Aktakelahiran = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/aktakelahiran",
+    "http://localhost:8080/aktakelahiran",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Aktakelahiran = () => {
 
     try {
       const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/caktakelahiran",
+        "http://localhost:8080/caktakelahiran",
         formData,
         {
           headers: {
@@ -96,9 +96,7 @@ const Aktakelahiran = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/aktakelahiran"
-      );
+      await mutate("http://localhost:8080/aktakelahiran");
 
       toast.current.show({
         severity: "success",

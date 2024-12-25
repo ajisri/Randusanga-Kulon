@@ -54,10 +54,7 @@ const Produkhukum = () => {
     data: produkhukumData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/produk_hukum", fetcher);
 
   useEffect(() => {
     if (produkhukumData?.produkHukum) {
@@ -195,7 +192,7 @@ const Produkhukum = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
+          `http://localhost:8080/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -208,13 +205,9 @@ const Produkhukum = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cprodukhukum",
-          dataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cprodukhukum", dataToSend, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -223,9 +216,7 @@ const Produkhukum = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
-      );
+      await mutate("http://localhost:8080/produk_hukum");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -293,18 +284,14 @@ const Produkhukum = () => {
   const deleteProdukhukum = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/produk_hukum/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
-        );
+        await mutate("http://localhost:8080/produk_hukum");
       } catch (error) {
         handleError(error);
       }

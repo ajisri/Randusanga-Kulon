@@ -28,28 +28,25 @@ const Modals = () => {
   // const [chartOptions, setChartOptions] = useState({});
 
   const { data: tentangData, error: tentangError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/tentangpengunjung",
+    "http://localhost:8080/tentangpengunjung",
     fetcher
   );
   const loadingTentang = !tentangData && !tentangError;
 
   const { data: sejarahData, error: sejarahError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/sejarahpengunjung",
+    "http://localhost:8080/sejarahpengunjung",
     fetcher
   );
   const loadingSejarah = !sejarahData && !sejarahError;
 
   const { data: visionData, error: visionError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/visimisipengunjung",
+    "http://localhost:8080/visimisipengunjung",
     fetcher
   );
   const loadingVision = !visionData && !visionError;
 
   const { data: strukturorganisasiData, error: strukturorganisasiError } =
-    useSWR(
-      "https://randusanga-kulonbackend-production.up.railway.app/strukturorganisasipengunjung",
-      fetcher
-    );
+    useSWR("http://localhost:8080/strukturorganisasipengunjung", fetcher);
 
   const loadingStrukturorganisasi =
     !strukturorganisasiData && !strukturorganisasiError;
@@ -61,19 +58,19 @@ const Modals = () => {
     : null;
 
   const { data: demografiData, error: demografiError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/demografipengunjung",
+    "http://localhost:8080/demografipengunjung",
     fetcher
   );
 
   //lembaga
   const { data: lembagaData, error: lembagaError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/lembagapengunjung",
+    "http://localhost:8080/lembagapengunjung",
     fetcher
   );
   const loadingLembaga = !lembagaData && !lembagaError;
 
   const lembagaList = lembagaData?.lembagap || [];
-  const baseLURL = "https://randusanga-kulonbackend-production.up.railway.app/";
+  const baseLURL = "http://localhost:8080/";
 
   const renderAnggota = (anggotaList) => (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>

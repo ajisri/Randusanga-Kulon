@@ -6,7 +6,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Galeri = () => {
   const { data: galeriData, error: galeriError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/galeripengunjung",
+    "http://localhost:8080/galeripengunjung",
     fetcher
   );
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1200);

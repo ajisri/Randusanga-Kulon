@@ -44,7 +44,7 @@ const PotensiWisata = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata",
+    "http://localhost:8080/potensiwisata",
     fetcher
   );
 
@@ -73,7 +73,7 @@ const PotensiWisata = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${currentData.uuid}`,
+          `http://localhost:8080/potensiwisata/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -83,10 +83,7 @@ const PotensiWisata = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cpotensiwisata",
-          formData
-        );
+        await axiosJWT.post("http://localhost:8080/cpotensiwisata", formData);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -94,9 +91,7 @@ const PotensiWisata = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
-      );
+      await mutate("http://localhost:8080/potensiwisata");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -135,18 +130,14 @@ const PotensiWisata = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/potensiwisata/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
-        );
+        await mutate("http://localhost:8080/potensiwisata");
       } catch (error) {
         handleError(error);
       }

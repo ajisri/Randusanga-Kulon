@@ -10,7 +10,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
   const { data: pengumumanData, error: pengumumanError } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/pengumumanpengunjung",
+    "http://localhost:8080/pengumumanpengunjung",
     fetcher
   );
 

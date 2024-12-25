@@ -50,10 +50,7 @@ const Keuangan = () => {
     data: keuanganData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/keuangan",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/keuangan", fetcher);
 
   useEffect(() => {
     if (keuanganData) {
@@ -67,10 +64,7 @@ const Keuangan = () => {
     data: apbdData,
     error: apbdError,
     isLoading: isApbdLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/allapbd",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/allapbd", fetcher);
 
   useEffect(() => {
     if (apbdData) {
@@ -111,7 +105,7 @@ const Keuangan = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${currentKeuangan.uuid}`,
+          `http://localhost:8080/keuangan/${currentKeuangan.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -121,10 +115,7 @@ const Keuangan = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckeuangan",
-          dataToSend
-        );
+        await axiosJWT.post("http://localhost:8080/ckeuangan", dataToSend);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -133,9 +124,7 @@ const Keuangan = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/keuangan"
-      );
+      await mutate("http://localhost:8080/keuangan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -184,18 +173,14 @@ const Keuangan = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       setIsLoadingg(true);
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/keuangan/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/keuangan"
-        );
+        await mutate("http://localhost:8080/keuangan");
       } catch (error) {
         handleError(error);
       } finally {

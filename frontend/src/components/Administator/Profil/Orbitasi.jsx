@@ -46,7 +46,7 @@ const OrbitasiDesa = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/orbitasi",
+    "http://localhost:8080/orbitasi",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const OrbitasiDesa = () => {
     try {
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/orbitasi/${currentData.uuid}`,
+          `http://localhost:8080/orbitasi/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -85,10 +85,7 @@ const OrbitasiDesa = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/corbitasi",
-          formData
-        );
+        await axiosJWT.post("http://localhost:8080/corbitasi", formData);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -96,9 +93,7 @@ const OrbitasiDesa = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/orbitasi"
-      );
+      await mutate("http://localhost:8080/orbitasi");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -138,18 +133,14 @@ const OrbitasiDesa = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/orbitasi/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/orbitasi/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/orbitasi"
-        );
+        await mutate("http://localhost:8080/orbitasi");
       } catch (error) {
         handleError(error);
       }
@@ -250,7 +241,7 @@ const OrbitasiDesa = () => {
       </DataTable>
 
       <Dialog
-        header={isEditMode ? "Edit Batas Wilayah" : "Add Batas Wilayah"}
+        header={isEditMode ? "Edit Orbitasi Desa" : "Tambah Orbitasi Desa"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}

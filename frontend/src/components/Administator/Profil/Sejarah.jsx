@@ -38,7 +38,7 @@ const Sejarah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/sejarah",
+    "http://localhost:8080/sejarah",
     fetcher
   );
 
@@ -82,7 +82,7 @@ const Sejarah = () => {
 
     try {
       const response = await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/csejarah",
+        "http://localhost:8080/csejarah",
         formData,
         {
           headers: {
@@ -96,9 +96,7 @@ const Sejarah = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/sejarah"
-      );
+      await mutate("http://localhost:8080/sejarah");
 
       toast.current.show({
         severity: "success",

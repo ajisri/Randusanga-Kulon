@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Calendar } from "primereact/calendar";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 // import { Dropdown } from "primereact/dropdown";
@@ -26,8 +26,8 @@ const Jabatan = () => {
     ringkasan: "",
     fungsi: "",
     tugas: "",
-    mulai: "",
-    selesai: "",
+    mulai: null,
+    selesai: null,
   });
 
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
@@ -56,9 +56,11 @@ const Jabatan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jabatan",
+    "http://localhost:8080/jabatan",
     fetcher
   );
+
+  console.log("Data yang diterima:", data);
 
   useEffect(() => {
     if (data?.jabatan && data.jabatan.length > 0) {
@@ -67,19 +69,26 @@ const Jabatan = () => {
   }, [data]);
 
   useEffect(() => {
-    if (data && data.jabatan && data.jabatan.length > 0) {
-      setDataList(data.jabatan);
-      const jabatanData = data.jabatan[0]; // Ambil jabatan pertama jika ada
+    if (data && data.length > 0) {
+      // Memastikan data ada dan bukan kosong
+      setDataList(data); // Set dataList dengan data yang diterima
+      const jabatanData = data[0]; // Ambil jabatan pertama jika ada
       setFormData({
         uuid: jabatanData.uuid,
         nama: jabatanData.nama,
         ringkasan: jabatanData.ringkasan,
-        mulai: jabatanData.masajabatan.mulai,
-        selesai: jabatanData.masajabatan.selesai,
-        fungsi: jabatanData.fungsi?.map((f) => f.content).join("") || "",
-        tugas: jabatanData.tugas?.map((t) => t.content).join("") || "",
+        mulai: jabatanData.masaJabatan && jabatanData.masaJabatan[0]?.mulai, // Akses mulai dari masaJabatan pertama
+        selesai: jabatanData.masaJabatan && jabatanData.masaJabatan[0]?.selesai, // Akses selesai dari masaJabatan pertama
+        fungsi:
+          (jabatanData.fungsi &&
+            jabatanData.fungsi.map((f) => f.content).join(", ")) ||
+          "", // Gabungkan fungsi menjadi string
+        tugas:
+          (jabatanData.tugas &&
+            jabatanData.tugas.map((t) => t.content).join(", ")) ||
+          "", // Gabungkan tugas menjadi string
       });
-    } else if (data && (!data.jabatan || data.jabatan.length === 0)) {
+    } else {
       console.error("Data jabatan tidak tersedia atau kosong");
     }
   }, [data]);
@@ -89,7 +98,7 @@ const Jabatan = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/demografi", // Endpoint API demografi
+    "http://localhost:8080/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -135,56 +144,41 @@ const Jabatan = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleNChange = (value, fieldName) => {
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
+  };
+
   const handleQuillChange = useCallback((value, field) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   }, []);
-
-  const handleDateChange = (e) => {
-    const selectedDate = e.value;
-    const year = selectedDate.getFullYear();
-    const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // Tambahkan padding 0 untuk bulan
-    const day = ("0" + selectedDate.getDate()).slice(-2); // Tambahkan padding 0 untuk hari
-    const formattedDate = `${year}-${month}-${day}`; // Format yyyy-mm-dd
-    setFormData({
-      ...formData,
-      tanggal_agenda: formattedDate,
-    });
-  };
-
-  const handleEndDateChange = (e) => {
-    const selectedDate = e.value;
-    const year = selectedDate.getFullYear();
-    const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // Tambahkan padding 0 untuk bulan
-    const day = ("0" + selectedDate.getDate()).slice(-2); // Tambahkan padding 0 untuk hari
-    const formattedakhirDate = `${year}-${month}-${day}`; // Format yyyy-mm-dd
-    setFormData({
-      ...formData,
-      tanggal_akhir_agenda: formattedakhirDate,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Buat data payload untuk dikirim
-    const data = new FormData();
-    data.append("nama", formData.nama);
-    data.append("ringkasan", formData.ringkasan);
-    data.append("fungsi", formData.profil);
-    data.append("tugas", formData.visimisi);
-    data.append("mulai", formData.mulai);
-    data.append("selesai", formData.selesai);
+    const data = {
+      nama: formData.nama,
+      ringkasan: formData.ringkasan, // Pastikan ini string HTML dari ReactQuill
+      fungsi: formData.fungsi, // Pastikan ini string HTML dari ReactQuill
+      tugas: formData.tugas, // Pastikan ini string HTML dari CKEditor
+      mulai: formData.mulai,
+      selesai: formData.selesai,
+    };
+    console.log("Payload sebelum dikirim:", data);
 
     try {
       setIsLoadingProcess(true);
       if (isEditMode) {
         console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
-          `https://randusanga-kulonbackend-production.up.railway.app/ulembaga/${currentData.uuid}`,
+          `http://localhost:8080/ujabatan/${currentData.uuid}`,
           data,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
             },
           }
         );
@@ -195,15 +189,11 @@ const Jabatan = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/clembaga",
-          data,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cjabatan", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -211,9 +201,7 @@ const Jabatan = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/lembaga"
-      );
+      await mutate("http://localhost:8080/jabatan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -257,18 +245,14 @@ const Jabatan = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/lembaga/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/jabatan/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/lembaga"
-        );
+        await mutate("http://localhost:8080/jabatan");
       } catch (error) {
         handleError(error);
       }
@@ -281,12 +265,14 @@ const Jabatan = () => {
       console.error("rowData tidak terdefinisi");
       return;
     }
+    const masajabatan = rowData.masajabatan && rowData.masajabatan[0]; // Memastikan ada masajabatan yang pertama
+
     setFormData({
       uuid: rowData.uuid,
       nama: rowData.nama,
-      ringkasan: rowData.singkatan,
-      mulai: rowData.masajabatan.mulai,
-      selesai: rowData.masajabatan.selesai,
+      ringkasan: rowData.ringkasan,
+      mulai: masajabatan?.mulai || "", // Menggunakan optional chaining dan default value jika undefined
+      selesai: masajabatan?.selesai || "", // Menggunakan optional chaining dan default value jika undefined
       fungsi: rowData.fungsi.map((f) => f.content).join(""),
       tugas: rowData.tugas.map((t) => t.content).join(""),
     });
@@ -369,7 +355,17 @@ const Jabatan = () => {
           style={{ width: "5%", minWidth: "5%" }}
         />
         <Column field="nama" header="Nama Jabatan" />
-        <Column field="singkatan" header="Periode" />
+        <Column
+          header="Periode"
+          body={(rowData) => {
+            // Menampilkan periode berdasarkan data masaJabatan
+            const masaJabatan = rowData.masaJabatan && rowData.masaJabatan[0];
+            if (masaJabatan) {
+              return `${masaJabatan.mulai} - ${masaJabatan.selesai}`;
+            }
+            return "-"; // Jika tidak ada data masaJabatan
+          }}
+        />
         <Column
           body={(rowData) => (
             <div
@@ -420,53 +416,50 @@ const Jabatan = () => {
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="tanggal_agenda">Tanggal Mulai Agenda</label>
-                <Calendar
-                  id="tanggal_agenda"
-                  name="tanggal_agenda"
-                  value={
-                    formData.tanggal_agenda
-                      ? new Date(formData.tanggal_agenda)
-                      : null
-                  }
-                  onChange={handleDateChange}
-                  showIcon
-                  className="input-field"
-                  dateFormat="yy-mm-dd"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="tanggal_akhir_agenda">
-                  Tanggal Akhir Agenda
-                </label>
-                <Calendar
-                  id="tanggal_akhir_agenda"
-                  name="tanggal_akhir_agenda"
-                  value={
-                    formData.tanggal_akhir_agenda
-                      ? new Date(formData.tanggal_akhir_agenda)
-                      : null
-                  }
-                  onChange={handleEndDateChange}
-                  showIcon
-                  className="input-field"
-                  dateFormat="yy-mm-dd"
-                />
+              <div
+                className="form-container"
+                style={{ display: "flex", gap: "1rem" }}
+              >
+                <div className="form-group">
+                  <label htmlFor="Tahun Mulai">Tahun Mulai</label>
+                  <InputNumber
+                    id="mulai"
+                    name="mulai"
+                    value={formData.mulai}
+                    onValueChange={(e) => handleNChange(e.value, "mulai")}
+                    className="input-field"
+                    mode="decimal"
+                    useGrouping={false}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Tahun Selesai">Tahun Selesai</label>
+                  <InputNumber
+                    id="selesai"
+                    name="selesai"
+                    value={formData.selesai}
+                    onValueChange={(e) => handleNChange(e.value, "selesai")}
+                    className="input-field"
+                    mode="decimal"
+                    useGrouping={false}
+                    required
+                  />
+                </div>
               </div>
               <div className="form-group">
                 <label>Ringkasan Tentang Jabatan</label>
                 <ReactQuill
-                  value={formData.profil}
-                  onChange={(value) => handleQuillChange(value, "profil")}
+                  value={formData.ringkasan}
+                  onChange={(value) => handleQuillChange(value, "ringkasan")}
                   className="quill-editor"
                 />
               </div>
               <div className="form-group">
                 <label>Fungsi</label>
                 <ReactQuill
-                  value={formData.visimisi}
-                  onChange={(value) => handleQuillChange(value, "visimisi")}
+                  value={formData.fungsi}
+                  onChange={(value) => handleQuillChange(value, "fungsi")}
                   className="quill-editor"
                 />
               </div>
@@ -475,7 +468,7 @@ const Jabatan = () => {
                 <label>Tugas</label>
                 <CKEditor
                   editor={DecoupledEditor}
-                  data={formData.tugaspokok}
+                  data={formData.tugas}
                   onReady={(editor) => {
                     console.log("Editor is ready to use!", editor);
                     const toolbarContainer =
@@ -487,7 +480,7 @@ const Jabatan = () => {
                   onChange={(event, editor) => {
                     const data = editor.getData();
                     console.log("Editor data changed:", data);
-                    handleQuillChange(data, "tugaspokok");
+                    handleQuillChange(data, "tugas");
                   }}
                 />
 

@@ -51,10 +51,7 @@ const Apbd = () => {
     data: apbdData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/apbd",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/apbd", fetcher);
 
   useEffect(() => {
     if (apbdData?.apbd) {
@@ -209,7 +206,7 @@ const Apbd = () => {
             : "Tidak ada file yang diunggah",
         });
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
+          `http://localhost:8080/apbd/${currentApbd.id}`,
           formDataToSend,
           {
             headers: {
@@ -225,15 +222,11 @@ const Apbd = () => {
         });
       } else {
         console.log("Mengirim data baru...");
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
-          formDataToSend,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/capbd", formDataToSend, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -243,9 +236,7 @@ const Apbd = () => {
       }
 
       console.log("Data berhasil dikirim, merefresh data...");
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/apbd"
-      );
+      await mutate("http://localhost:8080/apbd");
 
       resetForm();
       setDialogVisible(false);
@@ -311,18 +302,14 @@ const Apbd = () => {
   const deleteapbd = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${id}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/apbd/${id}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/apbd"
-        );
+        await mutate("http://localhost:8080/apbd");
       } catch (error) {
         handleError(error);
       }

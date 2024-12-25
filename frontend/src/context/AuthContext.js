@@ -12,10 +12,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const refreshToken = async () => {
       try {
-        const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token",
-          { withCredentials: true }
-        );
+        const response = await axios.get("http://localhost:8080/token", {
+          withCredentials: true,
+        });
         setAccessToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
         setExpire(decoded.exp);
@@ -29,10 +28,9 @@ export const AuthProvider = ({ children }) => {
   const getAccessToken = async () => {
     const currentDate = new Date();
     if (expire * 1000 < currentDate.getTime()) {
-      const response = await axios.get(
-        "https://randusanga-kulonbackend-production.up.railway.app/token",
-        { withCredentials: true }
-      );
+      const response = await axios.get("http://localhost:8080/token", {
+        withCredentials: true,
+      });
       setAccessToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
       setExpire(decoded.exp);
