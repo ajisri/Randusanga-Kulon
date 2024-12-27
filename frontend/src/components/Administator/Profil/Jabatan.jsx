@@ -6,6 +6,7 @@ import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -144,6 +145,13 @@ const Jabatan = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleChangeDropdown = (value, field) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const handleNChange = (value, fieldName) => {
     setFormData({
       ...formData,
@@ -160,12 +168,13 @@ const Jabatan = () => {
 
     // Buat data payload untuk dikirim
     const data = {
-      nama: formData.nama,
-      ringkasan: formData.ringkasan, // Pastikan ini string HTML dari ReactQuill
-      fungsi: formData.fungsi, // Pastikan ini string HTML dari ReactQuill
-      tugas: formData.tugas, // Pastikan ini string HTML dari CKEditor
+      nama: formData.nama.trim(),
+      ringkasan: formData.ringkasan.trim(), // Pastikan ini string HTML dari ReactQuill
+      fungsi: formData.fungsi.trim(), // Pastikan ini string HTML dari ReactQuill
+      tugas: formData.tugas.trim(), // Pastikan ini string HTML dari CKEditor
       mulai: formData.mulai,
       selesai: formData.selesai,
+      pemegangId: formData.pemegang,
     };
     console.log("Payload sebelum dikirim:", data);
 
@@ -230,6 +239,7 @@ const Jabatan = () => {
       tugas: "",
       mulai: "",
       selesai: "",
+      pemegangId: "",
     });
     setEditMode(false);
     setCurrentData(null);
@@ -265,16 +275,17 @@ const Jabatan = () => {
       console.error("rowData tidak terdefinisi");
       return;
     }
-    const masajabatan = rowData.masajabatan && rowData.masajabatan[0]; // Memastikan ada masajabatan yang pertama
+    const masajabatan = rowData.masaJabatan?.[0]; // Memastikan ada masajabatan yang pertama
 
     setFormData({
       uuid: rowData.uuid,
       nama: rowData.nama,
       ringkasan: rowData.ringkasan,
-      mulai: masajabatan?.mulai || "", // Menggunakan optional chaining dan default value jika undefined
-      selesai: masajabatan?.selesai || "", // Menggunakan optional chaining dan default value jika undefined
-      fungsi: rowData.fungsi.map((f) => f.content).join(""),
-      tugas: rowData.tugas.map((t) => t.content).join(""),
+      mulai: masajabatan?.mulai || null, // Menggunakan optional chaining dan default value jika undefined
+      selesai: masajabatan?.selesai || null, // Menggunakan optional chaining dan default value jika undefined
+      fungsi: rowData.fungsi.length > 0 ? rowData.fungsi[0].content : "",
+      tugas: rowData.tugas.length > 0 ? rowData.tugas[0].content : "",
+      pemegang: rowData.pemegangId || null,
     });
     setCurrentData(rowData);
 
@@ -354,7 +365,16 @@ const Jabatan = () => {
           }}
           style={{ width: "5%", minWidth: "5%" }}
         />
-        <Column field="nama" header="Nama Jabatan" />
+        <Column
+          field="nama"
+          header="Nama Jabatan"
+          style={{ width: "35%", minWidth: "15%" }}
+        />
+        <Column
+          header="Nama Pemegang"
+          style={{ width: "40%", minWidth: "15%" }}
+          body={(rowData) => rowData.pemegang?.name || "Belum Ditentukan"} // Akses nama pemegang
+        />
         <Column
           header="Periode"
           body={(rowData) => {
@@ -365,6 +385,7 @@ const Jabatan = () => {
             }
             return "-"; // Jika tidak ada data masaJabatan
           }}
+          style={{ width: "20%", minWidth: "5%" }}
         />
         <Column
           body={(rowData) => (
@@ -416,6 +437,20 @@ const Jabatan = () => {
                   required
                 />
               </div>
+              <div className="form-group">
+                <label htmlFor="pemegang">Pemegang Jabatan</label>
+                <Dropdown
+                  id="pemegangId"
+                  name="pemegangId"
+                  value={formData.pemegang || null} // Bind dengan formData
+                  options={demografiOptions} // Data dropdown
+                  onChange={(e) => handleChangeDropdown(e.value, "pemegang")} // Tangani perubahan
+                  placeholder="Pilih Pemegang Jabatan"
+                  className="input-field"
+                  required
+                />
+              </div>
+
               <div
                 className="form-container"
                 style={{ display: "flex", gap: "1rem" }}
@@ -425,7 +460,7 @@ const Jabatan = () => {
                   <InputNumber
                     id="mulai"
                     name="mulai"
-                    value={formData.mulai}
+                    value={formData.mulai ?? null}
                     onValueChange={(e) => handleNChange(e.value, "mulai")}
                     className="input-field"
                     mode="decimal"
@@ -438,7 +473,7 @@ const Jabatan = () => {
                   <InputNumber
                     id="selesai"
                     name="selesai"
-                    value={formData.selesai}
+                    value={formData.selesai ?? null}
                     onValueChange={(e) => handleNChange(e.value, "selesai")}
                     className="input-field"
                     mode="decimal"
