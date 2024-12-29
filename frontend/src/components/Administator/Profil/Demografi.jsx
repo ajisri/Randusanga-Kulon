@@ -161,6 +161,9 @@ const Demografi = () => {
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result);
       reader.readAsDataURL(file);
+    } else {
+      setSelectedFile(null);
+      setPreview("");
     }
   };
 
@@ -285,11 +288,12 @@ const Demografi = () => {
     setFormData(demographic);
     setSelectedFile(null);
     const fileUrl = demographic.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${demographic.file_url}`
+      ? `http://localhost:8080/${demographic.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
     setCurrentDemographic(demographic);
+    setSelectedDemographic(demographic);
     setEditMode(true);
     setDialogVisible(true);
   };
@@ -312,14 +316,14 @@ const Demografi = () => {
   };
 
   useEffect(() => {
-    if (selectedDemographic?.file_url) {
-      setPreview(
-        `https://randusanga-kulonbackend-production.up.railway.app${selectedDemographic.file_url}`
-      );
-    } else {
+    if (selectedDemographic?.file_url && !selectedFile) {
+      // Jika ada file_url dan belum ada file yang baru diunggah
+      setPreview(`http://localhost:8080${selectedDemographic.file_url}`);
+    } else if (!selectedDemographic && !selectedFile) {
+      // Jika tidak ada file atau data yang dipilih
       setPreview("");
     }
-  }, [selectedDemographic]);
+  }, [selectedDemographic, selectedFile]);
 
   const handlePageChange = (e) => {
     setFirst(e.first);
@@ -550,12 +554,12 @@ const Demografi = () => {
             </div>
           )}
 
-          {selectedDemographic?.file_url && (
+          {preview && (
             <div className="file-preview">
-              <h4>File:</h4>
+              <h4>File Preview:</h4>
               <img
-                src={preview} // Menggunakan preview yang sudah di-set
-                alt="File Preview"
+                src={preview}
+                alt="Preview"
                 style={{
                   width: "100%",
                   maxHeight: "300px",
