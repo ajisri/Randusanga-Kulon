@@ -298,6 +298,7 @@ const SubkategoriAnkor = () => {
 
     try {
       // Kirim data ke backend
+      setIsLoadingProcess(true);
       await axiosJWT.post(
         "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
         { poinData: formattedPoinData }
@@ -391,8 +392,6 @@ const SubkategoriAnkor = () => {
 
       setPoinSubkategoriAnkorFormData(data); // Memperbarui state form
     } catch (error) {
-      console.error("Error saat memfetch data:", error);
-
       // Tangani error spesifik jika 404
       if (error.response && error.response.status === 404) {
         showNotification(
@@ -680,7 +679,8 @@ const SubkategoriAnkor = () => {
           <div className="button-sub">
             <Button
               type="submit"
-              label="Simpan"
+              label="Simpan Data"
+              disabled={isLoadingProcess}
               className="coastal-button submit-button p-button-rounded"
             />
           </div>

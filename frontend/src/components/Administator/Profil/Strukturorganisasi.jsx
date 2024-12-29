@@ -12,6 +12,7 @@ import { Toast } from "primereact/toast";
 import "./Editor.css";
 
 const Strukturorganisasi = () => {
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [title, setTitle] = useState("");
   const [file_url, setFileUrl] = useState("");
   const [status, setStatus] = useState("DRAFT");
@@ -81,7 +82,8 @@ const Strukturorganisasi = () => {
     formData.append("status", status);
 
     try {
-      const response = await axiosJWT.post(
+      setIsLoadingProcess(true);
+      await axiosJWT.post(
         "http://localhost:8080/cstrukturorganisasi",
         formData,
         {
@@ -90,7 +92,6 @@ const Strukturorganisasi = () => {
           },
         }
       );
-      console.log("Data uploaded successfully:", response.data);
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
@@ -309,6 +310,7 @@ const Strukturorganisasi = () => {
                 <div className="publish-options-bottom">
                   <Button
                     label="Save"
+                    disabled={isLoadingProcess}
                     raised
                     className="p-buttonadmin"
                     onClick={handleSaveClick}

@@ -34,7 +34,7 @@ const Demografi = () => {
     religion_id: null,
     file_url: "",
   });
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -184,6 +184,7 @@ const Demografi = () => {
     }
 
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.put(
           `http://localhost:8080/demografi/${currentDemographic.nik}`,
@@ -859,7 +860,8 @@ const Demografi = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="submit-button coastal-button p-button-rounded p-button-primary"
                 />
               </div>

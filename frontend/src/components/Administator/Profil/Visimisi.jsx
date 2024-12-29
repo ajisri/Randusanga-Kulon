@@ -12,6 +12,7 @@ import { Toast } from "primereact/toast";
 import "./Editor.css";
 
 const Visimisi = () => {
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [title, setTitle] = useState("");
   const [file_url, setFileUrl] = useState("");
   const [status, setStatus] = useState("DRAFT");
@@ -81,6 +82,7 @@ const Visimisi = () => {
     formData.append("status", status);
 
     try {
+      setIsLoadingProcess(true);
       const response = await axiosJWT.post(
         "http://localhost:8080/cvisimisi",
         formData,
@@ -309,6 +311,7 @@ const Visimisi = () => {
                 <div className="publish-options-bottom">
                   <Button
                     label="Save"
+                    disabled={isLoadingProcess}
                     raised
                     className="p-buttonadmin"
                     onClick={handleSaveClick}

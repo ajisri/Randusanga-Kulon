@@ -36,7 +36,7 @@ const Lembaga = () => {
   const [jabatans, setJabatans] = useState([
     { uuid: "", namaJabatan: "", demografiId: "" },
   ]);
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [demografiOptions, setDemografiOptions] = useState([]); // State untuk menyimpan data demografi dari API
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
@@ -224,6 +224,7 @@ const Lembaga = () => {
     data.append("jabatans", JSON.stringify(updatedJabatans)); // Simpan jabatans yang sudah di-update
 
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
@@ -651,6 +652,7 @@ const Lembaga = () => {
               <Button
                 type="submit"
                 label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                disabled={isLoadingProcess}
                 icon="pi pi-check"
                 className="p-button-rounded p-button-success submit-button"
                 style={{ width: "100%" }}

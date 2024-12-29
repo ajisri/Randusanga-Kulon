@@ -19,7 +19,7 @@ const PotensiWisata = () => {
     jenis: "",
     luas: "",
   });
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
@@ -71,6 +71,7 @@ const PotensiWisata = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `http://localhost:8080/potensiwisata/${currentData.uuid}`,
@@ -288,6 +289,7 @@ const PotensiWisata = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
+                  disabled={isLoadingProcess}
                   label={isEditMode ? "Update" : "Save"}
                   className="coastal-button submit-button p-button-rounded"
                 />

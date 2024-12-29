@@ -335,8 +335,6 @@ const Galeri = () => {
           body={(rowData, options) => {
             const rowIndex = options.rowIndex % rows; // Reset rowIndex setiap halaman
             const nomorUrut = first + rowIndex + 1; // Hitung nomor urut berdasarkan halaman
-            console.log("Row Index:", rowIndex, "Nomor Urut:", nomorUrut); // Log nomor urut pada setiap baris
-
             return nomorUrut;
           }}
           style={{ width: "5%", minWidth: "5%" }}

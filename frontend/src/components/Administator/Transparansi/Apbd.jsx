@@ -19,7 +19,7 @@ const Apbd = () => {
     year: "",
     file_url: "",
   });
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -195,16 +195,8 @@ const Apbd = () => {
     }
 
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
-        console.log("Mengirim data untuk update (Edit Mode)...");
-        console.log("Data yang akan dikirim:", {
-          id: currentApbd.id,
-          name: formData.name,
-          year: formData.year,
-          file: selectedFile
-            ? selectedFile.name
-            : "Tidak ada file yang diunggah",
-        });
         await axiosJWT.patch(
           `http://localhost:8080/apbd/${currentApbd.id}`,
           formDataToSend,
@@ -491,7 +483,8 @@ const Apbd = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />

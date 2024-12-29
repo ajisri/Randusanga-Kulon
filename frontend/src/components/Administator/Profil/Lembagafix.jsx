@@ -12,6 +12,7 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 
 const Lembaga = () => {
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [nama, setNama] = useState("");
   const [singkatan, setSingkatan] = useState("");
   const [dasarHukum, setDasarHukum] = useState("");
@@ -103,11 +104,8 @@ const Lembaga = () => {
     };
 
     try {
-      const response = await axiosJWT.post(
-        "http://localhost:8080/clembaga",
-        formData
-      );
-      console.log("Data berhasil disimpan:", response.data);
+      setIsLoadingProcess(true);
+      await axiosJWT.post("http://localhost:8080/clembaga", formData);
       mutate("http://localhost:8080/lembaga"); // Re-fetch data lembaga
       toast.current.show({
         severity: "success",
@@ -316,6 +314,7 @@ const Lembaga = () => {
                 <Button
                   label="Simpan"
                   raised
+                  disabled={isLoadingProcess}
                   className="p-buttonadmin"
                   type="submit"
                 />

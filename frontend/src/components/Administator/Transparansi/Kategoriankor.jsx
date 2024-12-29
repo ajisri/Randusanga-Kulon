@@ -19,6 +19,7 @@ const Kategoriankor = () => {
     name: "",
     ankorId: "",
   });
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [ankorOptions, setAnkorOptions] = useState([]);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
@@ -123,6 +124,7 @@ const Kategoriankor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `http://localhost:8080/kategoriankor/${currentKategoriAnkor.uuid}`,
@@ -367,7 +369,8 @@ const Kategoriankor = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />

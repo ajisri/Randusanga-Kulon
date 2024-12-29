@@ -12,6 +12,7 @@ import { Toast } from "primereact/toast";
 import "./Editor.css";
 
 const Pendaftarannikah = () => {
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [title, setTitle] = useState("");
   const [file_url, setFileUrl] = useState("");
   const [status, setStatus] = useState("DRAFT");
@@ -81,16 +82,12 @@ const Pendaftarannikah = () => {
     formData.append("status", status);
 
     try {
-      const response = await axiosJWT.post(
-        "http://localhost:8080/cpendaftarannikah",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log("Data uploaded successfully:", response.data);
+      setIsLoadingProcess(true);
+      await axiosJWT.post("http://localhost:8080/cpendaftarannikah", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
@@ -310,6 +307,7 @@ const Pendaftarannikah = () => {
                   <Button
                     label="Save"
                     raised
+                    disabled={isLoadingProcess}
                     icon="pi pi-check"
                     className="p-buttonadmin"
                     onClick={handleSaveClick}

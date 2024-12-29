@@ -22,7 +22,7 @@ const Produkhukum = () => {
     waktu: null,
     file_url: "",
   });
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -190,6 +190,7 @@ const Produkhukum = () => {
     }
 
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `http://localhost:8080/produk_hukum/${currentProdukhukum.uuid}`,
@@ -502,7 +503,8 @@ const Produkhukum = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />

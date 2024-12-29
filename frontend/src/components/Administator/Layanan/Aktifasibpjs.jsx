@@ -12,6 +12,7 @@ import { Toast } from "primereact/toast";
 import "./Editor.css";
 
 const Aktifasibpjs = () => {
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [title, setTitle] = useState("");
   const [file_url, setFileUrl] = useState("");
   const [status, setStatus] = useState("DRAFT");
@@ -81,16 +82,12 @@ const Aktifasibpjs = () => {
     formData.append("status", status);
 
     try {
-      const response = await axiosJWT.post(
-        "http://localhost:8080/caktifasibpjs",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log("Data uploaded successfully:", response.data);
+      setIsLoadingProcess(true);
+      await axiosJWT.post("http://localhost:8080/caktifasibpjs", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
@@ -296,6 +293,7 @@ const Aktifasibpjs = () => {
             <div className="publish-options-bottom">
               <Button
                 label="Save"
+                disabled={isLoadingProcess}
                 raised
                 className="p-buttonadmin"
                 onClick={handleSaveClick}

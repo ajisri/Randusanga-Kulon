@@ -19,7 +19,7 @@ const Keuangan = () => {
     name: "",
     apbdId: "",
   });
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
@@ -103,6 +103,7 @@ const Keuangan = () => {
     };
 
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `http://localhost:8080/keuangan/${currentKeuangan.uuid}`,
@@ -335,7 +336,8 @@ const Keuangan = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />

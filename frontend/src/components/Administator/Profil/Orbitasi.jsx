@@ -21,7 +21,7 @@ const OrbitasiDesa = () => {
     nilai: "",
     satuan: "",
   });
-
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [isDialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [first, setFirst] = useState(0);
@@ -73,6 +73,7 @@ const OrbitasiDesa = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `http://localhost:8080/orbitasi/${currentData.uuid}`,
@@ -307,6 +308,7 @@ const OrbitasiDesa = () => {
                 <Button
                   type="submit"
                   label={isEditMode ? "Update" : "Save"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                 />
               </div>

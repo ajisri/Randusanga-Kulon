@@ -12,6 +12,7 @@ import { Toast } from "primereact/toast";
 import "./Editor.css";
 
 const Kartutandapenduduk = () => {
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [title, setTitle] = useState("");
   const [file_url, setFileUrl] = useState("");
   const [status, setStatus] = useState("DRAFT");
@@ -82,7 +83,8 @@ const Kartutandapenduduk = () => {
     formData.append("status", status);
 
     try {
-      const response = await axiosJWT.post(
+      setIsLoadingProcess(true);
+      await axiosJWT.post(
         "http://localhost:8080/ckartutandapenduduk",
         formData,
         {
@@ -91,7 +93,6 @@ const Kartutandapenduduk = () => {
           },
         }
       );
-      console.log("Data uploaded successfully:", response.data);
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
@@ -311,6 +312,7 @@ const Kartutandapenduduk = () => {
                   <Button
                     label="Save"
                     raised
+                    disabled={isLoadingProcess}
                     className="p-buttonadmin"
                     onClick={handleSaveClick}
                   />

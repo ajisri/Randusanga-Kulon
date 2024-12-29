@@ -20,6 +20,7 @@ const Kategori = () => {
     name: "",
     keuanganId: "",
   });
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [currentKategoriId, setCurrentKategoriId] = useState("");
   const [keuanganOptions, setKeuanganOptions] = useState([]);
   const [isDialogVisible, setDialogVisible] = useState(false);
@@ -112,6 +113,7 @@ const Kategori = () => {
       ...formData,
     };
     try {
+      setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
           `http://localhost:8080/kategori/${currentKategori.uuid}`,
@@ -232,6 +234,7 @@ const Kategori = () => {
     });
 
     try {
+      setIsLoadingProcess(true);
       // Kirim data ke backend
       await axiosJWT.post("http://localhost:8080/csubkategori", {
         subkategoriData: formattedSubkategoriData,
@@ -316,14 +319,9 @@ const Kategori = () => {
 
   const fetchSubkategoriByKategoriId = async (kategoriId) => {
     try {
-      console.log("Kategori ID yang dikirim:", kategoriId); // Debug log kategoriId
-
       const response = await axiosJWT.get(
         `http://localhost:8080/subkategoribykategori/${kategoriId}`
       );
-
-      console.log("Response status:", response.status); // Debug status
-      console.log("Response data:", response.data); // Debug data yang diterima
 
       // Cek apakah data ada atau kosong
       if (Array.isArray(response.data) && response.data.length === 0) {
@@ -583,7 +581,8 @@ const Kategori = () => {
               <div className="button-sub">
                 <Button
                   type="submit"
-                  label={isEditMode ? "Update" : "Save"}
+                  label={isEditMode ? "Simpan Data" : "Simpan Data"}
+                  disabled={isLoadingProcess}
                   className="coastal-button submit-button p-button-rounded"
                   style={{ marginTop: "20px" }}
                 />
@@ -698,6 +697,7 @@ const Kategori = () => {
             <Button
               type="submit"
               label="Simpan"
+              disabled={isLoadingProcess}
               className="coastal-button submit-button p-button-rounded"
             />
           </div>
