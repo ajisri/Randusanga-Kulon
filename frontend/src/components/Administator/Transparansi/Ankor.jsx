@@ -151,6 +151,8 @@ const Ankor = () => {
     } catch (error) {
       console.error("Terjadi kesalahan saat mengirim form:", error);
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 

@@ -120,6 +120,8 @@ const Tentang = () => {
         detail: "Failed to upload data.",
         life: 3000,
       });
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 

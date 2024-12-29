@@ -227,7 +227,6 @@ const Apbd = () => {
         });
       }
 
-      console.log("Data berhasil dikirim, merefresh data...");
       await mutate("http://localhost:8080/apbd");
 
       resetForm();
@@ -235,6 +234,8 @@ const Apbd = () => {
     } catch (error) {
       console.error("Terjadi kesalahan saat mengirim form:", error);
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 

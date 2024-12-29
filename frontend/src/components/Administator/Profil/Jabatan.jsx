@@ -176,12 +176,10 @@ const Jabatan = () => {
       selesai: formData.selesai,
       pemegangId: formData.pemegang,
     };
-    console.log("Payload sebelum dikirim:", data);
 
     try {
       setIsLoadingProcess(true);
       if (isEditMode) {
-        console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
           `http://localhost:8080/ujabatan/${currentData.uuid}`,
           data,
@@ -270,7 +268,6 @@ const Jabatan = () => {
   };
 
   const openEditDialog = (rowData) => {
-    console.log("Row Data yang diterima:", rowData);
     if (!rowData) {
       console.error("rowData tidak terdefinisi");
       return;

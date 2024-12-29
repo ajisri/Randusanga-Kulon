@@ -323,6 +323,8 @@ const SubkategoriAnkor = () => {
       // Tangani error dengan lebih informatif
       console.error("DEBUG: Error saat mengirim data:", error);
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 

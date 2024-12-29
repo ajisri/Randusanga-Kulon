@@ -141,6 +141,8 @@ const Kategori = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
@@ -257,6 +259,8 @@ const Kategori = () => {
       // Tangani error dengan lebih informatif
       console.error("DEBUG: Error saat mengirim data:", error);
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 

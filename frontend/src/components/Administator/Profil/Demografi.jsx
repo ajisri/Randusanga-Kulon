@@ -219,6 +219,8 @@ const Demografi = () => {
       setDialogVisible(false);
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
