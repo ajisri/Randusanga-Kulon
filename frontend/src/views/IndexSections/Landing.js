@@ -6,9 +6,11 @@ import useSWR from "swr"; // Import SWR
 // import { Link } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
-import { Card } from "primereact/card";
+// import { Card } from "primereact/card";
+import { Dialog } from "primereact/dialog";
+import DOMPurify from "dompurify";
 import { OrderList } from "primereact/orderlist";
-import { PhotoService } from "./service/PhotoService";
+// import { PhotoService } from "./service/PhotoService";
 import Pengumuman from "./Pengumuman";
 import Galeri from "./Galeri";
 import Berita from "./Berita";
@@ -41,7 +43,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Landing = () => {
   const [agendas, setAgendas] = useState([]);
-  const [photos, setPhotos] = useState([]);
+  // const [photos, setPhotos] = useState([]);
   // const [nameFocused, setNameFocused] = useState(false);
   // const [emailFocused, setEmailFocused] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
@@ -87,9 +89,6 @@ const Landing = () => {
         setAgendas(agendaData.agenda || []); // Gunakan default empty array jika agenda tidak ada
         console.log(agendaData.agenda);
       }
-
-      const photoData = await PhotoService.getImages();
-      setPhotos(photoData.slice(0, 9));
     };
 
     fetchData();
@@ -103,6 +102,24 @@ const Landing = () => {
       year: "numeric",
     }),
   }));
+
+  const {
+    data: jabatanData,
+    error: jabatanError,
+    isLoadingJabatan,
+  } = useSWR("http://localhost:8080/jabatanpengunjung", fetcher);
+
+  const [selectedJabatan, setSelectedJabatan] = useState(null); // Untuk data jabatan yang dipilih
+  const [isDialogVisible, setDialogVisible] = useState(false); // Untuk kontrol dialog
+
+  const showDetails = (jabatan) => {
+    setSelectedJabatan(jabatan);
+    setDialogVisible(true);
+  };
+
+  const hideDialog = () => {
+    setDialogVisible(false);
+  };
 
   const itemTemplate = (item) => (
     <div
@@ -120,28 +137,42 @@ const Landing = () => {
     </div>
   );
 
-  const photoTemplate = (photo) => (
-    <div className="card mb-3">
-      <Card
-        title={photo.title}
-        style={{ boxShadow: "0 12px 20px rgba(0, 0, 0, 0.4)" }}
-      >
-        <Row className="align-items-start">
-          <Col lg="3" className="d-flex">
-            <img
-              src={photo.itemImageSrc}
-              alt={photo.title}
-              style={{ width: "200px", height: "300px", objectFit: "cover" }}
-            />
-            <p>{photo.description}</p>
-          </Col>
-          <Col lg="9">
-            <p style={{ alignSelf: "flex-start" }}>{photo.alt}</p>
-          </Col>
-        </Row>
-      </Card>
-    </div>
-  );
+  const photoTemplate = (item) => {
+    DOMPurify.sanitize(item.ringkasan); // Membersihkan HTML
+
+    return (
+      <div className="p-4 text-center">
+        <img
+          src={
+            item.pemegang?.file_url
+              ? `http://localhost:8080${item.pemegang.file_url}`
+              : "placeholder.png"
+          }
+          alt={item.pemegang?.name || "Jabatan"}
+          className="img-fluid rounded mb-3"
+          style={{
+            maxWidth: "200px",
+            width: "200px", // Lebar gambar tetap
+            height: "200px", // Tinggi gambar tetap
+            objectFit: "contain", // Isi area dengan crop
+            objectPosition: "center",
+            backgroundColor: "#f0f0f0",
+          }}
+        />
+        <h4>{item.nama}</h4>
+        <div>
+          <strong>Pemegang Jabatan:</strong>{" "}
+          {item.pemegang?.name || "Tidak ada"}
+        </div>
+        <button
+          className="btn btn-primary mt-3"
+          onClick={() => showDetails(item)}
+        >
+          Lihat Detail
+        </button>
+      </div>
+    );
+  };
 
   const customFilter = (value, filter) => {
     if (!filter) return true;
@@ -150,6 +181,13 @@ const Landing = () => {
 
   if (isLoading) return <p>Loading...</p>;
   if (agendaError) return <p>{agendaError.message}</p>;
+  if (isLoadingJabatan) {
+    return <div>Memuat data jabatan...</div>;
+  }
+
+  if (jabatanError) {
+    return <div>Terjadi kesalahan saat memuat data.</div>;
+  }
 
   return (
     <>
@@ -463,7 +501,9 @@ const Landing = () => {
                         block
                         className="btn-white"
                         color="default"
-                        href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
+                        onClick={() =>
+                          window.open("https://wa.me/6285712790338", "_blank")
+                        }
                         size="lg"
                       >
                         Hubungi Kami
@@ -922,11 +962,10 @@ const Landing = () => {
         >
           <div className="py-5 bg-secondary">
             <Container fluid>
-              {/* Inputs (alternative) */}
               <div className="card">
                 <Carousel
-                  value={photos}
-                  numVisible={1}
+                  value={jabatanData} // Menggunakan data API
+                  numVisible={3}
                   numScroll={1}
                   circular
                   autoplayInterval={5000}
@@ -952,6 +991,52 @@ const Landing = () => {
               </div>
             </Container>
           </div>
+          {/* Dialog PrimeReact */}
+          <Dialog
+            header="Detail Jabatan"
+            visible={isDialogVisible}
+            style={{ width: "80vw", maxHeight: "90vh" }}
+            onHide={hideDialog}
+            maximizable
+          >
+            {selectedJabatan ? (
+              <div>
+                <h4>{selectedJabatan.nama}</h4>
+
+                <h5>Ringkasan:</h5>
+                <div
+                  style={{ textAlign: "justify" }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
+                  }}
+                ></div>
+
+                <h5>Tugas:</h5>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(
+                      `${selectedJabatan.tugas
+                        .map((tugas) => `${tugas.content}`)
+                        .join("")}`
+                    ),
+                  }}
+                ></div>
+
+                <h5>Fungsi:</h5>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(
+                      `${selectedJabatan.fungsi
+                        .map((fungsi) => `${fungsi.content}`)
+                        .join("")}`
+                    ),
+                  }}
+                ></div>
+              </div>
+            ) : (
+              <p>Memuat data...</p>
+            )}
+          </Dialog>
         </section>
         {/*  */}
         <section

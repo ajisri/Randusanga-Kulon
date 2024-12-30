@@ -77,12 +77,16 @@ const Pengumuman = () => {
           >
             <div className={styles.imageContainer}>
               <Image
-                src={`https://randusanga-kulonbackend-production.up.railway.app${item.file_url}`}
+                src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
                 className={styles.newsImage}
                 preview
                 width="100%"
                 height="100%"
+                style={{
+                  objectFit: "contain", // Gambar terlihat sepenuhnya tanpa terpotong
+                  backgroundColor: "#f0f0f0", // Latar belakang untuk ruang kosong
+                }}
               />
             </div>
             <div className={styles.newsContent}>
@@ -114,7 +118,7 @@ const Pengumuman = () => {
         >
           <div className={styles.dialogContent}>
             <img
-              src={`https://randusanga-kulonbackend-production.up.railway.app${selectedItem.file_url}`}
+              src={`http://localhost:8080${selectedItem.file_url}`}
               alt={selectedItem.title}
               className={styles.dialogImage}
             />

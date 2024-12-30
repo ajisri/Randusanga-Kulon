@@ -56,11 +56,11 @@
 }
 
 .newsImage {
-  width: 100%;
-  height: 200px; /* Lebar dan tinggi gambar lebih besar */
-  object-fit: contain;
-  object-position: center;
-  border-radius: 8px;
+  max-width: 100%; /* Batasi lebar gambar */
+  max-height: 100%; /* Batasi tinggi gambar */
+  object-fit: contain; /* Pastikan gambar terlihat sepenuhnya */
+  object-position: center; /* Ratakan gambar di tengah */
+  border-radius: 8px; /* Sudut bulat */
 }
 
 .newsDetails {
@@ -129,9 +129,13 @@
 }
 
 .imageContainer {
-  height: 200px; /* Atur tinggi kontainer */
-  overflow: hidden;
-  margin-bottom: 10px;
+  width: 100%; /* Lebar kontainer sesuai dengan item */
+  height: 200px; /* Tinggi tetap */
+  display: flex;
+  justify-content: center; /* Ratakan gambar secara horizontal */
+  align-items: center; /* Ratakan gambar secara vertikal */
+  overflow: hidden; /* Sembunyikan elemen yang melampaui batas */
+  background-color: #f0f0f0; /* Opsional: warna latar untuk ruang kosong */
 }
 
 .dialogContent {

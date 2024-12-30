@@ -230,7 +230,7 @@ const Pengumuman = () => {
     setFormData(pengumuman);
     setSelectedFile(null);
     const fileUrl = pengumuman.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${pengumuman.file_url}`
+      ? `http://localhost:8080${pengumuman.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
