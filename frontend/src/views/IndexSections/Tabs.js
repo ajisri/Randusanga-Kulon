@@ -27,6 +27,15 @@ class TabsSection extends React.Component {
   };
 
   render() {
+    // Deteksi jika tampilan adalah mobile
+    const isMobile = window.innerWidth <= 768;
+
+    // Gaya dinamis
+    const tabStyle = {
+      color: "white",
+      marginLeft: isMobile ? "35px" : "35px", // Geser ke kanan sedikit di mobile
+    };
+
     return (
       <>
         <Row className="justify-content-center">
@@ -56,7 +65,7 @@ class TabsSection extends React.Component {
                         onClick={(e) => this.toggleNavs(e, "plainTabs", 1)}
                         href="#pablo"
                         role="tab"
-                        style={{ color: "white" }}
+                        style={tabStyle}
                       >
                         <b>Profil</b>
                       </NavLink>
@@ -75,7 +84,7 @@ class TabsSection extends React.Component {
                         onClick={(e) => this.toggleNavs(e, "plainTabs", 2)}
                         href="#pablo"
                         role="tab"
-                        style={{ color: "white" }}
+                        style={tabStyle}
                       >
                         <b>Layanan</b>
                       </NavLink>
@@ -94,7 +103,7 @@ class TabsSection extends React.Component {
                         onClick={(e) => this.toggleNavs(e, "plainTabs", 3)}
                         href="#pablo"
                         role="tab"
-                        style={{ color: "white" }}
+                        style={tabStyle}
                       >
                         <b>Transparansi</b>
                       </NavLink>
