@@ -124,7 +124,7 @@ const Dashboard = () => {
       }
     };
     checkToken();
-  }, [navigate]);
+  }, [refreshToken, navigate]);
 
   const renderContent = () => {
     switch (activeMenu) {

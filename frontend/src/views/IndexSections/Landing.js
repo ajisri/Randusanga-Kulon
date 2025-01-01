@@ -138,8 +138,7 @@ const Landing = () => {
   );
 
   const photoTemplate = (item) => {
-    DOMPurify.sanitize(item.ringkasan); // Membersihkan HTML
-
+    DOMPurify.sanitize(item.ringkasan);
     return (
       <div className="p-4 text-center">
         <img
@@ -995,24 +994,65 @@ const Landing = () => {
           <Dialog
             header="Detail Jabatan"
             visible={isDialogVisible}
-            style={{ width: "80vw", maxHeight: "90vh" }}
+            style={{
+              width: "80vw",
+              maxHeight: "90vh",
+              fontFamily: "Nautical, sans-serif",
+              padding: "2rem", // Padding untuk seluruh dialog
+            }}
             onHide={hideDialog}
             maximizable
           >
             {selectedJabatan ? (
               <div>
-                <h4>{selectedJabatan.nama}</h4>
+                <h4 style={{ marginBottom: "1rem" }}>{selectedJabatan.nama}</h4>
 
-                <h5>Ringkasan:</h5>
+                <h5 style={{ marginBottom: "0.75rem" }}>Status Kehadiran:</h5>
                 <div
-                  style={{ textAlign: "justify" }}
+                  style={{
+                    display: "flex",
+                    gap: "1rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {selectedJabatan.Kehadiran &&
+                  selectedJabatan.Kehadiran.length > 0 ? (
+                    selectedJabatan.Kehadiran.map((kehadiran) => (
+                      <Button
+                        key={kehadiran.id}
+                        label={kehadiran.statusHadir}
+                        className={`p-button-rounded p-button-sm ${
+                          kehadiran.statusHadir === "Hadir"
+                            ? "p-button-success"
+                            : "p-button-warning"
+                        }`}
+                        style={{
+                          minWidth: "80px",
+                          height: "35px", // Tinggi tombol yang sedikit lebih besar
+                          fontSize: "14px", // Ukuran font lebih besar agar mudah dibaca
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <p>Status Kehadiran tidak tersedia.</p>
+                  )}
+                </div>
+
+                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+                <h5 style={{ marginBottom: "0.75rem" }}>Ringkasan:</h5>
+                <div
+                  style={{ textAlign: "justify", marginBottom: "1.5rem" }}
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
                   }}
                 ></div>
 
-                <h5>Tugas:</h5>
+                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+                <h5 style={{ marginBottom: "0.75rem" }}>Tugas:</h5>
                 <div
+                  style={{ marginBottom: "1.5rem" }}
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(
                       `${selectedJabatan.tugas
@@ -1022,8 +1062,11 @@ const Landing = () => {
                   }}
                 ></div>
 
-                <h5>Fungsi:</h5>
+                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+                <h5 style={{ marginBottom: "0.75rem" }}>Fungsi:</h5>
                 <div
+                  style={{ marginBottom: "1.5rem" }}
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(
                       `${selectedJabatan.fungsi

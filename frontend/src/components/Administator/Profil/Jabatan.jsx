@@ -7,6 +7,7 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { ToggleButton } from "primereact/togglebutton";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -61,8 +62,6 @@ const Jabatan = () => {
     fetcher
   );
 
-  console.log("Data yang diterima:", data);
-
   useEffect(() => {
     if (data?.jabatan && data.jabatan.length > 0) {
       setDataList(data.jabatan);
@@ -72,7 +71,13 @@ const Jabatan = () => {
   useEffect(() => {
     if (data && data.length > 0) {
       // Memastikan data ada dan bukan kosong
-      setDataList(data); // Set dataList dengan data yang diterima
+      setDataList(
+        data.map((jabatan) => ({
+          ...jabatan,
+          kehadiran: jabatan.Kehadiran?.[0]?.statusHadir || "Belum Diketahui", // Set status kehadiran jika ada, atau default
+        }))
+      );
+
       const jabatanData = data[0]; // Ambil jabatan pertama jika ada
       setFormData({
         uuid: jabatanData.uuid,
@@ -88,6 +93,7 @@ const Jabatan = () => {
           (jabatanData.tugas &&
             jabatanData.tugas.map((t) => t.content).join(", ")) ||
           "", // Gabungkan tugas menjadi string
+        kehadiran: jabatanData.Kehadiran?.[0]?.statusHadir || "Belum Diketahui", // Ambil status kehadiran pertama
       });
     } else {
       console.error("Data jabatan tidak tersedia atau kosong");
@@ -267,6 +273,43 @@ const Jabatan = () => {
     }
   };
 
+  const handleKehadiranUpdate = async (rowData, statusBaru) => {
+    try {
+      // Kirim permintaan ke backend untuk memperbarui status kehadiran
+      await axiosJWT.put(
+        `http://localhost:8080/ujabatanhadir/${rowData.uuid}`,
+        {
+          statusHadir: statusBaru,
+        }
+      );
+
+      // Perbarui data lokal agar tampilan berubah
+      setDataList((prevData) =>
+        prevData.map((item) =>
+          item.uuid === rowData.uuid ? { ...item, kehadiran: statusBaru } : item
+        )
+      );
+
+      toast.current.show({
+        severity: "success",
+        summary: "Berhasil",
+        detail: `Status kehadiran diubah menjadi "${statusBaru}"`,
+        life: 3000,
+      });
+    } catch (error) {
+      console.error(
+        "Gagal memperbarui status kehadiran:",
+        error.response.data.msg
+      );
+      toast.current.show({
+        severity: "error",
+        summary: "Gagal",
+        detail: "Tidak dapat memperbarui status kehadiran.",
+        life: 3000,
+      });
+    }
+  };
+
   const openEditDialog = (rowData) => {
     if (!rowData) {
       console.error("rowData tidak terdefinisi");
@@ -330,6 +373,41 @@ const Jabatan = () => {
     setRows(e.rows);
   };
 
+  function KehadiranColumn({ rowData, handleKehadiranUpdate }) {
+    const [status, setStatus] = useState(rowData.kehadiran || "Pilih Status");
+
+    // Fungsi untuk mengubah status kehadiran
+    const handleStatusChange = (newStatus) => {
+      setStatus(newStatus);
+      handleKehadiranUpdate(rowData, newStatus);
+    };
+
+    return (
+      <div>
+        <Button
+          label={status}
+          icon={status === "Hadir" ? "pi pi-check" : "pi pi-times"}
+          onClick={() =>
+            handleStatusChange(status === "Hadir" ? "Tidak Hadir" : "Hadir")
+          }
+          className={`p-button-rounded p-button-sm ${
+            status === "Hadir"
+              ? "p-button-success"
+              : status === "Tidak Hadir"
+              ? "p-button-warning"
+              : "p-button-secondary"
+          }`}
+          style={{
+            width: "auto",
+            minWidth: "100px",
+            height: "30px",
+            fontSize: "12px",
+          }} // Ukuran tombol dan font lebih kecil
+        />
+      </div>
+    );
+  }
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
@@ -368,9 +446,19 @@ const Jabatan = () => {
           style={{ width: "35%", minWidth: "15%" }}
         />
         <Column
-          header="Nama Pemegang"
-          style={{ width: "40%", minWidth: "15%" }}
+          header="Nama Pemegang Jabatan"
+          style={{ width: "30%", minWidth: "15%" }}
           body={(rowData) => rowData.pemegang?.name || "Belum Ditentukan"} // Akses nama pemegang
+        />
+        <Column
+          header="Kehadiran"
+          style={{ width: "15%", minWidth: "8%" }}
+          body={(rowData) => (
+            <KehadiranColumn
+              rowData={rowData}
+              handleKehadiranUpdate={handleKehadiranUpdate}
+            />
+          )}
         />
         <Column
           header="Periode"

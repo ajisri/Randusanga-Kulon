@@ -246,6 +246,20 @@
   margin-top: 20px;
 }
 
+.p-button-sm {
+  padding: 0.25rem 0.5rem; /* Ukuran tombol lebih kecil */
+  font-size: 0.85rem; /* Ukuran teks lebih kecil */
+}
+
+.p-button-rounded {
+  border-radius: 1.5rem; /* Membuat tombol berbentuk rounded */
+}
+
+.p-button-secondary {
+  background-color: #d4d4d4; /* Warna default */
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .jabatan-container {
     flex-direction: column; /* Ubah ke kolom pada layar kecil */
