@@ -990,97 +990,96 @@ const Landing = () => {
               </div>
             </Container>
           </div>
-          {/* Dialog PrimeReact */}
-          <Dialog
-            header="Detail Jabatan"
-            visible={isDialogVisible}
-            style={{
-              width: "80vw",
-              maxHeight: "90vh",
-              fontFamily: "Nautical, sans-serif",
-              padding: "2rem", // Padding untuk seluruh dialog
-            }}
-            onHide={hideDialog}
-            maximizable
-          >
-            {selectedJabatan ? (
-              <div>
-                <h4 style={{ marginBottom: "1rem" }}>{selectedJabatan.nama}</h4>
-
-                <h5 style={{ marginBottom: "0.75rem" }}>Status Kehadiran:</h5>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "1rem",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  {selectedJabatan.Kehadiran &&
-                  selectedJabatan.Kehadiran.length > 0 ? (
-                    selectedJabatan.Kehadiran.map((kehadiran) => (
-                      <Button
-                        key={kehadiran.id}
-                        label={kehadiran.statusHadir}
-                        className={`p-button-rounded p-button-sm ${
-                          kehadiran.statusHadir === "Hadir"
-                            ? "p-button-success"
-                            : "p-button-warning"
-                        }`}
-                        style={{
-                          minWidth: "80px",
-                          height: "35px", // Tinggi tombol yang sedikit lebih besar
-                          fontSize: "14px", // Ukuran font lebih besar agar mudah dibaca
-                        }}
-                      />
-                    ))
-                  ) : (
-                    <p>Status Kehadiran tidak tersedia.</p>
-                  )}
-                </div>
-
-                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-                <h5 style={{ marginBottom: "0.75rem" }}>Ringkasan:</h5>
-                <div
-                  style={{ textAlign: "justify", marginBottom: "1.5rem" }}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
-                  }}
-                ></div>
-
-                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-                <h5 style={{ marginBottom: "0.75rem" }}>Tugas:</h5>
-                <div
-                  style={{ marginBottom: "1.5rem" }}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(
-                      `${selectedJabatan.tugas
-                        .map((tugas) => `${tugas.content}`)
-                        .join("")}`
-                    ),
-                  }}
-                ></div>
-
-                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-                <h5 style={{ marginBottom: "0.75rem" }}>Fungsi:</h5>
-                <div
-                  style={{ marginBottom: "1.5rem" }}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(
-                      `${selectedJabatan.fungsi
-                        .map((fungsi) => `${fungsi.content}`)
-                        .join("")}`
-                    ),
-                  }}
-                ></div>
-              </div>
-            ) : (
-              <p>Memuat data...</p>
-            )}
-          </Dialog>
         </section>
+        {/* Dialog PrimeReact */}
+        <Dialog
+          header="Detail Jabatan"
+          visible={isDialogVisible}
+          style={{
+            width: "80vw",
+            fontFamily: "Nautical, sans-serif",
+          }}
+          onHide={hideDialog}
+          maximizable
+          modal
+        >
+          {selectedJabatan ? (
+            <div className="modal-body col-lg">
+              <h4 style={{ marginBottom: "1rem" }}>{selectedJabatan.nama}</h4>
+
+              <h5 style={{ marginBottom: "0.75rem" }}>Status Kehadiran:</h5>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "1rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                {selectedJabatan.Kehadiran &&
+                selectedJabatan.Kehadiran.length > 0 ? (
+                  selectedJabatan.Kehadiran.map((kehadiran) => (
+                    <Button
+                      key={kehadiran.id}
+                      label={kehadiran.statusHadir}
+                      className={`p-button-rounded p-button-sm ${
+                        kehadiran.statusHadir === "Hadir"
+                          ? "p-button-success"
+                          : "p-button-warning"
+                      }`}
+                      style={{
+                        minWidth: "80px",
+                        height: "35px", // Tinggi tombol yang sedikit lebih besar
+                        fontSize: "14px", // Ukuran font lebih besar agar mudah dibaca
+                      }}
+                    />
+                  ))
+                ) : (
+                  <p>Status Kehadiran tidak tersedia.</p>
+                )}
+              </div>
+
+              <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+              <h5 style={{ marginBottom: "0.75rem" }}>Ringkasan:</h5>
+              <div
+                style={{ textAlign: "justify", marginBottom: "1.5rem" }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
+                }}
+              ></div>
+
+              <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+              <h5 style={{ marginBottom: "0.75rem" }}>Tugas:</h5>
+              <div
+                style={{ marginBottom: "1.5rem" }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    `${selectedJabatan.tugas
+                      .map((tugas) => `${tugas.content}`)
+                      .join("")}`
+                  ),
+                }}
+              ></div>
+
+              <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+              <h5 style={{ marginBottom: "0.75rem" }}>Fungsi:</h5>
+              <div
+                style={{ marginBottom: "1.5rem" }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    `${selectedJabatan.fungsi
+                      .map((fungsi) => `${fungsi.content}`)
+                      .join("")}`
+                  ),
+                }}
+              ></div>
+            </div>
+          ) : (
+            <p>Memuat data...</p>
+          )}
+        </Dialog>
         {/*  */}
         <section
           className="section section-lg"
