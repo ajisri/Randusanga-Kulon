@@ -1,0 +1,108 @@
+.sejarah-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.left-column,
+.right-column {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-column {
+  flex: 2;
+}
+
+.right-column {
+  flex: 1;
+  position: sticky;
+  top: 20px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.p-field {
+  margin-bottom: 20px;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.input-title {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.custom-file-input {
+  display: block;
+  margin-top: 10px;
+}
+
+.image-preview,
+.image-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.cardr {
+  margin-top: 20px;
+}
+
+.radio-button-container {
+  margin-bottom: 10px;
+}
+
+.radio-button-container label {
+  margin-left: 5px;
+}
+
+.p-buttonadmin {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.toolbar-container-content {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .right-column {
+    position: static;
+  }
+}
