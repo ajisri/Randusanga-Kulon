@@ -10,7 +10,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
   const { data: pengumumanData, error: pengumumanError } = useSWR(
-    "http://localhost:8080/pengumumanpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/pengumumanpengunjung",
     fetcher
   );
 
@@ -77,7 +77,7 @@ const Pengumuman = () => {
           >
             <div className={styles.imageContainer}>
               <Image
-                src={`http://localhost:8080${item.file_url}`}
+                src={`https://randusanga-kulonbackend-production.up.railway.app${item.file_url}`}
                 alt={item.title}
                 className={styles.newsImage}
                 preview
@@ -118,7 +118,7 @@ const Pengumuman = () => {
         >
           <div className={styles.dialogContent}>
             <img
-              src={`http://localhost:8080${selectedItem.file_url}`}
+              src={`https://randusanga-kulonbackend-production.up.railway.app${selectedItem.file_url}`}
               alt={selectedItem.title}
               className={styles.dialogImage}
             />

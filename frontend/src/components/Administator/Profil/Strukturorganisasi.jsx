@@ -39,7 +39,7 @@ const Strukturorganisasi = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/strukturorganisasi",
+    "https://randusanga-kulonbackend-production.up.railway.app/strukturorganisasi",
     fetcher
   );
 
@@ -84,7 +84,7 @@ const Strukturorganisasi = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "http://localhost:8080/cstrukturorganisasi",
+        "https://randusanga-kulonbackend-production.up.railway.app/cstrukturorganisasi",
         formData,
         {
           headers: {
@@ -97,7 +97,9 @@ const Strukturorganisasi = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:8080/strukturorganisasi");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/strukturorganisasi"
+      );
 
       toast.current.show({
         severity: "success",

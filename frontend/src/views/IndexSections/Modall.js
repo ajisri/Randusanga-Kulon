@@ -17,7 +17,7 @@ const Modall = () => {
 
   //akta kelahiran
   const { data: aktakelahiranData, error: aktakelahiranError } = useSWR(
-    "http://localhost:8080/aktakelahiranpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/aktakelahiranpengunjung",
     fetcher
   );
 
@@ -31,7 +31,7 @@ const Modall = () => {
 
   //kartu keluarga
   const { data: kartukeluargaData, error: kartukeluargaError } = useSWR(
-    "http://localhost:8080/kartukeluargapengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/kartukeluargapengunjung",
     fetcher
   );
 
@@ -45,7 +45,10 @@ const Modall = () => {
 
   //ktp
   const { data: kartutandapendudukData, error: kartutandapendudukError } =
-    useSWR("http://localhost:8080/kartutandapendudukpengunjung", fetcher);
+    useSWR(
+      "https://randusanga-kulonbackend-production.up.railway.app/kartutandapendudukpengunjung",
+      fetcher
+    );
 
   const loadingKartutandapenduduk =
     !kartutandapendudukData && !kartutandapendudukError;
@@ -59,7 +62,7 @@ const Modall = () => {
 
   //pendaftaran nikah
   const { data: pendaftarannikahData, error: pendaftarannikahError } = useSWR(
-    "http://localhost:8080/pendaftarannikahpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikahpengunjung",
     fetcher
   );
 
@@ -74,7 +77,7 @@ const Modall = () => {
 
   //aktifasi bpjs
   const { data: aktifasibpjsData, error: aktifasibpjsError } = useSWR(
-    "http://localhost:8080/aktifasibpjspengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjspengunjung",
     fetcher
   );
 
@@ -88,7 +91,7 @@ const Modall = () => {
 
   //pembuatan sktm
   const { data: pembuatansktmData, error: pembuatansktmError } = useSWR(
-    "http://localhost:8080/pembuatansktmpengunjung",
+    "https://randusanga-kulonbackend-production.up.railway.app/pembuatansktmpengunjung",
     fetcher
   );
 

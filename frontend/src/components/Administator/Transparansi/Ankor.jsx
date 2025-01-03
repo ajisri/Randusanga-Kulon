@@ -45,7 +45,10 @@ const Ankor = () => {
     data: ankorData,
     error,
     isLoading,
-  } = useSWR("http://localhost:8080/ankor", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production.up.railway.app/ankor",
+    fetcher
+  );
 
   useEffect(() => {
     if (ankorData?.ankor) {
@@ -111,7 +114,7 @@ const Ankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:8080/ankor/${currentAnkor.id}`,
+          `https://randusanga-kulonbackend-production.up.railway.app/ankor/${currentAnkor.id}`,
           { name: formData.name },
           {
             headers: {
@@ -127,7 +130,7 @@ const Ankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "http://localhost:8080/cankor",
+          "https://randusanga-kulonbackend-production.up.railway.app/cankor",
           { name: formData.name },
           {
             headers: {
@@ -144,7 +147,9 @@ const Ankor = () => {
       }
 
       console.log("Data berhasil dikirim, merefresh data...");
-      await mutate("http://localhost:8080/ankor");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/ankor"
+      );
 
       resetForm();
       setDialogVisible(false);
@@ -202,14 +207,18 @@ const Ankor = () => {
   const deleteankor = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(`http://localhost:8080/ankor/${id}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulonbackend-production.up.railway.app/ankor/${id}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/ankor");
+        await mutate(
+          "https://randusanga-kulonbackend-production.up.railway.app/ankor"
+        );
       } catch (error) {
         handleError(error);
       }

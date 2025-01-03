@@ -39,7 +39,7 @@ const Pendaftarannikah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/pendaftarannikah",
+    "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikah",
     fetcher
   );
 
@@ -83,17 +83,23 @@ const Pendaftarannikah = () => {
 
     try {
       setIsLoadingProcess(true);
-      await axiosJWT.post("http://localhost:8080/cpendaftarannikah", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axiosJWT.post(
+        "https://randusanga-kulonbackend-production.up.railway.app/cpendaftarannikah",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:8080/pendaftarannikah");
+      await mutate(
+        "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikah"
+      );
 
       toast.current.show({
         severity: "success",
