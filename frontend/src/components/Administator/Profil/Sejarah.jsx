@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { RadioButton } from "primereact/radiobutton";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import "./Editor.css";
+import debounce from "lodash.debounce";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+import "./Sejarah.css";
 
 const Sejarah = () => {
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
@@ -53,7 +56,7 @@ const Sejarah = () => {
     }
   }, [data]);
 
-  const handleTextChange = useCallback((value) => {
+  const handleCKEditorChange = useCallback((value) => {
     setVisionContent(value);
   }, []);
 
@@ -129,95 +132,48 @@ const Sejarah = () => {
   const rightColumnRef = useRef(null);
 
   useEffect(() => {
-    let animationFrameId;
-    let resizeObserver;
-
     const handleScroll = () => {
-      animationFrameId = requestAnimationFrame(() => {
-        const leftColumn = leftColumnRef.current;
-        const rightColumn = rightColumnRef.current;
+      const leftColumn = leftColumnRef.current;
+      const rightColumn = rightColumnRef.current;
 
-        if (leftColumn && rightColumn) {
-          // Get the scroll position of the left column and the viewport
-          const leftColumnScrollTop = leftColumn.scrollTop;
-          const viewportScrollTop = window.scrollY;
+      if (leftColumn && rightColumn) {
+        const leftColumnScrollTop = leftColumn.scrollTop;
+        const viewportScrollTop = window.scrollY;
 
-          // Get the height of the viewport
-          const viewportHeight = window.innerHeight;
+        const rightColumnHeight = rightColumn.offsetHeight;
+        const viewportHeight = window.innerHeight;
 
-          // Get the height of the right column
-          const rightColumnHeight = rightColumn.offsetHeight;
+        const limitTop = 0; // batas atas
+        const limitBottom = viewportHeight - rightColumnHeight - 90;
 
-          // Calculate the top position of the right column
-          const scrollTop = Math.min(leftColumnScrollTop, viewportScrollTop);
+        let newTop = Math.min(
+          leftColumnScrollTop + viewportScrollTop,
+          limitBottom
+        );
+        newTop = Math.max(newTop, limitTop);
 
-          // Get the position and size of the title and Quill editor
-          const fileElement = document.querySelector(".custom-file-input");
-          const quillElement = document.querySelector(".quill-wrapper");
-
-          // Ensure elements are found before proceeding
-          if (!fileElement || !quillElement) return;
-
-          const titleRect = fileElement.getBoundingClientRect();
-
-          // Calculate limitTop and limitBottom
-          const limitTop =
-            titleRect.top - leftColumn.getBoundingClientRect().top;
-          const limitBottom = viewportHeight - rightColumnHeight - 90;
-
-          // Calculate the new top position for the right-column
-          let newTop = scrollTop;
-
-          // Ensure the newTop does not exceed the limitBottom
-          newTop = Math.min(newTop, limitBottom);
-
-          // Ensure the newTop does not go above the limitTop
-          newTop = Math.max(newTop, limitTop);
-
-          // Set the top position of the right-column
-          rightColumn.style.top = `${newTop}px`;
-        }
-      });
+        // Mengatur posisi top elemen kanan
+        rightColumn.style.top = `${newTop}px`;
+      }
     };
 
-    // Create a ResizeObserver to watch for size changes in the columns
-    resizeObserver = new ResizeObserver(() => {
-      handleScroll(); // Recalculate scroll on resize
-    });
+    // Membungkus fungsi handleScroll dengan debounce untuk menghindari pemanggilan berulang
+    const debouncedHandleScroll = debounce(handleScroll, 100); // Sesuaikan waktu debouncing
 
-    const leftColumn = leftColumnRef.current;
-    const rightColumn = rightColumnRef.current;
+    // Menambahkan event listener untuk scroll pada window
+    window.addEventListener("scroll", debouncedHandleScroll);
 
-    if (leftColumn) {
-      leftColumn.addEventListener("scroll", handleScroll);
-      resizeObserver.observe(leftColumn);
-    }
-    if (rightColumn) {
-      resizeObserver.observe(rightColumn);
-    }
-
-    // Listen to the window scroll event
-    window.addEventListener("scroll", handleScroll);
-
+    // Membersihkan event listener saat komponen unmount
     return () => {
-      if (leftColumn) {
-        leftColumn.removeEventListener("scroll", handleScroll);
-      }
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", debouncedHandleScroll);
+      debouncedHandleScroll.cancel(); // Membatalkan debouncing
     };
   }, []);
-
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div className="tentang-container">
+    <div className="sejarah-container">
       <Toast ref={toast} />
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="content-wrapper">
@@ -271,7 +227,66 @@ const Sejarah = () => {
                     </div>
                   )}
                 </div>
-                <div className="p-field custom-editor">
+                <div className="form-group">
+                  <label>Konten</label>
+                  <CKEditor
+                    editor={DecoupledEditor}
+                    data={visionContent}
+                    config={{
+                      toolbar: [
+                        "heading",
+                        "|",
+                        "bold",
+                        "italic",
+                        "underline",
+                        "strikethrough",
+                        "fontFamily",
+                        "fontSize",
+                        "fontColor",
+                        "fontBackgroundColor",
+                        "|",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "|",
+                        "alignment",
+                        "outdent",
+                        "indent",
+                        "|",
+                        "insertTable",
+                        "blockQuote",
+                        "undo",
+                        "redo",
+                      ],
+                      table: {
+                        contentToolbar: [
+                          "tableColumn",
+                          "tableRow",
+                          "mergeTableCells",
+                        ],
+                      },
+                    }}
+                    onReady={(editor) => {
+                      console.log("Editor is ready to use!", editor);
+
+                      // Konfigurasi toolbar tanpa fitur gambar dan video
+
+                      const toolbarContainer = document.querySelector(
+                        ".toolbar-container-content"
+                      );
+                      toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                      );
+                    }}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      console.log("Editor data changed (Content):", data);
+                      handleCKEditorChange(data);
+                    }}
+                  />
+                  <div className="toolbar-container-content" />
+                </div>
+                {/* <div className="p-field custom-editor">
                   <label htmlFor="content">Content</label>
                   <div className="quill-wrapper">
                     <ReactQuill
@@ -279,13 +294,22 @@ const Sejarah = () => {
                       onChange={handleTextChange}
                     />
                   </div>
-                </div>
+                </div> */}
               </Card>
             </div>
+            {/* Tombol untuk membuka/menutup sidebar */}
           </div>
 
           {/* Right Column */}
-          <div className="right-column" ref={rightColumnRef}>
+          <div
+            className="right-column"
+            ref={rightColumnRef}
+            style={{
+              position: "sticky", // Ganti menjadi sticky untuk mengikuti scroll
+              top: "20px", // Memberi jarak dari atas
+              zIndex: 10,
+            }}
+          >
             <Card className="cardr" title="Publish Options">
               <div>
                 <div className="publish-options-top">

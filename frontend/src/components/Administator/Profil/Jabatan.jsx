@@ -7,15 +7,15 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { ToggleButton } from "primereact/togglebutton";
+// import { ToggleButton } from "primereact/togglebutton";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 // import { Dropdown } from "primereact/dropdown";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
@@ -165,9 +165,16 @@ const Jabatan = () => {
     });
   };
 
-  const handleQuillChange = useCallback((value, field) => {
-    setFormData((prevData) => ({ ...prevData, [field]: value }));
-  }, []);
+  // const handleQuillChange = useCallback((value, field) => {
+  //   setFormData((prevData) => ({ ...prevData, [field]: value }));
+  // }, []);
+
+  const handleCKEditorChange = (data, field) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: data,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -579,19 +586,118 @@ const Jabatan = () => {
               </div>
               <div className="form-group">
                 <label>Ringkasan Tentang Jabatan</label>
-                <ReactQuill
-                  value={formData.ringkasan}
-                  onChange={(value) => handleQuillChange(value, "ringkasan")}
-                  className="quill-editor"
+                <CKEditor
+                  editor={DecoupledEditor}
+                  data={formData.ringkasan}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "underline",
+                      "strikethrough",
+                      "fontFamily",
+                      "fontSize",
+                      "fontColor",
+                      "fontBackgroundColor",
+                      "|",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "|",
+                      "alignment",
+                      "outdent",
+                      "indent",
+                      "|",
+                      "insertTable",
+                      "blockQuote",
+                      "undo",
+                      "redo",
+                    ],
+                    table: {
+                      contentToolbar: [
+                        "tableColumn",
+                        "tableRow",
+                        "mergeTableCells",
+                      ],
+                    },
+                  }}
+                  onReady={(editor) => {
+                    console.log("Editor is ready to use!", editor);
+
+                    // Konfigurasi toolbar tanpa fitur gambar dan video
+
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-ringkasan"
+                    );
+                    toolbarContainer.appendChild(
+                      editor.ui.view.toolbar.element
+                    );
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    console.log("Editor data changed (Ringkasan):", data);
+                    handleCKEditorChange(data, "ringkasan");
+                  }}
                 />
+                <div className="toolbar-container-ringkasan" />
               </div>
+
               <div className="form-group">
                 <label>Fungsi</label>
-                <ReactQuill
-                  value={formData.fungsi}
-                  onChange={(value) => handleQuillChange(value, "fungsi")}
-                  className="quill-editor"
+                <CKEditor
+                  editor={DecoupledEditor}
+                  data={formData.fungsi}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "underline",
+                      "strikethrough",
+                      "fontFamily",
+                      "fontSize",
+                      "fontColor",
+                      "fontBackgroundColor",
+                      "|",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "|",
+                      "alignment",
+                      "outdent",
+                      "indent",
+                      "|",
+                      "insertTable",
+                      "blockQuote",
+                      "undo",
+                      "redo",
+                    ],
+                    table: {
+                      contentToolbar: [
+                        "tableColumn",
+                        "tableRow",
+                        "mergeTableCells",
+                      ],
+                    },
+                  }}
+                  onReady={(editor) => {
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-fungsi"
+                    );
+                    toolbarContainer.appendChild(
+                      editor.ui.view.toolbar.element
+                    );
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    console.log("Editor data changed (Fungsi):", data);
+                    handleCKEditorChange(data, "fungsi");
+                  }}
                 />
+                <div className="toolbar-container-fungsi" />
               </div>
 
               <div className="form-group">
@@ -599,37 +705,85 @@ const Jabatan = () => {
                 <CKEditor
                   editor={DecoupledEditor}
                   data={formData.tugas}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "underline",
+                      "strikethrough",
+                      "fontFamily",
+                      "fontSize",
+                      "fontColor",
+                      "fontBackgroundColor",
+                      "|",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "|",
+                      "alignment",
+                      "outdent",
+                      "indent",
+                      "|",
+                      "insertTable",
+                      "blockQuote",
+                      "undo",
+                      "redo",
+                    ],
+                    table: {
+                      contentToolbar: [
+                        "tableColumn",
+                        "tableRow",
+                        "mergeTableCells",
+                      ],
+                    },
+                  }}
                   onReady={(editor) => {
-                    console.log("Editor is ready to use!", editor);
-                    const toolbarContainer =
-                      document.querySelector(".toolbar-container");
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-tugas"
+                    );
                     toolbarContainer.appendChild(
                       editor.ui.view.toolbar.element
                     );
                   }}
                   onChange={(event, editor) => {
                     const data = editor.getData();
-                    console.log("Editor data changed:", data);
-                    handleQuillChange(data, "tugas");
+                    console.log("Editor data changed (Tugas):", data);
+                    handleCKEditorChange(data, "tugas");
                   }}
                 />
-
-                <div className="toolbar-container" />
-                <style jsx>
-                  {`
-                    .custom-dialog-content table {
-                      margin-left: 20px; /* Mengatur margin kiri tabel */
-                      border-collapse: collapse; /* Menghindari jarak antar sel */
-                    }
-
-                    .custom-dialog-content table td,
-                    .custom-dialog-content table th {
-                      padding: 10px; /* Menambahkan padding di dalam sel */
-                      border: none; /* Menghilangkan border */
-                    }
-                  `}
-                </style>
+                <div className="toolbar-container-tugas" />
               </div>
+
+              <style jsx>
+                {`
+                  .toolbar-container-ringkasan,
+                  .toolbar-container-fungsi,
+                  .toolbar-container-tugas {
+                    margin-bottom: 10px;
+                  }
+
+                  .ck-editor__editable_inline {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    border-radius: 4px;
+                    min-height: 150px;
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+                  }
+
+                  .custom-dialog-content table {
+                    margin-left: 20px;
+                    border-collapse: collapse;
+                  }
+
+                  .custom-dialog-content table td,
+                  .custom-dialog-content table th {
+                    padding: 10px;
+                    border: none;
+                  }
+                `}
+              </style>
               <Button
                 type="submit"
                 label={isEditMode ? "Simpan Data" : "Simpan Data"}
