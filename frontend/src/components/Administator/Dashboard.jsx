@@ -76,12 +76,9 @@ const Dashboard = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get(
-        "https://randusanga-kulonbackend-production.up.railway.app/token",
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get("http://localhost:8080/token", {
+        withCredentials: true,
+      });
       setToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
       setExpire(decoded.exp);
@@ -98,9 +95,7 @@ const Dashboard = () => {
     async (config) => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
-        const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token"
-        );
+        const response = await axios.get("http://localhost:8080/token");
         console.log(
           "Token diperbarui melalui interceptor:",
           response.data.accessToken

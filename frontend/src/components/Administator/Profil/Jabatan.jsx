@@ -58,7 +58,7 @@ const Jabatan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jabatan",
+    "http://localhost:8080/jabatan",
     fetcher
   );
 
@@ -105,7 +105,7 @@ const Jabatan = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/demografi", // Endpoint API demografi
+    "http://localhost:8080/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -194,7 +194,7 @@ const Jabatan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.put(
-          `https://randusanga-kulonbackend-production.up.railway.app/ujabatan/${currentData.uuid}`,
+          `http://localhost:8080/ujabatan/${currentData.uuid}`,
           data,
           {
             headers: {
@@ -209,15 +209,11 @@ const Jabatan = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cjabatan",
-          data,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cjabatan", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -225,9 +221,7 @@ const Jabatan = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/jabatan"
-      );
+      await mutate("http://localhost:8080/jabatan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -272,18 +266,14 @@ const Jabatan = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/jabatan/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/jabatan/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/jabatan"
-        );
+        await mutate("http://localhost:8080/jabatan");
       } catch (error) {
         handleError(error);
       }
@@ -294,7 +284,7 @@ const Jabatan = () => {
     try {
       // Kirim permintaan ke backend untuk memperbarui status kehadiran
       await axiosJWT.put(
-        `https://randusanga-kulonbackend-production.up.railway.app/ujabatanhadir/${rowData.uuid}`,
+        `http://localhost:8080/ujabatanhadir/${rowData.uuid}`,
         {
           statusHadir: statusBaru,
         }

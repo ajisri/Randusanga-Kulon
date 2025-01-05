@@ -81,10 +81,7 @@ const Landing = () => {
     data: agendaData,
     error: agendaError,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agendapengunjung",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/agendapengunjung", fetcher);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,10 +107,7 @@ const Landing = () => {
     data: jabatanData,
     error: jabatanError,
     isLoadingJabatan,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jabatanpengunjung",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/jabatanpengunjung", fetcher);
 
   const [selectedJabatan, setSelectedJabatan] = useState(null); // Untuk data jabatan yang dipilih
   const [isDialogVisible, setDialogVisible] = useState(false); // Untuk kontrol dialog
@@ -150,7 +144,7 @@ const Landing = () => {
         <img
           src={
             item.pemegang?.file_url
-              ? `https://randusanga-kulonbackend-production.up.railway.app${item.pemegang.file_url}`
+              ? `http://localhost:8080${item.pemegang.file_url}`
               : "placeholder.png"
           }
           alt={item.pemegang?.name || "Jabatan"}
@@ -458,6 +452,7 @@ const Landing = () => {
             </div>
           </Container>
         </section>
+
         {/* Potensi */}
         <div className="position-relative">
           <section
@@ -819,6 +814,7 @@ const Landing = () => {
             {/* SVG separator */}
           </section>
         </div>
+
         {/* Galeri dan Berita */}
         <section
           className="section section-lg section-shaped"
@@ -860,10 +856,9 @@ const Landing = () => {
             >
               {/* Galeri di kiri */}
               <div
-                className="col-12 md:col-8 lg:col-9"
+                className="col-12 md:col-12 lg:col-12"
                 style={{
-                  flex: "1 1 58%",
-                  maxWidth: "780px",
+                  flex: "4",
                   margin: "0",
                   padding: "0",
                   display: "flex",
@@ -887,10 +882,9 @@ const Landing = () => {
               {/* Berita di kanan, hanya tampil di layar besar */}
               {!isSmallScreen && (
                 <div
-                  className="col-12 md:col-4 lg:col-3"
+                  className="col-12 md:col-12 lg:col-12"
                   style={{
-                    flex: "1 1 40%",
-                    minWidth: "300px",
+                    flex: "2",
                     margin: "0",
                     padding: "0",
                     display: "flex",

@@ -39,7 +39,7 @@ const Aktifasibpjs = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjs",
+    "http://localhost:8080/aktifasibpjs",
     fetcher
   );
 
@@ -83,23 +83,17 @@ const Aktifasibpjs = () => {
 
     try {
       setIsLoadingProcess(true);
-      await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/caktifasibpjs",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axiosJWT.post("http://localhost:8080/caktifasibpjs", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/aktifasibpjs"
-      );
+      await mutate("http://localhost:8080/aktifasibpjs");
 
       toast.current.show({
         severity: "success",
@@ -244,10 +238,7 @@ const Aktifasibpjs = () => {
             )}
             {file_url && !preview && (
               <div className="image-container">
-                <img
-                  src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
-                  alt="Database"
-                />
+                <img src={`http://localhost:8080${file_url}`} alt="Database" />
               </div>
             )}
           </div>

@@ -7,6 +7,7 @@ import Tabs from "./Tabs.js";
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 // import Videofull from "./Videofull.js";
+import styles from "../../assets/css/Hero.module.css";
 
 class Hero extends React.Component {
   constructor(props) {
@@ -98,6 +99,21 @@ class Hero extends React.Component {
                       />
                     </span>
                   </h3>
+                  <div
+                    style={{
+                      fontSize: "1.8rem",
+                      fontWeight: "bold",
+                      background:
+                        "linear-gradient(90deg, #ff6ec4, #7873f5, #4dd0e1)",
+                      backgroundSize: "200% 200%",
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                      animation: "gradientText 4s ease infinite",
+                    }}
+                  >
+                    Portal Wisata & Budaya
+                  </div>
                 </div>
 
                 <Row className="align-items-center justify-content-center mt-2">
