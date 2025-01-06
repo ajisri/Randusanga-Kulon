@@ -7,7 +7,6 @@ import Tabs from "./Tabs.js";
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 // import Videofull from "./Videofull.js";
-import styles from "../../assets/css/Hero.module.css";
 
 class Hero extends React.Component {
   constructor(props) {
@@ -24,12 +23,39 @@ class Hero extends React.Component {
       isVisible: !prevState.isVisible,
     }));
   };
+
   render() {
     return (
       <>
+        <style>
+          {`
+            @keyframes gradientMove {
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            }
+
+            .gradient-text {
+              font-size: 2.5rem;
+              font-weight: bold;
+              background: linear-gradient(90deg, #ff6ec4, #7873f5, #4dd0e1);
+              background-size: 300% 300%;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              animation: gradientMove 3s ease infinite;
+              text-align: center;
+              margin: 20px 0;
+            }
+          `}
+        </style>
         <div className="position-relative">
-          {/* Hero for FREE version */}
-          {/* <Videofull /> */}
+          {/* Hero Section */}
           <section
             className="section section-hero bg-gradient-cyan embed-responsive"
             style={{ fontFamily: "Nautical, sans-serif" }}
@@ -42,7 +68,7 @@ class Hero extends React.Component {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                zIndex: 1, // Membuat video di belakang komponen lainnya
+                zIndex: 1,
               }}
               autoPlay
               loop
@@ -50,11 +76,10 @@ class Hero extends React.Component {
               playsInline
               src={require("assets/img/theme/vi1.mp4")}
             ></video>
-            {/* Background circles */}
             <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
               <div
                 style={{
-                  zIndex: 2, // Membuat video di belakang komponen lainnya
+                  zIndex: 2,
                 }}
                 className="col px-0"
               >
@@ -64,28 +89,25 @@ class Hero extends React.Component {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    fontFamily: "Nautical, sans-serif", // Font modern populer
-                    fontWeight: "700", // Tebal
-                    fontSize: "2.5rem", // Ukuran font besar untuk judul
-                    letterSpacing: "1.5px", // Spasi antar huruf untuk kesan modern
-                    textTransform: "uppercase", // Huruf kapital semua
-                    color: "#004D40", // Warna teks hijau tua untuk kontras
-                    textAlign: "center", // Teks di tengah
+                    fontFamily: "Nautical, sans-serif",
+                    fontWeight: "700",
+                    fontSize: "2.5rem",
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                    color: "#004D40",
+                    textAlign: "center",
                     lineHeight: "1.3",
-                    paddingBottom: "10px", // Memberikan sedikit ruang di bawah judul
+                    paddingBottom: "10px",
                   }}
                   className="responsive-title text-center"
                 >
                   <h3 className="text-center font-weight-bold">
-                    {/* Teks statis */}
                     <span>Selamat Datang di Portal Desa </span>
-
-                    {/* Teks dengan animasi typing */}
                     <span
                       style={{
                         display: "inline-block",
                         whiteSpace: "nowrap",
-                        minWidth: "250px", // Minimum width agar tetap stabil
+                        minWidth: "250px",
                         textAlign: "left",
                       }}
                     >
@@ -99,21 +121,8 @@ class Hero extends React.Component {
                       />
                     </span>
                   </h3>
-                  <div
-                    style={{
-                      fontSize: "1.8rem",
-                      fontWeight: "bold",
-                      background:
-                        "linear-gradient(90deg, #ff6ec4, #7873f5, #4dd0e1)",
-                      backgroundSize: "200% 200%",
-                      backgroundClip: "text",
-                      WebkitBackgroundClip: "text",
-                      color: "transparent",
-                      animation: "gradientText 4s ease infinite",
-                    }}
-                  >
-                    Portal Wisata & Budaya
-                  </div>
+                  {/* Gradient Text */}
+                  <div className="gradient-text">Portal Wisata & Budaya</div>
                 </div>
 
                 <Row className="align-items-center justify-content-center mt-2">
@@ -148,7 +157,7 @@ class Hero extends React.Component {
                 </Row>
               </div>
             </Container>
-            {/* SVG separator */}
+            {/* SVG Separator */}
             <div className="separator separator-bottom separator-skew zindex-100">
               <svg viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg">
                 <path
