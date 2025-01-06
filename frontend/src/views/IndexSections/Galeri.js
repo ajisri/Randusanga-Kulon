@@ -5,29 +5,39 @@ import styles from "../../assets/css/Galeri.module.css";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Galeri = () => {
-  const { data: testimonialsData, error } = useSWR(
+  const { data: galeriData, error } = useSWR(
     "http://localhost:8080/galeripengunjung",
     fetcher
   );
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex(
-        (prevIndex) => (prevIndex + 1) % testimonialsData.galeris.length
-      );
-    }, 3000); // Ganti gambar setiap 3 detik
+    if (galeriData && galeriData.galeris && galeriData.galeris.length > 0) {
+      const interval = setInterval(() => {
+        setActiveIndex(
+          (prevIndex) => (prevIndex + 1) % galeriData.galeris.length
+        );
+      }, 3000); // Ganti gambar setiap 3 detik
 
-    return () => clearInterval(interval); // Membersihkan interval saat komponen di-unmount
-  }, [testimonialsData]);
+      return () => clearInterval(interval); // Membersihkan interval saat komponen di-unmount
+    }
+  }, [galeriData]);
 
-  if (error) return <div>Error memuat data testimonial</div>;
-  if (!testimonialsData) return <div>Loading...</div>;
+  if (error) return <div>Error memuat data galeri</div>;
+  if (!galeriData || !galeriData.galeris || galeriData.galeris.length === 0) {
+    return <div>Tidak ada data galeri tersedia</div>;
+  }
 
-  const testimonials = testimonialsData.galeris.map((item) => ({
+  // Fungsi untuk menghapus tag HTML
+  const stripHtml = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  };
+
+  const testimonials = galeriData.galeris.map((item) => ({
     image: `http://localhost:8080${item.file_url}`,
     title: item.title,
-    // description: item.description,
+    content: stripHtml(item.content), // Gunakan stripHtml di sini
   }));
 
   return (
@@ -58,7 +68,8 @@ const Galeri = () => {
       </div>
       <div className={styles.textContainer}>
         <h3>{testimonials[activeIndex].title}</h3>
-        {/* <p>{testimonials[activeIndex].description}</p> */}
+        {/* Menampilkan konten yang sudah di-strip dari tag HTML */}
+        <p>{testimonials[activeIndex].content}</p>
       </div>
     </div>
   );
