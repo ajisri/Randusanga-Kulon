@@ -27,7 +27,7 @@ const Galeri = () => {
   const testimonials = testimonialsData.galeris.map((item) => ({
     image: `http://localhost:8080${item.file_url}`,
     title: item.title,
-    description: item.description,
+    // description: item.description,
   }));
 
   return (
@@ -58,7 +58,7 @@ const Galeri = () => {
       </div>
       <div className={styles.textContainer}>
         <h3>{testimonials[activeIndex].title}</h3>
-        <p>{testimonials[activeIndex].description}</p>
+        {/* <p>{testimonials[activeIndex].description}</p> */}
       </div>
     </div>
   );
