@@ -45,16 +45,27 @@ const Hero = () => {
 
           @keyframes laserBeam {
             0% {
-              transform: translate(-50%, -50%) scale(0.5); /* Mulai kecil */
+              transform: translate(-50%, -50%) scale(0.5);
               opacity: 1;
             }
             50% {
               opacity: 0.7;
-              transform: translate(-50%, -50%) scale(1.2); /* Membesar */
+              transform: translate(-50%, -50%) scale(1.2);
             }
             100% {
               opacity: 0;
-              transform: translate(-50%, -50%) scale(0.8); /* Menghilang */
+              transform: translate(-50%, -50%) scale(0.8);
+            }
+          }
+
+          @keyframes bulletShoot {
+            0% {
+              transform: translateX(100%);
+              opacity: 1;
+            }
+            100% {
+              transform: translateX(-100%);
+              opacity: 0;
             }
           }
 
@@ -121,7 +132,21 @@ const Hero = () => {
             background: #ff00ff;
             border-radius: 50%;
             animation: laserBeam 1.5s ease-out forwards;
-            z-index: 2; /* Pastikan laser di atas teks */
+            z-index: 2;
+          }
+
+          .bullet {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            background: #ff4500;
+            border-radius: 50%;
+            animation: bulletShoot 2s linear infinite;
+            transform: translateY(-50%);
+            z-index: 3;
+            box-shadow: 0 0 10px 2px rgba(255, 69, 0, 0.8);
           }
 
           .subtitle {
@@ -221,6 +246,7 @@ const Hero = () => {
                     type="button"
                   >
                     Silahkan Klik Untuk Membuka Menu
+                    <span className="bullet"></span>
                   </Button>
                 </div>
                 <Col className="text-center" lg="12">
