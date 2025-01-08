@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import ReactTypingEffect from "react-typing-effect";
+import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lasers, setLasers] = useState([]);
   const [lasersLeft, setLasersLeft] = useState([]); // Laser dari kiri ke kanan
+  const [isFast, setIsFast] = useState(false);
 
   // Menambahkan laser baru secara acak tanpa pola
   useEffect(() => {
@@ -28,44 +30,28 @@ const Hero = () => {
     return () => clearInterval(interval); // Bersihkan interval saat komponen di-unmount
   }, [lasers]);
 
+  // Laser dari kiri ke kanan dengan kecepatan dinamis
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLasers((prevLasers) => [
-        ...prevLasers,
-        {
-          id: Math.random().toString(36).substr(2, 9), // ID unik
-          top: `${Math.random() * 100}%`, // Posisi vertikal acak
-          left: "100%", // Mulai dari sisi kanan
-        },
-      ]);
+    const interval = setInterval(
+      () => {
+        setLasersLeft((prevLasers) => [
+          ...prevLasers,
+          {
+            id: Math.random().toString(36).substr(2, 9), // ID unik
+            top: `${Math.random() * 100}%`, // Posisi vertikal acak
+            left: "0%", // Mulai dari sisi kiri
+          },
+        ]);
 
-      if (lasers.length > 50) {
-        setLasers((prevLasers) => prevLasers.slice(-50));
-      }
-    }, Math.random() * 700 + 300); // Interval acak antara 300ms hingga 1000ms
+        if (lasersLeft.length > 50) {
+          setLasersLeft((prevLasers) => prevLasers.slice(-50));
+        }
+      },
+      isFast ? 300 : 1500
+    ); // Kecepatan berubah berdasarkan isFast
 
     return () => clearInterval(interval);
-  }, [lasers]);
-
-  // Laser dari kiri ke kanan
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLasersLeft((prevLasers) => [
-        ...prevLasers,
-        {
-          id: Math.random().toString(36).substr(2, 9), // ID unik
-          top: `${Math.random() * 100}%`, // Posisi vertikal acak
-          left: "0%", // Mulai dari sisi kiri
-        },
-      ]);
-
-      if (lasersLeft.length > 50) {
-        setLasersLeft((prevLasers) => prevLasers.slice(-50));
-      }
-    }, Math.random() * 700 + 300); // Interval acak antara 300ms hingga 1000ms
-
-    return () => clearInterval(interval);
-  }, [lasersLeft]);
+  }, [lasersLeft, isFast]);
 
   const refaniFont = require("../../assets/font/Refani-Regular.otf");
 
@@ -77,6 +63,61 @@ const Hero = () => {
             font-family: 'Jaqueline';
             src: url(${refaniFont}) format('truetype');
           }
+
+         @keyframes shakeText {
+          0% {
+            transform: translateX(0);
+          }
+          20% {
+            transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
+          }
+          40% {
+            transform: translateX(1px); /* Pergeseran sedikit ke kanan */
+          }
+          60% {
+            transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
+          }
+          80% {
+            transform: translateX(1px); /* Pergeseran sedikit ke kanan */
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+
+          @keyframes movingNeonBorder {
+          0% {
+            border-top-color: #ff00ff;
+            border-right-color: #ff00ff;
+            border-bottom-color: #ff00ff;
+            border-left-color: #ff00ff;
+          }
+          25% {
+            border-top-color: #ff00ff;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+          }
+          50% {
+            border-top-color: transparent;
+            border-right-color: #ff00ff;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+          }
+          75% {
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: #ff00ff;
+            border-left-color: transparent;
+          }
+          100% {
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            border-left-color: #ff00ff;
+          }
+        }
 
           @keyframes gradientMove {
             0% {
@@ -116,20 +157,6 @@ const Hero = () => {
             }
           }
 
-          @keyframes meteorShoot {
-            0% {
-              transform: translateX(100%);
-              opacity: 1;
-            }
-            50% {
-              box-shadow: -5px -5px 10px rgba(255, 140, 0, 0.5);
-            }
-            100% {
-              transform: translateX(-100%);
-              opacity: 0;
-            }
-          }
-
           @keyframes laserBeamRight {
             0% {
               transform: translateX(0);
@@ -158,7 +185,7 @@ const Hero = () => {
             height: 5px; /* Tinggi lebih kecil */
             background: #ffffff;
             border-radius: 5px;
-            animation: laserBeamInside 3s linear forwards;
+            animation: laserBeamInside 8s linear forwards;
             z-index: 2;
           }
 
@@ -168,13 +195,13 @@ const Hero = () => {
             height: 5px; /* Tinggi lebih kecil */
             background: #ffffff;
             border-radius: 5px;
-            animation: laserBeamInside 3s linear forwards;
+            animation: laserBeamInside 2s linear forwards;
             z-index: 2;
           }
 
           .section-hero {
             position: relative;
-            background: url('assets/img/theme/grey-sky.jpg') no-repeat center center fixed;
+            background: linear-gradient(120deg, #56ccf2, #f39c12);
             background-size: cover;
             padding: 80px 0;
             box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
@@ -184,7 +211,8 @@ const Hero = () => {
             font-family: 'Jaqueline', sans-serif;
             font-size: 2.8rem; /* Font lebih besar dan dominan */
             font-weight: 800; /* Font tebal */
-            color: #ffffff;
+            color: #ffffff !important
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);;
             text-align: center;
             text-transform: uppercase;
             line-height: 1.4;
@@ -197,7 +225,7 @@ const Hero = () => {
             font-family: 'Jaqueline', sans-serif;
             font-size: 1.2rem; /* Font lebih besar */
             padding: 20px 40px;
-            background: linear-gradient(90deg, #56ccf2, #6a11cb);
+            background: linear-gradient(90deg, #56ccf2,rgb(203, 203, 17));
             border: none;
             color: white;
             text-transform: uppercase;
@@ -211,38 +239,34 @@ const Hero = () => {
             z-index: 1;
           }
 
-          .btn-custom:active {
-            transform: scale(0.95);
+          .btn-custom.active{
+            background-color: #000000; /* Background gelap */
+            color: #ffffff; /* Warna font putih */
+            font-size: 0.9rem; /* Font lebih kecil */
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+            border: 2px solid transparent;
+            animation: movingNeonBorder 3s linear infinite; /* Animation for the moving neon border */
+          }
+
+          .btn-custom.active span {
+            display: inline-block; /* Pastikan span bertindak sebagai block-level element */
+            animation: shakeText 0.5s ease-in-out infinite; /* Apply shake animation */
           }
 
           .laser {
             position: absolute;
             width: 10px;
             height: 10px;
-            background: #ff00ff;
+            background:rgb(247, 244, 247);
             border-radius: 50%;
             animation: laserBeam 1.5s ease-out forwards;
             z-index: 2;
           }
 
-          .meteor {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            width: 15px;
-            height: 15px;
-            background: radial-gradient(circle, #ff4500, #ffa500);
-            border-radius: 50%;
-            animation: meteorShoot 2s linear infinite;
-            transform: translateY(-50%);
-            z-index: 3;
-            box-shadow: 0 0 20px 5px rgba(255, 69, 0, 0.8);
-          }
-
           .subtitle {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            color: #ffffff;
+            font-size: 1.2rem;
+            color: #f5f5f5;
             font-weight: 300;
             text-align: center;
             margin-top: 20px;
@@ -264,7 +288,7 @@ const Hero = () => {
               height: "100%",
               objectFit: "cover",
               zIndex: 1,
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
             autoPlay
             loop
@@ -283,7 +307,9 @@ const Hero = () => {
             >
               <div className="hero-title">
                 <h3 className="text-center font-weight-bold">
-                  <span>Selamat Datang di Portal Desa </span>
+                  <span style={{ color: "#ffffff" }}>
+                    Selamat Datang di Portal Desa{" "}
+                  </span>
                   <span
                     style={{
                       display: "inline-block",
@@ -294,6 +320,7 @@ const Hero = () => {
                   >
                     <ReactTypingEffect
                       className="h3 text-center mr-1 font-weight-bold mt-6"
+                      style={{ color: "#ffffff" }}
                       text={["Randusanga Kulon"]}
                       speed={100}
                       eraseSpeed={50}
@@ -339,18 +366,24 @@ const Hero = () => {
                   ))}
 
                   <Button
-                    onClick={() => setIsVisible(!isVisible)}
-                    className="btn-custom"
+                    onClick={() => {
+                      setIsVisible(!isVisible);
+                      setIsFast(!isFast); // Toggle the laser speed
+                    }}
+                    className={`btn-custom ${isFast ? "active" : ""}`}
                     block
                     size="lg"
                     type="button"
                   >
-                    Silahkan Klik Untuk Membuka Menu
-                    <span className="meteor"></span>
+                    <span>
+                      {isFast
+                        ? "Menu Telah Dibuka"
+                        : "Silahkan Klik Untuk Membuka Menu"}
+                    </span>
                   </Button>
                 </div>
                 <Col className="text-center" lg="12">
-                  {isVisible && <div>Konten Menu</div>}
+                  {isVisible && <Tabs />}
                   <p className="subtitle">
                     <strong>
                       Udang Vaname-Wisata Laut-Wisata Pemancingan-Kerang
