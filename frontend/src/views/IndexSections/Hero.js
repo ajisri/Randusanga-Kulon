@@ -85,39 +85,44 @@ const Hero = () => {
           }
         }
 
-
           @keyframes movingNeonBorder {
-          0% {
-            border-top-color: #ff00ff;
-            border-right-color: #ff00ff;
-            border-bottom-color: #ff00ff;
-            border-left-color: #ff00ff;
+            0% {
+              border-top-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              border-right-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
+              border-bottom-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
+              border-left-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
+              box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(144, 238, 144, 0.8), 0 0 40px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 140, 0, 0.8), 0 0 60px rgba(238, 130, 238, 0.8);
+            }
+            25% {
+              border-top-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
+              border-right-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
+              border-bottom-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
+              border-left-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
+              box-shadow: 0 0 20px rgba(144, 238, 144, 0.8), 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 140, 0, 0.8), 0 0 50px rgba(238, 130, 238, 0.8), 0 0 60px rgba(255, 255, 255, 0.8);
+            }
+            50% {
+              border-top-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
+              border-right-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
+              border-bottom-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
+              border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(238, 130, 238, 0.8), 0 0 50px rgba(255, 255, 255, 0.8), 0 0 60px rgba(144, 238, 144, 0.8);
+            }
+            75% {
+              border-top-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
+              border-right-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
+              border-bottom-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              border-left-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
+              box-shadow: 0 0 20px rgba(255, 140, 0, 0.8), 0 0 30px rgba(238, 130, 238, 0.8), 0 0 40px rgba(255, 255, 255, 0.8), 0 0 50px rgba(144, 238, 144, 0.8), 0 0 60px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+              border-top-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
+              border-right-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              border-bottom-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
+              border-left-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
+              box-shadow: 0 0 20px rgba(238, 130, 238, 0.8), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(144, 238, 144, 0.8), 0 0 50px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 140, 0, 0.8);
+            }
           }
-          25% {
-            border-top-color: #ff00ff;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
-          }
-          50% {
-            border-top-color: transparent;
-            border-right-color: #ff00ff;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
-          }
-          75% {
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: #ff00ff;
-            border-left-color: transparent;
-          }
-          100% {
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            border-left-color: #ff00ff;
-          }
-        }
+
 
           @keyframes gradientMove {
             0% {
@@ -189,6 +194,17 @@ const Hero = () => {
             z-index: 2;
           }
 
+          
+          .laser {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background:rgb(247, 244, 247);
+            border-radius: 50%;
+            animation: laserBeam 1.5s ease-out forwards;
+            z-index: 2;
+          }
+
           .laser-left {
             position: absolute;
             width: 20px; /* Lebar memanjang */
@@ -225,11 +241,11 @@ const Hero = () => {
             font-family: 'Jaqueline', sans-serif;
             font-size: 1.2rem; /* Font lebih besar */
             padding: 20px 40px;
-            background: linear-gradient(90deg, #56ccf2,rgb(203, 203, 17));
+            background: linear-gradient(90deg, #56ccf2,rgb(245, 245, 237));
             border: none;
             color: white;
             text-transform: uppercase;
-            border-radius: 50px;
+            border-radius: 12px;
             position: relative;
             overflow: hidden;
             animation: gradientMove 5s ease infinite;
@@ -239,28 +255,58 @@ const Hero = () => {
             z-index: 1;
           }
 
-          .btn-custom.active{
-            background-color: #000000; /* Background gelap */
-            color: #ffffff; /* Warna font putih */
-            font-size: 0.9rem; /* Font lebih kecil */
+          .btn-custom.active {
+            background: rgba(0, 0, 0, 0); /* Transparansi murni */
+            color: #ffffff; /* Warna teks tetap putih */
+            font-size: 1rem;
             text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
-            border: 2px solid transparent;
-            animation: movingNeonBorder 3s linear infinite; /* Animation for the moving neon border */
+            border: 2px solid rgba(255, 255, 255, 0.8); /* Border putih transparan */
+            box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
+            animation: movingNeonBorder 3s linear infinite;
+            transform: scale(0.95);
+          }
+
+          .btn-custom.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.8); /* Border neon */
+            animation: movingNeonBorder 3s linear infinite;
+            pointer-events: none;
+            box-shadow: 0 0 15pxrgb(30, 246, 163), 0 0 30pxrgba(15, 132, 95, 0.93), 0 0 45pxrgb(204, 246, 19);
+          }
+
+          .btn-custom.active:hover {
+            transform: scale(1.05); /* Efek membesar saat hover */
           }
 
           .btn-custom.active span {
-            display: inline-block; /* Pastikan span bertindak sebagai block-level element */
-            animation: shakeText 0.5s ease-in-out infinite; /* Apply shake animation */
+            display: inline-block; /* Teks bertindak sebagai elemen blok */
+            animation: shakeText 0.5s ease-in-out infinite; /* Animasi teks */
           }
 
-          .laser {
+          /* Untuk menambahkan efek shadow neon pada border */
+          .btn-custom.active::after {
+            content: '';
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background:rgb(247, 244, 247);
-            border-radius: 50%;
-            animation: laserBeam 1.5s ease-out forwards;
-            z-index: 2;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 12px; /* Sama dengan tombol */
+            border: 2px solid transparent; /* Awalnya transparan */
+            animation: movingNeonBorder 3s linear infinite; /* Animasi border */
+            pointer-events: none; /* Mencegah interaksi dengan pseudo-element */
+            box-shadow: 
+              0 0 20px rgba(255, 255, 255, 0.8), /* Putih lembut */
+              0 0 30px rgba(144, 238, 144, 0.8), /* Hijau pastel */
+              0 0 40px rgba(255, 215, 0, 0.8),  /* Emas lembut */
+              0 0 50px rgba(255, 140, 0, 0.8),  /* Oranye terang */
+              0 0 60px rgba(238, 130, 238, 0.8); /* Ungu pastel */
           }
 
           .subtitle {
@@ -288,7 +334,7 @@ const Hero = () => {
               height: "100%",
               objectFit: "cover",
               zIndex: 1,
-              filter: "brightness(80%)",
+              filter: "brightness(60%)",
             }}
             autoPlay
             loop
