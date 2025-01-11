@@ -88,36 +88,28 @@ const Hero = () => {
           @keyframes movingNeonBorder {
             0% {
               border-top-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-right-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
               border-bottom-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
               border-left-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
               box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(144, 238, 144, 0.8), 0 0 40px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 140, 0, 0.8), 0 0 60px rgba(238, 130, 238, 0.8);
             }
             25% {
-              border-top-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
               border-right-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
               border-bottom-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              border-left-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
               box-shadow: 0 0 20px rgba(144, 238, 144, 0.8), 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 140, 0, 0.8), 0 0 50px rgba(238, 130, 238, 0.8), 0 0 60px rgba(255, 255, 255, 0.8);
             }
             50% {
               border-top-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
               border-right-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              border-bottom-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
               border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
               box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(238, 130, 238, 0.8), 0 0 50px rgba(255, 255, 255, 0.8), 0 0 60px rgba(144, 238, 144, 0.8);
             }
             75% {
               border-top-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              border-right-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
               border-bottom-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-left-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
               box-shadow: 0 0 20px rgba(255, 140, 0, 0.8), 0 0 30px rgba(238, 130, 238, 0.8), 0 0 40px rgba(255, 255, 255, 0.8), 0 0 50px rgba(144, 238, 144, 0.8), 0 0 60px rgba(255, 215, 0, 0.8);
             }
             100% {
-              border-top-color: rgba(238, 130, 238, 0.8); /* Ungu pastel */
               border-right-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-bottom-color: rgba(144, 238, 144, 0.8); /* Hijau pastel */
               border-left-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
               box-shadow: 0 0 20px rgba(238, 130, 238, 0.8), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(144, 238, 144, 0.8), 0 0 50px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 140, 0, 0.8);
             }

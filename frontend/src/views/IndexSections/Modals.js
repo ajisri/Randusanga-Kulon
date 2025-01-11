@@ -283,6 +283,18 @@ const Modals = () => {
 
   return (
     <>
+      <style>
+        {`
+        .cursor-icon {
+              font-size: 140px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+            }
+      `}
+      </style>
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
@@ -301,6 +313,7 @@ const Modals = () => {
             icon="pi pi-info-circle"
             onClick={() => setDialogVisiblettg(true)}
           >
+            <div className="cursor-icon">🌍</div>
             <i
               className="pi pi-info-circle"
               style={{ marginRight: "8px", fontSize: "1.2em" }}
