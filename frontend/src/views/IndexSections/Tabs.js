@@ -112,8 +112,8 @@ class TabsSection extends React.Component {
           {`
             .custom-cursor {
               position: fixed;
-              width: 200px;
-              height: 200px;
+              width: 150px;
+              height: 150px;
               border-radius: 50%;
               pointer-events: none;
               transform: translate(-50%, -50%);
@@ -233,7 +233,7 @@ class TabsSection extends React.Component {
           className={`custom-cursor ${isHovering ? "show" : ""}`}
           style={{
             left: `${cursorPosition.x}px`,
-            top: `${cursorPosition.y - 90}px`,
+            top: `${cursorPosition.y - 110}px`,
           }}
         >
           {isHovering === "profile" && <div className="cursor-icon">🗺️</div>}

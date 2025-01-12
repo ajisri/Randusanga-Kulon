@@ -278,6 +278,43 @@ const Modals = () => {
     <Button label="Ok" icon="pi pi-check" onClick={hideDialog} />
   );
 
+  const [animationTriggered, setAnimationTriggered] = useState(false);
+
+  const [iconPosition, setIconPosition] = useState({ x: 0, y: 0 });
+  const [iconPosition1, setIconPosition1] = useState({ x: 0, y: 0 });
+  const [iconPosition2, setIconPosition2] = useState({ x: 0, y: 0 });
+  const [iconPosition3, setIconPosition3] = useState({ x: 0, y: 0 });
+  const [iconPosition4, setIconPosition4] = useState({ x: 0, y: 0 });
+  const [iconPosition5, setIconPosition5] = useState({ x: 0, y: 0 });
+  const [iconPosition6, setIconPosition6] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e, setIconPosition) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+
+    // Hitung posisi mouse relatif terhadap tombol
+    const offsetX = e.clientX - rect.left - rect.width / 2;
+    const offsetY = e.clientY - rect.top - rect.height / 2;
+
+    // Batasi pergerakan ikon di dalam tombol
+    const limitX = rect.width / 4;
+    const limitY = rect.height / 4;
+
+    const clampedX = Math.max(Math.min(offsetX, limitX), -limitX);
+    const clampedY = Math.max(Math.min(offsetY, limitY), -limitY);
+
+    setIconPosition({ x: clampedX, y: clampedY });
+  };
+
+  const handleMouseLeave = (setIconPosition) => {
+    setIconPosition({ x: 0, y: 0 }); // Kembalikan posisi ikon ke tengah
+  };
+
+  // Memastikan animasi hanya terjadi sekali
+  useEffect(() => {
+    setAnimationTriggered(true);
+  }, []);
+
   if (demografiError) return <div>Error loading data</div>;
   if (!demografiData) return <div>Loading...</div>;
 
@@ -285,15 +322,90 @@ const Modals = () => {
     <>
       <style>
         {`
-        .cursor-icon {
-              font-size: 140px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 100%;
-              height: 100%;
+          .button-container {
+            display: flex;
+            justify-content: space-around;
+          }
+
+          .button {
+            position: relative;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            width: 90px !important;
+            height: 50px !important;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .button:hover .cursor-icon {
+            animation: magnetEffect 0.2s forwards;
+          }
+            
+          .button-icon {
+            position: relative;
+            font-size: 80px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease, color 0.3s ease;
+            z-index: 1;
+          }
+
+          .video-button {
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+          }
+
+          .no-animation {
+            animation: none; /* Menghilangkan animasi setelah selesai */
+          }
+
+          .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+          }
+
+          .marquee span {
+            display: inline-block;
+            padding-right: 100%;
+            animation: marquee 10s linear infinite;
+          }
+
+          @keyframes magnetEffect {
+            0% {
+              transform: scale(1) translate(0, 0);
             }
-      `}
+            100% {
+              transform: scale(1.2) translate(10px, -10px);
+            }
+          }
+            
+          @keyframes marquee {
+            0% {
+              transform: translateX(100%);
+            }
+            100% {
+              transform: translateX(-100%);
+            }
+          }
+
+          @keyframes slideIn {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+        `}
       </style>
       <h2 className="mt-sm mb-2">
         <span></span>
@@ -307,18 +419,27 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
             icon="pi pi-info-circle"
             onClick={() => setDialogVisiblettg(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
-            <div className="cursor-icon">🌍</div>
-            <i
-              className="pi pi-info-circle"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
-            <span style={{ display: "inline-block" }}>Tentang</span>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
+              }}
+            >
+              📖
+            </div>
+            <div className="marquee">
+              <span style={{ display: "inline-block" }}>Tentang</span>
+            </div>
           </Button>
           <div className="card">
             <Dialog
@@ -356,16 +477,24 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
-            icon="pi pi-history"
-            onClick={() => setDialogVisiblesd(true)}
+            icon="pi pi-info-circle"
+            onClick={() => setDialogVisiblettg(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition1)}
           >
-            <i
-              className="pi pi-history"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px)`,
+              }}
+            >
+              ⏳
+            </div>
             Sejarah
           </Button>
           <div className="card">
@@ -409,11 +538,17 @@ const Modals = () => {
             type="button"
             icon="pi pi-eye"
             onClick={() => setDialogVisiblevm(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition2)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition2)}
           >
-            <i
-              className="pi pi-eye"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px)`,
+              }}
+            >
+              🧭
+            </div>
             Visi dan Misi
           </Button>
           <div className="card">
@@ -456,11 +591,17 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisibleso(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition3)}
           >
-            <i
-              className="pi pi-users"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
+              }}
+            >
+              🔗
+            </div>
             Struktur Organisasi
           </Button>
           <div className="card">
@@ -528,11 +669,17 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblele(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition4)}
           >
-            <i
-              className="pi pi-building"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px)`,
+              }}
+            >
+              🏛️
+            </div>
             Lembaga
           </Button>
           <div className="card">
@@ -670,11 +817,17 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblege(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition5)}
           >
-            <i
-              className="pi pi-map"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px)`,
+              }}
+            >
+              🌍
+            </div>
             Geografi
           </Button>
           <div className="card">
@@ -708,11 +861,17 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisible(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition6)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition6)}
           >
-            <i
-              className="pi pi-chart-bar"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px)`,
+              }}
+            >
+              👨‍👩‍👧‍👦
+            </div>
             Demografi
           </Button>
           <div className="card">

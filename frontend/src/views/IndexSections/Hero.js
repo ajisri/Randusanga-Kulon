@@ -53,6 +53,25 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [lasersLeft, isFast]);
 
+  const [stars, setStars] = useState([]);
+
+  useEffect(() => {
+    // Membuat bintang secara dinamis
+    const starElements = Array.from({ length: 50 }).map((_, i) => (
+      <div
+        key={i}
+        className="star"
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          animationDuration: `${Math.random() * 3 + 2}s`,
+          transform: `translateZ(${Math.random() * 1000}px)`,
+        }}
+      />
+    ));
+    setStars(starElements);
+  }, []);
+
   const refaniFont = require("../../assets/font/Refani-Regular.otf");
 
   return (
@@ -88,33 +107,37 @@ const Hero = () => {
           @keyframes movingNeonBorder {
             0% {
               border-top-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-bottom-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
-              border-left-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(144, 238, 144, 0.8), 0 0 40px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 140, 0, 0.8), 0 0 60px rgba(238, 130, 238, 0.8);
+              border-right-color: rgba(0, 204, 255, 0.8); /* Biru laut */
+              border-bottom-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
+              border-left-color: rgba(169, 169, 169, 0.8); /* Abu-abu metalik */
+              box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), 0 0 40px rgba(0, 204, 255, 0.6), 0 0 50px rgba(128, 0, 128, 0.6), 0 0 60px rgba(169, 169, 169, 0.6);
             }
             25% {
-              border-right-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
-              border-bottom-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              box-shadow: 0 0 20px rgba(144, 238, 144, 0.8), 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 140, 0, 0.8), 0 0 50px rgba(238, 130, 238, 0.8), 0 0 60px rgba(255, 255, 255, 0.8);
+              border-right-color: rgba(0, 204, 255, 0.8); /* Biru laut */
+              border-bottom-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
+              border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              box-shadow: 0 0 30px rgba(0, 204, 255, 0.6), 0 0 50px rgba(128, 0, 128, 0.6), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 70px rgba(169, 169, 169, 0.6);
             }
             50% {
-              border-top-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
-              border-right-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(238, 130, 238, 0.8), 0 0 50px rgba(255, 255, 255, 0.8), 0 0 60px rgba(144, 238, 144, 0.8);
+              border-top-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              border-bottom-color: rgba(0, 204, 255, 0.8); /* Biru laut */
+              border-left-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
+              border-right-color: rgba(169, 169, 169, 0.8); /* Abu-abu metalik */
+              box-shadow: 0 0 35px rgba(255, 255, 255, 0.6), 0 0 55px rgba(0, 204, 255, 0.6), 0 0 70px rgba(128, 0, 128, 0.6), 0 0 80px rgba(169, 169, 169, 0.6);
             }
             75% {
-              border-top-color: rgba(255, 140, 0, 0.8); /* Oranye terang */
-              border-bottom-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              box-shadow: 0 0 20px rgba(255, 140, 0, 0.8), 0 0 30px rgba(238, 130, 238, 0.8), 0 0 40px rgba(255, 255, 255, 0.8), 0 0 50px rgba(144, 238, 144, 0.8), 0 0 60px rgba(255, 215, 0, 0.8);
+              border-top-color: rgba(0, 204, 255, 0.8); /* Biru laut */
+              border-right-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
+              border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
+              box-shadow: 0 0 35px rgba(0, 204, 255, 0.6), 0 0 50px rgba(128, 0, 128, 0.6), 0 0 70px rgba(255, 255, 255, 0.6), 0 0 80px rgba(169, 169, 169, 0.6);
             }
             100% {
+              border-top-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
               border-right-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-left-color: rgba(255, 215, 0, 0.8); /* Emas lembut */
-              box-shadow: 0 0 20px rgba(238, 130, 238, 0.8), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(144, 238, 144, 0.8), 0 0 50px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 140, 0, 0.8);
+              border-bottom-color: rgba(0, 204, 255, 0.8); /* Biru laut */
+              box-shadow: 0 0 40px rgba(128, 0, 128, 0.6), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 80px rgba(0, 204, 255, 0.6), 0 0 90px rgba(169, 169, 169, 0.6);
             }
           }
-
 
           @keyframes gradientMove {
             0% {
@@ -139,64 +162,36 @@ const Hero = () => {
             }
           }
 
-          @keyframes laserBeam {
+          @keyframes spaceStars {
             0% {
-              transform: translate(-50%, -50%) scale(0.5);
-              opacity: 1;
+              background-position: 0 0;
             }
             50% {
-              opacity: 0.7;
-              transform: translate(-50%, -50%) scale(1.2);
+              background-position: 50% 50%;
             }
             100% {
-              opacity: 0;
-              transform: translate(-50%, -50%) scale(0.8);
+              background-position: 0 0;
             }
           }
 
-          @keyframes laserBeamRight {
+          @keyframes randomStars {
             0% {
-              transform: translateX(0);
-              opacity: 1;
+              background-position: 0 0;
+            }
+            25% {
+              background-position: 100px 50px;
+            }
+            50% {
+              background-position: -100px -50px;
+            }
+            75% {
+              background-position: 200px -100px;
             }
             100% {
-              transform: translateX(calc(100vw - var(--button-width))); /* Berhenti di sisi kanan tombol */
-              opacity: 0;
+              background-position: 0 0;
             }
           }
-
-          @keyframes laserBeamLeft {
-            0% {
-              transform: translateX(0);
-              opacity: 1;
-            }
-            100% {
-              transform: translateX(100vw);
-              opacity: 0;
-            }
-          }
-
-          .laser {
-            position: absolute;
-            width: 20px; /* Lebar memanjang */
-            height: 5px; /* Tinggi lebih kecil */
-            background: #ffffff;
-            border-radius: 5px;
-            animation: laserBeamInside 8s linear forwards;
-            z-index: 2;
-          }
-
-          
-          .laser {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background:rgb(247, 244, 247);
-            border-radius: 50%;
-            animation: laserBeam 1.5s ease-out forwards;
-            z-index: 2;
-          }
-
+            
           .laser-left {
             position: absolute;
             width: 20px; /* Lebar memanjang */
@@ -233,72 +228,54 @@ const Hero = () => {
             font-family: 'Jaqueline', sans-serif;
             font-size: 1.2rem; /* Font lebih besar */
             padding: 20px 40px;
-            background: linear-gradient(90deg, #56ccf2,rgb(245, 245, 237));
+            background: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)); /* Gradien transparan dari hitam */
             border: none;
             color: white;
             text-transform: uppercase;
             border-radius: 12px;
             position: relative;
-            overflow: hidden;
             animation: gradientMove 5s ease infinite;
             background-size: 300% 300%;
             text-align: center;
             display: inline-block;
-            z-index: 1;
           }
 
-          .btn-custom.active {
-            background: rgba(0, 0, 0, 0); /* Transparansi murni */
-            color: #ffffff; /* Warna teks tetap putih */
-            font-size: 1rem;
-            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
-            border: 2px solid rgba(255, 255, 255, 0.8); /* Border putih transparan */
-            box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
-            animation: movingNeonBorder 3s linear infinite;
-            transform: scale(0.95);
+          .btn-custom:hover {
+            background: rgba(0, 0, 0, 0); /* Background sepenuhnya transparan saat hover */
+            color: white; /* Warna teks tetap putih */
           }
 
-          .btn-custom.active::before {
+          .btn-custom::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.8); /* Border neon */
-            animation: movingNeonBorder 3s linear infinite;
+            width: 100%;
+            height: 100%;
+            background: 
+              radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 1%) 10% 20%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 1%) 50% 50%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 80% 30%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 1%) 15% 80%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 40% 60%;
+            background-size: 150px 150px; /* Ukuran acak */
             pointer-events: none;
-            box-shadow: 0 0 15pxrgb(30, 246, 163), 0 0 30pxrgba(15, 132, 95, 0.93), 0 0 45pxrgb(204, 246, 19);
           }
 
-          .btn-custom.active:hover {
-            transform: scale(1.05); /* Efek membesar saat hover */
+          .btn-custom.active {
+            background: #000000 !important; /* Latar belakang hitam */
+            color: #ffffff; /* Warna teks tetap putih */
+            font-size: 1rem;
+            text-shadow: 0 0 3px #ffffff, 0 0 5px #ffffff, 0 0 10px rgba(255, 255, 255, 0.6); /* Mengurangi efek cahaya bintang */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Mengurangi transparansi border */
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5), 0 0 15px 5px rgba(144, 238, 144, 0.5), 0 0 20px 5px rgba(255, 215, 0, 0.4); /* Mengurangi efek cahaya */
+            animation: movingNeonBorder 6s linear infinite, spaceStars 10s infinite; /* Memperlambat animasi */
+            transform: scale(0.95);
           }
 
           .btn-custom.active span {
             display: inline-block; /* Teks bertindak sebagai elemen blok */
             animation: shakeText 0.5s ease-in-out infinite; /* Animasi teks */
-          }
-
-          /* Untuk menambahkan efek shadow neon pada border */
-          .btn-custom.active::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border-radius: 12px; /* Sama dengan tombol */
-            border: 2px solid transparent; /* Awalnya transparan */
-            animation: movingNeonBorder 3s linear infinite; /* Animasi border */
-            pointer-events: none; /* Mencegah interaksi dengan pseudo-element */
-            box-shadow: 
-              0 0 20px rgba(255, 255, 255, 0.8), /* Putih lembut */
-              0 0 30px rgba(144, 238, 144, 0.8), /* Hijau pastel */
-              0 0 40px rgba(255, 215, 0, 0.8),  /* Emas lembut */
-              0 0 50px rgba(255, 140, 0, 0.8),  /* Oranye terang */
-              0 0 60px rgba(238, 130, 238, 0.8); /* Ungu pastel */
           }
 
           .subtitle {
@@ -309,6 +286,39 @@ const Hero = () => {
             text-align: center;
             margin-top: 20px;
           }
+
+          .stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px; /* Menambahkan perspektif 3D */
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: flyThrough 4s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes flyThrough {
+  0% {
+    transform: translateZ(1000px) translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateZ(-1000px) translateY(calc(100vh * (random() - 0.5))) translateX(calc(100vw * (random() - 0.5)));
+    opacity: 0;
+  }
         `}
       </style>
 
@@ -402,7 +412,6 @@ const Hero = () => {
                       }}
                     ></span>
                   ))}
-
                   <Button
                     onClick={() => {
                       setIsVisible(!isVisible);
@@ -413,6 +422,7 @@ const Hero = () => {
                     size="lg"
                     type="button"
                   >
+                    <div className="stars-container">{stars}</div>
                     <span>
                       {isFast
                         ? "Menu Telah Dibuka"
