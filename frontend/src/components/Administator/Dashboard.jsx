@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Ripple } from "primereact/ripple";
 import axios from "axios";
@@ -74,7 +74,7 @@ const Dashboard = () => {
   const toggleSocialSubmenu = () =>
     setSocialSubmenuVisible(!isSocialSubmenuVisible);
 
-  const refreshToken = async () => {
+  const refreshToken = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:8080/token", {
         withCredentials: true,
@@ -83,12 +83,23 @@ const Dashboard = () => {
       const decoded = jwt_decode(response.data.accessToken);
       setExpire(decoded.exp);
     } catch (error) {
-      // console.error("Gagal memperbarui token:", error);
       if (error.response) {
         navigate("/"); // Redirect ke halaman login jika token tidak valid
       }
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        await refreshToken(); // Panggil fungsi untuk memperbarui token jika ada
+      } catch (error) {
+        navigate("/"); // Redirect ke halaman login jika token tidak valid
+      }
+    };
+
+    checkToken();
+  }, [refreshToken, navigate]);
 
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
@@ -114,17 +125,6 @@ const Dashboard = () => {
       return Promise.reject(error);
     }
   );
-
-  useEffect(() => {
-    const checkToken = async () => {
-      try {
-        await refreshToken(); // Panggil fungsi untuk memperbarui token jika ada
-      } catch (error) {
-        navigate("/"); // Redirect ke halaman login jika token tidak valid
-      }
-    };
-    checkToken();
-  }, [refreshToken, navigate]);
 
   const renderContent = () => {
     switch (activeMenu) {

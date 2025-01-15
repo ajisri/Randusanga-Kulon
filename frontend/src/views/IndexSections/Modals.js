@@ -329,11 +329,11 @@ const Modals = () => {
 
           .button {
             position: relative;
-            padding: 10px;
+            padding: 3px;
             background-color: #ffffff;
-            border: 2px solid #ddd;
+            border: 12px solid #ddd;
             cursor: pointer;
-            width: 90px !important;
+            width: 60px !important;
             height: 50px !important;
             text-align: center;
             display: flex;
@@ -405,6 +405,7 @@ const Modals = () => {
               transform: translateX(0);
             }
           }
+
         `}
       </style>
       <h2 className="mt-sm mb-2">
@@ -441,7 +442,7 @@ const Modals = () => {
               <span style={{ display: "inline-block" }}>Tentang</span>
             </div>
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Tentang"
               visible={dialogVisiblettg}
@@ -497,7 +498,7 @@ const Modals = () => {
             </div>
             Sejarah
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Sejarah"
               visible={dialogVisiblesd}
@@ -551,7 +552,7 @@ const Modals = () => {
             </div>
             Visi dan Misi
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Visi dan Misi"
               visible={dialogVisiblevm}
@@ -604,7 +605,7 @@ const Modals = () => {
             </div>
             Struktur Organisasi
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Struktur Organisasi"
               visible={dialogVisibleso}
@@ -664,7 +665,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -682,7 +683,7 @@ const Modals = () => {
             </div>
             Lembaga
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Lembaga"
               visible={dialogVisiblele}
@@ -830,7 +831,7 @@ const Modals = () => {
             </div>
             Geografi
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Geografi"
               visible={dialogVisiblege}
@@ -874,7 +875,7 @@ const Modals = () => {
             </div>
             Demografi
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Demografi"
               visible={dialogVisible}
