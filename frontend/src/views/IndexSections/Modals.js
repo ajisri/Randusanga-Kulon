@@ -304,6 +304,18 @@ const Modals = () => {
     const clampedY = Math.max(Math.min(offsetY, limitY), -limitY);
 
     setIconPosition({ x: clampedX, y: clampedY });
+
+    // Tambahkan efek ripple
+    const ripple = document.createElement("div");
+    ripple.className = "ripple";
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+
+    button.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 800); // Hapus ripple setelah animasi selesai
   };
 
   const handleMouseLeave = (setIconPosition) => {
@@ -405,7 +417,29 @@ const Modals = () => {
               transform: translateX(0);
             }
           }
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  border-radius: 8px; /* Sesuaikan sesuai bentuk tombol */
+}
+.ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(0);
+  animation: ripple-animation 0.8s ease-out forwards;
+}
 
+@keyframes ripple-animation {
+  to {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
         `}
       </style>
       <h2 className="mt-sm mb-2">
@@ -426,7 +460,9 @@ const Modals = () => {
             color="default"
             type="button"
             icon="pi pi-info-circle"
-            onClick={() => setDialogVisiblettg(true)}
+            onClick={(e) => {
+              setDialogVisiblettg(true);
+            }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
@@ -875,7 +911,7 @@ const Modals = () => {
             </div>
             Demografi
           </Button>
-          <div className="">
+          <div className="card">
             <Dialog
               header="Demografi"
               visible={dialogVisible}
