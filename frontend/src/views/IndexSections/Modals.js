@@ -365,9 +365,36 @@ const Modals = () => {
             justify-content: center;
             width: 100%;
             height: 100%;
+            border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease;
             z-index: 1;
           }
+
+          .button-icon:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: transform 0.5s ease-out;
+  pointer-events: none;
+}
+
+.button-icon:hover:before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.button-icon:hover {
+  transform: scale(1.05);
+  filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+}
 
           .video-button {
             transform: translateX(-100%);
@@ -431,17 +458,34 @@ const Modals = () => {
   border-radius: 50%;
   pointer-events: none;
   transform: scale(0);
-  animation: ripple-animation 0.8s ease-out forwards;
+  animation: ripple-animation 0.9s ease-out forwards;
 }
 
 @keyframes ripple-animation {
   to {
-    transform: scale(10);
+    transform: scale(15);
     opacity: 0;
   }
 }
         `}
       </style>
+      <svg style={{ display: "none" }}>
+        <filter id="distortion-filter">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.02 0.03"
+            numOctaves="3"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="20"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
@@ -467,12 +511,22 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="button-icon"
+              className="button-icon ripple-container"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
             >
-              📖
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/about-us.png")}
+                alt=""
+                style={{
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             <div className="marquee">
               <span style={{ display: "inline-block" }}>Tentang</span>
@@ -530,7 +584,17 @@ const Modals = () => {
                 transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px)`,
               }}
             >
-              ⏳
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/book.png")}
+                alt=""
+                style={{
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             Sejarah
           </Button>
@@ -584,7 +648,17 @@ const Modals = () => {
                 transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px)`,
               }}
             >
-              🧭
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/target.png")}
+                alt=""
+                style={{
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             Visi dan Misi
           </Button>
@@ -637,7 +711,17 @@ const Modals = () => {
                 transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
               }}
             >
-              🔗
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/management.png")}
+                alt=""
+                style={{
+                  width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             Struktur Organisasi
           </Button>
@@ -715,7 +799,17 @@ const Modals = () => {
                 transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px)`,
               }}
             >
-              🏛️
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/establishment.png")}
+                alt=""
+                style={{
+                  width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             Lembaga
           </Button>
@@ -863,7 +957,17 @@ const Modals = () => {
                 transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px)`,
               }}
             >
-              🌍
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/planet.png")}
+                alt=""
+                style={{
+                  width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             Geografi
           </Button>
@@ -907,7 +1011,17 @@ const Modals = () => {
                 transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px)`,
               }}
             >
-              👨‍👩‍👧‍👦
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/demographic.png")}
+                alt=""
+                style={{
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
             </div>
             Demografi
           </Button>
