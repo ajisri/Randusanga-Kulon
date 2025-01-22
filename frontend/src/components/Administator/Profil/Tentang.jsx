@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { RadioButton } from "primereact/radiobutton";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import "./Editor.css";
+import debounce from "lodash.debounce";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+import "./Sejarah.css";
 
 const Tentang = () => {
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
@@ -55,16 +56,7 @@ const Tentang = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    axiosJWT
-      .get("http://localhost:8080/tentang")
-      .then((response) => console.log("Data fetched manually:", response.data))
-      .catch((error) =>
-        console.error("Error fetching Tentang manually:", error)
-      );
-  }, [axiosJWT]);
-
-  const handleTextChange = useCallback((value) => {
+  const handleCKEditorChange = useCallback((value) => {
     setVisionContent(value);
   }, []);
 
@@ -80,6 +72,15 @@ const Tentang = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    axiosJWT
+      .get("http://localhost:8080/tentang")
+      .then((response) => console.log("Data fetched manually:", response.data))
+      .catch((error) =>
+        console.error("Error fetching Tentang manually:", error)
+      );
+  }, [axiosJWT]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,16 +131,58 @@ const Tentang = () => {
     handleSubmit(e);
   };
 
+  const leftColumnRef = useRef(null);
+  const rightColumnRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const leftColumn = leftColumnRef.current;
+      const rightColumn = rightColumnRef.current;
+
+      if (leftColumn && rightColumn) {
+        const leftColumnScrollTop = leftColumn.scrollTop;
+        const viewportScrollTop = window.scrollY;
+
+        const rightColumnHeight = rightColumn.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        const limitTop = 0; // batas atas
+        const limitBottom = viewportHeight - rightColumnHeight - 90;
+
+        let newTop = Math.min(
+          leftColumnScrollTop + viewportScrollTop,
+          limitBottom
+        );
+        newTop = Math.max(newTop, limitTop);
+
+        // Mengatur posisi top elemen kanan
+        rightColumn.style.top = `${newTop}px`;
+      }
+    };
+
+    // Membungkus fungsi handleScroll dengan debounce untuk menghindari pemanggilan berulang
+    const debouncedHandleScroll = debounce(handleScroll, 100); // Sesuaikan waktu debouncing
+
+    // Menambahkan event listener untuk scroll pada window
+    window.addEventListener("scroll", debouncedHandleScroll);
+
+    // Membersihkan event listener saat komponen unmount
+    return () => {
+      window.removeEventListener("scroll", debouncedHandleScroll);
+      debouncedHandleScroll.cancel(); // Membatalkan debouncing
+    };
+  }, []);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div className="tentang-container">
+    <div className="sejarah-container">
       <Toast ref={toast} />
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="content-wrapper">
           {/* Left Column */}
-          <div className="left-column">
+          <div className="left-column" ref={leftColumnRef}>
             <h3 className="section-title">Create New Post</h3>
             <div className="post-content-container scrollable-container">
               <Card className="cart">
@@ -188,21 +231,79 @@ const Tentang = () => {
                     </div>
                   )}
                 </div>
-                <div className="p-field custom-editor">
-                  <label htmlFor="content">Content</label>
-                  <div className="quill-wrapper">
-                    <ReactQuill
-                      value={visionContent}
-                      onChange={handleTextChange}
-                    />
-                  </div>
+                <div className="form-group">
+                  <label>Konten</label>
+                  <CKEditor
+                    editor={DecoupledEditor}
+                    data={visionContent}
+                    config={{
+                      toolbar: [
+                        "heading",
+                        "|",
+                        "bold",
+                        "italic",
+                        "underline",
+                        "strikethrough",
+                        "fontFamily",
+                        "fontSize",
+                        "fontColor",
+                        "fontBackgroundColor",
+                        "|",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "|",
+                        "alignment",
+                        "outdent",
+                        "indent",
+                        "|",
+                        "insertTable",
+                        "blockQuote",
+                        "undo",
+                        "redo",
+                      ],
+                      table: {
+                        contentToolbar: [
+                          "tableColumn",
+                          "tableRow",
+                          "mergeTableCells",
+                        ],
+                      },
+                    }}
+                    onReady={(editor) => {
+                      console.log("Editor is ready to use!", editor);
+
+                      // Konfigurasi toolbar tanpa fitur gambar dan video
+
+                      const toolbarContainer = document.querySelector(
+                        ".toolbar-container-content"
+                      );
+                      toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                      );
+                    }}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      console.log("Editor data changed (Content):", data);
+                      handleCKEditorChange(data);
+                    }}
+                  />
+                  <div className="toolbar-container-content" />
                 </div>
               </Card>
             </div>
           </div>
 
           {/* Right Column */}
-          <div className="right-column">
+          <div
+            className="right-column"
+            ref={rightColumnRef}
+            style={{
+              position: "sticky", // Ganti menjadi sticky untuk mengikuti scroll
+              top: "20px", // Memberi jarak dari atas
+              zIndex: 10,
+            }}
+          >
             <Card className="cardr" title="Publish Options">
               <div>
                 <div className="publish-options-top">
@@ -231,8 +332,8 @@ const Tentang = () => {
                 <div className="publish-options-bottom">
                   <Button
                     label="Save"
-                    disabled={isLoadingProcess}
                     raised
+                    disabled={isLoadingProcess}
                     className="p-buttonadmin"
                     onClick={handleSaveClick}
                   />

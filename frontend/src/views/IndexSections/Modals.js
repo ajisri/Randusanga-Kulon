@@ -27,11 +27,16 @@ const Modals = () => {
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
 
+  const baseURL = "http://localhost:8080";
+
   const { data: tentangData, error: tentangError } = useSWR(
     "http://localhost:8080/tentangpengunjung",
     fetcher
   );
   const loadingTentang = !tentangData && !tentangError;
+  const imageURLT = tentangData?.profile.file_url
+    ? `${baseURL}${tentangData.profile.file_url}`
+    : null;
 
   const { data: sejarahData, error: sejarahError } = useSWR(
     "http://localhost:8080/sejarahpengunjung",
@@ -52,7 +57,6 @@ const Modals = () => {
     !strukturorganisasiData && !strukturorganisasiError;
 
   // Construct full URL for the image
-  const baseURL = "http://localhost:8080";
   const imageURL = strukturorganisasiData?.profile.file_url
     ? `${baseURL}${strukturorganisasiData.profile.file_url}`
     : null;
@@ -334,6 +338,11 @@ const Modals = () => {
     <>
       <style>
         {`
+          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
           .button-container {
             display: flex;
             justify-content: space-around;
@@ -366,35 +375,35 @@ const Modals = () => {
             width: 100%;
             height: 100%;
             border: none;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease;
             z-index: 1;
           }
 
           .button-icon:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 50%;
-  transition: transform 0.5s ease-out;
-  pointer-events: none;
-}
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+          transform: translate(-50%, -50%) scale(0);
+          border-radius: 50%;
+          transition: transform 0.5s ease-out;
+          pointer-events: none;
+        }
 
-.button-icon:hover:before {
-  transform: translate(-50%, -50%) scale(1);
-}
+        .button-icon:hover:before {
+          transform: translate(-50%, -50%) scale(1);
+        }
 
-.button-icon:hover {
-  transform: scale(1.05);
-  filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
-}
+        .button-icon:hover {
+          transform: scale(1.05);
+          filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+        }
 
           .video-button {
             transform: translateX(-100%);
@@ -444,27 +453,180 @@ const Modals = () => {
               transform: translateX(0);
             }
           }
-.ripple-container {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  border-radius: 8px; /* Sesuaikan sesuai bentuk tombol */
-}
-.ripple {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: scale(0);
-  animation: ripple-animation 0.9s ease-out forwards;
+
+          .ripple-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            border-radius: 8px; /* Sesuaikan sesuai bentuk tombol */
+          }
+          .ripple {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: scale(0);
+            animation: ripple-animation 0.9s ease-out forwards;
+          }
+
+          @keyframes ripple-animation {
+            to {
+              transform: scale(15);
+              opacity: 0;
+            }
+          }
+
+          .p-dialog-mask {
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.5) !important;
 }
 
-@keyframes ripple-animation {
-  to {
-    transform: scale(15);
+@keyframes bounceIn {
+  0% {
     opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bounce-in {
+  animation: bounceIn 1s ease-in-out;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.dialog-title {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}
+
+.dialog-subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Custom Dialog Content */
+.custom-dialog {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px; /* Ukuran font untuk teks */
+  line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+  color: #333; /* Warna teks */
+}
+
+.dialog-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px; /* Ukuran font untuk teks panjang */
+  line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+  color: #333; /* Warna teks */
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Mengunci scroll saat modal terbuka */
+body.modal-open {
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+  .button {
+    width: 50px !important;
+    height: 45px !important;
+  }
+
+  .button-icon {
+    font-size: 60px !important;
+  }
+
+  .dialog-title {
+    font-size: 20px;
+  }
+
+  .dialog-subtitle {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .button-icon {
+    font-size: 40px !important;
+  }
+
+  .marquee {
+    font-size: 12px;
+  }
+
+  .custom-dialog {
+    width: 85vw !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .button-icon {
+    font-size: 30px !important;
+  }
+
+  .dialog-title {
+    font-size: 16px;
+  }
+
+  .dialog-subtitle {
+    font-size: 10px;
   }
 }
         `}
@@ -498,9 +660,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
+            className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -534,24 +694,57 @@ const Modals = () => {
           </Button>
           <div className="">
             <Dialog
-              header="Tentang"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Tentang</h2>
+                    <p className="dialog-subtitle">Informasi mengenai desa</p>
+                  </div>
+                </div>
+              }
               visible={dialogVisiblettg}
-              style={{ width: "75vw" }}
+              style={{ width: "55vw" }}
+              className="custom-dialog bounce-in"
               maximizable
               modal
-              contentStyle={{ height: "300px" }}
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
               onHide={() => setDialogVisiblettg(false)}
-              footer={dialogFooterTemplate(() => setDialogVisiblettg(false))}
             >
-              <div className="modal-body col-lg">
+              <div className="p-dialog-content">
+                {imageURLT ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLT}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
+
+                <div className="dialog-divider"></div>
                 {loadingTentang ? (
-                  <p>Loading...</p>
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
                 ) : tentangError ? (
-                  <p>{tentangError}</p>
+                  <p className="error-message">{tentangError}</p>
                 ) : (
                   <div
+                    className="dialog-text"
                     dangerouslySetInnerHTML={{
-                      __html: tentangData?.profile?.content,
+                      __html:
+                        tentangData?.profile?.content ||
+                        "<p>No content available</p>",
                     }}
                   />
                 )}
@@ -1025,7 +1218,7 @@ const Modals = () => {
             </div>
             Demografi
           </Button>
-          <div className="card">
+          <div className="">
             <Dialog
               header="Demografi"
               visible={dialogVisible}

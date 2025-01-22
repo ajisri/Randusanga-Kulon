@@ -104,7 +104,7 @@ const Landing = () => {
   }));
 
   const {
-    data: jabatanData,
+    data: jabatanData = [],
     error: jabatanError,
     isLoadingJabatan,
   } = useSWR("http://localhost:8080/jabatanpengunjung", fetcher);
@@ -962,31 +962,35 @@ const Landing = () => {
           <div className="py-5 bg-secondary">
             <Container fluid>
               <div className="card">
-                <Carousel
-                  value={jabatanData} // Menggunakan data API
-                  numVisible={3}
-                  numScroll={1}
-                  circular
-                  autoplayInterval={5000}
-                  itemTemplate={photoTemplate}
-                  responsiveOptions={[
-                    {
-                      breakpoint: "1024px",
-                      numVisible: 1,
-                      numScroll: 1,
-                    },
-                    {
-                      breakpoint: "768px",
-                      numVisible: 1,
-                      numScroll: 1,
-                    },
-                    {
-                      breakpoint: "560px",
-                      numVisible: 1,
-                      numScroll: 1,
-                    },
-                  ]}
-                />
+                {jabatanData?.length > 0 ? (
+                  <Carousel
+                    value={jabatanData} // Menggunakan data API
+                    numVisible={3}
+                    numScroll={1}
+                    circular
+                    autoplayInterval={5000}
+                    itemTemplate={photoTemplate}
+                    responsiveOptions={[
+                      {
+                        breakpoint: "1024px",
+                        numVisible: 1,
+                        numScroll: 1,
+                      },
+                      {
+                        breakpoint: "768px",
+                        numVisible: 1,
+                        numScroll: 1,
+                      },
+                      {
+                        breakpoint: "560px",
+                        numVisible: 1,
+                        numScroll: 1,
+                      },
+                    ]}
+                  />
+                ) : (
+                  <p>Data tidak tersedia</p>
+                )}
               </div>
             </Container>
           </div>

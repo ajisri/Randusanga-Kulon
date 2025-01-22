@@ -78,31 +78,31 @@ const Hero = () => {
     <>
       <style>
         {`
-          @font-face {
-            font-family: 'Jaqueline';
-            src: url(${refaniFont}) format('truetype');
-          }
+            @font-face {
+              font-family: 'Jaqueline';
+              src: url(${refaniFont}) format('truetype');
+            }
 
-         @keyframes shakeText {
-          0% {
-            transform: translateX(0);
+          @keyframes shakeText {
+            0% {
+              transform: translateX(0);
+            }
+            20% {
+              transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
+            }
+            40% {
+              transform: translateX(1px); /* Pergeseran sedikit ke kanan */
+            }
+            60% {
+              transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
+            }
+            80% {
+              transform: translateX(1px); /* Pergeseran sedikit ke kanan */
+            }
+            100% {
+              transform: translateX(0);
+            }
           }
-          20% {
-            transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
-          }
-          40% {
-            transform: translateX(1px); /* Pergeseran sedikit ke kanan */
-          }
-          60% {
-            transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
-          }
-          80% {
-            transform: translateX(1px); /* Pergeseran sedikit ke kanan */
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
 
           @keyframes movingNeonBorder {
             0% {
@@ -288,37 +288,37 @@ const Hero = () => {
           }
 
           .stars-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  perspective: 1000px; /* Menambahkan perspektif 3D */
-  overflow: hidden;
-}
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px; /* Menambahkan perspektif 3D */
+            overflow: hidden;
+          }
 
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  animation: flyThrough 4s linear infinite;
-  opacity: 0.8;
-}
+          .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: flyThrough 4s linear infinite;
+            opacity: 0.8;
+          }
 
-@keyframes flyThrough {
-  0% {
-    transform: translateZ(1000px) translateY(0) translateX(0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateZ(-1000px) translateY(calc(100vh * (random() - 0.5))) translateX(calc(100vw * (random() - 0.5)));
-    opacity: 0;
-  }
+          @keyframes flyThrough {
+            0% {
+              transform: translateZ(1000px) translateY(0) translateX(0);
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              transform: translateZ(-1000px) translateY(calc(100vh * (random() - 0.5))) translateX(calc(100vw * (random() - 0.5)));
+              opacity: 0;
+            }
         `}
       </style>
 
@@ -336,7 +336,7 @@ const Hero = () => {
               height: "100%",
               objectFit: "cover",
               zIndex: 1,
-              filter: "brightness(60%)",
+              filter: isFast ? "brightness(40%)" : "brightness(100%)", // Ubah kecerahan saat tombol aktif
             }}
             autoPlay
             loop
