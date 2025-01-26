@@ -147,8 +147,9 @@ const SubkategoriAnkor = () => {
     e.preventDefault();
 
     const dataToSend = {
-      ...formData,
+      subkategoriankorData: [formData], // Membungkus data dalam array
     };
+
     try {
       setIsLoadingProcess(true);
       // Cek apakah dalam mode edit atau tambah data
@@ -156,7 +157,12 @@ const SubkategoriAnkor = () => {
         // Kirim request update subkategoriankor
         await axiosJWT.patch(
           `http://localhost:8080/subkategoriankor/${currentSubkategoriankor.uuid}`,
-          dataToSend
+          dataToSend,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
 
         toast.current.show({
@@ -170,7 +176,12 @@ const SubkategoriAnkor = () => {
       } else {
         await axiosJWT.post(
           "http://localhost:8080/csubkategoriankor",
-          dataToSend
+          dataToSend,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
       }
       // Tampilkan notifikasi sukses
@@ -569,7 +580,12 @@ const SubkategoriAnkor = () => {
                   optionValue="uuid" // Properti "uuid" digunakan sebagai nilai unik
                   value={formData.kategoriankorId || ""} // Nilai yang dipilih harus cocok dengan "uuid"
                   options={kategoriankorOptions} // Data opsi
-                  onChange={handleChange} // Fungsi untuk menangani perubahan
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      kategoriankorId: e.value,
+                    }))
+                  }
                   placeholder="Pilih Kategori Parameter Ankor"
                   required
                   className="input-field"

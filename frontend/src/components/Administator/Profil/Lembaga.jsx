@@ -13,8 +13,8 @@ import { FilterMatchMode } from "primereact/api";
 import { Dialog } from "primereact/dialog";
 import { Image } from "primereact/image";
 // import { Dropdown } from "primereact/dropdown";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
@@ -525,19 +525,50 @@ const Lembaga = () => {
               </div>
               <div className="form-group">
                 <label>Profil Lembaga</label>
-                <ReactQuill
-                  value={formData.profil}
-                  onChange={(value) => handleQuillChange(value, "profil")}
-                  className="quill-editor"
+                <CKEditor
+                  editor={DecoupledEditor}
+                  data={formData.profil}
+                  onReady={(editor) => {
+                    console.log("Editor is ready to use!", editor);
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-profil"
+                    );
+                    if (!toolbarContainer.hasChildNodes()) {
+                      toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                      );
+                    }
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    handleQuillChange(data, "profil");
+                  }}
                 />
+                <div className="toolbar-container-profil" />
               </div>
+
               <div className="form-group">
                 <label>Visi Misi</label>
-                <ReactQuill
-                  value={formData.visimisi}
-                  onChange={(value) => handleQuillChange(value, "visimisi")}
-                  className="quill-editor"
+                <CKEditor
+                  editor={DecoupledEditor}
+                  data={formData.visimisi}
+                  onReady={(editor) => {
+                    console.log("Editor is ready to use!", editor);
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-visimisi"
+                    );
+                    if (!toolbarContainer.hasChildNodes()) {
+                      toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                      );
+                    }
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    handleQuillChange(data, "visimisi");
+                  }}
                 />
+                <div className="toolbar-container-visimisi" />
               </div>
 
               <div className="form-group">
@@ -547,35 +578,37 @@ const Lembaga = () => {
                   data={formData.tugaspokok}
                   onReady={(editor) => {
                     console.log("Editor is ready to use!", editor);
-                    const toolbarContainer =
-                      document.querySelector(".toolbar-container");
-                    toolbarContainer.appendChild(
-                      editor.ui.view.toolbar.element
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-tugaspokok"
                     );
+                    if (!toolbarContainer.hasChildNodes()) {
+                      toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                      );
+                    }
                   }}
                   onChange={(event, editor) => {
                     const data = editor.getData();
-                    console.log("Editor data changed:", data);
                     handleQuillChange(data, "tugaspokok");
                   }}
                 />
-
-                <div className="toolbar-container" />
-                <style jsx>
-                  {`
-                    .custom-dialog-content table {
-                      margin-left: 20px; /* Mengatur margin kiri tabel */
-                      border-collapse: collapse; /* Menghindari jarak antar sel */
-                    }
-
-                    .custom-dialog-content table td,
-                    .custom-dialog-content table th {
-                      padding: 10px; /* Menambahkan padding di dalam sel */
-                      border: none; /* Menghilangkan border */
-                    }
-                  `}
-                </style>
+                <div className="toolbar-container-tugaspokok" />
               </div>
+
+              <style jsx>
+                {`
+                  .custom-dialog-content table {
+                    margin-left: 20px; /* Mengatur margin kiri tabel */
+                    border-collapse: collapse; /* Menghindari jarak antar sel */
+                  }
+
+                  .custom-dialog-content table td,
+                  .custom-dialog-content table th {
+                    padding: 10px; /* Menambahkan padding di dalam sel */
+                    border: none; /* Menghilangkan border */
+                  }
+                `}
+              </style>
               <div className="form-group">
                 <label>Upload Lambang</label>
                 <input type="file" onChange={handleFileChange} />

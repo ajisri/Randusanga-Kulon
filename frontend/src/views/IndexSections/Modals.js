@@ -43,12 +43,18 @@ const Modals = () => {
     fetcher
   );
   const loadingSejarah = !sejarahData && !sejarahError;
+  const imageURLSejarah = sejarahData?.profile.file_url
+    ? `${baseURL}${sejarahData.profile.file_url}`
+    : null;
 
   const { data: visionData, error: visionError } = useSWR(
     "http://localhost:8080/visimisipengunjung",
     fetcher
   );
   const loadingVision = !visionData && !visionError;
+  const imageURLVisi = visionData?.profile.file_url
+    ? `${baseURL}${visionData.profile.file_url}`
+    : null;
 
   const { data: strukturorganisasiData, error: strukturorganisasiError } =
     useSWR("http://localhost:8080/strukturorganisasipengunjung", fetcher);
@@ -278,10 +284,6 @@ const Modals = () => {
     }
   }, [demografiData]);
 
-  const dialogFooterTemplate = (hideDialog) => (
-    <Button label="Ok" icon="pi pi-check" onClick={hideDialog} />
-  );
-
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
   const [iconPosition, setIconPosition] = useState({ x: 0, y: 0 });
@@ -383,27 +385,27 @@ const Modals = () => {
           }
 
           .button-icon:before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
-          transform: translate(-50%, -50%) scale(0);
-          border-radius: 50%;
-          transition: transform 0.5s ease-out;
-          pointer-events: none;
-        }
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+          }
 
-        .button-icon:hover:before {
-          transform: translate(-50%, -50%) scale(1);
-        }
+          .button-icon:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+          }
 
-        .button-icon:hover {
-          transform: scale(1.05);
-          filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
-        }
+          .button-icon:hover {
+            transform: scale(1.05);
+            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+          }
 
           .video-button {
             transform: translateX(-100%);
@@ -479,156 +481,156 @@ const Modals = () => {
           }
 
           .p-dialog-mask {
-  backdrop-filter: blur(6px);
-  background: rgba(0, 0, 0, 0.5) !important;
-}
+            backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.5) !important;
+          }
 
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+          @keyframes bounceIn {
+            0% {
+              opacity: 0;
+              transform: scale(0.8);
+            }
+            60% {
+              opacity: 1;
+              transform: scale(1.1);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
 
-.bounce-in {
-  animation: bounceIn 1s ease-in-out;
-}
+          .bounce-in {
+            animation: bounceIn 1s ease-in-out;
+          }
 
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
-}
+          .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+          }
 
-.dialog-title {
-  font-size: 24px;
-  margin: 0;
-  color: #333;
-}
+          .dialog-title {
+            font-size: 24px;
+            margin: 0;
+            color: #333;
+          }
 
-.dialog-subtitle {
-  font-size: 14px;
-  color: #777;
-}
+          .dialog-subtitle {
+            font-size: 14px;
+            color: #777;
+          }
 
-/* Custom Dialog Content */
-.custom-dialog {
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
+          /* Custom Dialog Content */
+          .custom-dialog {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+          }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px; /* Ukuran font untuk teks */
-  line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
-  color: #333; /* Warna teks */
-}
+          body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
 
-.dialog-text {
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px; /* Ukuran font untuk teks panjang */
-  line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
-  color: #333; /* Warna teks */
-}
+          .dialog-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks panjang */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
 
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
+          .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
 
-.loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 2s linear infinite;
-}
+          .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+          }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
 
-.error-message {
-  color: #e74c3c;
-  font-size: 16px;
-  text-align: center;
-}
+          .error-message {
+            color: #e74c3c;
+            font-size: 16px;
+            text-align: center;
+          }
 
-/* Mengunci scroll saat modal terbuka */
-body.modal-open {
-  overflow: hidden;
-}
+          /* Mengunci scroll saat modal terbuka */
+          body.modal-open {
+            overflow: hidden;
+          }
 
-@media screen and (max-width: 1200px) {
-  .button {
-    width: 50px !important;
-    height: 45px !important;
-  }
+          @media screen and (max-width: 1200px) {
+            .button {
+              width: 50px !important;
+              height: 45px !important;
+            }
 
-  .button-icon {
-    font-size: 60px !important;
-  }
+            .button-icon {
+              font-size: 60px !important;
+            }
 
-  .dialog-title {
-    font-size: 20px;
-  }
+            .dialog-title {
+              font-size: 20px;
+            }
 
-  .dialog-subtitle {
-    font-size: 12px;
-  }
-}
+            .dialog-subtitle {
+              font-size: 12px;
+            }
+          }
 
-@media screen and (max-width: 768px) {
-  .button {
-    width: 40px !important;
-    height: 40px !important;
-  }
+          @media screen and (max-width: 768px) {
+            .button {
+              width: 40px !important;
+              height: 40px !important;
+            }
 
-  .button-icon {
-    font-size: 40px !important;
-  }
+            .button-icon {
+              font-size: 40px !important;
+            }
 
-  .marquee {
-    font-size: 12px;
-  }
+            .marquee {
+              font-size: 12px;
+            }
 
-  .custom-dialog {
-    width: 85vw !important;
-  }
-}
+            .custom-dialog {
+              width: 85vw !important;
+            }
+          }
 
-@media screen and (max-width: 480px) {
-  .button {
-    width: 35px !important;
-    height: 35px !important;
-  }
+          @media screen and (max-width: 480px) {
+            .button {
+              width: 35px !important;
+              height: 35px !important;
+            }
 
-  .button-icon {
-    font-size: 30px !important;
-  }
+            .button-icon {
+              font-size: 30px !important;
+            }
 
-  .dialog-title {
-    font-size: 16px;
-  }
+            .dialog-title {
+              font-size: 16px;
+            }
 
-  .dialog-subtitle {
-    font-size: 10px;
-  }
-}
+            .dialog-subtitle {
+              font-size: 10px;
+            }
+          }
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -656,7 +658,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -692,7 +694,7 @@ body.modal-open {
               <span style={{ display: "inline-block" }}>Tentang</span>
             </div>
           </Button>
-          <div className="">
+          <div>
             <Dialog
               header={
                 <div className="dialog-header">
@@ -704,16 +706,16 @@ body.modal-open {
               }
               visible={dialogVisiblettg}
               style={{ width: "55vw" }}
-              className="custom-dialog bounce-in"
               maximizable
               modal
+              className="custom-dialog bounce-in"
               contentStyle={{
                 overflowY: "auto",
                 padding: "24px 24px 10px 24px",
               }}
               onHide={() => setDialogVisiblettg(false)}
             >
-              <div className="p-dialog-content">
+              <div>
                 {imageURLT ? (
                   <div style={{ marginBottom: "20px" }}>
                     <img
@@ -757,7 +759,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -767,7 +769,7 @@ body.modal-open {
             color="default"
             type="button"
             icon="pi pi-info-circle"
-            onClick={() => setDialogVisiblettg(true)}
+            onClick={() => setDialogVisiblesd(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
             onMouseLeave={() => handleMouseLeave(setIconPosition1)}
           >
@@ -782,6 +784,7 @@ body.modal-open {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
+                  marginBottom: "10px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -791,26 +794,61 @@ body.modal-open {
             </div>
             Sejarah
           </Button>
-          <div className="">
+          <div>
             <Dialog
-              header="Sejarah"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Sejarah</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai sejarah desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisiblesd}
-              style={{ width: "75vw" }}
+              style={{ width: "55vw" }}
               maximizable
               modal
-              contentStyle={{ height: "300px" }}
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
               onHide={() => setDialogVisiblesd(false)}
-              footer={dialogFooterTemplate(() => setDialogVisiblesd(false))}
             >
-              <div className="modal-body col-lg">
+              <div>
+                {imageURLSejarah ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLSejarah}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
+
+                <div className="dialog-divider"></div>
                 {loadingSejarah ? (
-                  <p>Loading...</p>
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
                 ) : sejarahError ? (
-                  <p>{sejarahError}</p>
+                  <p className="error-message">{sejarahError}</p>
                 ) : (
                   <div
+                    className="dialog-text"
                     dangerouslySetInnerHTML={{
-                      __html: sejarahData?.profile?.content,
+                      __html:
+                        sejarahData?.profile?.content ||
+                        "<p>No content available</p>",
                     }}
                   />
                 )}
@@ -823,7 +861,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -846,6 +884,7 @@ body.modal-open {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
+                  marginBottom: "10px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -855,25 +894,61 @@ body.modal-open {
             </div>
             Visi dan Misi
           </Button>
-          <div className="">
+          <div>
             <Dialog
-              header="Visi dan Misi"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Visi dan Misi</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai visi dan misi desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisiblevm}
-              style={{ width: "75vw" }}
+              style={{ width: "55vw" }}
+              className="custom-dialog bounce-in"
               maximizable
               modal
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
               onHide={() => setDialogVisiblevm(false)}
-              footer={dialogFooterTemplate(() => setDialogVisiblevm(false))}
             >
-              <div className="modal-body col-lg">
+              <div>
+                {imageURLVisi ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLVisi}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
+
+                <div className="dialog-divider"></div>
                 {loadingVision ? (
-                  <p>Loading...</p>
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
                 ) : visionError ? (
-                  <p>{visionError}</p>
+                  <p className="error-message">{visionError}</p>
                 ) : (
                   <div
+                    className="dialog-text"
                     dangerouslySetInnerHTML={{
-                      __html: visionData?.profile?.content,
+                      __html:
+                        visionData?.profile?.content ||
+                        "<p>No content available</p>",
                     }}
                   />
                 )}
@@ -886,7 +961,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -909,6 +984,7 @@ body.modal-open {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
+                  marginBottom: "10px",
                   width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -918,50 +994,63 @@ body.modal-open {
             </div>
             Struktur Organisasi
           </Button>
-          <div className="">
+          <div>
             <Dialog
-              header="Struktur Organisasi"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Struktur Organisasi</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai struktur organisasi desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisibleso}
-              style={{ width: "75vw", borderRadius: "16px" }}
+              style={{ width: "55vw" }}
+              className="custom-dialog bounce-in"
               maximizable
               modal
-              contentStyle={{ height: "calc(100% - 60px)" }}
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
               onHide={() => setDialogVisibleso(false)}
-              footer={dialogFooterTemplate(() => setDialogVisibleso(false))}
             >
-              <div className="modal-body col-lg">
-                {loadingStrukturorganisasi ? (
-                  <p>Loading...</p>
-                ) : strukturorganisasiError ? (
-                  <p>
-                    {strukturorganisasiError.message || "Failed to load data"}
-                  </p>
-                ) : (
-                  <div>
-                    {imageURL ? (
-                      <div>
-                        <img
-                          src={imageURL}
-                          alt="Organizational Structure"
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "20px",
-                            maxHeight: "calc(89vh - 60px)",
-                          }} // Adjust image size
-                        />
-                      </div>
-                    ) : (
-                      <p>No image available</p>
-                    )}
-                    {strukturorganisasiData?.profile?.content && (
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: strukturorganisasiData.profile.content,
-                        }}
-                      />
-                    )}
+              <div>
+                {imageURL ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURL}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
+                      }}
+                    />
                   </div>
+                ) : (
+                  <p>No image available</p>
+                )}
+
+                <div className="dialog-divider"></div>
+                {loadingStrukturorganisasi ? (
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
+                ) : strukturorganisasiError ? (
+                  <p className="error-message">{strukturorganisasiError}</p>
+                ) : (
+                  <div
+                    className="dialog-text"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        strukturorganisasiData?.profile?.content ||
+                        "<p>No content available</p>",
+                    }}
+                  />
                 )}
               </div>
             </Dialog>
@@ -974,7 +1063,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -997,6 +1086,7 @@ body.modal-open {
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
                 style={{
+                  marginBottom: "5px",
                   width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -1006,18 +1096,31 @@ body.modal-open {
             </div>
             Lembaga
           </Button>
-          <div className="">
+          <div>
             <Dialog
-              header="Lembaga"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Lembaga Desa</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai lembaga desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisiblele}
               style={{ width: "75vw" }}
+              className="custom-dialog bounce-in"
               maximizable
               modal
-              contentStyle={{ height: "300px" }}
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
               onHide={() => setDialogVisiblele(false)}
-              // footer={dialogFooterTemplate(() => setDialogVisiblele(false))}
             >
-              <div className="modal-body col-lg">
+              <div>
+                <div className="dialog-divider"></div>
                 {loadingLembaga ? (
                   <p>Loading...</p>
                 ) : lembagaError ? (
@@ -1033,6 +1136,7 @@ body.modal-open {
                     tableStyle={{ minWidth: "50rem" }}
                     expandedRows={expandedRows} // Status baris yang diperluas
                     onRowToggle={handleRowToggle} // Menangani perubahan status baris
+                    className="dialog-text"
                   >
                     <Column
                       field="file_url"
@@ -1084,29 +1188,37 @@ body.modal-open {
             </style>
             {selectedLembaga && (
               <Dialog
-                header={`Detail Lembaga: ${selectedLembaga.nama}`}
+                header={
+                  <div className="dialog-header">
+                    <div>
+                      <h2 className="dialog-title">{`Detail Lembaga: ${selectedLembaga.nama}`}</h2>
+                      <p className="dialog-subtitle">
+                        Informasi mengenai lembaga desa
+                      </p>
+                    </div>
+                  </div>
+                }
                 visible={detailDialogVisible}
                 style={{ width: "70vw" }}
                 maximizable
                 modal
                 onHide={() => setDetailDialogVisible(false)}
-                footer={dialogFooterTemplate(() =>
-                  setDetailDialogVisible(false)
-                )}
-                className="custom-dialog-content"
+                className="custom-dialog-content dialog-text"
               >
                 <div>
                   <h4>Profil Lembaga</h4>
                   {selectedLembaga.profil_lembaga?.map((profil, index) => (
                     <p
+                      className="dialog-text"
                       key={index}
                       dangerouslySetInnerHTML={{ __html: profil.content }}
                     ></p>
                   ))}
-
+                  <div className="dialog-divider"></div>
                   <h4>Tugas Pokok</h4>
                   {selectedLembaga.tugas_pokok?.map((tugas, index) => (
                     <p
+                      className="dialog-text"
                       key={index}
                       dangerouslySetInnerHTML={{ __html: tugas.content }}
                     ></p>
@@ -1115,12 +1227,13 @@ body.modal-open {
                   <h4>Visi Misi</h4>
                   {selectedLembaga.visi_misi?.map((visi, index) => (
                     <p
+                      className="dialog-text"
                       key={index}
                       dangerouslySetInnerHTML={{ __html: visi.content }}
                     ></p>
                   ))}
 
-                  <h4>Anggota</h4>
+                  <h4 className="dialog-text">Anggota</h4>
                   {renderAnggota(selectedLembaga.Anggota)}
                 </div>
               </Dialog>
@@ -1132,7 +1245,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -1155,7 +1268,8 @@ body.modal-open {
                 src={require("assets/img/theme/planet.png")}
                 alt=""
                 style={{
-                  width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  marginBottom: "5px",
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
@@ -1164,16 +1278,29 @@ body.modal-open {
             </div>
             Geografi
           </Button>
-          <div className="">
+          <div>
             <Dialog
-              header="Geografi"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Geografi</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai geografi desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisiblege}
               style={{ width: "90vw" }}
               maximizable
               modal
-              contentStyle={{ height: "500px" }}
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+                height: "500px",
+              }}
+              className="custom-dialog bounce-in"
               onHide={() => setDialogVisiblege(false)}
-              footer={dialogFooterTemplate(() => setDialogVisiblege(false))}
             >
               <div className="modal-body col-lg">
                 <Geografix />
@@ -1186,7 +1313,7 @@ body.modal-open {
           className="mt-1"
           md="3"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -1209,6 +1336,7 @@ body.modal-open {
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
                 style={{
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -1218,18 +1346,33 @@ body.modal-open {
             </div>
             Demografi
           </Button>
-          <div className="">
+          <div>
             <Dialog
-              header="Demografi"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Demografi</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai demografi desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisible}
               style={{ width: "80vw" }}
               maximizable
               modal
-              contentStyle={{ height: "auto" }}
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+                height: "auto",
+              }}
+              className="custom-dialog bounce-in"
               onHide={() => setDialogVisible(false)}
             >
+              <div className="dialog-divider"></div>
               <div
-                className="modal-body"
+                className="dialog-text modal-body"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",

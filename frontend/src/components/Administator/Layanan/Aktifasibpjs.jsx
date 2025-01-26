@@ -4,8 +4,8 @@ import useSWR, { mutate } from "swr";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { InputText } from "primereact/inputtext";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 import { RadioButton } from "primereact/radiobutton";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
@@ -53,7 +53,7 @@ const Aktifasibpjs = () => {
     }
   }, [data]);
 
-  const handleTextChange = useCallback((value) => {
+  const handleCKEditorChange = useCallback((value) => {
     setAktifasibpjsContent(value);
   }, []);
 
@@ -213,94 +213,164 @@ const Aktifasibpjs = () => {
   return (
     <div className="tentang-container">
       <Toast ref={toast} />
-      <div className="left-column">
-        <Card title="Create New Post">
-          <div className="p-field">
-            <label htmlFor="file">Upload File</label>
-            <input
-              id="file"
-              name="file"
-              type="file"
-              onChange={handleFileChange}
-              accept="image/*,application/pdf"
-              className="custom-file-input"
-            />
-            {selectedFile && preview && (
-              <>
-                <div className="image-preview">
-                  <p>File Name: {selectedFile.name}</p>
-                  <p>File Size: {(selectedFile.size / 1024).toFixed(2)} KB</p>
-                </div>
-                <div className="image-container">
-                  <img src={preview} alt="Preview" className="preview-image" />
-                </div>
-              </>
-            )}
-            {file_url && !preview && (
-              <div className="image-container">
-                <img src={`http://localhost:8080${file_url}`} alt="Database" />
-              </div>
-            )}
-          </div>
-
-          <div className="p-field custom-editor">
-            <label htmlFor="title">Title</label>
-            <InputText
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="p-editor"
-            />
-          </div>
-
-          <div className="p-field custom-editor">
-            <label htmlFor="content">Content</label>
-            <ReactQuill
-              value={aktifasibpjsContent}
-              onChange={handleTextChange}
-            />
-          </div>
-        </Card>
-      </div>
-
-      <div className="right-column" ref={rightColumnRef}>
-        <Card className="cardr" title="Publish Options">
-          <div>
-            <div className="publish-options-top">
-              <div className="radio-button-container">
-                <RadioButton
-                  inputId="draft"
-                  name="status"
-                  value="DRAFT"
-                  onChange={(e) => setStatus(e.target.value)}
-                  checked={status === "DRAFT"}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="content-wrapper">
+          <div className="left-column" ref={leftColumnRef}>
+            <Card title="Create New Post" className="cart">
+              <div className="p-field input-text">
+                <label htmlFor="title">Title</label>
+                <InputText
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="input-title"
                 />
-                <label htmlFor="draft">Draft</label>
               </div>
-              <div className="radio-button-container">
-                <RadioButton
-                  inputId="publish"
-                  name="status"
-                  value="PUBLISH"
-                  onChange={(e) => setStatus(e.target.value)}
-                  checked={status === "PUBLISH"}
+              <div className="p-field file-input">
+                <label htmlFor="file">Upload File</label>
+                <input
+                  id="file"
+                  name="file"
+                  type="file"
+                  onChange={handleFileChange}
+                  accept="image/*,application/pdf"
+                  className="custom-file-input"
                 />
-                <label htmlFor="publish">Publish</label>
+                {selectedFile && preview && (
+                  <>
+                    <div className="image-preview">
+                      <p>File Name: {selectedFile.name}</p>
+                      <p>
+                        File Size: {(selectedFile.size / 1024).toFixed(2)} KB
+                      </p>
+                    </div>
+                    <div className="image-container">
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        className="preview-image"
+                      />
+                    </div>
+                  </>
+                )}
+                {file_url && !preview && (
+                  <div className="image-container">
+                    <img
+                      src={`http://localhost:8080${file_url}`}
+                      alt="Database"
+                      className="preview-image"
+                    />
+                  </div>
+                )}
               </div>
-            </div>
+              <div className="p-field custom-editor">
+                <CKEditor
+                  editor={DecoupledEditor}
+                  data={aktifasibpjsContent}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "underline",
+                      "strikethrough",
+                      "fontFamily",
+                      "fontSize",
+                      "fontColor",
+                      "fontBackgroundColor",
+                      "|",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "|",
+                      "alignment",
+                      "outdent",
+                      "indent",
+                      "|",
+                      "insertTable",
+                      "blockQuote",
+                      "undo",
+                      "redo",
+                    ],
+                    table: {
+                      contentToolbar: [
+                        "tableColumn",
+                        "tableRow",
+                        "mergeTableCells",
+                      ],
+                    },
+                  }}
+                  onReady={(editor) => {
+                    console.log("Editor is ready to use!", editor);
 
-            <div className="publish-options-bottom">
-              <Button
-                label="Save"
-                disabled={isLoadingProcess}
-                raised
-                className="p-buttonadmin"
-                onClick={handleSaveClick}
-              />
-            </div>
+                    // Konfigurasi toolbar tanpa fitur gambar dan video
+
+                    const toolbarContainer = document.querySelector(
+                      ".toolbar-container-content"
+                    );
+                    toolbarContainer.appendChild(
+                      editor.ui.view.toolbar.element
+                    );
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    console.log("Editor data changed (Content):", data);
+                    handleCKEditorChange(data);
+                  }}
+                />
+                <div className="toolbar-container-content" />
+              </div>
+            </Card>
           </div>
-        </Card>
-      </div>
+          <div
+            className="right-column"
+            ref={rightColumnRef}
+            style={{
+              position: "sticky", // Ganti menjadi sticky untuk mengikuti scroll
+              top: "20px", // Memberi jarak dari atas
+              zIndex: 10,
+            }}
+          >
+            <Card className="cardr" title="Publish Options">
+              <div>
+                <div className="publish-options-top">
+                  <div className="radio-button-container">
+                    <RadioButton
+                      inputId="draft"
+                      name="status"
+                      value="DRAFT"
+                      onChange={(e) => setStatus(e.target.value)}
+                      checked={status === "DRAFT"}
+                    />
+                    <label htmlFor="draft">Draft</label>
+                  </div>
+                  <div className="radio-button-container">
+                    <RadioButton
+                      inputId="publish"
+                      name="status"
+                      value="PUBLISH"
+                      onChange={(e) => setStatus(e.target.value)}
+                      checked={status === "PUBLISH"}
+                    />
+                    <label htmlFor="publish">Publish</label>
+                  </div>
+                </div>
+
+                <div className="publish-options-bottom">
+                  <Button
+                    label="Save"
+                    disabled={isLoadingProcess}
+                    raised
+                    className="p-buttonadmin"
+                    onClick={handleSaveClick}
+                  />
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

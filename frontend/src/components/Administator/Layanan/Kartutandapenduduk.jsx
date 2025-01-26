@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 import { RadioButton } from "primereact/radiobutton";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
@@ -54,7 +54,7 @@ const Kartutandapenduduk = () => {
     }
   }, [data]);
 
-  const handleTextChange = useCallback((value) => {
+  const handleCKEditorChange = useCallback((value) => {
     setKartutandapendudukContent(value);
   }, []);
 
@@ -271,20 +271,78 @@ const Kartutandapenduduk = () => {
                   )}
                 </div>
                 <div className="p-field custom-editor">
-                  <label htmlFor="content">Content</label>
-                  <div className="quill-wrapper">
-                    <ReactQuill
-                      value={kartutandapendudukContent}
-                      onChange={handleTextChange}
-                    />
-                  </div>
+                  <label>Konten</label>
+                  <CKEditor
+                    editor={DecoupledEditor}
+                    data={kartutandapendudukContent}
+                    config={{
+                      toolbar: [
+                        "heading",
+                        "|",
+                        "bold",
+                        "italic",
+                        "underline",
+                        "strikethrough",
+                        "fontFamily",
+                        "fontSize",
+                        "fontColor",
+                        "fontBackgroundColor",
+                        "|",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "|",
+                        "alignment",
+                        "outdent",
+                        "indent",
+                        "|",
+                        "insertTable",
+                        "blockQuote",
+                        "undo",
+                        "redo",
+                      ],
+                      table: {
+                        contentToolbar: [
+                          "tableColumn",
+                          "tableRow",
+                          "mergeTableCells",
+                        ],
+                      },
+                    }}
+                    onReady={(editor) => {
+                      console.log("Editor is ready to use!", editor);
+
+                      // Konfigurasi toolbar tanpa fitur gambar dan video
+
+                      const toolbarContainer = document.querySelector(
+                        ".toolbar-container-content"
+                      );
+                      toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                      );
+                    }}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      console.log("Editor data changed (Content):", data);
+                      handleCKEditorChange(data);
+                    }}
+                  />
+                  <div className="toolbar-container-content" />
                 </div>
               </Card>
             </div>
           </div>
 
           {/* Right Column */}
-          <div className="right-column" ref={rightColumnRef}>
+          <div
+            className="right-column"
+            ref={rightColumnRef}
+            style={{
+              position: "sticky", // Ganti menjadi sticky untuk mengikuti scroll
+              top: "20px", // Memberi jarak dari atas
+              zIndex: 10,
+            }}
+          >
             <Card className="cardr" title="Publish Options">
               <div>
                 <div className="publish-options-top">

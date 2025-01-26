@@ -5,13 +5,12 @@
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
   margin: 20px auto;
 }
 
 .content-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  max-width: 100%;
   gap: 20px;
 }
 
@@ -24,13 +23,41 @@
 }
 
 .left-column {
-  flex: 2;
+  flex: 2 !important;
 }
 
 .right-column {
-  flex: 1;
+  flex: 1 !important;
   position: sticky;
   top: 20px;
+}
+
+.image-preview,
+.image-container {
+  margin-top: 10px;
+  max-width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.image-container {
+  margin-top: 10px;
+  max-width: 100% !important; /* Batasi lebar kontainer gambar */
+  text-align: center;
+}
+
+.preview-image {
+  max-width: 70% !important;
+  width: 70% !important;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.custom-file-input {
+  display: block;
+  margin-top: 10px;
 }
 
 .section-title {
@@ -59,23 +86,6 @@
   font-size: 1rem;
 }
 
-.custom-file-input {
-  display: block;
-  margin-top: 10px;
-}
-
-.image-preview,
-.image-container {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.preview-image {
-  max-width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
 .cardr {
   margin-top: 20px;
 }
@@ -91,6 +101,19 @@
 .p-buttonadmin {
   width: 100%;
   margin-top: 10px;
+  background-color: #008080 !important; /* Warna hijau teal */
+  color: white; /* Warna teks putih */
+  border-radius: 12px !important; /* Rounded dengan radius 12px */
+  padding: 10px 20px; /* Menambahkan padding agar tombol lebih besar */
+  border: none; /* Menghilangkan border default */
+  text-align: center; /* Menyelaraskan teks di tengah */
+  font-size: 16px; /* Menetapkan ukuran font */
+  cursor: pointer; /* Menambahkan pointer cursor */
+  transition: background-color 0.3s ease; /* Efek transisi saat hover */
+}
+
+.p-buttonadmin:hover {
+  background-color: #006666 !important; /* Warna hijau teal yang lebih gelap saat hover */
 }
 
 .toolbar-container-content {

@@ -78,26 +78,6 @@ const Modalt = () => {
     }
   }, [allankorData]);
 
-  const dialogFooterTemplate = () => {
-    return (
-      <Button
-        label="Ok"
-        icon="pi pi-check"
-        onClick={() => setDialogVisible(false)}
-      />
-    );
-  };
-
-  const dialogFooterTemplatePH = () => {
-    return (
-      <Button
-        label="Ok"
-        icon="pi pi-check"
-        onClick={() => setDialogVisiblePH(false)}
-      />
-    );
-  };
-
   const showDialog = () => {
     setDialogVisible(true);
   };
@@ -157,6 +137,50 @@ const Modalt = () => {
     setSelectedKeuangan(null);
   };
 
+  const [animationTriggered, setAnimationTriggered] = useState(false);
+
+  const [iconPosition, setIconPosition] = useState({ x: 0, y: 0 });
+  const [iconPosition1, setIconPosition1] = useState({ x: 0, y: 0 });
+  const [iconPosition2, setIconPosition2] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e, setIconPosition) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+
+    // Hitung posisi mouse relatif terhadap tombol
+    const offsetX = e.clientX - rect.left - rect.width / 2;
+    const offsetY = e.clientY - rect.top - rect.height / 2;
+
+    // Batasi pergerakan ikon di dalam tombol
+    const limitX = rect.width / 4;
+    const limitY = rect.height / 4;
+
+    const clampedX = Math.max(Math.min(offsetX, limitX), -limitX);
+    const clampedY = Math.max(Math.min(offsetY, limitY), -limitY);
+
+    setIconPosition({ x: clampedX, y: clampedY });
+
+    // Tambahkan efek ripple
+    const ripple = document.createElement("div");
+    ripple.className = "ripple";
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+
+    button.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 800); // Hapus ripple setelah animasi selesai
+  };
+
+  const handleMouseLeave = (setIconPosition) => {
+    setIconPosition({ x: 0, y: 0 }); // Kembalikan posisi ikon ke tengah
+  };
+
+  useEffect(() => {
+    setAnimationTriggered(true);
+  }, []);
+
   const isValidURL = (text) => {
     return (
       typeof text === "string" &&
@@ -166,14 +190,332 @@ const Modalt = () => {
 
   return (
     <>
-      <style jsx>{`
-        .custom-tabpanel-header .p-tabview-title {
-          color: black !important; /* Ubah warna teks header Tab ke hitam */
-        }
-        .custom-accordion-header .p-accordion-header-link {
-          color: black !important; /* Ubah warna teks header Accordion ke hitam */
-        }
-      `}</style>
+      <style jsx>
+        {`
+          .custom-tabpanel-header .p-tabview-title {
+            color: black !important; /* Ubah warna teks header Tab ke hitam */
+          }
+          .custom-accordion-header .p-accordion-header-link {
+            color: black !important; /* Ubah warna teks header Accordion ke hitam */
+          }
+
+          @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+          .button-container {
+            display: flex;
+            justify-content: space-around;
+          }
+
+          .button {
+            position: relative;
+            padding: 3px;
+            background-color: #ffffff;
+            border: 12px solid #ddd;
+            cursor: pointer;
+            width: 60px !important;
+            height: 50px !important;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .button:hover .cursor-icon {
+            animation: magnetEffect 0.2s forwards;
+          }
+
+          .button-icon {
+            position: relative;
+            font-size: 80px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+            z-index: 1;
+          }
+
+          .button-icon:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+              circle,
+              rgba(255, 255, 255, 0.5) 10%,
+              transparent 80%
+            );
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+          }
+
+          .button-icon:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+          }
+
+          .button-icon:hover {
+            transform: scale(1.05);
+            filter: url("#distortion-filter"); /* SVG filter untuk distorsi */
+          }
+
+          .video-button {
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+          }
+
+          .no-animation {
+            animation: none; /* Menghilangkan animasi setelah selesai */
+          }
+
+          .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+          }
+
+          .marquee span {
+            display: inline-block;
+            padding-right: 100%;
+            animation: marquee 10s linear infinite;
+          }
+
+          @keyframes magnetEffect {
+            0% {
+              transform: scale(1) translate(0, 0);
+            }
+            100% {
+              transform: scale(1.2) translate(10px, -10px);
+            }
+          }
+
+          @keyframes marquee {
+            0% {
+              transform: translateX(100%);
+            }
+            100% {
+              transform: translateX(-100%);
+            }
+          }
+
+          @keyframes slideIn {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+
+          .ripple-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            border-radius: 8px; /* Sesuaikan sesuai bentuk tombol */
+          }
+          .ripple {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: scale(0);
+            animation: ripple-animation 0.9s ease-out forwards;
+          }
+
+          @keyframes ripple-animation {
+            to {
+              transform: scale(15);
+              opacity: 0;
+            }
+          }
+
+          .p-dialog-mask {
+            backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.5) !important;
+          }
+
+          @keyframes bounceIn {
+            0% {
+              opacity: 0;
+              transform: scale(0.8);
+            }
+            60% {
+              opacity: 1;
+              transform: scale(1.1);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+
+          .bounce-in {
+            animation: bounceIn 1s ease-in-out;
+          }
+
+          .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .dialog-title {
+            font-size: 24px;
+            margin: 0;
+            color: #333;
+          }
+
+          .dialog-subtitle {
+            font-size: 14px;
+            color: #777;
+          }
+
+          /* Custom Dialog Content */
+          .custom-dialog {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+          }
+
+          body {
+            font-family: "Roboto", sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
+
+          .dialog-text {
+            font-family: "Roboto", sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks panjang */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
+
+          .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
+
+          .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+          }
+
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+
+          .error-message {
+            color: #e74c3c;
+            font-size: 16px;
+            text-align: center;
+          }
+
+          /* Mengunci scroll saat modal terbuka */
+          body.modal-open {
+            overflow: hidden;
+          }
+
+          @media screen and (max-width: 1200px) {
+            .button {
+              width: 50px !important;
+              height: 45px !important;
+            }
+
+            .button-icon {
+              font-size: 60px !important;
+            }
+
+            .dialog-title {
+              font-size: 20px;
+            }
+
+            .dialog-subtitle {
+              font-size: 12px;
+            }
+          }
+
+          @media screen and (max-width: 768px) {
+            .button {
+              width: 40px !important;
+              height: 40px !important;
+            }
+
+            .button-icon {
+              font-size: 40px !important;
+            }
+
+            .marquee {
+              font-size: 12px;
+            }
+
+            .custom-dialog {
+              width: 85vw !important;
+            }
+          }
+
+          @media screen and (max-width: 480px) {
+            .button {
+              width: 35px !important;
+              height: 35px !important;
+            }
+
+            .button-icon {
+              font-size: 30px !important;
+            }
+
+            .dialog-title {
+              font-size: 16px;
+            }
+
+            .dialog-subtitle {
+              font-size: 10px;
+            }
+          }
+        `}
+      </style>
+      <svg style={{ display: "none" }}>
+        <filter id="distortion-filter">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.02 0.03"
+            numOctaves="3"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="20"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
@@ -182,7 +524,7 @@ const Modalt = () => {
           className="mt-1"
           md="4"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
@@ -191,21 +533,54 @@ const Modalt = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={showDialog}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
-            <i
-              className="pi pi-globe"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
-            Desa Ankor
+            <div
+              className="button-icon ripple-container"
+              style={{
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
+              }}
+            >
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/desaankor.png")}
+                alt=""
+                style={{
+                  marginBottom: "5px",
+                  width: "40%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
+            </div>
+            <div className="marquee">
+              <span style={{ display: "inline-block" }}>Desa Ankor</span>
+            </div>
           </Button>
-          <div className="card">
+          <div>
             <Dialog
-              header="Desa Ankor"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Desa Ankor</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai desa anti korupsi
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisible}
               style={{ width: "75vw" }}
               maximizable
               modal
-              contentStyle={{ height: "300px" }}
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+                height: "auto",
+              }}
               onHide={hideDialog}
             >
               <TabView>
@@ -224,7 +599,7 @@ const Modalt = () => {
                           <Accordion
                             key={kategoriIdx}
                             activeIndex={0}
-                            className="custom-accordion-header"
+                            className="custom-accordion-header dialog-text"
                           >
                             <AccordionTab
                               key={kategoriIdx}
@@ -236,12 +611,12 @@ const Modalt = () => {
                                   (subkategori, subIdx) => (
                                     <div
                                       key={subIdx}
-                                      className="subkategori-section"
+                                      className="subkategori-section dialog-text"
                                     >
-                                      <h4>
+                                      <p className="dialog-text">
                                         {subkategori.name ||
                                           "No Subcategory Title"}
-                                      </h4>
+                                      </p>
                                       <ul>
                                         {Array.isArray(
                                           subkategori.poinsubkategoriankor
@@ -283,37 +658,74 @@ const Modalt = () => {
           className="mt-1"
           md="4"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={showDialogPH}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition1)}
           >
-            <i
-              className="pi pi-briefcase"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px)`,
+              }}
+            >
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/law.png")}
+                alt=""
+                style={{
+                  marginBottom: "6px",
+                  width: "44%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
+            </div>
             Produk Hukum
           </Button>
-          <div className="card">
+          <div>
             <Dialog
-              header="Produk Hukum"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Produk Hukum</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai produk hukum yang ada di desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisiblePH}
               style={{ width: "85vw" }}
               maximizable
               modal
-              contentStyle={{ height: "300px" }}
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+                height: "auto",
+              }}
               onHide={hideDialogPH}
-              footer={dialogFooterTemplatePH}
             >
+              <div className="dialog-divider"></div>
               {loadingProdukhukum ? (
-                <p>Loading...</p>
+                <div className="loading-container">
+                  <span className="loader"></span>
+                </div>
               ) : produkhukumError ? (
-                <p>Error loading data: {produkhukumError.message}</p>
+                <p className="error-message">
+                  Error loading data: {produkhukumError.message}
+                </p>
               ) : produkhukumList.length === 0 ? (
                 <p>No data available.</p>
               ) : (
@@ -323,6 +735,7 @@ const Modalt = () => {
                   rows={5}
                   rowsPerPageOptions={[5, 10, 25, 50]}
                   tableStyle={{ minWidth: "50rem" }}
+                  className="dialog-text"
                 >
                   <Column
                     field="name"
@@ -385,40 +798,75 @@ const Modalt = () => {
           className="mt-1"
           md="4"
           xs="6"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={showDialogAPB}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition2)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition2)}
           >
-            <i
-              className="pi pi-wallet"
-              style={{ marginRight: "8px", fontSize: "1.2em" }}
-            ></i>
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px)`,
+              }}
+            >
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/payroll.png")}
+                alt=""
+                style={{
+                  marginBottom: "10px",
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                }}
+              />
+            </div>
             APB Desa
           </Button>
-          <div className="card">
+          <div>
             <Dialog
-              header="APB Desa"
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">APB Desa</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai apb desa
+                    </p>
+                  </div>
+                </div>
+              }
               visible={dialogVisibleAPB}
               style={{ width: "90vw", maxWidth: "none" }}
               maximizable
               modal
-              contentStyle={{ height: "auto", padding: "1rem" }}
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+                height: "auto",
+              }}
               onHide={hideDialogAPB}
-              footer={dialogFooterTemplate}
             >
+              <div className="dialog-divider"></div>
               {loadingApbd ? (
                 <div className="loading-container">
-                  <p>Loading...</p>
+                  <span className="loader"></span>
                 </div>
               ) : allapbdError ? (
                 <div className="error-container">
-                  <p>Error loading data: {allapbdError.message}</p>
+                  <p className="error-message">
+                    Error loading data: {allapbdError.message}
+                  </p>
                 </div>
               ) : apbdpList.length === 0 ? (
                 <div className="no-data-container">
@@ -432,6 +880,7 @@ const Modalt = () => {
                     rows={5}
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     style={{ marginBottom: "1rem" }}
+                    className="dialog-text"
                   >
                     <Column
                       field="name"
@@ -487,6 +936,13 @@ const Modalt = () => {
                   </DataTable>
 
                   <Dialog
+                    header={
+                      <div className="dialog-header">
+                        <div>
+                          <p className="dialog-title">Detail Keuangan</p>
+                        </div>
+                      </div>
+                    }
                     visible={isDetailDialogVisible}
                     onHide={closeDetailDialog}
                     style={{
@@ -495,27 +951,24 @@ const Modalt = () => {
                       margin: "0",
                       padding: "0",
                     }}
-                    header="Detail Keuangan"
                     modal
                     dismissableMask
                     maximizable
+                    className="custom-dialog bounce-in"
+                    contentStyle={{
+                      overflowY: "auto",
+                      padding: "24px 24px 10px 24px",
+                      height: "auto",
+                    }}
                   >
                     <div style={{ height: "calc(100% - 50px)" }}>
                       <div
-                        className="dialog-header"
+                        className="dialog-header dialog-text"
                         style={{ padding: "1rem" }}
-                      >
-                        <Button
-                          label="Close"
-                          icon="pi pi-times"
-                          onClick={closeDetailDialog}
-                          className="p-button-danger"
-                          style={{ marginBottom: "1rem" }}
-                        />
-                      </div>
+                      ></div>
                       {selectedKeuangan && (
                         <div
-                          className="detail-content"
+                          className="detail-content dialog-text"
                           style={{
                             height: "calc(100% - 80px)",
                             width: "100%",
@@ -526,7 +979,7 @@ const Modalt = () => {
                           }}
                         >
                           <div
-                            className="table-responsive"
+                            className="table-responsive dialog-text"
                             style={{
                               overflow: "auto",
                               height: "100%",
@@ -582,7 +1035,7 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
-                                      textAlign: "right",
+                                      textAlign: "center",
                                     }}
                                   >
                                     Total Budget
@@ -591,7 +1044,7 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
-                                      textAlign: "right",
+                                      textAlign: "center",
                                     }}
                                   >
                                     Total Realization
@@ -600,7 +1053,7 @@ const Modalt = () => {
                                     style={{
                                       padding: "0.8rem",
                                       border: "1px solid #dddddd",
-                                      textAlign: "right",
+                                      textAlign: "center",
                                     }}
                                   >
                                     Remaining
@@ -827,7 +1280,7 @@ const Modalt = () => {
           >
             Download (menu informasi)
           </Button>
-          <div className="card">
+          <div>
             <Dialog
               header="Download"
               visible={dialogVisibleD}

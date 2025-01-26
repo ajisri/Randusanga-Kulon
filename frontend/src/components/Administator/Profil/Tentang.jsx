@@ -209,6 +209,7 @@ const Tentang = () => {
                     <>
                       <div className="image-preview">
                         <p>File Name: {selectedFile.name}</p>
+                        <hr />
                         <p>
                           File Size: {(selectedFile.size / 1024).toFixed(2)} KB
                         </p>
@@ -227,6 +228,7 @@ const Tentang = () => {
                       <img
                         src={`http://localhost:8080${file_url}`}
                         alt="Database"
+                        className="preview-image"
                       />
                     </div>
                   )}
@@ -299,7 +301,7 @@ const Tentang = () => {
             className="right-column"
             ref={rightColumnRef}
             style={{
-              position: "sticky", // Ganti menjadi sticky untuk mengikuti scroll
+              position: "relative", // Ganti menjadi sticky untuk mengikuti scroll
               top: "20px", // Memberi jarak dari atas
               zIndex: 10,
             }}
