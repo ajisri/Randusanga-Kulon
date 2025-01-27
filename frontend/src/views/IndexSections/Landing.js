@@ -195,13 +195,13 @@ const Landing = () => {
         {/* Pengumuman */}
         <section
           className="section-shaped"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <div className="grid">
             <div
               className="col-12 md:col-12 lg:col-12"
               style={{
-                fontFamily: "Nautical, sans-serif",
+                fontFamily: "Roboto, sans-serif",
                 backgroundColor: "#fdfff5", // Latar belakang oranye
                 backgroundSize: "cover", // Membuat gambar latar belakang memenuhi section
                 backgroundPosition: "center", // Memusatkan gambar
@@ -218,12 +218,12 @@ const Landing = () => {
         {/* agenda kegiatan */}
         <section
           className="section section-lg section-shaped"
-          style={{ fontFamily: "Nautical, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <div
             style={{
               backgroundColor: "#5dade2",
-              fontFamily: "Nautical, sans-serif",
+              fontFamily: "Roboto, sans-serif",
             }}
             className="shape"
           ></div>
@@ -457,12 +457,12 @@ const Landing = () => {
         <div className="position-relative">
           <section
             className="section section-lg section-shaped"
-            style={{ fontFamily: "Nautical, sans-serif" }}
+            style={{ fontFamily: "Roboto, sans-serif" }}
           >
             <div
               style={{
                 backgroundColor: "#45b39d",
-                fontFamily: "Nautical, sans-serif",
+                fontFamily: "Roboto, sans-serif",
               }}
               className="shape"
             ></div>
@@ -472,7 +472,7 @@ const Landing = () => {
                   <Col lg="8">
                     <h1
                       style={{
-                        fontFamily: "Nautical, sans-serif", // Font modern populer
+                        fontFamily: "Roboto, sans-serif", // Font modern populer
                         fontWeight: "700", // Tebal
                         fontSize: "2.5rem", // Ukuran font besar untuk judul
                         letterSpacing: "1.5px", // Spasi antar huruf untuk kesan modern
@@ -495,7 +495,7 @@ const Landing = () => {
                   <Col lg="2">
                     <div
                       className="align-items-end mt-2"
-                      style={{ fontFamily: "Nautical, sans-serif" }}
+                      style={{ fontFamily: "Roboto, sans-serif" }}
                     >
                       <Button
                         block
@@ -513,7 +513,7 @@ const Landing = () => {
                 </Row>
                 <div
                   className="py-5"
-                  style={{ fontFamily: "Nautical, sans-serif" }}
+                  style={{ fontFamily: "Roboto, sans-serif" }}
                 >
                   <div className="container">
                     <div className="row g-4">
@@ -825,7 +825,7 @@ const Landing = () => {
             padding: "10px",
             borderRadius: "2px",
             position: "relative",
-            fontFamily: "Nautical, sans-serif",
+            fontFamily: "Roboto, sans-serif",
           }}
         >
           <Container
@@ -955,10 +955,7 @@ const Landing = () => {
         </section>
 
         {/* pegawai */}
-        <section
-          className="lg-12"
-          style={{ fontFamily: "Nautical, sans-serif" }}
-        >
+        <section className="lg-12" style={{ fontFamily: "Roboto, sans-serif" }}>
           <div className="py-5 bg-secondary">
             <Container fluid>
               <div className="card">
@@ -1001,7 +998,7 @@ const Landing = () => {
           visible={isDialogVisible}
           style={{
             width: "80vw",
-            fontFamily: "Nautical, sans-serif",
+            fontFamily: "Roboto, sans-serif",
           }}
           onHide={hideDialog}
           maximizable
@@ -1089,7 +1086,7 @@ const Landing = () => {
           className="section section-lg"
           style={{
             backgroundColor: "#FFFFFF",
-            fontFamily: "Nautical, sans-serif",
+            fontFamily: "Roboto, sans-serif",
           }}
         >
           <Container className="pt-lg pb-5">

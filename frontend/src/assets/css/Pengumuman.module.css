@@ -1,101 +1,147 @@
-.newsContainer {
-  display: flex;
-  gap: 90px; /* Gap antar item lebih lebar */
-  overflow: hidden; /* Sembunyikan scrollbar */
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  padding: 30px 20px 10px;
-  white-space: nowrap;
-  align-items: center;
-  /* background-color: #f39c12; */
-  background-image: url("https://drive.google.com/uc?export=view&id=1x1_w9ZDF7hc-jvUfsV_Y_xi0fGokEgUj");
-  background-size: cover;
-  background-position: center;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
-  /* Membuat container selebar layar */
-  width: 100vw; /* Mengatur lebar container selebar tampilan layar */
-  border-radius: 8px; /* Jika ingin membulatkan sudut */
-  margin-left: calc(
-    -50vw + 50%
-  ); /* Menghapus margin samping agar pas dengan layar */
+.newsContainer {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Membuat grid responsif */
+  gap: 15px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #f6f8fa, #e9ecef);
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+  border-radius: 12px;
+  position: relative; /* Pastikan positioning */
+  z-index: 10; /* Membuat container berada di atas layer lain */
+  pointer-events: auto; /* Pastikan container bisa menerima klik */
+}
+
+.newsDescription {
+  font-family: "Roboto", sans-serif;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  font-size: 1rem; /* Ukuran font disesuaikan */
+  line-height: 1.6;
+  color: #333;
 }
 
 .newsItem {
-  display: inline-block;
-  white-space: nowrap;
-  width: 500px; /* Lebar konten lebih besar */
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 12px;
   padding: 10px;
-  padding-bottom: 5px; /* Mengurangi padding bawah jika diperlukan */
-  margin-right: 100px;
-  border-radius: 8px;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* Latar belakang item dengan transparansi */
-  opacity: 1; /* Mulai dengan opasitas penuh */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek pop-up */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 1;
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  margin-right: 0;
+  pointer-events: auto;
 }
 
 .newsItem:hover {
-  transform: scale(1.05) translateY(-15px); /* Membesarkan item dan mengangkatnya saat hover */
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); /* Bayangan lebih dalam untuk efek pop-up */
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 .newsContentWrapper {
+  font-family: "Roboto", sans-serif;
   display: flex;
   animation: marquee 50s linear infinite;
   width: max-content;
+  min-width: 100%;
+  transition: transform 0.3s ease-in-out; /* Menambahkan transisi untuk pergerakan yang mulus */
+  pointer-events: auto;
+}
+
+.newsContentWrapper.paused {
+  pointer-events: auto;
+  animation-play-state: paused; /* Menghentikan animasi saat elemen diklik */
+  transform: none;
 }
 
 .newsDescriptionWrapper {
+  font-family: "Roboto", sans-serif;
   display: flex;
-  justify-content: flex-start; /* Memastikan deskripsi rata kiri */
-  align-items: center; /* Menjaga deskripsi tetap sejajar secara vertikal */
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .newsImage {
-  max-width: 100%; /* Batasi lebar gambar */
-  max-height: 100%; /* Batasi tinggi gambar */
-  object-fit: contain; /* Pastikan gambar terlihat sepenuhnya */
-  object-position: center; /* Ratakan gambar di tengah */
-  border-radius: 8px; /* Sudut bulat */
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  object-position: center;
+  border-radius: 12px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .newsDetails {
-  display: flex; /* Mengatur deskripsi dan tanggal dalam satu baris */
-  justify-content: space-between; /* Memastikan jarak antara keduanya */
-  width: 100%; /* Lebar penuh untuk elemen ini */
-  margin-top: 5px; /* Jarak antara judul dan deskripsi/tanggal */
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 5px;
 }
 
 .newsContent {
+  padding: 5px;
+  font-family: "Roboto", sans-serif;
   display: flex;
-  flex-direction: column; /* Menempatkan elemen dalam kolom */
-  align-items: flex-start; /* Rata kiri untuk semua elemen */
-  width: 100%; /* Mengatur lebar penuh untuk konten */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .newsHeader {
   display: flex;
   justify-content: space-between;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 5px;
 }
 
 .newsDate {
-  color: #888; /* Warna untuk tanggal */
-  font-size: 0.9rem; /* Ukuran font lebih kecil untuk tanggal */
-  margin-left: auto; /* Memindahkan tanggal ke sisi kanan */
-  align-self: center; /* Menjaga tanggal sejajar dengan deskripsi */
+  color: #060606;
+  font-size: 0.9rem;
+  margin-left: auto;
+  align-self: center;
   margin-top: 16px;
 }
 
 .newsTitle {
   font-weight: bold;
-  font-size: 1rem;
-  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1rem;
   width: 100%;
+  color: #111010;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.imageContainer {
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f0f0f0;
 }
 
 @keyframes marquee {
@@ -103,57 +149,90 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.33%);
   }
 }
 
-.customButton {
-  color: black; /* Warna teks */
-  border: 1px solid black; /* Border */
-  border-radius: 8px;
-  transition: all 0.3s ease; /* Animasi transisi */
-  margin-top: 16px;
+@media (max-width: 1024px) {
+  .newsContainer {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    ); /* Responsif dengan grid */
+    gap: 10px;
+  }
+
+  .newsItem {
+    width: 100%; /* Menyesuaikan lebar item pada layar sedang */
+    margin-right: 0;
+  }
+
+  .newsContent {
+    padding: 12px;
+  }
+
+  .newsImage {
+    height: 180px;
+  }
+
+  .newsTitle {
+    font-size: 1rem;
+  }
+
+  .newsDescription {
+    font-size: 0.95rem;
+  }
 }
 
-.customButton:hover {
-  background-color: #1a73e8;
-  color: #ffffff;
-  transform: scale(1.05); /* Perbesar sedikit saat hover */
+@media (max-width: 768px) {
+  .newsContainer {
+    grid-template-columns: 1fr;
+    padding: 10px 15px;
+    gap: 20px;
+  }
+
+  .newsItem {
+    width: 100%;
+    padding: 15px; /* Penyesuaian padding agar konten tidak terlalu rapat */
+  }
+
+  .newsTitle {
+    font-size: 1rem;
+  }
+
+  .newsDescription {
+    font-size: 0.9rem;
+  }
+
+  .imageContainer {
+    height: 200px; /* Sesuaikan ukuran gambar */
+  }
 }
 
-.customButton:active {
-  font-weight: bold;
-  color: white; /* Warna teks */
-  transform: scale(0.98); /* Animasi saat diklik */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduksi shadow saat diklik */
-}
+@media (max-width: 480px) {
+  .newsContainer {
+    padding: 10px;
+    gap: 15px;
+  }
 
-.imageContainer {
-  width: 100%; /* Lebar kontainer sesuai dengan item */
-  height: 200px; /* Tinggi tetap */
-  display: flex;
-  justify-content: center; /* Ratakan gambar secara horizontal */
-  align-items: center; /* Ratakan gambar secara vertikal */
-  overflow: hidden; /* Sembunyikan elemen yang melampaui batas */
-  background-color: #f0f0f0; /* Opsional: warna latar untuk ruang kosong */
-}
+  .newsItem {
+    width: 100%;
+    padding: 8px; /* Padding dikurangi untuk layar kecil */
+  }
 
-.dialogContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden; /* Pastikan konten tidak meluber */
-}
+  .newsTitle {
+    font-size: 0.9rem;
+  }
 
-.dialogImage {
-  max-width: 100%;
-  max-height: 70vh; /* Batasi tinggi maksimum untuk dialog */
-  object-fit: contain; /* Agar gambar dalam dialog tidak terpotong */
-  display: block;
-  margin: 0 auto;
-}
+  .newsDate {
+    font-size: 0.8rem;
+  }
 
-.dialogDescription {
-  padding: 20px;
-  text-align: justify;
+  .newsDescription {
+    font-size: 0.85rem;
+  }
+
+  .imageContainer {
+    height: 150px; /* Sesuaikan ukuran gambar */
+  }
 }

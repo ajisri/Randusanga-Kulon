@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
-import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
 
@@ -13,32 +11,7 @@ const Pengumuman = () => {
     "http://localhost:8080/pengumumanpengunjung",
     fetcher
   );
-
-  const [visible, setVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    let scrollAmount = 0;
-    const scrollSpeed = 0.05; // Kecepatan yang sangat lambat
-
-    const scroll = () => {
-      scrollAmount += scrollSpeed;
-      if (container) {
-        container.scrollLeft = scrollAmount;
-
-        // Ketika mencapai akhir dari konten, reset ke awal
-        if (scrollAmount >= container.scrollWidth / 2) {
-          scrollAmount = 0;
-        }
-      }
-      requestAnimationFrame(scroll);
-    };
-
-    scroll();
-    return () => cancelAnimationFrame(scroll);
-  }, []);
+  const [isPaused, setIsPaused] = useState(false);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -49,33 +22,50 @@ const Pengumuman = () => {
   }
 
   const pengumumanItems = pengumumanData.pengumumans || [];
-  const doubledNewsItems = [...pengumumanItems, ...pengumumanItems]; // Penggandaan untuk konten menyambung
+  const tripledNewsItems = [
+    ...pengumumanItems,
+    ...pengumumanItems,
+    ...pengumumanItems,
+  ]; // Tiga kali duplikat untuk konten menyambung
 
-  const openDialog = (item) => {
-    setSelectedItem(item);
-    setVisible(true);
+  const formatTanggal = (dateString) => {
+    const options = { day: "2-digit", month: "long", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
-  const handleDescriptionClick = (content, item) => {
-    const urlPattern = /https?:\/\/[^\s]+/;
-    const match = content.match(urlPattern);
-    if (match) {
-      window.open(match[0], "_blank");
-    } else {
-      openDialog(item);
-    }
+  // Fungsi untuk menangani klik dan menghentikan animasi
+  const handleClick = () => {
+    setIsPaused((prevState) => !prevState); // Toggle perputaran
   };
 
   return (
-    <div className={styles.newsContainer} ref={containerRef}>
-      <div className={styles.newsContentWrapper}>
-        {doubledNewsItems.map((item, index) => (
+    <div
+      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
+      onClick={handleClick}
+    >
+      <div
+        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
+      >
+        {tripledNewsItems.map((item, index) => (
           <div
-            className={styles.newsItem}
+            className={`${styles.newsItem} ${styles.slideIn}`}
             key={index}
-            style={{ marginRight: "50px" }} // Jarak antar item
+            style={{
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <div className={styles.imageContainer}>
+            <div
+              className={styles.imageContainer}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "300px",
+              }}
+            >
               <Image
                 src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
@@ -84,51 +74,26 @@ const Pengumuman = () => {
                 width="100%"
                 height="100%"
                 style={{
-                  objectFit: "contain", // Gambar terlihat sepenuhnya tanpa terpotong
-                  backgroundColor: "#f0f0f0", // Latar belakang untuk ruang kosong
+                  objectFit: "contain",
+                  backgroundColor: "#f0f0f0",
                 }}
               />
             </div>
             <div className={styles.newsContent}>
               <h4 className={styles.newsTitle}>{item.title}</h4>
+              <p
+                dangerouslySetInnerHTML={{ __html: item.content }}
+                className={styles.newsDescription}
+              />
               <div className={styles.newsDetails}>
-                <div className={styles.newsDescriptionWrapper}>
-                  <Button
-                    label="Lihat Deskripsi"
-                    className={`p-button-text ${styles.customButton}`}
-                    onClick={() => handleDescriptionClick(item.content, item)}
-                  />
-                </div>
                 <span className={styles.newsDate}>
-                  {new Date(item.created_at).toLocaleDateString()}
+                  {formatTanggal(item.created_at)}
                 </span>
               </div>
             </div>
           </div>
         ))}
       </div>
-
-      {selectedItem && (
-        <Dialog
-          header={selectedItem.title}
-          visible={visible}
-          maximizable
-          style={{ width: "70vw", borderRadius: "15px" }}
-          onHide={() => setVisible(false)}
-        >
-          <div className={styles.dialogContent}>
-            <img
-              src={`http://localhost:8080${selectedItem.file_url}`}
-              alt={selectedItem.title}
-              className={styles.dialogImage}
-            />
-            <p
-              dangerouslySetInnerHTML={{ __html: selectedItem.content }}
-              className={styles.dialogDescription}
-            />
-          </div>
-        </Dialog>
-      )}
     </div>
   );
 };
