@@ -1,75 +1,83 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
+import { Image } from "primereact/image";
 import styles from "../../assets/css/Galeri.module.css";
 
+// Fungsi fetcher untuk mengambil data dari API
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Galeri = () => {
-  const { data: galeriData, error } = useSWR(
+  const { data: galeriData, error: galeriError } = useSWR(
     "http://localhost:8080/galeripengunjung",
     fetcher
   );
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  useEffect(() => {
-    if (galeriData && galeriData.galeris && galeriData.galeris.length > 0) {
-      const interval = setInterval(() => {
-        setActiveIndex(
-          (prevIndex) => (prevIndex + 1) % galeriData.galeris.length
-        );
-      }, 3000); // Ganti gambar setiap 3 detik
-
-      return () => clearInterval(interval); // Membersihkan interval saat komponen di-unmount
-    }
-  }, [galeriData]);
-
-  if (error) return <div>Error memuat data galeri</div>;
-  if (!galeriData || !galeriData.galeris || galeriData.galeris.length === 0) {
-    return <div>Tidak ada data galeri tersedia</div>;
+  if (galeriError) {
+    return <div>Error loading data</div>;
   }
 
-  // Fungsi untuk menghapus tag HTML
-  const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
+  if (!galeriData) {
+    return <div>Loading...</div>;
+  }
+
+  const galeriItems = galeriData.galeris || [];
+  const tripledGaleriItems = [...galeriItems, ...galeriItems, ...galeriItems]; // Tiga kali duplikat untuk konten menyambung
+
+  // Fungsi untuk menangani klik dan menghentikan animasi
+  const handleClick = () => {
+    setIsPaused((prevState) => !prevState); // Toggle perputaran
   };
 
-  const testimonials = galeriData.galeris.map((item) => ({
-    image: `http://localhost:8080${item.file_url}`,
-    title: item.title,
-    content: stripHtml(item.content), // Gunakan stripHtml di sini
-  }));
-
   return (
-    <div className={styles.testimonialsContainer}>
-      <div className={styles.imageContainer}>
-        {testimonials.map((testimonial, index) => {
-          let className = styles.inactive;
-          if (index === activeIndex) {
-            className = styles.active;
-          } else if (
-            index ===
-            (activeIndex - 1 + testimonials.length) % testimonials.length
-          ) {
-            className = styles.previous;
-          } else if (index === (activeIndex + 1) % testimonials.length) {
-            className = styles.next;
-          }
-
-          return (
-            <img
-              key={index}
-              src={testimonial.image}
-              alt={testimonial.title}
-              className={`${styles.testimonialImage} ${className}`}
-            />
-          );
-        })}
+    <div
+      className={`${styles.galleryContainer} ${isPaused ? "paused" : ""}`}
+      onClick={handleClick}
+    >
+      {/* Baris Atas (bergerak ke kanan) */}
+      <div
+        className={`${styles.galleryRow} ${styles.scrollRight} ${
+          isPaused ? "paused" : ""
+        }`}
+      >
+        <div className={styles.galleryWrapper}>
+          {tripledGaleriItems.map((item, index) => (
+            <div key={index} className={styles.galleryItem}>
+              <Image
+                src={`http://localhost:8080${item.file_url}`}
+                alt={item.title}
+                className={styles.galleryImage}
+                preview
+                width="100%"
+                height="100%"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={styles.textContainer}>
-        <h3>{testimonials[activeIndex].title}</h3>
-        {/* Menampilkan konten yang sudah di-strip dari tag HTML */}
-        <p>{testimonials[activeIndex].content}</p>
+
+      {/* Baris Bawah (bergerak ke kiri) */}
+      <div
+        className={`${styles.galleryRow} ${styles.scrollLeft} ${
+          isPaused ? "paused" : ""
+        }`}
+      >
+        <div className={styles.galleryWrapper}>
+          {tripledGaleriItems.map((item, index) => (
+            <div key={index} className={styles.galleryItem}>
+              <Image
+                src={`http://localhost:8080${item.file_url}`}
+                alt={item.title}
+                className={styles.galleryImage}
+                preview
+                width="100%"
+                height="100%"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

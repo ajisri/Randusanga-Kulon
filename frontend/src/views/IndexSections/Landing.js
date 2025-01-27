@@ -218,7 +218,7 @@ const Landing = () => {
         {/* agenda kegiatan */}
         <section
           className="section section-lg section-shaped"
-          style={{ fontFamily: "Roboto, sans-serif" }}
+          style={{ fontFamily: "Roboto, sans-serif", height: "1000px" }}
         >
           <div
             style={{
@@ -866,7 +866,17 @@ const Landing = () => {
                   marginRight: "28px",
                 }}
               >
-                <Galeri />
+                <div
+                  style={{
+                    flex: "1",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <Galeri />
+                </div>
               </div>
 
               {/* Garis pemisah vertikal antara galeri dan berita */}

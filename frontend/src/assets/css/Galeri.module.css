@@ -1,137 +1,96 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
-.textContainer {
-  font-family: "Inter", sans-serif;
-  flex: 1;
-  text-align: left;
-  color: #333;
+.galleryContainer {
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-.textContainer h3 {
-  font-family: "Inter", sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.textContainer p {
-  font-family: "Inter", sans-serif;
-  font-size: 1.5rem;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-}
-
-.testimonialsContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 1000px;
+  overflow: hidden;
+  width: 80vw;
+  max-width: 900px;
   margin: auto;
-  position: relative;
-  flex-direction: row; /* Default layout untuk layar besar */
-  gap: 1rem;
+  padding: 20px 0;
+  background: linear-gradient(135deg, #f6f8fa, #e9ecef);
+  border-radius: 12px;
 }
 
-.imageContainer {
-  position: relative;
+.galleryRow {
+  font-family: "Roboto", sans-serif;
+  display: flex;
   width: 100%;
-  height: 300px;
-  margin-right: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;
-  margin: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 20px;
 }
 
-.testimonialImage {
-  position: absolute;
-  top: 0;
-  left: 0;
+.galleryWrapper {
+  display: flex;
+  width: max-content;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Baris atas bergerak ke kanan */
+.scrollRight .galleryWrapper {
+  font-family: "Roboto", sans-serif;
+  animation: marqueeRight 40s linear infinite;
+  min-width: 100%;
+}
+
+/* Baris bawah bergerak ke kiri */
+.scrollLeft .galleryWrapper {
+  font-family: "Roboto", sans-serif;
+  animation: marqueeLeft 50s linear infinite;
+  min-width: 100%;
+}
+
+/* Gaya untuk item galeri */
+.galleryItem {
+  font-family: "Roboto", sans-serif;
+  flex: 0 0 auto;
+  width: 200px; /* Lebih besar */
+  height: 300px; /* Tinggi lebih besar */
+  margin: 0 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.galleryItem img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  border-radius: 15px;
-  transform: translateY(0); /* Posisi gambar yang normal */
 }
 
-/* Semua gambar yang aktif memiliki efek bounce yang seragam */
-.testimonialImage.active {
-  z-index: 10;
-  opacity: 1;
-  transform: scale(1) translateY(0); /* Gambar aktif di posisi depan */
-  animation: bounce 0.5s ease; /* Efek bounce yang diterapkan pada seluruh gambar */
-}
-
-/* Gambar sebelumnya: Sedikit miring */
-.testimonialImage.previous {
-  z-index: 9;
-  opacity: 0.8;
-  transform: rotate(-10deg) translateX(10px);
-}
-
-/* Gambar selanjutnya: Sedikit miring ke arah lainnya */
-.testimonialImage.next {
-  z-index: 8;
-  opacity: 0.8;
-  transform: rotate(10deg) translateX(-10px);
-}
-
-/* Gambar yang tidak aktif: Lebih transparan dan sedikit miring */
-.testimonialImage.inactive {
-  z-index: 7;
-  opacity: 0.5;
-  transform: rotate(20deg) translateX(20px);
-}
-
-/* Efek bounce lebih jelas */
-@keyframes bounce {
-  0% {
-    transform: scale(1) translateY(0); /* Posisi awal gambar */
+/* Animasi marquee ke kanan */
+@keyframes marqueeRight {
+  from {
+    transform: translateX(-33.33%);
   }
-  30% {
-    transform: scale(1.2) translateY(-40px); /* Gerakan lebih besar untuk bounce */
-  }
-  50% {
-    transform: scale(1) translateY(0); /* Kembali ke posisi normal */
-  }
-  70% {
-    transform: scale(1.1) translateY(-20px); /* Menambahkan gerakan naik sedikit setelah turun */
-  }
-  100% {
-    transform: scale(1) translateY(0); /* Posisi akhir yang stabil */
+  to {
+    transform: translateX(0%);
   }
 }
 
-/* Responsif untuk layar kecil */
+/* Animasi marquee ke kiri */
+@keyframes marqueeLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-33.33%);
+  }
+}
+
 @media (max-width: 768px) {
-  .testimonialsContainer {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
+  .galleryContainer {
+    width: 90vw;
+    height: 400px; /* Menyesuaikan height di perangkat kecil */
   }
 
-  .imageContainer {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin-bottom: 2rem; /* Menambahkan lebih banyak ruang bawah */
-  }
-
-  .testimonialImage {
-    width: 100%;
-    height: auto;
-    object-fit: contain; /* Gambar tidak terpotong */
-  }
-
-  .textContainer {
-    margin-bottom: 2rem; /* Memberi ruang bawah agar teks tidak tertutup gambar */
+  .galleryItem {
+    width: 180px;
+    height: 300px; /* Menyesuaikan ukuran item di perangkat kecil */
   }
 }
