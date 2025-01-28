@@ -12,6 +12,8 @@ const Galeri = () => {
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isWaveVisible, setIsWaveVisible] = useState(false); // State untuk efek gelombang
 
   if (galeriError) {
     return <div>Error loading data</div>;
@@ -22,7 +24,18 @@ const Galeri = () => {
   }
 
   const galeriItems = galeriData.galeris || [];
-  const tripledGaleriItems = [...galeriItems, ...galeriItems, ...galeriItems]; // Tiga kali duplikat untuk konten menyambung
+  const repeatedItems = Array.from({ length: 3 }, () => galeriItems).flat();
+
+  const handleImageClick = (item) => {
+    setSelectedImage(item); // Simpan item yang diklik ke dalam state
+    setIsWaveVisible(true); // Menampilkan gelombang ketika popup terbuka
+  };
+
+  // Fungsi untuk menutup popup
+  const handleClosePopup = () => {
+    setSelectedImage(null);
+    setIsWaveVisible(false); // Menyembunyikan gelombang saat popup ditutup
+  };
 
   // Fungsi untuk menangani klik dan menghentikan animasi
   const handleClick = () => {
@@ -41,13 +54,16 @@ const Galeri = () => {
         }`}
       >
         <div className={styles.galleryWrapper}>
-          {tripledGaleriItems.map((item, index) => (
-            <div key={index} className={styles.galleryItem}>
+          {repeatedItems.map((item, index) => (
+            <div
+              key={index}
+              className={styles.galleryItem}
+              onClick={() => handleImageClick(item)}
+            >
               <Image
                 src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
                 className={styles.galleryImage}
-                preview
                 width="100%"
                 height="100%"
                 style={{ objectFit: "cover" }}
@@ -64,13 +80,16 @@ const Galeri = () => {
         }`}
       >
         <div className={styles.galleryWrapper}>
-          {tripledGaleriItems.map((item, index) => (
-            <div key={index} className={styles.galleryItem}>
+          {repeatedItems.map((item, index) => (
+            <div
+              key={index}
+              className={styles.galleryItem}
+              onClick={() => handleImageClick(item)}
+            >
               <Image
                 src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
                 className={styles.galleryImage}
-                preview
                 width="100%"
                 height="100%"
                 style={{ objectFit: "cover" }}
@@ -79,6 +98,33 @@ const Galeri = () => {
           ))}
         </div>
       </div>
+
+      {/* Efek Gelombang */}
+      {isWaveVisible && <div className={styles.waveEffect}></div>}
+
+      {selectedImage && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
+          <div
+            className={styles.popupContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className={styles.closeButton} onClick={handleClosePopup}>
+              ✖
+            </button>
+            <img
+              src={`http://localhost:8080${selectedImage.file_url}`}
+              alt={selectedImage.title}
+              className={styles.popupImage}
+            />
+            <div className={styles.popupDetails}>
+              <h3>{selectedImage.title}</h3>
+              <p
+                dangerouslySetInnerHTML={{ __html: selectedImage.content }}
+              ></p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -24,27 +24,12 @@
 
 .galleryWrapper {
   display: flex;
-  width: max-content;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   font-family: "Roboto", sans-serif;
+  min-width: 300%;
 }
 
-/* Baris atas bergerak ke kanan */
-.scrollRight .galleryWrapper {
-  font-family: "Roboto", sans-serif;
-  animation: marqueeRight 40s linear infinite;
-  min-width: 100%;
-}
-
-/* Baris bawah bergerak ke kiri */
-.scrollLeft .galleryWrapper {
-  font-family: "Roboto", sans-serif;
-  animation: marqueeLeft 50s linear infinite;
-  min-width: 100%;
-}
-
-/* Gaya untuk item galeri */
 .galleryItem {
   font-family: "Roboto", sans-serif;
   flex: 0 0 auto;
@@ -53,14 +38,134 @@
   margin: 0 10px;
   border-radius: 12px;
   overflow: hidden;
+  cursor: pointer;
   background: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .galleryItem img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.galleryItem:hover img {
+  transform: scale(1.1);
+}
+
+.popupOverlay {
+  font-family: "Roboto", sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9); /* Latar belakang hitam polos */
+}
+
+.popupContent {
+  font-family: "Roboto", sans-serif;
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: none; /* Pastikan popup tidak terkena blur */
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.popupImage {
+  width: 100%;
+  height: auto;
+}
+
+.popupDetails {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+}
+
+.popupDetails h3 {
+  font-size: 48px; /* Ukuran judul */
+  font-family: "Roboto", sans-serif;
+  font-weight: 900; /* Medium */
+  color: white;
+  text-align: left; /* Posisi teks ke kiri */
+}
+
+.popupDetails p {
+  font-size: 16px; /* Ukuran teks utama */
+  font-family: "Roboto", sans-serif;
+  font-weight: 200; /* Regular */
+  color: white;
+  line-height: 1.5; /* Memberikan spasi antar baris */
+  text-align: left; /* Posisi teks ke kiri */
+}
+
+/* Baris atas bergerak ke kanan */
+.scrollRight .galleryWrapper {
+  font-family: "Roboto", sans-serif;
+  animation: marqueeRight 20s linear infinite;
+  min-width: 100%;
+}
+
+/* Baris bawah bergerak ke kiri */
+.scrollLeft .galleryWrapper {
+  font-family: "Roboto", sans-serif;
+  animation: marqueeLeft 30s linear infinite;
+  min-width: 100%;
+}
+
+.waveEffect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999; /* Pastikan berada di bawah pop-up */
+  background: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
+  backdrop-filter: blur(10px); /* Efek blur */
+  animation: waveAnimation 2s ease-in-out infinite;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+.closeButton:hover {
+  color: red;
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Animasi marquee ke kanan */
@@ -83,14 +188,66 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .galleryContainer {
-    width: 90vw;
-    height: 400px; /* Menyesuaikan height di perangkat kecil */
+    width: 95vw;
   }
 
   .galleryItem {
     width: 180px;
-    height: 300px; /* Menyesuaikan ukuran item di perangkat kecil */
+    height: 270px;
+  }
+
+  .popupDetails h3 {
+    font-size: 20px;
+  }
+
+  .popupDetails p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .galleryContainer {
+    width: 90vw;
+    padding: 15px;
+  }
+
+  .galleryItem {
+    width: 150px;
+    height: 200px;
+  }
+
+  .popupContent {
+    width: 95%;
+    max-width: 400px;
+  }
+
+  .popupDetails h3 {
+    font-size: 18px;
+  }
+
+  .popupDetails p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .galleryContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .galleryItem {
+    width: 120px;
+    height: 160px;
+  }
+
+  .popupDetails h3 {
+    font-size: 16px;
+  }
+
+  .popupDetails p {
+    font-size: 12px;
   }
 }

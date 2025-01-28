@@ -75,7 +75,7 @@ const Pengumuman = () => {
                 height="100%"
                 style={{
                   objectFit: "contain",
-                  backgroundColor: "#f0f0f0",
+                  backgroundColor: "#ffffff",
                 }}
               />
             </div>
@@ -85,7 +85,7 @@ const Pengumuman = () => {
                 dangerouslySetInnerHTML={{ __html: item.content }}
                 className={styles.newsDescription}
               />
-              <div className={styles.newsDetails}>
+              <div className={styles.newsFooter}>
                 <span className={styles.newsDate}>
                   {formatTanggal(item.created_at)}
                 </span>
