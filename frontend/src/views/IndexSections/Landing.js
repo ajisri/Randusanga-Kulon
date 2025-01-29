@@ -217,8 +217,8 @@ const Landing = () => {
 
         {/* agenda kegiatan */}
         <section
-          className="section section-lg section-shaped"
-          style={{ fontFamily: "Roboto, sans-serif", height: "1000px" }}
+          className="section section-xl section-shaped"
+          style={{ fontFamily: "Roboto, sans-serif", minHeight: "100vh" }}
         >
           <div
             style={{
@@ -278,6 +278,13 @@ const Landing = () => {
                             minWidth:
                               window.innerWidth >= 768 ? "500px" : "auto", // Set minWidth for larger screens
                             width: "100%", // Full width on smaller screens
+                            height:
+                              window.innerWidth >= 768 ? "514px" : "400px",
+                            marginBottom:
+                              window.innerWidth < 468 ? "170px" : "0",
+                            borderRadius: "10px",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                            backgroundColor: "#fff",
                           }}
                         />
                       </div>

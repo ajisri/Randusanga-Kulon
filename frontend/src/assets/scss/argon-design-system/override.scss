@@ -26,3 +26,10 @@
     transform: none;
   }
 }
+
+@media (max-width: 468px) {
+  .agenda-detail {
+    left: -5%;
+    width: 109%; /* Lebih lebar di layar kecil */
+  }
+}
