@@ -56,21 +56,25 @@ const Hero = () => {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    // Membuat bintang secara dinamis
-    const starElements = Array.from({ length: 50 }).map((_, i) => (
-      <div
-        key={i}
-        className="star"
-        style={{
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-          animationDuration: `${Math.random() * 3 + 2}s`,
-          transform: `translateZ(${Math.random() * 1000}px)`,
-        }}
-      />
-    ));
-    setStars(starElements);
-  }, []);
+    // Membuat bintang hanya jika isFast true
+    if (isFast) {
+      const starElements = Array.from({ length: 50 }).map((_, i) => (
+        <div
+          key={i}
+          className="star"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${Math.random() * 3 + 2}s`,
+            transform: `translateZ(${Math.random() * 1000}px)`,
+          }}
+        />
+      ));
+      setStars(starElements);
+    } else {
+      setStars([]);
+    }
+  }, [isFast]);
 
   const refaniFont = require("../../assets/font/Refani-Regular.otf");
 
@@ -202,6 +206,25 @@ const Hero = () => {
             z-index: 2;
           }
 
+          .section-custom::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 50%;
+              background: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 1%) 10% 20%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 1%) 50% 50%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 80% 30%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 1%) 15% 80%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 40% 60%;
+              background-size: 150px 150px; /* Ukuran acak */
+              pointer-events: none;
+              z-index: 1; /* Agar berada di belakang konten lainnya */
+          }
+
+
           .section-hero {
             position: relative;
             background: linear-gradient(120deg, #56ccf2, #f39c12);
@@ -293,6 +316,7 @@ const Hero = () => {
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 2;
             perspective: 1000px; /* Menambahkan perspektif 3D */
             overflow: hidden;
           }
@@ -324,9 +348,10 @@ const Hero = () => {
 
       <div className="position-relative">
         <section
-          className="section section-hero bg-gradient-cyan embed-responsive"
+          className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
+          <div className="stars-container">{stars}</div>
           <video
             style={{
               position: "absolute",
@@ -336,7 +361,7 @@ const Hero = () => {
               height: "100%",
               objectFit: "cover",
               zIndex: 1,
-              filter: isFast ? "brightness(40%)" : "brightness(100%)", // Ubah kecerahan saat tombol aktif
+              filter: isFast ? "brightness(10%)" : "brightness(100%)", // Ubah kecerahan saat tombol aktif
             }}
             autoPlay
             loop
