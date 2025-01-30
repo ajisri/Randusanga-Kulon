@@ -158,16 +158,70 @@ const Landing = () => {
             backgroundColor: "#f0f0f0",
           }}
         />
-        <h4>{item.nama}</h4>
-        <div>
+        <h4 style={{ fontFamily: "Roboto, sans-serif" }}>{item.nama}</h4>
+        <div style={{ fontFamily: "Roboto, sans-serif" }}>
           <strong>Pemegang Jabatan:</strong>{" "}
           {item.pemegang?.name || "Tidak ada"}
         </div>
+        {/* Tombol Lihat Detail dengan animasi hover */}
         <button
-          className="btn btn-primary mt-3"
+          className="btn btn-primary mt-3 relative overflow-hidden"
           onClick={() => showDetails(item)}
+          style={{
+            padding: "0.5rem 1rem",
+            transition: "background-color 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#0056b3"; // Warna hover
+            e.currentTarget.querySelector(".button-text").style.opacity = "0";
+            e.currentTarget.querySelector(".button-text").style.transform =
+              "translateX(100%)";
+            e.currentTarget.querySelector(".hover-icon").style.opacity = "1";
+            e.currentTarget.querySelector(".hover-icon").style.transform =
+              "translateX(-50%)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "#007bff"; // Warna default
+            e.currentTarget.querySelector(".button-text").style.opacity = "1";
+            e.currentTarget.querySelector(".button-text").style.transform =
+              "translateX(0)";
+            e.currentTarget.querySelector(".hover-icon").style.opacity = "0";
+            e.currentTarget.querySelector(".hover-icon").style.transform =
+              "translateX(-150%)";
+          }}
         >
-          Lihat Detail
+          <span
+            className="button-text"
+            style={{
+              display: "inline-block",
+              transition: "opacity 0.3s, transform 0.3s",
+            }}
+          >
+            Lihat Detail
+          </span>
+          <span
+            className="hover-icon"
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translateX(-150%) translateY(-50%)",
+              opacity: 0, // Ikon mata tidak terlihat sejak awal
+              transition: "opacity 0.3s, transform 0.3s",
+            }}
+          >
+            <i
+              className="pi pi-eye"
+              style={{
+                fontSize: "1rem",
+                color: "#fff",
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)", // Posisi ikon mata di tengah
+              }}
+            />
+          </span>
         </button>
       </div>
     );
@@ -972,34 +1026,87 @@ const Landing = () => {
         </section>
 
         {/* pegawai */}
-        <section className="lg-12" style={{ fontFamily: "Roboto, sans-serif" }}>
-          <div className="py-5 bg-secondary">
+        <section style={{ fontFamily: "Roboto, sans-serif" }}>
+          {/* Tambahkan font Roboto menggunakan tag <style> */}
+          <style>
+            {`
+          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+          @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+          }
+
+          .dialog-animation {
+            animation: fadeIn 0.3s ease-in-out;
+          }
+
+          @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+          }
+
+          .carousel-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+
+          .carousel-item:hover .hover-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+          }
+        `}
+          </style>
+
+          <div style={{ padding: "2rem 0", backgroundColor: "#f8f9fa" }}>
             <Container fluid>
-              <div className="card">
-                {jabatanData?.length > 0 ? (
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: "8px",
+                  padding: "1rem",
+                }}
+              >
+                {isLoadingJabatan ? (
+                  <div
+                    style={{ display: "flex", gap: "1rem", padding: "1rem" }}
+                  >
+                    {[...Array(3)].map((_, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          background: "#e0e0e0",
+                          borderRadius: "8px",
+                          width: "100%",
+                          height: "200px",
+                          animation: "pulse 1.5s infinite",
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : jabatanError ? (
+                  <p
+                    style={{
+                      color: "#ff4d4f",
+                      textAlign: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    Gagal memuat data. Silakan coba lagi.
+                  </p>
+                ) : jabatanData.length > 0 ? (
                   <Carousel
-                    value={jabatanData} // Menggunakan data API
+                    value={jabatanData}
                     numVisible={3}
                     numScroll={1}
                     circular
                     autoplayInterval={5000}
                     itemTemplate={photoTemplate}
                     responsiveOptions={[
-                      {
-                        breakpoint: "1024px",
-                        numVisible: 1,
-                        numScroll: 1,
-                      },
-                      {
-                        breakpoint: "768px",
-                        numVisible: 1,
-                        numScroll: 1,
-                      },
-                      {
-                        breakpoint: "560px",
-                        numVisible: 1,
-                        numScroll: 1,
-                      },
+                      { breakpoint: "1024px", numVisible: 1, numScroll: 1 },
+                      { breakpoint: "768px", numVisible: 1, numScroll: 1 },
+                      { breakpoint: "560px", numVisible: 1, numScroll: 1 },
                     ]}
                   />
                 ) : (
@@ -1008,96 +1115,140 @@ const Landing = () => {
               </div>
             </Container>
           </div>
-        </section>
-        {/* Dialog PrimeReact */}
-        <Dialog
-          header="Detail Jabatan"
-          visible={isDialogVisible}
-          style={{
-            width: "80vw",
-            fontFamily: "Roboto, sans-serif",
-          }}
-          onHide={hideDialog}
-          maximizable
-          modal
-        >
-          {selectedJabatan ? (
-            <div className="modal-body col-lg">
-              <h4 style={{ marginBottom: "1rem" }}>{selectedJabatan.nama}</h4>
 
-              <h5 style={{ marginBottom: "0.75rem" }}>Status Kehadiran:</h5>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "1rem",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                {selectedJabatan.Kehadiran &&
-                selectedJabatan.Kehadiran.length > 0 ? (
-                  selectedJabatan.Kehadiran.map((kehadiran) => (
-                    <Button
-                      key={kehadiran.id}
-                      label={kehadiran.statusHadir}
-                      className={`p-button-rounded p-button-sm ${
-                        kehadiran.statusHadir === "Hadir"
-                          ? "p-button-success"
-                          : "p-button-warning"
-                      }`}
-                      style={{
-                        minWidth: "80px",
-                        height: "35px", // Tinggi tombol yang sedikit lebih besar
-                        fontSize: "14px", // Ukuran font lebih besar agar mudah dibaca
-                      }}
-                    />
-                  ))
-                ) : (
-                  <p>Status Kehadiran tidak tersedia.</p>
-                )}
+          {/* Dialog untuk detail jabatan */}
+          <Dialog
+            header="Detail Jabatan"
+            visible={isDialogVisible}
+            style={{ width: "80vw", fontFamily: "Roboto, sans-serif" }}
+            onHide={hideDialog}
+            maximizable
+            modal
+            className="dialog-animation"
+          >
+            {selectedJabatan ? (
+              <div style={{ padding: "1rem" }}>
+                <h4
+                  style={{
+                    marginBottom: "1rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                >
+                  {selectedJabatan.nama}
+                </h4>
+
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                >
+                  Status Kehadiran:
+                </h5>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "1rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {selectedJabatan.Kehadiran?.length > 0 ? (
+                    selectedJabatan.Kehadiran.map((kehadiran) => (
+                      <Button
+                        key={kehadiran.id}
+                        label={kehadiran.statusHadir}
+                        className={`p-button-rounded p-button-sm ${
+                          kehadiran.statusHadir === "Hadir"
+                            ? "p-button-success"
+                            : "p-button-warning"
+                        }`}
+                        style={{
+                          minWidth: "80px",
+                          height: "35px",
+                          fontSize: "14px",
+                          fontFamily: "Roboto, sans-serif",
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <p>Status Kehadiran tidak tersedia.</p>
+                  )}
+                </div>
+
+                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                >
+                  Ringkasan:
+                </h5>
+                <div
+                  style={{
+                    textAlign: "justify",
+                    marginBottom: "1.5rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
+                  }}
+                />
+
+                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                >
+                  Tugas:
+                </h5>
+                <div
+                  style={{
+                    marginBottom: "1.5rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(
+                      selectedJabatan.tugas
+                        .map((tugas) => tugas.content)
+                        .join("")
+                    ),
+                  }}
+                />
+
+                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
+
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                >
+                  Fungsi:
+                </h5>
+                <div
+                  style={{
+                    marginBottom: "1.5rem",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(
+                      selectedJabatan.fungsi
+                        .map((fungsi) => fungsi.content)
+                        .join("")
+                    ),
+                  }}
+                />
               </div>
-
-              <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-              <h5 style={{ marginBottom: "0.75rem" }}>Ringkasan:</h5>
-              <div
-                style={{ textAlign: "justify", marginBottom: "1.5rem" }}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
-                }}
-              ></div>
-
-              <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-              <h5 style={{ marginBottom: "0.75rem" }}>Tugas:</h5>
-              <div
-                style={{ marginBottom: "1.5rem" }}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    `${selectedJabatan.tugas
-                      .map((tugas) => `${tugas.content}`)
-                      .join("")}`
-                  ),
-                }}
-              ></div>
-
-              <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-              <h5 style={{ marginBottom: "0.75rem" }}>Fungsi:</h5>
-              <div
-                style={{ marginBottom: "1.5rem" }}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    `${selectedJabatan.fungsi
-                      .map((fungsi) => `${fungsi.content}`)
-                      .join("")}`
-                  ),
-                }}
-              ></div>
-            </div>
-          ) : (
-            <p>Memuat data...</p>
-          )}
-        </Dialog>
+            ) : (
+              <p>Memuat data...</p>
+            )}
+          </Dialog>
+        </section>
         {/*  */}
         <section
           className="section section-lg"
