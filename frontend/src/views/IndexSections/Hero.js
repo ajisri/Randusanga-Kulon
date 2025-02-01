@@ -315,7 +315,7 @@ const Hero = () => {
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 50%;
             z-index: 2;
             perspective: 1000px; /* Menambahkan perspektif 3D */
             overflow: hidden;
