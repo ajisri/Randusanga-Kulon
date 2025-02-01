@@ -53,7 +53,10 @@ const Agenda = () => {
     data: agendaData,
     error,
     isLoading,
-  } = useSWR("http://localhost:8080/agenda", fetcher);
+  } = useSWR(
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda",
+    fetcher
+  );
 
   useEffect(() => {
     if (agendaData?.agenda) {
@@ -105,7 +108,7 @@ const Agenda = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:8080/agenda/${currentAgenda.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda/${currentAgenda.uuid}`,
           formData
         );
         toast.current.show({
@@ -115,7 +118,10 @@ const Agenda = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post("http://localhost:8080/cagenda", formData);
+        await axiosJWT.post(
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cagenda",
+          formData
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -123,7 +129,9 @@ const Agenda = () => {
           life: 3000,
         });
       }
-      await mutate("http://localhost:8080/agenda");
+      await mutate(
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -167,14 +175,18 @@ const Agenda = () => {
   const deleteAgenda = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this agenda?")) {
       try {
-        await axiosJWT.delete(`http://localhost:8080/agenda/${uuid}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda/${uuid}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Agenda deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/agenda");
+        await mutate(
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda"
+        );
       } catch (error) {
         handleError(error);
       }

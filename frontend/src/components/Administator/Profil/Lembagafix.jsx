@@ -37,12 +37,12 @@ const Lembaga = () => {
 
   // Ambil data lembaga dan anggota
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/lembaga",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/lembaga",
     fetcher
   );
 
   const { data: anggotaData } = useSWR(
-    "http://localhost:8080/demografi", // Endpoint untuk mendapatkan anggota
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/demografi", // Endpoint untuk mendapatkan anggota
     fetcher
   );
 
@@ -105,8 +105,13 @@ const Lembaga = () => {
 
     try {
       setIsLoadingProcess(true);
-      await axiosJWT.post("http://localhost:8080/clembaga", formData);
-      mutate("http://localhost:8080/lembaga"); // Re-fetch data lembaga
+      await axiosJWT.post(
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/clembaga",
+        formData
+      );
+      mutate(
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/lembaga"
+      ); // Re-fetch data lembaga
       toast.current.show({
         severity: "success",
         summary: "Berhasil",
