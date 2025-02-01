@@ -54,7 +54,7 @@ const Agenda = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agenda",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda",
     fetcher
   );
 
@@ -108,7 +108,7 @@ const Agenda = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/agenda/${currentAgenda.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda/${currentAgenda.uuid}`,
           formData
         );
         toast.current.show({
@@ -119,7 +119,7 @@ const Agenda = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cagenda",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cagenda",
           formData
         );
         toast.current.show({
@@ -130,7 +130,7 @@ const Agenda = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/agenda"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda"
       );
       resetForm();
       setDialogVisible(false);
@@ -176,7 +176,7 @@ const Agenda = () => {
     if (window.confirm("Are you sure you want to delete this agenda?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/agenda/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -185,7 +185,7 @@ const Agenda = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/agenda"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agenda"
         );
       } catch (error) {
         handleError(error);

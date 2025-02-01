@@ -63,7 +63,7 @@ const SubkategoriAnkor = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor",
     fetcher
   );
 
@@ -86,7 +86,7 @@ const SubkategoriAnkor = () => {
     error: kategoriankorError,
     isLoading: isKategoriankorLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor",
     fetcher
   );
 
@@ -162,7 +162,7 @@ const SubkategoriAnkor = () => {
       if (isEditMode) {
         // Kirim request update subkategoriankor
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
           dataToSend,
           {
             headers: {
@@ -181,7 +181,7 @@ const SubkategoriAnkor = () => {
         setDialogVisible(false);
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/csubkategoriankor",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/csubkategoriankor",
           dataToSend,
           {
             headers: {
@@ -200,7 +200,7 @@ const SubkategoriAnkor = () => {
 
       // Refresh data dan tutup dialog
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor"
       );
       resetForm();
       setDialogVisible(false);
@@ -267,7 +267,7 @@ const SubkategoriAnkor = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -276,7 +276,7 @@ const SubkategoriAnkor = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor"
         );
       } catch (error) {
         handleError(error);
@@ -311,7 +311,7 @@ const SubkategoriAnkor = () => {
       // Kirim data ke backend
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/cpoinsubkategoriankor",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cpoinsubkategoriankor",
         {
           poinData: formattedPoinData,
         }
@@ -327,7 +327,7 @@ const SubkategoriAnkor = () => {
 
       // Mutasi data dan refresh state terkait
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategoriankor"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor"
       );
 
       // Tutup dialog setelah sukses
@@ -377,7 +377,7 @@ const SubkategoriAnkor = () => {
     try {
       console.log("Kategori ID yang dikirim:", subkategoriankorId);
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/poinbysubkategoriankor/${subkategoriankorId}`
+        `https://randusanga-kulonbackend-production-fa8c.up.railway.app/poinbysubkategoriankor/${subkategoriankorId}`
       );
       if (Array.isArray(response.data) && response.data.length === 0) {
         showNotification(

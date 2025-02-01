@@ -58,7 +58,7 @@ const Jabatan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jabatan",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jabatan",
     fetcher
   );
 
@@ -105,7 +105,7 @@ const Jabatan = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/demografi", // Endpoint API demografi
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -194,7 +194,7 @@ const Jabatan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.put(
-          `https://randusanga-kulonbackend-production.up.railway.app/ujabatan/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/ujabatan/${currentData.uuid}`,
           data,
           {
             headers: {
@@ -210,7 +210,7 @@ const Jabatan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cjabatan",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cjabatan",
           data,
           {
             headers: {
@@ -226,7 +226,7 @@ const Jabatan = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/jabatan"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jabatan"
       );
       resetForm();
       setDialogVisible(false);
@@ -273,7 +273,7 @@ const Jabatan = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/jabatan/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/jabatan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -282,7 +282,7 @@ const Jabatan = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/jabatan"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jabatan"
         );
       } catch (error) {
         handleError(error);
@@ -294,7 +294,7 @@ const Jabatan = () => {
     try {
       // Kirim permintaan ke backend untuk memperbarui status kehadiran
       await axiosJWT.put(
-        `https://randusanga-kulonbackend-production.up.railway.app/ujabatanhadir/${rowData.uuid}`,
+        `https://randusanga-kulonbackend-production-fa8c.up.railway.app/ujabatanhadir/${rowData.uuid}`,
         {
           statusHadir: statusBaru,
         }

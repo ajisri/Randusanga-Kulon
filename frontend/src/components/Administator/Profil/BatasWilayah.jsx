@@ -44,7 +44,7 @@ const BatasWilayah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/bataswilayah",
     fetcher
   );
 
@@ -74,7 +74,7 @@ const BatasWilayah = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/bataswilayah/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/bataswilayah/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -85,7 +85,7 @@ const BatasWilayah = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cbataswilayah",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cbataswilayah",
           formData
         );
         toast.current.show({
@@ -96,7 +96,7 @@ const BatasWilayah = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/bataswilayah"
       );
       resetForm();
       setDialogVisible(false);
@@ -139,7 +139,7 @@ const BatasWilayah = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/bataswilayah/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/bataswilayah/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -148,7 +148,7 @@ const BatasWilayah = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/bataswilayah"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/bataswilayah"
         );
       } catch (error) {
         handleError(error);

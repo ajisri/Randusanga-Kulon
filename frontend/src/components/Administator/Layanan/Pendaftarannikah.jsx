@@ -39,7 +39,7 @@ const Pendaftarannikah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikah",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/pendaftarannikah",
     fetcher
   );
 
@@ -84,7 +84,7 @@ const Pendaftarannikah = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/cpendaftarannikah",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cpendaftarannikah",
         formData,
         {
           headers: {
@@ -98,7 +98,7 @@ const Pendaftarannikah = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/pendaftarannikah"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/pendaftarannikah"
       );
 
       toast.current.show({
@@ -265,7 +265,7 @@ const Pendaftarannikah = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                        src={`https://randusanga-kulonbackend-production-fa8c.up.railway.app${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

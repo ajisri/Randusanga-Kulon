@@ -46,7 +46,7 @@ const Ankor = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/ankor",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankor",
     fetcher
   );
 
@@ -114,7 +114,7 @@ const Ankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/ankor/${currentAnkor.id}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankor/${currentAnkor.id}`,
           { name: formData.name },
           {
             headers: {
@@ -130,7 +130,7 @@ const Ankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cankor",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cankor",
           { name: formData.name },
           {
             headers: {
@@ -148,7 +148,7 @@ const Ankor = () => {
 
       console.log("Data berhasil dikirim, merefresh data...");
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/ankor"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankor"
       );
 
       resetForm();
@@ -208,7 +208,7 @@ const Ankor = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/ankor/${id}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankor/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -217,7 +217,7 @@ const Ankor = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/ankor"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankor"
         );
       } catch (error) {
         handleError(error);

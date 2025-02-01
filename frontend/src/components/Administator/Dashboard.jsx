@@ -77,7 +77,7 @@ const Dashboard = () => {
   const refreshToken = useCallback(async () => {
     try {
       const response = await axios.get(
-        "https://randusanga-kulonbackend-production.up.railway.app/token",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/token",
         {
           withCredentials: true,
         }
@@ -110,7 +110,7 @@ const Dashboard = () => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
         const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/token"
         );
         console.log(
           "Token diperbarui melalui interceptor:",

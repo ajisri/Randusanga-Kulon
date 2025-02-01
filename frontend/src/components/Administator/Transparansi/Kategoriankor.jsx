@@ -49,7 +49,7 @@ const Kategoriankor = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor",
     fetcher
   );
 
@@ -64,7 +64,7 @@ const Kategoriankor = () => {
     error: ankorError,
     isLoading: isAnkorLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/ankor",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankor",
     fetcher
   );
 
@@ -133,7 +133,7 @@ const Kategoriankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${currentKategoriAnkor.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor/${currentKategoriAnkor.uuid}`,
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -149,7 +149,7 @@ const Kategoriankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckategoriankor",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ckategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -165,7 +165,7 @@ const Kategoriankor = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor"
       );
       resetForm();
       setDialogVisible(false);
@@ -226,7 +226,7 @@ const Kategoriankor = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategoriankor/${id}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -235,7 +235,7 @@ const Kategoriankor = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/kategoriankor"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor"
         );
       } catch (error) {
         handleError(error);

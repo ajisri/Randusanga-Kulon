@@ -64,7 +64,7 @@ const Kategori = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/kategori",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategori",
     fetcher
   );
 
@@ -80,7 +80,7 @@ const Kategori = () => {
     error: keuanganError,
     isLoading: isKeuanganLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/keuangan",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/keuangan",
     fetcher
   );
 
@@ -122,7 +122,7 @@ const Kategori = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategori/${currentKategori.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategori/${currentKategori.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -133,7 +133,7 @@ const Kategori = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckategori",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ckategori",
           dataToSend
         );
         toast.current.show({
@@ -145,7 +145,7 @@ const Kategori = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/kategori"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategori"
       );
       resetForm();
       setDialogVisible(false);
@@ -178,7 +178,7 @@ const Kategori = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/kategori/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategori/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -187,7 +187,7 @@ const Kategori = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/kategori"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategori"
         );
       } catch (error) {
         handleError(error);
@@ -254,7 +254,7 @@ const Kategori = () => {
       setIsLoadingProcess(true);
       // Kirim data ke backend
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/csubkategori",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/csubkategori",
         {
           subkategoriData: formattedSubkategoriData,
         }
@@ -270,7 +270,7 @@ const Kategori = () => {
 
       // Mutasi data dan refresh state terkait
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/subkategori"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategori"
       );
 
       // Tutup dialog setelah sukses
@@ -344,7 +344,7 @@ const Kategori = () => {
   const fetchSubkategoriByKategoriId = async (kategoriId) => {
     try {
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production.up.railway.app/subkategoribykategori/${kategoriId}`
+        `https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoribykategori/${kategoriId}`
       );
 
       // Cek apakah data ada atau kosong

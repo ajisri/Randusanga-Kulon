@@ -61,7 +61,7 @@ const Galeri = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/galeri",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/galeri",
     fetcher
   );
 
@@ -166,7 +166,7 @@ const Galeri = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/galeri/${currentGaleri.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/galeri/${currentGaleri.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -180,7 +180,7 @@ const Galeri = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cgaleri",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cgaleri",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -195,7 +195,7 @@ const Galeri = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/galeri"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/galeri"
       );
       resetForm();
       setDialogVisible(false);
@@ -253,7 +253,7 @@ const Galeri = () => {
     setFormData(galeri);
     setSelectedFile(null);
     const fileUrl = galeri.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${galeri.file_url}`
+      ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${galeri.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -266,7 +266,7 @@ const Galeri = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/galeri/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/galeri/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -275,7 +275,7 @@ const Galeri = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/galeri"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/galeri"
         );
       } catch (error) {
         handleError(error);

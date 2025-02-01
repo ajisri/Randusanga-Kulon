@@ -40,7 +40,7 @@ const Kartukeluarga = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/kartukeluarga",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kartukeluarga",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Kartukeluarga = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/ckartukeluarga",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ckartukeluarga",
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ const Kartukeluarga = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/kartukeluarga"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kartukeluarga"
       );
 
       toast.current.show({
@@ -266,7 +266,7 @@ const Kartukeluarga = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                        src={`https://randusanga-kulonbackend-production-fa8c.up.railway.app${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

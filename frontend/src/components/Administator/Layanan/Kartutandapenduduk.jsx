@@ -40,7 +40,7 @@ const Kartutandapenduduk = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/kartutandapenduduk",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kartutandapenduduk",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Kartutandapenduduk = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/ckartutandapenduduk",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ckartutandapenduduk",
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ const Kartutandapenduduk = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/kartutandapenduduk"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kartutandapenduduk"
       );
 
       toast.current.show({
@@ -266,7 +266,7 @@ const Kartutandapenduduk = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                        src={`https://randusanga-kulonbackend-production-fa8c.up.railway.app${file_url}`}
                         alt="Database"
                       />
                     </div>

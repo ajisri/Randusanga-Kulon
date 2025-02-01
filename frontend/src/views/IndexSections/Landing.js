@@ -82,7 +82,7 @@ const Landing = () => {
     error: agendaError,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/agendapengunjung",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agendapengunjung",
     fetcher
   );
 
@@ -111,7 +111,7 @@ const Landing = () => {
     error: jabatanError,
     isLoadingJabatan,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jabatanpengunjung",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jabatanpengunjung",
     fetcher
   );
 
@@ -150,7 +150,7 @@ const Landing = () => {
         <img
           src={
             item.pemegang?.file_url
-              ? `https://randusanga-kulonbackend-production.up.railway.app${item.pemegang.file_url}`
+              ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${item.pemegang.file_url}`
               : "placeholder.png"
           }
           alt={item.pemegang?.name || "Jabatan"}

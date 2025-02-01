@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const refreshToken = async () => {
       try {
         const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/token",
           {
             withCredentials: true,
           }
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     const currentDate = new Date();
     if (expire * 1000 < currentDate.getTime()) {
       const response = await axios.get(
-        "https://randusanga-kulonbackend-production.up.railway.app/token",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/token",
         {
           withCredentials: true,
         }

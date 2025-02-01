@@ -55,7 +55,7 @@ const Produkhukum = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukum",
     fetcher
   );
 
@@ -196,7 +196,7 @@ const Produkhukum = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -210,7 +210,7 @@ const Produkhukum = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cprodukhukum",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cprodukhukum",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -225,7 +225,7 @@ const Produkhukum = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukum"
       );
       resetForm();
       setDialogVisible(false);
@@ -284,7 +284,7 @@ const Produkhukum = () => {
     setFormData(produkhukum);
     setSelectedFile(null);
     const fileUrl = produkhukum.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${produkhukum.file_url}`
+      ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${produkhukum.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -297,7 +297,7 @@ const Produkhukum = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/produk_hukum/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukum/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -306,7 +306,7 @@ const Produkhukum = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/produk_hukum"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukum"
         );
       } catch (error) {
         handleError(error);
@@ -376,7 +376,7 @@ const Produkhukum = () => {
           field="file_url"
           header="File"
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
+            const fileUrl = `https://randusanga-kulonbackend-production-fa8c.up.railway.app${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

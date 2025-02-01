@@ -52,7 +52,7 @@ const Apbd = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/apbd",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd",
     fetcher
   );
 
@@ -201,7 +201,7 @@ const Apbd = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${currentApbd.id}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd/${currentApbd.id}`,
           formDataToSend,
           {
             headers: {
@@ -218,7 +218,7 @@ const Apbd = () => {
       } else {
         console.log("Mengirim data baru...");
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/capbd",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/capbd",
           formDataToSend,
           {
             headers: {
@@ -235,7 +235,7 @@ const Apbd = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/apbd"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd"
       );
 
       resetForm();
@@ -292,7 +292,7 @@ const Apbd = () => {
     setFormData(apbd);
     setSelectedFile(null);
     const fileUrl = apbd.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${apbd.file_url}`
+      ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -305,7 +305,7 @@ const Apbd = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/apbd/${id}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -314,7 +314,7 @@ const Apbd = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/apbd"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd"
         );
       } catch (error) {
         handleError(error);
@@ -372,7 +372,7 @@ const Apbd = () => {
           header="File"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production.up.railway.app${rowData.file_url}`;
+            const fileUrl = `https://randusanga-kulonbackend-production-fa8c.up.railway.app${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

@@ -40,7 +40,7 @@ const Strukturorganisasi = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/strukturorganisasi",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/strukturorganisasi",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Strukturorganisasi = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/cstrukturorganisasi",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cstrukturorganisasi",
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ const Strukturorganisasi = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/strukturorganisasi"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/strukturorganisasi"
       );
 
       toast.current.show({
@@ -220,7 +220,7 @@ const Strukturorganisasi = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                        src={`https://randusanga-kulonbackend-production-fa8c.up.railway.app${file_url}`}
                         alt="Database"
                       />
                     </div>

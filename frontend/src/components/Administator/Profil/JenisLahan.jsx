@@ -46,7 +46,7 @@ const JenisLahan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jenislahan",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jenislahan",
     fetcher
   );
 
@@ -76,7 +76,7 @@ const JenisLahan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/jenislahan/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/jenislahan/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -87,7 +87,7 @@ const JenisLahan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cjenislahan",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cjenislahan",
           formData
         );
         toast.current.show({
@@ -98,7 +98,7 @@ const JenisLahan = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/jenislahan"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jenislahan"
       );
       resetForm();
       setDialogVisible(false);
@@ -142,7 +142,7 @@ const JenisLahan = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/jenislahan/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/jenislahan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -151,7 +151,7 @@ const JenisLahan = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/jenislahan"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jenislahan"
         );
       } catch (error) {
         handleError(error);

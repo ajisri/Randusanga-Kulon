@@ -42,7 +42,7 @@ const Sejarah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/sejarah",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/sejarah",
     fetcher
   );
 
@@ -87,7 +87,7 @@ const Sejarah = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/csejarah",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/csejarah",
         formData,
         {
           headers: {
@@ -101,7 +101,7 @@ const Sejarah = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/sejarah"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/sejarah"
       );
 
       toast.current.show({
@@ -222,7 +222,7 @@ const Sejarah = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                        src={`https://randusanga-kulonbackend-production-fa8c.up.railway.app${file_url}`}
                         alt="Database"
                       />
                     </div>

@@ -10,7 +10,7 @@ const useAuth = (navigate) => {
     const refreshToken = async () => {
       try {
         const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/token"
         );
         setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
@@ -29,7 +29,7 @@ const useAuth = (navigate) => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
         const response = await axios.get(
-          "https://randusanga-kulonbackend-production.up.railway.app/token"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/token"
         );
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         setToken(response.data.accessToken);

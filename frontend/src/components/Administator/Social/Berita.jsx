@@ -61,7 +61,7 @@ const Berita = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/berita",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/berita",
     fetcher
   );
 
@@ -166,7 +166,7 @@ const Berita = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/berita/${currentBerita.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/berita/${currentBerita.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -180,7 +180,7 @@ const Berita = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cberita",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cberita",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -195,7 +195,7 @@ const Berita = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/berita"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/berita"
       );
       resetForm();
       setDialogVisible(false);
@@ -253,7 +253,7 @@ const Berita = () => {
     setFormData(berita);
     setSelectedFile(null);
     const fileUrl = berita.file_url
-      ? `https://randusanga-kulonbackend-production.up.railway.app${berita.file_url}`
+      ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${berita.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -266,7 +266,7 @@ const Berita = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/berita/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/berita/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -275,7 +275,7 @@ const Berita = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/berita"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/berita"
         );
       } catch (error) {
         handleError(error);

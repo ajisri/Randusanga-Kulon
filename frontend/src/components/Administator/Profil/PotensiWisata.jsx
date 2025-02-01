@@ -44,7 +44,7 @@ const PotensiWisata = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/potensiwisata",
     fetcher
   );
 
@@ -74,7 +74,7 @@ const PotensiWisata = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${currentData.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/potensiwisata/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -85,7 +85,7 @@ const PotensiWisata = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/cpotensiwisata",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cpotensiwisata",
           formData
         );
         toast.current.show({
@@ -96,7 +96,7 @@ const PotensiWisata = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/potensiwisata"
       );
       resetForm();
       setDialogVisible(false);
@@ -137,7 +137,7 @@ const PotensiWisata = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/potensiwisata/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/potensiwisata/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -146,7 +146,7 @@ const PotensiWisata = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/potensiwisata"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/potensiwisata"
         );
       } catch (error) {
         handleError(error);

@@ -24,7 +24,7 @@ const Geografix = () => {
     error: batasWilayahError,
     isLoading: isBatasWilayahLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/batawilayahpengunjung",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/batawilayahpengunjung",
     fetcher
   );
 
@@ -33,7 +33,7 @@ const Geografix = () => {
     error: orbitasiError,
     isLoading: isOrbitasiLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/orbitasipengunjung",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/orbitasipengunjung",
     fetcher
   );
   const {
@@ -41,7 +41,7 @@ const Geografix = () => {
     error: jenisLahanError,
     isLoading: isJenisLahanLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/jenislahanpengunjung",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jenislahanpengunjung",
     fetcher
   );
   const {
@@ -49,7 +49,7 @@ const Geografix = () => {
     error: potensiWisataError,
     isLoading: isPotensiWisataLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/potensiwisatapengunjung",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/potensiwisatapengunjung",
     fetcher
   );
 

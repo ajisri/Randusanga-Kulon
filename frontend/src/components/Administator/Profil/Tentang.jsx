@@ -42,7 +42,7 @@ const Tentang = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/tentang",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/tentang",
     fetcher
   );
 
@@ -75,7 +75,9 @@ const Tentang = () => {
 
   useEffect(() => {
     axiosJWT
-      .get("https://randusanga-kulonbackend-production.up.railway.app/tentang")
+      .get(
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/tentang"
+      )
       .then((response) => console.log("Data fetched manually:", response.data))
       .catch((error) =>
         console.error("Error fetching Tentang manually:", error)
@@ -96,7 +98,7 @@ const Tentang = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulonbackend-production.up.railway.app/ctentang",
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ctentang",
         formData,
         {
           headers: {
@@ -110,7 +112,7 @@ const Tentang = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/tentang"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/tentang"
       );
 
       toast.current.show({
@@ -232,7 +234,7 @@ const Tentang = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulonbackend-production.up.railway.app${file_url}`}
+                        src={`https://randusanga-kulonbackend-production-fa8c.up.railway.app${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

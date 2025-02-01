@@ -51,7 +51,7 @@ const Keuangan = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/keuangan",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/keuangan",
     fetcher
   );
 
@@ -68,7 +68,7 @@ const Keuangan = () => {
     error: apbdError,
     isLoading: isApbdLoading,
   } = useSWR(
-    "https://randusanga-kulonbackend-production.up.railway.app/allapbd",
+    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/allapbd",
     fetcher
   );
 
@@ -112,7 +112,7 @@ const Keuangan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${currentKeuangan.uuid}`,
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/keuangan/${currentKeuangan.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -123,7 +123,7 @@ const Keuangan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production.up.railway.app/ckeuangan",
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ckeuangan",
           dataToSend
         );
         toast.current.show({
@@ -135,7 +135,7 @@ const Keuangan = () => {
       }
 
       await mutate(
-        "https://randusanga-kulonbackend-production.up.railway.app/keuangan"
+        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/keuangan"
       );
       resetForm();
       setDialogVisible(false);
@@ -188,7 +188,7 @@ const Keuangan = () => {
       setIsLoadingg(true);
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production.up.railway.app/keuangan/${uuid}`
+          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/keuangan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -197,7 +197,7 @@ const Keuangan = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulonbackend-production.up.railway.app/keuangan"
+          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/keuangan"
         );
       } catch (error) {
         handleError(error);
