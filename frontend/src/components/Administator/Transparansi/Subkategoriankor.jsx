@@ -62,10 +62,7 @@ const SubkategoriAnkor = () => {
     data: subkategoriankorData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/subkategoriankor", fetcher);
 
   useEffect(() => {
     if (subkategoriankorData) {
@@ -85,10 +82,7 @@ const SubkategoriAnkor = () => {
     data: kategoriankorData,
     error: kategoriankorError,
     isLoading: isKategoriankorLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/kategoriankor",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/kategoriankor", fetcher);
 
   useEffect(() => {
     if (Array.isArray(kategoriankorData)) {
@@ -162,7 +156,7 @@ const SubkategoriAnkor = () => {
       if (isEditMode) {
         // Kirim request update subkategoriankor
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor/${currentSubkategoriankor.uuid}`,
+          `http://localhost:8080/subkategoriankor/${currentSubkategoriankor.uuid}`,
           dataToSend,
           {
             headers: {
@@ -181,7 +175,7 @@ const SubkategoriAnkor = () => {
         setDialogVisible(false);
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/csubkategoriankor",
+          "http://localhost:8080/csubkategoriankor",
           dataToSend,
           {
             headers: {
@@ -199,9 +193,7 @@ const SubkategoriAnkor = () => {
       });
 
       // Refresh data dan tutup dialog
-      await mutate(
-        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor"
-      );
+      await mutate("http://localhost:8080/subkategoriankor");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -266,18 +258,14 @@ const SubkategoriAnkor = () => {
   const deletesubkategoriankor = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/subkategoriankor/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor"
-        );
+        await mutate("http://localhost:8080/subkategoriankor");
       } catch (error) {
         handleError(error);
       }
@@ -310,12 +298,9 @@ const SubkategoriAnkor = () => {
     try {
       // Kirim data ke backend
       setIsLoadingProcess(true);
-      await axiosJWT.post(
-        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/cpoinsubkategoriankor",
-        {
-          poinData: formattedPoinData,
-        }
-      );
+      await axiosJWT.post("http://localhost:8080/cpoinsubkategoriankor", {
+        poinData: formattedPoinData,
+      });
 
       // Tampilkan notifikasi sukses
       toast.current.show({
@@ -326,9 +311,7 @@ const SubkategoriAnkor = () => {
       });
 
       // Mutasi data dan refresh state terkait
-      await mutate(
-        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/subkategoriankor"
-      );
+      await mutate("http://localhost:8080/subkategoriankor");
 
       // Tutup dialog setelah sukses
       setPoinSubkategoriAnkorDialogVisible(false);
@@ -377,7 +360,7 @@ const SubkategoriAnkor = () => {
     try {
       console.log("Kategori ID yang dikirim:", subkategoriankorId);
       const response = await axiosJWT.get(
-        `https://randusanga-kulonbackend-production-fa8c.up.railway.app/poinbysubkategoriankor/${subkategoriankorId}`
+        `http://localhost:8080/poinbysubkategoriankor/${subkategoriankorId}`
       );
       if (Array.isArray(response.data) && response.data.length === 0) {
         showNotification(

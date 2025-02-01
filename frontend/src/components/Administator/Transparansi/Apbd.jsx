@@ -51,10 +51,7 @@ const Apbd = () => {
     data: apbdData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/apbd", fetcher);
 
   useEffect(() => {
     if (apbdData?.apbd) {
@@ -201,7 +198,7 @@ const Apbd = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd/${currentApbd.id}`,
+          `http://localhost:8080/apbd/${currentApbd.id}`,
           formDataToSend,
           {
             headers: {
@@ -217,15 +214,11 @@ const Apbd = () => {
         });
       } else {
         console.log("Mengirim data baru...");
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/capbd",
-          formDataToSend,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/capbd", formDataToSend, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -234,9 +227,7 @@ const Apbd = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd"
-      );
+      await mutate("http://localhost:8080/apbd");
 
       resetForm();
       setDialogVisible(false);
@@ -292,7 +283,7 @@ const Apbd = () => {
     setFormData(apbd);
     setSelectedFile(null);
     const fileUrl = apbd.file_url
-      ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${apbd.file_url}`
+      ? `http://localhost:8080${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -304,18 +295,14 @@ const Apbd = () => {
   const deleteapbd = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd/${id}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/apbd/${id}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd"
-        );
+        await mutate("http://localhost:8080/apbd");
       } catch (error) {
         handleError(error);
       }
@@ -372,7 +359,7 @@ const Apbd = () => {
           header="File"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production-fa8c.up.railway.app${rowData.file_url}`;
+            const fileUrl = `http://localhost:8080${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

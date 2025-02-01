@@ -24,7 +24,7 @@ const Modalt = () => {
   // const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukump",
+    "http://localhost:8080/produk_hukump",
     fetcher
   );
   const loadingProdukhukum = !produkhukumData && !produkhukumError;
@@ -33,7 +33,7 @@ const Modalt = () => {
 
   // Fetch APBD data
   const { data: allapbdData, error: allapbdError } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/allapbdp",
+    "http://localhost:8080/allapbdp",
     fetcher
   );
   const loadingApbd = !allapbdData && !allapbdError;
@@ -57,7 +57,7 @@ const Modalt = () => {
 
   //ankor
   const { data: allankorData } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankorp",
+    "http://localhost:8080/ankorp",
     fetcher
   );
 
@@ -766,7 +766,7 @@ const Modalt = () => {
                       const fileName = rowData.file_url.split("/").pop(); // Ambil nama file saja
                       return (
                         <a
-                          href={`https://randusanga-kulonbackend-production-fa8c.up.railway.app/download/${fileName}`} // Mengarahkan ke controller di backend
+                          href={`http://localhost:8080/download/${fileName}`} // Mengarahkan ke controller di backend
                           download
                           style={{ textDecoration: "none" }}
                         >
