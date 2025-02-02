@@ -108,41 +108,6 @@ const Hero = () => {
             }
           }
 
-          @keyframes movingNeonBorder {
-            0% {
-              border-top-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-right-color: rgba(0, 204, 255, 0.8); /* Biru laut */
-              border-bottom-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
-              border-left-color: rgba(169, 169, 169, 0.8); /* Abu-abu metalik */
-              box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), 0 0 40px rgba(0, 204, 255, 0.6), 0 0 50px rgba(128, 0, 128, 0.6), 0 0 60px rgba(169, 169, 169, 0.6);
-            }
-            25% {
-              border-right-color: rgba(0, 204, 255, 0.8); /* Biru laut */
-              border-bottom-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
-              border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              box-shadow: 0 0 30px rgba(0, 204, 255, 0.6), 0 0 50px rgba(128, 0, 128, 0.6), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 70px rgba(169, 169, 169, 0.6);
-            }
-            50% {
-              border-top-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-bottom-color: rgba(0, 204, 255, 0.8); /* Biru laut */
-              border-left-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
-              border-right-color: rgba(169, 169, 169, 0.8); /* Abu-abu metalik */
-              box-shadow: 0 0 35px rgba(255, 255, 255, 0.6), 0 0 55px rgba(0, 204, 255, 0.6), 0 0 70px rgba(128, 0, 128, 0.6), 0 0 80px rgba(169, 169, 169, 0.6);
-            }
-            75% {
-              border-top-color: rgba(0, 204, 255, 0.8); /* Biru laut */
-              border-right-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
-              border-left-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              box-shadow: 0 0 35px rgba(0, 204, 255, 0.6), 0 0 50px rgba(128, 0, 128, 0.6), 0 0 70px rgba(255, 255, 255, 0.6), 0 0 80px rgba(169, 169, 169, 0.6);
-            }
-            100% {
-              border-top-color: rgba(128, 0, 128, 0.8); /* Ungu gelap */
-              border-right-color: rgba(255, 255, 255, 0.8); /* Putih lembut */
-              border-bottom-color: rgba(0, 204, 255, 0.8); /* Biru laut */
-              box-shadow: 0 0 40px rgba(128, 0, 128, 0.6), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 80px rgba(0, 204, 255, 0.6), 0 0 90px rgba(169, 169, 169, 0.6);
-            }
-          }
-
           @keyframes gradientMove {
             0% {
               background-position: 0% 50%;
@@ -292,7 +257,8 @@ const Hero = () => {
             text-shadow: 0 0 3px #ffffff, 0 0 5px #ffffff, 0 0 10px rgba(255, 255, 255, 0.6); /* Mengurangi efek cahaya bintang */
             border: 2px solid rgba(255, 255, 255, 0.6); /* Mengurangi transparansi border */
             box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5), 0 0 15px 5px rgba(144, 238, 144, 0.5), 0 0 20px 5px rgba(255, 215, 0, 0.4); /* Mengurangi efek cahaya */
-            animation: movingNeonBorder 6s linear infinite, spaceStars 10s infinite; /* Memperlambat animasi */
+            /* animation: movingNeonBorder 6s linear infinite, spaceStars 10s infinite; */ /* Memperlambat animasi */
+            animation: spaceStars 10s infinite; /* Memperlambat animasi */
             transform: scale(0.95);
           }
 

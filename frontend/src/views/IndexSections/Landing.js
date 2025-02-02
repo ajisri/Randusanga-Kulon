@@ -81,10 +81,7 @@ const Landing = () => {
     data: agendaData,
     error: agendaError,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/agendapengunjung",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/agendapengunjung", fetcher);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,10 +107,7 @@ const Landing = () => {
     data: jabatanData = [],
     error: jabatanError,
     isLoadingJabatan,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/jabatanpengunjung",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/jabatanpengunjung", fetcher);
 
   const [selectedJabatan, setSelectedJabatan] = useState(null); // Untuk data jabatan yang dipilih
   const [isDialogVisible, setDialogVisible] = useState(false); // Untuk kontrol dialog
@@ -150,7 +144,7 @@ const Landing = () => {
         <img
           src={
             item.pemegang?.file_url
-              ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${item.pemegang.file_url}`
+              ? `http://localhost:8080${item.pemegang.file_url}`
               : "placeholder.png"
           }
           alt={item.pemegang?.name || "Jabatan"}
@@ -1036,33 +1030,86 @@ const Landing = () => {
           {/* Tambahkan font Roboto menggunakan tag <style> */}
           <style>
             {`
-          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-          @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-          }
+            @keyframes pulse {
+              0% { opacity: 0.6; }
+              50% { opacity: 1; }
+              100% { opacity: 0.6; }
+            }
 
-          .dialog-animation {
-            animation: fadeIn 0.3s ease-in-out;
-          }
+            .carousel-item:hover {
+              transform: scale(1.05);
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
 
-          @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-          }
+            .carousel-item:hover .hover-icon {
+              opacity: 1;
+              transform: translate(-50%, -50%) scale(1.2);
+            }
 
-          .carousel-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          }
+            @keyframes fadeIn {
+              from {
+                opacity: 0;
+                transform: translateY(-20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
 
-          .carousel-item:hover .hover-icon {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.2);
-          }
-        `}
+            .p-dialog-mask {
+              backdrop-filter: blur(6px);
+              background: rgba(0, 0, 0, 0.5) !important;
+            }
+
+            .custom-dialog {
+              border-radius: 10px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+            }
+
+            .dialog-animation {
+              animation: bounceIn 1s ease-in-out;
+            }
+
+            .p-button:hover {
+              transform: scale(1.05);
+              transition: transform 0.2s ease-in-out;
+            }
+
+            body {
+              font-family: 'Roboto', sans-serif;
+              font-size: 16px; /* Ukuran font untuk teks */
+              line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+              color: #333; /* Warna teks */
+            }
+
+            .h4 {
+              font-family: 'Roboto', sans-serif;
+            }
+
+            .dialog-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-bottom: 10px;
+              border-bottom: 1px solid #ccc;
+            }
+
+            .dialog-title {
+              font-size: 24px;
+              margin: 0;
+              color: #333;
+            }
+
+            .dialog-subtitle {
+              font-size: 14px;
+              color: #777;
+            }
+
+          `}
           </style>
 
           <div style={{ padding: "2rem 0", backgroundColor: "#f8f9fa" }}>
@@ -1124,131 +1171,215 @@ const Landing = () => {
 
           {/* Dialog untuk detail jabatan */}
           <Dialog
-            header="Detail Jabatan"
+            header={
+              <div className="dialog-header">
+                <div>
+                  <h2 className="dialog-title">Jabatan</h2>
+                  <p className="dialog-subtitle">
+                    Informasi mengenai detail jabatan
+                  </p>
+                </div>
+              </div>
+            }
             visible={isDialogVisible}
-            style={{ width: "80vw", fontFamily: "Roboto, sans-serif" }}
+            style={{
+              width: "55vw",
+              fontFamily: "Roboto, sans-serif",
+              background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
+              borderRadius: "12px",
+              border: "none",
+            }}
             onHide={hideDialog}
             maximizable
             modal
+            contentStyle={{
+              overflowY: "auto",
+              padding: "24px 24px 10px 24px",
+            }}
             className="dialog-animation"
           >
             {selectedJabatan ? (
               <div style={{ padding: "1rem" }}>
+                {/* Header dengan Nama Jabatan */}
                 <h4
                   style={{
                     marginBottom: "1rem",
                     fontFamily: "Roboto, sans-serif",
+                    color: "#2c3e50",
+                    fontSize: "24px",
+                    fontWeight: "600",
                   }}
                 >
                   {selectedJabatan.nama}
                 </h4>
 
-                <h5
-                  style={{
-                    marginBottom: "0.75rem",
-                    fontFamily: "Roboto, sans-serif",
-                  }}
-                >
-                  Status Kehadiran:
-                </h5>
+                {/* Card untuk Status Kehadiran */}
                 <div
                   style={{
-                    display: "flex",
-                    gap: "1rem",
+                    background: "#fff",
+                    padding: "1rem",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     marginBottom: "1.5rem",
                   }}
                 >
-                  {selectedJabatan.Kehadiran?.length > 0 ? (
-                    selectedJabatan.Kehadiran.map((kehadiran) => (
-                      <Button
-                        key={kehadiran.id}
-                        label={kehadiran.statusHadir}
-                        className={`p-button-rounded p-button-sm ${
-                          kehadiran.statusHadir === "Hadir"
-                            ? "p-button-success"
-                            : "p-button-warning"
-                        }`}
-                        style={{
-                          minWidth: "80px",
-                          height: "35px",
-                          fontSize: "14px",
-                          fontFamily: "Roboto, sans-serif",
-                        }}
-                      />
-                    ))
-                  ) : (
-                    <p>Status Kehadiran tidak tersedia.</p>
-                  )}
+                  <h5
+                    style={{
+                      marginBottom: "0.75rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#34495e",
+                      fontSize: "18px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Status Kehadiran:
+                  </h5>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "1rem",
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    {selectedJabatan.Kehadiran?.length > 0 ? (
+                      selectedJabatan.Kehadiran.map((kehadiran) => (
+                        <Button
+                          key={kehadiran.id}
+                          label={kehadiran.statusHadir}
+                          icon={
+                            kehadiran.statusHadir === "Hadir"
+                              ? "pi pi-check-circle"
+                              : "pi pi-exclamation-triangle"
+                          }
+                          className={`p-button-rounded p-button-sm ${
+                            kehadiran.statusHadir === "Hadir"
+                              ? "p-button-success"
+                              : "p-button-warning"
+                          }`}
+                          style={{
+                            minWidth: "80px",
+                            height: "35px",
+                            fontSize: "14px",
+                            fontFamily: "Roboto, sans-serif",
+                          }}
+                        />
+                      ))
+                    ) : (
+                      <p>Status Kehadiran tidak tersedia.</p>
+                    )}
+                  </div>
                 </div>
 
-                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-                <h5
-                  style={{
-                    marginBottom: "0.75rem",
-                    fontFamily: "Roboto, sans-serif",
-                  }}
-                >
-                  Ringkasan:
-                </h5>
+                {/* Card untuk Ringkasan */}
                 <div
                   style={{
-                    textAlign: "justify",
+                    background: "#fff",
+                    padding: "1rem",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     marginBottom: "1.5rem",
-                    fontFamily: "Roboto, sans-serif",
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
-                  }}
-                />
-
-                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-                <h5
-                  style={{
-                    marginBottom: "0.75rem",
-                    fontFamily: "Roboto, sans-serif",
                   }}
                 >
-                  Tugas:
-                </h5>
+                  <h5
+                    style={{
+                      marginBottom: "0.75rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#34495e",
+                      fontSize: "18px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Ringkasan:
+                  </h5>
+                  <div
+                    style={{
+                      textAlign: "justify",
+                      marginBottom: "1.5rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#2c3e50",
+                      lineHeight: "1.6",
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
+                    }}
+                  />
+                </div>
+
+                {/* Card untuk Tugas */}
                 <div
                   style={{
+                    background: "#fff",
+                    padding: "1rem",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     marginBottom: "1.5rem",
-                    fontFamily: "Roboto, sans-serif",
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(
-                      selectedJabatan.tugas
-                        .map((tugas) => tugas.content)
-                        .join("")
-                    ),
-                  }}
-                />
-
-                <hr style={{ borderColor: "#ccc", margin: "1.5rem 0" }} />
-
-                <h5
-                  style={{
-                    marginBottom: "0.75rem",
-                    fontFamily: "Roboto, sans-serif",
                   }}
                 >
-                  Fungsi:
-                </h5>
+                  <h5
+                    style={{
+                      marginBottom: "0.75rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#34495e",
+                      fontSize: "18px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Tugas:
+                  </h5>
+                  <div
+                    style={{
+                      marginBottom: "1.5rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#2c3e50",
+                      lineHeight: "1.6",
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        selectedJabatan.tugas
+                          .map((tugas) => tugas.content)
+                          .join("")
+                      ),
+                    }}
+                  />
+                </div>
+
+                {/* Card untuk Fungsi */}
                 <div
                   style={{
+                    background: "#fff",
+                    padding: "1rem",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     marginBottom: "1.5rem",
-                    fontFamily: "Roboto, sans-serif",
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(
-                      selectedJabatan.fungsi
-                        .map((fungsi) => fungsi.content)
-                        .join("")
-                    ),
-                  }}
-                />
+                >
+                  <h5
+                    style={{
+                      marginBottom: "0.75rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#34495e",
+                      fontSize: "18px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Fungsi:
+                  </h5>
+                  <div
+                    style={{
+                      marginBottom: "1.5rem",
+                      fontFamily: "Roboto, sans-serif",
+                      color: "#2c3e50",
+                      lineHeight: "1.6",
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        selectedJabatan.fungsi
+                          .map((fungsi) => fungsi.content)
+                          .join("")
+                      ),
+                    }}
+                  />
+                </div>
               </div>
             ) : (
               <p>Memuat data...</p>

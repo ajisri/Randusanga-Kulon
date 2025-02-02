@@ -18,6 +18,7 @@ const Apbd = () => {
     name: "",
     year: "",
     file_url: "",
+    url_upload: "",
   });
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -51,10 +52,7 @@ const Apbd = () => {
     data: apbdData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/apbd", fetcher);
 
   useEffect(() => {
     if (apbdData?.apbd) {
@@ -191,6 +189,7 @@ const Apbd = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("year", formData.year);
+    formDataToSend.append("url_upload", formData.url_upload);
 
     // Tambahkan file jika ada
     if (selectedFile) {
@@ -201,7 +200,7 @@ const Apbd = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd/${currentApbd.id}`,
+          `http://localhost:8080/apbd/${currentApbd.id}`,
           formDataToSend,
           {
             headers: {
@@ -217,15 +216,11 @@ const Apbd = () => {
         });
       } else {
         console.log("Mengirim data baru...");
-        await axiosJWT.post(
-          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/capbd",
-          formDataToSend,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/capbd", formDataToSend, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -234,9 +229,7 @@ const Apbd = () => {
         });
       }
 
-      await mutate(
-        "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd"
-      );
+      await mutate("http://localhost:8080/apbd");
 
       resetForm();
       setDialogVisible(false);
@@ -281,6 +274,7 @@ const Apbd = () => {
       name: "",
       year: null,
       file_url: "",
+      url_upload: "",
     });
     setSelectedFile(null);
     setPreview(null);
@@ -292,7 +286,7 @@ const Apbd = () => {
     setFormData(apbd);
     setSelectedFile(null);
     const fileUrl = apbd.file_url
-      ? `https://randusanga-kulonbackend-production-fa8c.up.railway.app${apbd.file_url}`
+      ? `http://localhost:8080${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -304,18 +298,14 @@ const Apbd = () => {
   const deleteapbd = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd/${id}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/apbd/${id}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulonbackend-production-fa8c.up.railway.app/apbd"
-        );
+        await mutate("http://localhost:8080/apbd");
       } catch (error) {
         handleError(error);
       }
@@ -360,19 +350,36 @@ const Apbd = () => {
         <Column
           field="name"
           header="Nama"
-          style={{ width: "55%", minWidth: "15%" }}
+          style={{ width: "10%", minWidth: "10%" }}
         />
         <Column
           field="year"
           header="Tahun"
-          style={{ width: "30%", minWidth: "5%" }}
+          style={{ width: "10%", minWidth: "5%" }}
+        />
+        <Column
+          field="url_upload"
+          header="URL Upload"
+          style={{ width: "5%", minWidth: "5%" }}
+          body={(rowData) => {
+            const fileUrl = `${rowData.url_upload}`;
+            return (
+              <Button
+                label="Lihat"
+                onClick={() => window.open(fileUrl, "_blank")} // Buka di tab baru
+                className="coastal-button p-button-rounded"
+                tooltip="Lihat File"
+                tooltipOptions={{ position: "bottom" }}
+              />
+            );
+          }}
         />
         <Column
           field="file_url"
-          header="File"
+          header="Gambar"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulonbackend-production-fa8c.up.railway.app${rowData.file_url}`;
+            const fileUrl = `http://localhost:8080${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"
@@ -493,6 +500,19 @@ const Apbd = () => {
                     />
                   </div>
                 )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="url_upload">
+                  URL File <span className="required">*</span>
+                </label>
+                <InputText
+                  id="url_upload"
+                  name="url_upload"
+                  value={formData.url_upload}
+                  onChange={handleChange}
+                  className="input-field"
+                  required
+                />
               </div>
               <div className="button-sub">
                 <Button

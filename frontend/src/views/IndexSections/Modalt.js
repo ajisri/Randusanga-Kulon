@@ -24,7 +24,7 @@ const Modalt = () => {
   // const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/produk_hukump",
+    "http://localhost:8080/produk_hukump",
     fetcher
   );
   const loadingProdukhukum = !produkhukumData && !produkhukumError;
@@ -33,7 +33,7 @@ const Modalt = () => {
 
   // Fetch APBD data
   const { data: allapbdData, error: allapbdError } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/allapbdp",
+    "http://localhost:8080/allapbdp",
     fetcher
   );
   const loadingApbd = !allapbdData && !allapbdError;
@@ -57,7 +57,7 @@ const Modalt = () => {
 
   //ankor
   const { data: allankorData } = useSWR(
-    "https://randusanga-kulonbackend-production-fa8c.up.railway.app/ankorp",
+    "http://localhost:8080/ankorp",
     fetcher
   );
 
@@ -123,12 +123,14 @@ const Modalt = () => {
       </div>
     );
 
+  const [visibleapbd, setVisibleapbd] = useState(false);
+
   const openDetailDialog = (rowData) => {
     if (Array.isArray(rowData.keuangan) && rowData.keuangan.length > 0) {
       setSelectedKeuangan(rowData.keuangan);
       setDetailDialogVisible(true);
     } else {
-      console.error("Data keuangan kosong:", rowData);
+      setVisibleapbd(true);
     }
   };
 
@@ -374,6 +376,7 @@ const Modalt = () => {
           }
 
           .dialog-title {
+            font-family: "Roboto", sans-serif;
             font-size: 24px;
             margin: 0;
             color: #333;
@@ -766,7 +769,7 @@ const Modalt = () => {
                       const fileName = rowData.file_url.split("/").pop(); // Ambil nama file saja
                       return (
                         <a
-                          href={`https://randusanga-kulonbackend-production-fa8c.up.railway.app/download/${fileName}`} // Mengarahkan ke controller di backend
+                          href={`http://localhost:8080/download/${fileName}`} // Mengarahkan ke controller di backend
                           download
                           style={{ textDecoration: "none" }}
                         >
@@ -846,7 +849,7 @@ const Modalt = () => {
                 </div>
               }
               visible={dialogVisibleAPB}
-              style={{ width: "90vw", maxWidth: "none" }}
+              style={{ width: "55vw", maxWidth: "none" }}
               maximizable
               modal
               className="custom-dialog bounce-in"
@@ -1267,6 +1270,30 @@ const Modalt = () => {
                 </>
               )}
             </Dialog>
+            <Dialog
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <p className="dialog-title">⚠️ Peringatan</p>
+                  </div>
+                </div>
+              }
+              visible={visibleapbd}
+              onHide={() => setVisibleapbd(false)}
+              modal
+              style={{ width: "30vw", textAlign: "center" }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Roboto', sans-serif",
+                  fontSize: "1.2rem",
+                  color: "#ff4d4f",
+                  fontWeight: "bold",
+                }}
+              >
+                Data keuangan kosong!
+              </p>
+            </Dialog>
           </div>
         </Col>
         {/* <Col className="mt-1" md="3" xs="6">
@@ -1283,8 +1310,8 @@ const Modalt = () => {
           <div>
             <Dialog
               header="Download"
-              visible={dialogVisibleD}
-              style={{ width: "75vw" }}
+              apbd={dialogVisibleD}
+              styleapbd={{ width: "75vw" }}
               maximizable
               modal
               contentStyle={{ height: "300px" }}
@@ -1295,7 +1322,7 @@ const Modalt = () => {
                 paginator
                 rows={5}
                 rowsPerPageOptions={[5, 10, 25, 50]}
-                tableStyle={{
+                tableSapbdtyle={{
                   width: "100%",
                   minWidth: "70rem",
                   maxWidth: "85rem",
