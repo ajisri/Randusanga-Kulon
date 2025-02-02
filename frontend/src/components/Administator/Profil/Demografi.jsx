@@ -63,17 +63,20 @@ const Demografi = () => {
     data: demografiData,
     error,
     isLoading,
-  } = useSWR("http://localhost:8080/demografi", fetcher);
+  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/demografi", fetcher);
   const {
     data: educationData,
     error: educationError,
     isLoading: isEducationLoading,
-  } = useSWR("http://localhost:8080/education-options", fetcher);
+  } = useSWR(
+    "https://randusanga-kulon.osc-fr1.scalingo.io/education-options",
+    fetcher
+  );
   const {
     data: religionData,
     error: religionError,
     isLoading: isReligionLoading,
-  } = useSWR("http://localhost:8080/agama", fetcher);
+  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/agama", fetcher);
 
   useEffect(() => {
     if (demografiData?.demographics) {
@@ -190,7 +193,7 @@ const Demografi = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.put(
-          `http://localhost:8080/demografi/${currentDemographic.nik}`,
+          `https://randusanga-kulon.osc-fr1.scalingo.io/demografi/${currentDemographic.nik}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -203,9 +206,13 @@ const Demografi = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post("http://localhost:8080/cdemografi", dataToSend, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        await axiosJWT.post(
+          "https://randusanga-kulon.osc-fr1.scalingo.io/cdemografi",
+          dataToSend,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -214,7 +221,7 @@ const Demografi = () => {
         });
       }
 
-      await mutate("http://localhost:8080/demografi");
+      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/demografi");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -290,7 +297,7 @@ const Demografi = () => {
     setFormData(demographic);
     setSelectedFile(null);
     const fileUrl = demographic.file_url
-      ? `http://localhost:8080/${demographic.file_url}`
+      ? `https://randusanga-kulon.osc-fr1.scalingo.io/${demographic.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -303,14 +310,16 @@ const Demografi = () => {
   const deleteDemographic = async (nik) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(`http://localhost:8080/demografi/${nik}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulon.osc-fr1.scalingo.io/demografi/${nik}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/demografi");
+        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/demografi");
       } catch (error) {
         handleError(error);
       }
@@ -320,7 +329,9 @@ const Demografi = () => {
   useEffect(() => {
     if (selectedDemographic?.file_url && !selectedFile) {
       // Jika ada file_url dan belum ada file yang baru diunggah
-      setPreview(`http://localhost:8080${selectedDemographic.file_url}`);
+      setPreview(
+        `https://randusanga-kulon.osc-fr1.scalingo.io${selectedDemographic.file_url}`
+      );
     } else if (!selectedDemographic && !selectedFile) {
       // Jika tidak ada file atau data yang dipilih
       setPreview("");

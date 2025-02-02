@@ -9,7 +9,9 @@ const useAuth = (navigate) => {
   useEffect(() => {
     const refreshToken = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/token");
+        const response = await axios.get(
+          "https://randusanga-kulon.osc-fr1.scalingo.io/token"
+        );
         setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
         setExpire(decoded.exp);
@@ -26,7 +28,9 @@ const useAuth = (navigate) => {
     async (config) => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
-        const response = await axios.get("http://localhost:8080/token");
+        const response = await axios.get(
+          "https://randusanga-kulon.osc-fr1.scalingo.io/token"
+        );
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);

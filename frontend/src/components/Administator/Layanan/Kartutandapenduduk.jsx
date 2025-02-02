@@ -40,7 +40,7 @@ const Kartutandapenduduk = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/kartutandapenduduk",
+    "https://randusanga-kulon.osc-fr1.scalingo.io/kartutandapenduduk",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Kartutandapenduduk = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "http://localhost:8080/ckartutandapenduduk",
+        "https://randusanga-kulon.osc-fr1.scalingo.io/ckartutandapenduduk",
         formData,
         {
           headers: {
@@ -98,7 +98,9 @@ const Kartutandapenduduk = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:8080/kartutandapenduduk");
+      await mutate(
+        "https://randusanga-kulon.osc-fr1.scalingo.io/kartutandapenduduk"
+      );
 
       toast.current.show({
         severity: "success",
@@ -264,7 +266,7 @@ const Kartutandapenduduk = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`http://localhost:8080${file_url}`}
+                        src={`https://randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
                         alt="Database"
                       />
                     </div>

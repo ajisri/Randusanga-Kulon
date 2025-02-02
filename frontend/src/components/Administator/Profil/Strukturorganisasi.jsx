@@ -40,7 +40,7 @@ const Strukturorganisasi = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/strukturorganisasi",
+    "https://randusanga-kulon.osc-fr1.scalingo.io/strukturorganisasi",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Strukturorganisasi = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "http://localhost:8080/cstrukturorganisasi",
+        "https://randusanga-kulon.osc-fr1.scalingo.io/cstrukturorganisasi",
         formData,
         {
           headers: {
@@ -98,7 +98,9 @@ const Strukturorganisasi = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:8080/strukturorganisasi");
+      await mutate(
+        "https://randusanga-kulon.osc-fr1.scalingo.io/strukturorganisasi"
+      );
 
       toast.current.show({
         severity: "success",
@@ -218,7 +220,7 @@ const Strukturorganisasi = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`http://localhost:8080${file_url}`}
+                        src={`https://randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
                         alt="Database"
                       />
                     </div>

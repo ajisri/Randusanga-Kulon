@@ -50,7 +50,7 @@ const Keuangan = () => {
     data: keuanganData,
     error,
     isLoading,
-  } = useSWR("http://localhost:8080/keuangan", fetcher);
+  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/keuangan", fetcher);
 
   useEffect(() => {
     if (keuanganData) {
@@ -64,7 +64,7 @@ const Keuangan = () => {
     data: apbdData,
     error: apbdError,
     isLoading: isApbdLoading,
-  } = useSWR("http://localhost:8080/allapbd", fetcher);
+  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/allapbd", fetcher);
 
   useEffect(() => {
     if (apbdData) {
@@ -106,7 +106,7 @@ const Keuangan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:8080/keuangan/${currentKeuangan.uuid}`,
+          `https://randusanga-kulon.osc-fr1.scalingo.io/keuangan/${currentKeuangan.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -116,7 +116,10 @@ const Keuangan = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post("http://localhost:8080/ckeuangan", dataToSend);
+        await axiosJWT.post(
+          "https://randusanga-kulon.osc-fr1.scalingo.io/ckeuangan",
+          dataToSend
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -125,7 +128,7 @@ const Keuangan = () => {
         });
       }
 
-      await mutate("http://localhost:8080/keuangan");
+      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/keuangan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -176,14 +179,16 @@ const Keuangan = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       setIsLoadingg(true);
       try {
-        await axiosJWT.delete(`http://localhost:8080/keuangan/${uuid}`);
+        await axiosJWT.delete(
+          `https://randusanga-kulon.osc-fr1.scalingo.io/keuangan/${uuid}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/keuangan");
+        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/keuangan");
       } catch (error) {
         handleError(error);
       } finally {
