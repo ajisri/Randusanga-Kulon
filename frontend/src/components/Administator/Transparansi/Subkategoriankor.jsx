@@ -490,7 +490,7 @@ const SubkategoriAnkor = () => {
         <Column
           field="kategoriankorId"
           header="Kategori Parameter Ankor"
-          style={{ width: "45%", minWidth: "20%" }}
+          style={{ width: "45%", minWidth: "40%" }}
           body={(rowData) => {
             const kategoriankor = kategoriankorOptions.find(
               (kw) => kw.uuid === rowData.kategoriankorId
