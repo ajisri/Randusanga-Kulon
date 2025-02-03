@@ -485,7 +485,7 @@ const SubkategoriAnkor = () => {
         <Column
           field="name"
           header="Nama"
-          style={{ width: "25%", minWidth: "15%" }}
+          style={{ width: "5%", minWidth: "5%" }}
         />
         <Column
           field="kategoriankorId"
