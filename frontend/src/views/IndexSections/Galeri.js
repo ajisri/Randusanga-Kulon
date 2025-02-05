@@ -100,6 +100,7 @@ const Galeri = () => {
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
+                // className={styles.galleryImage}
                 width="100%"
                 height="100%"
                 style={{ objectFit: "cover" }}

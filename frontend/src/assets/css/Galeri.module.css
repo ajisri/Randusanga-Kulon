@@ -72,6 +72,7 @@
   font-family: "Roboto", sans-serif;
   position: relative;
   width: 80%;
+  height: 100%;
   max-width: 600px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: none; /* Pastikan popup tidak terkena blur */
