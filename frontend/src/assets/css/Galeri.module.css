@@ -85,6 +85,7 @@
 }
 
 .popupDetails {
+  font-family: "Roboto", sans-serif;
   width: 100%;
   max-height: 25%;
   padding: 10px;
@@ -98,6 +99,7 @@
 }
 
 .popupDetails h3 {
+  font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: 700;
   margin: 0;
@@ -105,9 +107,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: whitesmoke;
 }
 
 .popupDetails p {
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 400;
   text-align: left;
