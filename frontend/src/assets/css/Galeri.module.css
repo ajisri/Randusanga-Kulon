@@ -135,7 +135,7 @@
   height: 100vh;
   z-index: 999; /* Pastikan berada di bawah pop-up */
   background: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
-  backdrop-filter: blur(2px); /* Efek blur */
+  backdrop-filter: blur(20px); /* Efek blur */
   animation: waveAnimation 2s ease-in-out infinite;
 }
 
