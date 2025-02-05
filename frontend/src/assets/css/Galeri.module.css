@@ -93,7 +93,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
 }
 
@@ -112,9 +112,10 @@
   font-weight: 400;
   text-align: left;
   line-height: 1.5;
-  max-height: 60px;
+  max-height: 25%;
   overflow-y: auto;
   padding-right: 5px;
+  word-wrap: break-word;
 }
 
 .scrollRight .galleryWrapper {
