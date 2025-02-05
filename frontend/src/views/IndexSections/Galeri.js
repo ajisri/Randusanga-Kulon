@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Galeri.module.css";
@@ -14,6 +14,17 @@ const Galeri = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isWaveVisible, setIsWaveVisible] = useState(false); // State untuk efek gelombang
+
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = "hidden"; // Nonaktifkan scroll saat popup terbuka
+    } else {
+      document.body.style.overflow = "auto"; // Aktifkan kembali scroll
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedImage]);
 
   if (galeriError) {
     return <div>Error loading data</div>;
