@@ -14,7 +14,6 @@
 }
 
 .galleryRow {
-  font-family: "Roboto", sans-serif;
   display: flex;
   width: 100%;
   overflow: hidden;
@@ -26,15 +25,13 @@
   display: flex;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  font-family: "Roboto", sans-serif;
   min-width: 300%;
 }
 
 .galleryItem {
-  font-family: "Roboto", sans-serif;
   flex: 0 0 auto;
-  width: 200px; /* Lebih besar */
-  height: 300px; /* Tinggi lebih besar */
+  width: 200px;
+  height: 300px;
   margin: 0 10px;
   border-radius: 12px;
   overflow: hidden;
@@ -45,7 +42,7 @@
 
 .galleryItem img {
   width: 100%;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
@@ -55,7 +52,6 @@
 }
 
 .popupOverlay {
-  font-family: "Roboto", sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -65,75 +61,68 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.9); /* Latar belakang hitam polos */
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .popupContent {
-  font-family: "Roboto", sans-serif;
   position: relative;
   width: 80%;
-  height: 100%;
   max-width: 600px;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: none; /* Pastikan popup tidak terkena blur */
   border-radius: 12px;
   overflow: hidden;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .popupImage {
   width: 100%;
-  height: auto;
+  max-height: 60vh;
   object-fit: contain;
   display: block;
 }
 
 .popupDetails {
-  font-family: "Roboto", sans-serif;
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  max-height: 30%;
+  max-height: 25%;
   padding: 10px;
   background: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   overflow: hidden;
 }
 
 .popupDetails h3 {
-  font-size: 16px; /* Ukuran judul */
-  font-family: "Roboto", sans-serif;
-  font-weight: 800; /* Medium */
+  font-size: 18px;
+  font-weight: 700;
   margin: 0;
-  color: white;
-  text-align: left; /* Posisi teks ke kiri */
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .popupDetails p {
-  font-size: 12px; /* Ukuran teks utama */
-  font-family: "Roboto", sans-serif;
-  font-weight: 200; /* Regular */
-  color: white;
-  max-height: 50px;
-  line-height: 1.5; /* Memberikan spasi antar baris */
-  text-align: left; /* Posisi teks ke kiri */
-  overflow: hidden;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.5;
+  max-height: 60px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
-/* Baris atas bergerak ke kanan */
 .scrollRight .galleryWrapper {
-  font-family: "Roboto", sans-serif;
   animation: marqueeRight 20s linear infinite;
-  min-width: 100%;
 }
 
-/* Baris bawah bergerak ke kiri */
 .scrollLeft .galleryWrapper {
-  font-family: "Roboto", sans-serif;
   animation: marqueeLeft 30s linear infinite;
-  min-width: 100%;
 }
 
 .waveEffect {
@@ -142,9 +131,9 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 999; /* Pastikan berada di bawah pop-up */
-  background: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
-  backdrop-filter: blur(2px); /* Efek blur */
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   animation: waveAnimation 2s ease-in-out infinite;
 }
 
@@ -158,6 +147,7 @@
   font-size: 24px;
   cursor: pointer;
 }
+
 .closeButton:hover {
   color: red;
 }
