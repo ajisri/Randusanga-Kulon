@@ -104,7 +104,7 @@
 }
 
 .popupDetails h3 {
-  font-size: 14px; /* Ukuran judul */
+  font-size: 16px; /* Ukuran judul */
   font-family: "Roboto", sans-serif;
   font-weight: 700; /* Medium */
   margin: 0;
@@ -113,7 +113,7 @@
 }
 
 .popupDetails p {
-  font-size: 14px; /* Ukuran teks utama */
+  font-size: 12px; /* Ukuran teks utama */
   font-family: "Roboto", sans-serif;
   font-weight: 200; /* Regular */
   color: white;
@@ -209,11 +209,11 @@
   }
 
   .popupDetails h3 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .popupDetails p {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -242,7 +242,7 @@
   }
 
   .popupDetails p {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
