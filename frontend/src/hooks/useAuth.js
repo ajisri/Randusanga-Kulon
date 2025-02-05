@@ -1,91 +1,83 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 
-// State global untuk mencegah race condition saat refresh token
-let isRefreshing = false;
-let refreshSubscribers = [];
-
-// Fungsi untuk menambahkan subscriber yang menunggu token baru
-const subscribeTokenRefresh = (callback) => {
-  refreshSubscribers.push(callback);
-};
-
-// Fungsi untuk memberi tahu subscriber bahwa token telah diperbarui
-const onRefreshed = (newToken) => {
-  refreshSubscribers.forEach((callback) => callback(newToken));
-  refreshSubscribers = [];
-};
-
-// Fungsi untuk mengambil token baru dari backend
-const refreshToken = async (navigate) => {
-  if (!isRefreshing) {
-    isRefreshing = true;
-    try {
-      const response = await axios.get(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/token",
-        { withCredentials: true }
-      );
-      const newToken = response.data.accessToken;
-      onRefreshed(newToken);
-      isRefreshing = false;
-      return newToken;
-    } catch (error) {
-      isRefreshing = false;
-      navigate("/"); // Logout jika refresh gagal
-      throw error;
-    }
-  }
-
-  // Jika refresh token sedang berjalan, request lain akan menunggu
-  return new Promise((resolve) => {
-    subscribeTokenRefresh(resolve);
-  });
-};
-
-// Custom hook untuk autentikasi
 const useAuth = (navigate) => {
-  const axiosJWT = axios.create();
+  const [token, setToken] = useState("");
+  const [expire, setExpire] = useState("");
 
   useEffect(() => {
-    const getToken = async () => {
+    const refreshToken = async () => {
       try {
         const response = await axios.get(
           "https://randusanga-kulon.osc-fr1.scalingo.io/token",
-          { withCredentials: true }
+          { withCredentials: true } // ⬅️ Pastikan refreshToken dikirim dari cookie
         );
+        setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
-        localStorage.setItem("expire", decoded.exp); // Simpan waktu expired
+        setExpire(decoded.exp);
       } catch (error) {
-        navigate("/"); // Redirect ke login jika gagal
+        navigate("/");
       }
     };
-    getToken();
+
+    refreshToken();
   }, [navigate]);
 
-  // Buffer waktu sebelum token kedaluwarsa (60 detik)
-  const bufferTime = 60;
+  const axiosJWT = axios.create();
 
+  // Interceptor untuk menangani permintaan dengan token
   axiosJWT.interceptors.request.use(
     async (config) => {
-      const expire = localStorage.getItem("expire");
-      const currentTime = Math.floor(Date.now() / 1000);
-
-      // Jika token akan kedaluwarsa dalam waktu buffer, perbarui token
-      if (expire - bufferTime < currentTime) {
+      const currentDate = new Date();
+      if (expire * 1000 < currentDate.getTime()) {
         try {
-          const newToken = await refreshToken(navigate);
-          const decoded = jwt_decode(newToken);
-          localStorage.setItem("expire", decoded.exp);
-          config.headers.Authorization = `Bearer ${newToken}`;
+          const response = await axios.get(
+            "https://randusanga-kulon.osc-fr1.scalingo.io/token",
+            { withCredentials: true } // ⬅️ Pastikan refreshToken dikirim dari cookie
+          );
+          setToken(response.data.accessToken);
+          const decoded = jwt_decode(response.data.accessToken);
+          setExpire(decoded.exp);
+
+          config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         } catch (error) {
+          navigate("/"); // Redirect jika refresh token tidak valid
           return Promise.reject(error);
         }
+      } else {
+        config.headers.Authorization = `Bearer ${token}`;
       }
-
       return config;
     },
     (error) => Promise.reject(error)
+  );
+
+  // **Tambahkan interceptor response untuk menangani error 401**
+  axiosJWT.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      if (error.response?.status === 401) {
+        try {
+          const res = await axios.get(
+            "https://randusanga-kulon.osc-fr1.scalingo.io/token",
+            { withCredentials: true }
+          );
+          error.config.headers[
+            "Authorization"
+          ] = `Bearer ${res.data.accessToken}`;
+          setToken(res.data.accessToken);
+          setExpire(jwt_decode(res.data.accessToken).exp);
+
+          // Coba request ulang dengan token baru
+          return axiosJWT(error.config);
+        } catch (err) {
+          navigate("/"); // Redirect jika refresh token tidak valid
+          return Promise.reject(err);
+        }
+      }
+      return Promise.reject(error);
+    }
   );
 
   return axiosJWT;
