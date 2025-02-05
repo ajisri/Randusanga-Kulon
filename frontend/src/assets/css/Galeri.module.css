@@ -97,8 +97,6 @@
   background: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   overflow: hidden;
 }
@@ -106,7 +104,7 @@
 .popupDetails h3 {
   font-size: 16px; /* Ukuran judul */
   font-family: "Roboto", sans-serif;
-  font-weight: 700; /* Medium */
+  font-weight: 800; /* Medium */
   margin: 0;
   color: white;
   text-align: left; /* Posisi teks ke kiri */
