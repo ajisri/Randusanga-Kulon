@@ -121,7 +121,6 @@
   line-height: 1.5; /* Memberikan spasi antar baris */
   text-align: left; /* Posisi teks ke kiri */
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Baris atas bergerak ke kanan */
