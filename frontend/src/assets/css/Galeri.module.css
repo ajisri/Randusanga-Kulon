@@ -102,7 +102,7 @@
 }
 
 .popupDetails h3 {
-  font-size: 18px; /* Ukuran judul */
+  font-size: 14px; /* Ukuran judul */
   font-family: "Roboto", sans-serif;
   font-weight: 700; /* Medium */
   margin: 0;
@@ -237,7 +237,7 @@
   }
 
   .popupDetails h3 {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .popupDetails p {
@@ -261,10 +261,10 @@
   }
 
   .popupDetails h3 {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .popupDetails p {
-    font-size: 12px;
+    font-size: 8px;
   }
 }
