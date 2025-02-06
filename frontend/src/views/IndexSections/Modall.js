@@ -379,7 +379,6 @@ const Modall = () => {
   justify-content: center;
   align-items: center;
   max-height: calc(80vh - 40px);
-  overflow: hidden;
 }
 
 .modal-image {
