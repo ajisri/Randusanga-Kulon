@@ -384,9 +384,9 @@ const Modall = () => {
 
 .modal-image {
   width: 100%; /* Buat gambar sedikit lebih kecil */
-  max-width: 90vw; /* Batasi lebar maksimum */
+  max-width: 500px; /* Batasi lebar maksimum */
   height: auto;
-  max-height: 90%; /* Pastikan gambar tetap proporsional */
+  max-height: 80%; /* Pastikan gambar tetap proporsional */
   object-fit: contain;
   border-radius: 20px; /* Rounded */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
