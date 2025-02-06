@@ -378,12 +378,12 @@ const Modall = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: calc(65vh - 40px);
+  max-height: calc(70vh - 40px);
   overflow: hidden;
 }
 
 .modal-image {
-  width: 90%; /* Buat gambar sedikit lebih kecil */
+  width: 100%; /* Buat gambar sedikit lebih kecil */
   max-width: 500px; /* Batasi lebar maksimum */
   height: auto;
   max-height: 75%; /* Pastikan gambar tetap proporsional */
