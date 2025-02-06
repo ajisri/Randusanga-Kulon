@@ -334,32 +334,6 @@ const Modall = () => {
             animation: bounceIn 1s ease-in-out;
           }
 
-          /* Custom Dialog Content */
-          .custom-dialog {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-          }
-
-          .custom-dialog::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3); /* Gelapkan area luar */
-  backdrop-filter: blur(10px); /* Blur latar belakang */
-  z-index: -1;
-}
-
-          body {
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px; /* Ukuran font untuk teks */
-            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
-            color: #333; /* Warna teks */
-          }
-
           .dialog-header {
             display: flex;
             justify-content: space-between;
@@ -379,59 +353,26 @@ const Modall = () => {
             color: #777;
           }
 
+          /* Custom Dialog Content */
+          .custom-dialog {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+          }
+
+          body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
+
           .dialog-text {
             font-family: 'Roboto', sans-serif;
             font-size: 16px; /* Ukuran font untuk teks panjang */
             line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
             color: #333; /* Warna teks */
           }
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-height: calc(80vh - 40px);
-  overflow: hidden;
-  position: relative; /* Untuk overlay */
-  margin: 20px 0; /* Beri jarak atas dan bawah */
-}
-
-.modal-image {
-  width: 100%; /* Sesuaikan lebar gambar */
-  max-width: 70vw; /* Batasi lebar maksimum */
-  height: auto;
-  object-fit: cover; /* Pastikan gambar menutupi area */
-  border-radius: 12px; /* Rounded */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow lebih tegas */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi hover */
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.modal-image:hover {
-  transform: scale(1.02); /* Zoom sedikit saat hover */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Shadow lebih besar saat hover */
-}
-
-/* Overlay untuk gambar */
-.image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3); /* Overlay gelap */
-  border-radius: 12px; /* Sesuaikan dengan gambar */
-  pointer-events: none; /* Biarkan interaksi tetap pada gambar */
-}
 
           .loading-container {
             display: flex;
@@ -702,14 +643,14 @@ const Modall = () => {
                 </div>
               }
               visible={dialogVisiblekk}
-              style={{ width: "75vw", maxWidth: "800px", height: "auto" }}
+              style={{ width: "75vw", height: "100vw" }}
               maximizable
               modal
               className="custom-dialog bounce-in"
               contentStyle={{
                 overflowY: "auto",
                 padding: "24px 24px 10px 24px",
-                height: "auto",
+                height: "300px",
               }}
               onHide={hideDialogkk}
               onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
@@ -727,17 +668,17 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imageKKURL ? (
-                      <div
-                        className="image-container"
-                        style={{ marginBottom: "20px" }}
-                      >
+                      <div style={{ marginBottom: "20px" }}>
                         <img
                           src={imageKKURL}
                           alt="Organizational Structure"
-                          className="modal-image"
-                          // Adjust image size
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            borderRadius: "20px",
+                            maxHeight: "calc(89vh - 60px)",
+                          }} // Adjust image size
                         />
-                        <div className="image-overlay"></div>
                       </div>
                     ) : (
                       <p>No image available</p>
