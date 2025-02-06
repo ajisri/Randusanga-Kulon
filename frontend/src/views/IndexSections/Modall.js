@@ -348,75 +348,47 @@ const Modall = () => {
             color: #333; /* Warna teks */
           }
 
-          .image-container {
+          .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .dialog-title {
+            font-size: 24px;
+            margin: 0;
+            color: #333;
+          }
+
+          .dialog-subtitle {
+            font-size: 14px;
+            color: #777;
+          }
+
+          .dialog-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks panjang */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
+
+.image-container {
   display: flex;
   justify-content: center;
   align-items: center;
   max-height: calc(80vh - 40px);
   overflow: hidden;
-  position: relative;
-  border-radius: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.image-container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .modal-image {
-  width: 100%;
-  max-width: 80vw;
+  width: 100%; /* Buat gambar sedikit lebih kecil */
+  max-width: 80vw; /* Batasi lebar maksimum */
   height: auto;
-  object-fit: cover;
-  border-radius: 20px;
-  transition: opacity 0.3s ease;
-}
-
-.image-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-  border-radius: 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.image-container:hover::before {
-  opacity: 1;
-}
-
-.dialog-header {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: white;
-  padding: 20px;
-  border-radius: 20px 20px 0 0;
-}
-
-.dialog-title {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.dialog-subtitle {
-  font-size: 16px;
-  opacity: 0.8;
-}
-
-.dialog-divider {
-  height: 1px;
-  background: #e0e0e0;
-  margin: 20px 0;
-}
-
-.dialog-text {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
+  object-fit: contain;
+  border-radius: 20px; /* Rounded */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
           .loading-container {
