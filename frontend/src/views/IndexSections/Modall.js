@@ -374,6 +374,23 @@ const Modall = () => {
             color: #333; /* Warna teks */
           }
 
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: calc(89vh - 60px);
+  overflow: hidden;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
           .loading-container {
             display: flex;
             justify-content: center;
@@ -668,16 +685,15 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imageKKURL ? (
-                      <div style={{ marginBottom: "20px" }}>
+                      <div
+                        className="image-container"
+                        style={{ marginBottom: "20px" }}
+                      >
                         <img
                           src={imageKKURL}
                           alt="Organizational Structure"
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "20px",
-                            maxHeight: "calc(89vh - 60px)",
-                          }} // Adjust image size
+                          className="modal-image"
+                          // Adjust image size
                         />
                       </div>
                     ) : (
