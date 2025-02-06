@@ -378,14 +378,14 @@ const Modall = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: calc(89vh - 60px);
+  max-height: calc(70vh - 40px);
   overflow: hidden;
 }
 
 .modal-image {
   width: 100%;
   height: auto;
-  max-height: 100%;
+  max-height: 80%;
   object-fit: contain;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
