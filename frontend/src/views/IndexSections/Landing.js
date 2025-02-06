@@ -528,7 +528,7 @@ const Landing = () => {
           >
             <div
               style={{
-                backgroundColor: "#20b2aa",
+                backgroundColor: "#109e95",
                 fontFamily: "Roboto, sans-serif",
               }}
               className="shape"
