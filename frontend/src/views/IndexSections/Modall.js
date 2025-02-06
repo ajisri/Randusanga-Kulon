@@ -341,18 +341,6 @@ const Modall = () => {
             overflow: hidden;
           }
 
-          .custom-dialog::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3); /* Gelapkan area luar */
-  backdrop-filter: blur(10px); /* Blur latar belakang */
-  z-index: -1;
-}
-
           body {
             font-family: 'Roboto', sans-serif;
             font-size: 16px; /* Ukuran font untuk teks */
