@@ -379,15 +379,46 @@ const Modall = () => {
   justify-content: center;
   align-items: center;
   max-height: calc(80vh - 40px);
+  overflow: hidden;
+  position: relative; /* Untuk overlay */
+  margin: 20px 0; /* Beri jarak atas dan bawah */
 }
 
 .modal-image {
-  width: 100%; /* Buat gambar sedikit lebih kecil */
-  max-width: 80vw; /* Batasi lebar maksimum */
+  width: 100%; /* Sesuaikan lebar gambar */
+  max-width: 70vw; /* Batasi lebar maksimum */
   height: auto;
-  object-fit: contain;
-  border-radius: 20px; /* Rounded */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover; /* Pastikan gambar menutupi area */
+  border-radius: 12px; /* Rounded */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow lebih tegas */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi hover */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-image:hover {
+  transform: scale(1.02); /* Zoom sedikit saat hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Shadow lebih besar saat hover */
+}
+
+/* Overlay untuk gambar */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3); /* Overlay gelap */
+  border-radius: 12px; /* Sesuaikan dengan gambar */
+  pointer-events: none; /* Biarkan interaksi tetap pada gambar */
 }
 
           .loading-container {
@@ -659,14 +690,14 @@ const Modall = () => {
                 </div>
               }
               visible={dialogVisiblekk}
-              style={{ width: "75vw", height: "100vw" }}
+              style={{ width: "75vw", maxWidth: "800px", height: "auto" }}
               maximizable
               modal
               className="custom-dialog bounce-in"
               contentStyle={{
                 overflowY: "auto",
                 padding: "24px 24px 10px 24px",
-                height: "300px",
+                height: "auto",
               }}
               onHide={hideDialogkk}
               onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
@@ -694,6 +725,7 @@ const Modall = () => {
                           className="modal-image"
                           // Adjust image size
                         />
+                        <div className="image-overlay"></div>
                       </div>
                     ) : (
                       <p>No image available</p>
