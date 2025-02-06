@@ -378,17 +378,18 @@ const Modall = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: calc(70vh - 40px);
+  max-height: calc(65vh - 40px);
   overflow: hidden;
 }
 
 .modal-image {
-  width: 100%;
+  width: 90%; /* Buat gambar sedikit lebih kecil */
+  max-width: 500px; /* Batasi lebar maksimum */
   height: auto;
-  max-height: 80%;
+  max-height: 75%; /* Pastikan gambar tetap proporsional */
   object-fit: contain;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px; /* Rounded */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
           .loading-container {
