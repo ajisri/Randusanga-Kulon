@@ -276,30 +276,16 @@ const Hero = () => {
             margin-top: 20px;
           }
 
-/* Overlay bagian atas (fade out ke transparan) */
-.overlay-gradient-top {
+.overlay-gradient {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 50%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
-  z-index: 2;
-  pointer-events: none;
+background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 2; /* Pastikan overlay di atas video */
+  pointer-events: none; /* Agar tidak mengganggu interaksi */
 }
-
-/* Overlay bagian bawah (fade in ke gelap) */
-.overlay-gradient-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
-  z-index: 2;
-  pointer-events: none;
-}
-
 
           .stars-container {
             position: absolute;
@@ -360,7 +346,7 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
-          <div className="overlay-gradient-bottom"></div>
+          <div className="overlay-gradient"></div>
 
           <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
             <div
