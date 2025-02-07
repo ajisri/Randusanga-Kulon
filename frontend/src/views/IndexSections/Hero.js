@@ -281,35 +281,11 @@ const Hero = () => {
   top: 0;
   left: 0;
   width: 100%;
-  height: 500%;
+  height: 50%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
   z-index: 2; /* Pastikan overlay di atas video */
   pointer-events: none; /* Agar tidak mengganggu interaksi */
 }
-
-.overlay-awal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  perspective: 1000px; /* Adding 3D perspective */
-  overflow: hidden;
-}
-
-.overlay-awal::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
-  z-index: 3; /* Ensure it appears above the video */
-  pointer-events: none; /* Prevent interference with interactions */
-}
-
 
           .stars-container {
             position: absolute;
@@ -354,7 +330,6 @@ const Hero = () => {
         >
           <div className="stars-container">{stars}</div>
           <video
-            classname="overlay-awal"
             style={{
               position: "absolute",
               top: 0,
