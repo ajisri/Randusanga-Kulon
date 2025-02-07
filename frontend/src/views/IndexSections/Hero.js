@@ -343,8 +343,8 @@ const Hero = () => {
         >
           <div className="stars-container">{stars}</div>
           <video
+            classname="overlay-awal"
             style={{
-              classname: "overlay-awal",
               position: "absolute",
               top: 0,
               left: 0,
