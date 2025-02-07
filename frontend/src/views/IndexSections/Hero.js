@@ -283,11 +283,10 @@ const Hero = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
   z-index: 2;
   pointer-events: none;
 }
-
 
           .stars-container {
             position: absolute;
