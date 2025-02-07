@@ -287,6 +287,18 @@ const Hero = () => {
             overflow: hidden;
           }
 
+          .overlay-awal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)); /* Gradien gelap */
+    z-index: 3; /* Pastikan overlay berada di atas video */
+    pointer-events: none; /* Agar overlay tidak menghalangi interaksi */
+}
+
           .stars-container {
             position: absolute;
             top: 0;
