@@ -276,7 +276,18 @@ const Hero = () => {
             margin-top: 20px;
           }
 
-          .overlay-awal {
+.overlay-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+  z-index: 2; /* Pastikan overlay di atas video */
+  pointer-events: none; /* Agar tidak mengganggu interaksi */
+}
+
+.overlay-awal {
   position: absolute;
   top: 0;
   left: 0;
@@ -360,6 +371,7 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
+          <div className="overlay-gradient"></div>
 
           <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
             <div
