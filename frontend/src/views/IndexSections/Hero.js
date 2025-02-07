@@ -360,7 +360,6 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
-          <div className="overlay-gradient-up"></div>
           <div className="overlay-gradient-bottom"></div>
 
           <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
