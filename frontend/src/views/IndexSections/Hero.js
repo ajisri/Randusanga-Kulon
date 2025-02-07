@@ -282,7 +282,7 @@ const Hero = () => {
   left: 0;
   width: 100%;
   height: 50%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
   z-index: 2; /* Pastikan overlay di atas video */
   pointer-events: none; /* Agar tidak mengganggu interaksi */
 }
