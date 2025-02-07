@@ -276,6 +276,17 @@ const Hero = () => {
             margin-top: 20px;
           }
 
+          .overlay-awal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            z-index: 2;
+            perspective: 1000px; /* Menambahkan perspektif 3D */
+            overflow: hidden;
+          }
+
           .stars-container {
             position: absolute;
             top: 0;
@@ -320,6 +331,7 @@ const Hero = () => {
           <div className="stars-container">{stars}</div>
           <video
             style={{
+              classname: "overlay-awal",
               position: "absolute",
               top: 0,
               left: 0,
