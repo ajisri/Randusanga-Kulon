@@ -9,33 +9,6 @@ const Hero = () => {
   const [lasersLeft, setLasersLeft] = useState([]); // Laser dari kiri ke kanan
   const [isFast, setIsFast] = useState(false);
 
-  useEffect(() => {
-    let lastTime = 0;
-    const animateLasers = (timestamp) => {
-      if (timestamp - lastTime > 500) {
-        // Batas setiap 500ms
-        setLasers((prevLasers) => {
-          if (prevLasers.length < 50) {
-            return [
-              ...prevLasers,
-              {
-                id: Math.random().toString(36).substr(2, 9),
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-              },
-            ];
-          }
-          return prevLasers;
-        });
-        lastTime = timestamp;
-      }
-      requestAnimationFrame(animateLasers);
-    };
-
-    const animationFrame = requestAnimationFrame(animateLasers);
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
-
   // Menambahkan laser baru secara acak tanpa pola
   useEffect(() => {
     const interval = setInterval(() => {
@@ -194,7 +167,7 @@ const Hero = () => {
             height: 5px; /* Tinggi lebih kecil */
             background: #ffffff;
             border-radius: 5px;
-            animation: laserBeamInside 2s linear forwards;
+            animation: laserBeamInside 2s linear forwards, all 0.3s ease-in-out;
             z-index: 2;
           }
 
@@ -252,7 +225,6 @@ const Hero = () => {
             animation: gradientMove 5s ease infinite;
             background-size: 300% 300%;
             text-align: center;
-            transition: all 0.3s ease;
             display: inline-block;
           }
 
