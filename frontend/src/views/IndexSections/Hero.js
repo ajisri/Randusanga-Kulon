@@ -276,18 +276,6 @@ const Hero = () => {
             margin-top: 20px;
           }
 
-/* Overlay bagian atas (fade out ke transparan) */
-.overlay-gradient-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
-  z-index: 2;
-  pointer-events: none;
-}
-
           .stars-container {
             position: absolute;
             top: 0;
