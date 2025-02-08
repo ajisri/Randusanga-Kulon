@@ -399,7 +399,6 @@ const Hero = () => {
                         backgroundColor: "red",
                         top: laser.top,
                         left: laser.left,
-                        boxShadow: "0px 0px 8px rgba(255, 0, 0, 0.8)",
                       }}
                     ></span>
                   ))}
@@ -413,10 +412,8 @@ const Hero = () => {
                         position: "absolute",
                         width: "5px",
                         height: "30px",
-                        backgroundColor: "red",
                         top: laser.top,
                         left: laser.left,
-                        boxShadow: "0px 0px 8px rgba(255, 0, 0, 0.8)",
                       }}
                     ></span>
                   ))}
