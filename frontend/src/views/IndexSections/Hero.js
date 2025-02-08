@@ -352,7 +352,10 @@ const Hero = () => {
               className="col px-0"
             >
               <div className="hero-title">
-                <h3 className="text-center font-weight-bold">
+                <h3
+                  className="text-center font-weight-bold"
+                  style={{ fontSize: "3rem" }}
+                >
                   <span style={{ color: "#ffffff" }}>
                     Selamat Datang di Portal Desa{" "}
                   </span>
