@@ -196,6 +196,17 @@ const Hero = () => {
               z-index: 1; /* Agar berada di belakang konten lainnya */
           }
 
+          /* Overlay bagian bawah (fade in ke gelap) */
+.overlay-gradient-top {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
 
           .section-hero {
             position: relative;
@@ -342,6 +353,7 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
+          <div className="overlay-gradient-top"></div>
 
           <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
             <div
@@ -354,7 +366,7 @@ const Hero = () => {
               <div className="hero-title">
                 <h3
                   className="text-center font-weight-bold"
-                  style={{ fontSize: "3rem" }}
+                  style={{ fontSize: "2rem" }}
                 >
                   <span style={{ color: "#ffffff" }}>
                     Selamat Datang di Portal Desa{" "}
@@ -369,7 +381,7 @@ const Hero = () => {
                   >
                     <ReactTypingEffect
                       className="h3 text-center mr-1 font-weight-bold mt-6"
-                      style={{ color: "#ffffff" }}
+                      style={{ color: "#ffffff", fontSize: "2rem" }}
                       text={["Randusanga Kulon"]}
                       speed={100}
                       eraseSpeed={50}
