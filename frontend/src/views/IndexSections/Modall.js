@@ -722,9 +722,10 @@ const Modall = () => {
                         <img
                           src={imageKKURL}
                           alt="Organizational Structure"
+                          className="modal-image"
                           // Adjust image size
                         />
-                        <div className="image-overlay"></div>
+                        {/* <div className="image-overlay"></div> */}
                       </div>
                     ) : (
                       <p>No image available</p>
