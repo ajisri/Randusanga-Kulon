@@ -167,7 +167,7 @@ const Hero = () => {
             height: 5px; /* Tinggi lebih kecil */
             background: #ffffff;
             border-radius: 5px;
-            animation: laserBeamInside 2s linear forwards, all 0.3s ease-in-out;
+            animation: laserBeamInside 2s linear forwards;
             z-index: 2;
           }
 
@@ -335,8 +335,6 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
-          <div className="overlay-gradient-top"></div>
-          <div className="overlay-gradient-bottom"></div>
 
           <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
             <div
