@@ -607,17 +607,17 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imageAURL ? (
-                      <div style={{ marginBottom: "20px" }}>
+                      <div
+                        className="image-container"
+                        style={{ marginBottom: "10px" }}
+                      >
                         <img
                           src={imageAURL}
                           alt="Organizational Structure"
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "20px",
-                            maxHeight: "calc(89vh - 60px)",
-                          }} // Adjust image size
+                          className="modal-image"
+                          // Adjust image size
                         />
+                        <div className="image-overlay"></div>
                       </div>
                     ) : (
                       <p>No image available</p>
@@ -715,12 +715,17 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imageKKURL ? (
-                      <div style={{ marginBottom: "10px" }}>
+                      <div
+                        className="image-container"
+                        style={{ marginBottom: "10px" }}
+                      >
                         <img
                           src={imageKKURL}
                           alt="Organizational Structure"
+                          className="modal-image"
                           // Adjust image size
                         />
+                        <div className="image-overlay"></div>
                       </div>
                     ) : (
                       <p>No image available</p>
