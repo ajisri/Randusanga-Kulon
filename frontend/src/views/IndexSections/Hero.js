@@ -397,9 +397,8 @@ const Hero = () => {
                       className="laser"
                       style={{
                         position: "absolute",
-                        width: "5px",
-                        height: "30px",
-                        backgroundColor: "red",
+                        width: "2px",
+                        height: "2x",
                         top: laser.top,
                         left: laser.left,
                       }}
@@ -413,8 +412,8 @@ const Hero = () => {
                       className="laser"
                       style={{
                         position: "absolute",
-                        width: "5px",
-                        height: "30px",
+                        width: "2px",
+                        height: "2px",
                         top: laser.top,
                         left: laser.left,
                       }}
