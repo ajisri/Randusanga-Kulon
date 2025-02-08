@@ -677,75 +677,7 @@ const Modall = () => {
             </div>
             Kartu Keluarga
           </Button>
-          <div>
-            <Dialog
-              header={
-                <div className="dialog-header">
-                  <div>
-                    <h2 className="dialog-title">Kartu Keluarga</h2>
-                    <p className="dialog-subtitle">
-                      Prosedur pengurusan kartu keluarga
-                    </p>
-                  </div>
-                </div>
-              }
-              visible={dialogVisiblekk}
-              style={{ width: "75vw", maxWidth: "800px", height: "auto" }}
-              maximizable
-              modal
-              className="custom-dialog bounce-in"
-              contentStyle={{
-                overflowY: "auto",
-                padding: "24px 24px 10px 24px",
-                height: "auto",
-              }}
-              onHide={hideDialogkk}
-              onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
-              onMouseLeave={() => handleMouseLeave(setIconPosition1)}
-            >
-              <div className="modal-body col-lg">
-                {loadingKartukeluarga ? (
-                  <div className="loading-container">
-                    <span className="loader"></span>
-                  </div>
-                ) : kartukeluargaError ? (
-                  <p className="error-message">
-                    {kartukeluargaError.message || "Failed to load data"}
-                  </p>
-                ) : (
-                  <div>
-                    {imageKKURL ? (
-                      <div
-                        className="image-container"
-                        style={{ marginBottom: "20px" }}
-                      >
-                        <img
-                          src={imageKKURL}
-                          alt="Organizational Structure"
-                          className="modal-image"
-                          // Adjust image size
-                        />
-                        <div className="image-overlay"></div>
-                      </div>
-                    ) : (
-                      <p>No image available</p>
-                    )}
-                    <div className="dialog-divider"></div>
-                    {kartukeluargaData?.service?.content && (
-                      <div
-                        className="dialog-text"
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            kartukeluargaData?.service?.content ||
-                            "<p>No content available</p>",
-                        }}
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-            </Dialog>
-          </div>
+          <div></div>
         </Col>
         <Col
           className="mt-1"
