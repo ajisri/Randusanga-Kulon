@@ -715,11 +715,13 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imageKKURL ? (
-                      <div style={{ marginBottom: "10px" }}>
+                      <div
+                        className="image-container"
+                        style={{ marginBottom: "10px" }}
+                      >
                         <img
                           src={imageKKURL}
                           alt="Organizational Structure"
-                          className="modal-image"
                           // Adjust image size
                         />
                         <div className="image-overlay"></div>
