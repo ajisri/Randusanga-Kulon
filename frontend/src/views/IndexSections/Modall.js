@@ -609,7 +609,7 @@ const Modall = () => {
                     {imageAURL ? (
                       <div
                         className="image-container"
-                        style={{ marginBottom: "10px" }}
+                        style={{ marginBottom: "5px" }}
                       >
                         <img
                           src={imageAURL}
