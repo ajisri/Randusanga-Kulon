@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import ReactTypingEffect from "react-typing-effect";
 import Tabs from "./Tabs.js";
@@ -10,25 +10,32 @@ const Hero = () => {
   const [isFast, setIsFast] = useState(false);
 
   // Menambahkan laser baru secara acak tanpa pola
+  const intervalRef = useRef(null);
+
+  // Efek Laser Random
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLasers((prevLasers) => [
-        ...prevLasers,
-        {
-          id: Math.random().toString(36).substr(2, 9), // ID unik
-          top: `${Math.random() * 100}%`, // Posisi vertikal acak
-          left: `${Math.random() * 100}%`, // Posisi horizontal acak
-        },
-      ]);
+    intervalRef.current = setInterval(() => {
+      setLasers((prevLasers) => {
+        const newLaser = {
+          id: Math.random().toString(36).substr(2, 9),
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+        };
+        return [...prevLasers.slice(-49), newLaser];
+      });
 
-      // Batasi jumlah laser di state agar performa tetap optimal
-      if (lasers.length > 50) {
-        setLasers((prevLasers) => prevLasers.slice(-50));
-      }
-    }, Math.random() * 700 + 300); // Interval acak antara 300ms hingga 1000ms
+      setLasersLeft((prevLasers) => {
+        const newLaser = {
+          id: Math.random().toString(36).substr(2, 9),
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 10}%`,
+        };
+        return [...prevLasers.slice(-49), newLaser];
+      });
+    }, Math.random() * 700 + 300);
 
-    return () => clearInterval(interval); // Bersihkan interval saat komponen di-unmount
-  }, [lasers]);
+    return () => clearInterval(intervalRef.current);
+  }, []);
 
   // Laser dari kiri ke kanan dengan kecepatan dinamis
   useEffect(() => {
@@ -317,7 +324,7 @@ const Hero = () => {
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          {/* <div className="stars-container">{stars}</div> */}
+          <div className="stars-container">{stars}</div>
           <video
             style={{
               position: "absolute",
@@ -386,20 +393,30 @@ const Hero = () => {
                       key={laser.id}
                       className="laser"
                       style={{
+                        position: "absolute",
+                        width: "5px",
+                        height: "30px",
+                        backgroundColor: "red",
                         top: laser.top,
                         left: laser.left,
+                        boxShadow: "0px 0px 8px rgba(255, 0, 0, 0.8)",
                       }}
                     ></span>
                   ))}
 
                   {/* Laser Beams from Left */}
-                  {lasersLeft.map((laser) => (
+                  {lasers.map((laser) => (
                     <span
                       key={laser.id}
-                      className="laser-left"
+                      className="laser"
                       style={{
+                        position: "absolute",
+                        width: "5px",
+                        height: "30px",
+                        backgroundColor: "red",
                         top: laser.top,
                         left: laser.left,
+                        boxShadow: "0px 0px 8px rgba(255, 0, 0, 0.8)",
                       }}
                     ></span>
                   ))}
@@ -413,7 +430,7 @@ const Hero = () => {
                     size="lg"
                     type="button"
                   >
-                    {/* <div className="stars-container">{stars}</div> */}
+                    <div className="stars-container">{stars}</div>
                     <span>
                       {isFast
                         ? "Menu Telah Dibuka"
