@@ -591,7 +591,7 @@ const Modall = () => {
               contentStyle={{
                 overflowY: "auto",
                 padding: "24px 24px 10px 24px",
-                height: "300px",
+                height: "auto",
               }}
               onHide={hideDialog}
             >
