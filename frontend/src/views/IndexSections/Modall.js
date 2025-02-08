@@ -590,7 +590,7 @@ const Modall = () => {
               className="custom-dialog bounce-in"
               contentStyle={{
                 overflowY: "auto",
-                padding: "24px 24px 10px 24px",
+                padding: "15px 15px 10px 15px",
                 height: "auto",
               }}
               onHide={hideDialog}
@@ -609,7 +609,7 @@ const Modall = () => {
                     {imageAURL ? (
                       <div
                         className="image-container"
-                        style={{ marginBottom: "5px" }}
+                        style={{ marginBottom: "10px" }}
                       >
                         <img
                           src={imageAURL}
