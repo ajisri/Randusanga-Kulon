@@ -317,7 +317,7 @@ const Hero = () => {
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          <div className="stars-container">{stars}</div>
+          {/* <div className="stars-container">{stars}</div> */}
           <video
             style={{
               position: "absolute",
@@ -413,7 +413,7 @@ const Hero = () => {
                     size="lg"
                     type="button"
                   >
-                    <div className="stars-container">{stars}</div>
+                    {/* <div className="stars-container">{stars}</div> */}
                     <span>
                       {isFast
                         ? "Menu Telah Dibuka"
