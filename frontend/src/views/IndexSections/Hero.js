@@ -208,7 +208,7 @@ const Hero = () => {
 }
 
 /* Overlay bagian bawah (fade in ke gelap) */
-.overlay-gradient-top {
+.overlay-gradient-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
