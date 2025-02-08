@@ -584,7 +584,7 @@ const Modall = () => {
                 </div>
               }
               visible={dialogVisible}
-              style={{ width: "55vw" }}
+              style={{ width: "75vw", maxWidth: "800px", height: "auto" }}
               maximizable
               modal
               className="custom-dialog bounce-in"
