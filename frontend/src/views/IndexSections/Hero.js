@@ -346,7 +346,7 @@ const Hero = () => {
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          <div className="stars-container">{stars}</div>
+          {/* <div className="stars-container">{stars}</div> */}
           <video
             style={{
               position: "absolute",
@@ -378,7 +378,7 @@ const Hero = () => {
               <div className="hero-title">
                 <h3
                   className="text-center font-weight-bold"
-                  style={{ fontSize: "2rem" }}
+                  style={{ fontSize: "1.5rem" }}
                 >
                   <span style={{ color: "#ffffff" }}>
                     Selamat Datang di Portal Desa{" "}
@@ -393,7 +393,7 @@ const Hero = () => {
                   >
                     <ReactTypingEffect
                       className="h3 text-center mr-1 font-weight-bold mt-6"
-                      style={{ color: "#ffffff", fontSize: "2rem" }}
+                      style={{ color: "#ffffff", fontSize: "1.5rem" }}
                       text={["Randusanga Kulon"]}
                       speed={100}
                       eraseSpeed={50}
