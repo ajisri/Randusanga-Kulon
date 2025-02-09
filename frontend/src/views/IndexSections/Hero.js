@@ -63,21 +63,16 @@ const Hero = () => {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    // Membuat bintang hanya jika isFast true
     if (isFast) {
-      const starElements = Array.from({ length: 50 }).map((_, i) => (
-        <div
-          key={i}
-          className="star"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            animationDuration: `${Math.random() * 3 + 2}s`,
-            transform: `translateZ(${Math.random() * 1000}px)`,
-          }}
-        />
-      ));
-      setStars(starElements);
+      setStars(
+        Array.from({ length: 50 }).map((_, i) => ({
+          id: i,
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          animationDuration: `${Math.random() * 3 + 2}s`,
+          transform: `translateZ(${Math.random() * 500}px)`,
+        }))
+      );
     } else {
       setStars([]);
     }
@@ -327,17 +322,18 @@ const Hero = () => {
           }
 
           @keyframes flyThrough {
-            0% {
-              transform: translateZ(1000px) translateY(0) translateX(0);
-              opacity: 0;
-            }
-            50% {
-              opacity: 1;
-            }
-            100% {
-              transform: translateZ(-1000px) translateY(calc(100vh * (random() - 0.5))) translateX(calc(100vw * (random() - 0.5)));
-              opacity: 0;
-            }
+  0% {
+    transform: translateZ(500px) translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateZ(-500px) translateY(calc(100vh * (var(--randY) - 0.5))) translateX(calc(100vw * (var(--randX) - 0.5)));
+    opacity: 0;
+  }
+}
         `}
       </style>
 
@@ -346,6 +342,20 @@ const Hero = () => {
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
+          <div className="stars-container">
+            {stars.map((star) => (
+              <div
+                key={star.id}
+                className="star"
+                style={{
+                  top: star.top,
+                  left: star.left,
+                  animationDuration: star.animationDuration,
+                  transform: star.transform,
+                }}
+              />
+            ))}
+          </div>
           <video
             style={{
               position: "absolute",
@@ -363,7 +373,6 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
-          <div className="stars-container">{stars}</div>
           <div className="overlay-gradient-top"></div>
           <div className="overlay-gradient-bottom"></div>
 
