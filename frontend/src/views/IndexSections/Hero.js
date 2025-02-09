@@ -60,6 +60,7 @@ const Hero = () => {
         id: Math.random().toString(36).substr(2, 9),
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
+        depth: Math.random() * 1000,
         duration: `${Math.random() * 3 + 2}s`,
       }));
     } else {
@@ -308,15 +309,9 @@ const Hero = () => {
             background: white;
             border-radius: 50%;
             box-shadow: 0 0 5px white;
-            animation: twinkle linear infinite;
+            animation: flyThrough 4s linear infinite;
             opacity: 0.8;
           }
-
-          @keyframes twinkle {
-  0% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-  100% { opacity: 0.3; transform: scale(1); }
-}
 
           @keyframes flyThrough {
             0% {
@@ -391,6 +386,7 @@ const Hero = () => {
                 top: star.top,
                 left: star.left,
                 animationDuration: star.duration,
+                transform: `translateZ(${star.depth}px)`, // Efek 3D
               }}
             />
           ))}
