@@ -307,9 +307,16 @@ const Hero = () => {
             height: 2px;
             background: white;
             border-radius: 50%;
-            animation: flyThrough 4s linear infinite;
+            box-shadow: 0 0 5px white;
+            animation: twinkle linear infinite;
             opacity: 0.8;
           }
+
+          @keyframes twinkle {
+  0% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.3; transform: scale(1); }
+}
 
           @keyframes flyThrough {
             0% {
