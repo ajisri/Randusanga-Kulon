@@ -328,7 +328,7 @@ const Hero = () => {
         `}
       </style>
 
-      <div className="position-relative">
+      <div className="position-relative stars-container">
         <section
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
