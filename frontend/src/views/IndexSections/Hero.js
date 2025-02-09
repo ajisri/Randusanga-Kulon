@@ -5,59 +5,67 @@ import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [lasers, setLasers] = useState([]);
   const [isFast, setIsFast] = useState(false);
-  const [stars, setStars] = useState([]);
   const lasersRef = useRef([]);
   const lasersLeftRef = useRef([]);
   const starsRef = useRef([]);
-  const [lasersLeft, setLasersLeft] = useState([]);
+  const [, forceRender] = useState(0); // Dummy state untuk paksa render
+  const animationFrameRef = useRef(null);
 
+  // Fungsi untuk menambah laser secara acak
+  const spawnLasers = () => {
+    if (lasersRef.current.length > 50) lasersRef.current.shift(); // Batasi jumlah laser
+    lasersRef.current.push({
+      id: Math.random().toString(36).substr(2, 9),
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+    });
+
+    forceRender((prev) => prev + 1); // Paksa render hanya saat ada perubahan
+  };
+
+  // Fungsi untuk menambah laser dari kiri ke kanan
+  const spawnLasersLeft = () => {
+    if (lasersLeftRef.current.length > 30) lasersLeftRef.current.shift();
+    lasersLeftRef.current.push({
+      id: Math.random().toString(36).substr(2, 9),
+      top: `${Math.random() * 100}%`,
+      left: "0%",
+    });
+
+    forceRender((prev) => prev + 1);
+  };
+
+  // Gunakan requestAnimationFrame untuk animasi yang lebih smooth
   useEffect(() => {
-    const updateLasers = () => {
-      const newLaser = {
-        id: Math.random().toString(36).substr(2, 9),
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-      };
-      lasersRef.current = [...lasersRef.current.slice(-30), newLaser];
-      setLasers([...lasersRef.current]); // Update state hanya sekali
+    let lastSpawnTime = performance.now();
+
+    const animate = (time) => {
+      if (time - lastSpawnTime > (isFast ? 200 : 800)) {
+        spawnLasers();
+        spawnLasersLeft();
+        lastSpawnTime = time;
+      }
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    const updateLasersLeft = () => {
-      const newLaser = {
-        id: Math.random().toString(36).substr(2, 9),
-        top: `${Math.random() * 100}%`,
-        left: "0%",
-      };
-      lasersLeftRef.current = [...lasersLeftRef.current.slice(-30), newLaser];
-      setLasersLeft([...lasersLeftRef.current]); // Update state hanya sekali
-    };
-
-    const laserInterval = setInterval(updateLasers, 400);
-    const laserLeftInterval = setInterval(
-      updateLasersLeft,
-      isFast ? 300 : 1200
-    );
-
-    return () => {
-      clearInterval(laserInterval);
-      clearInterval(laserLeftInterval);
-    };
+    animationFrameRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameRef.current);
   }, [isFast]);
 
+  // Membuat bintang jika `isFast` aktif
   useEffect(() => {
     if (isFast) {
-      starsRef.current = Array.from({ length: 30 }).map((_, i) => ({
-        id: i,
+      starsRef.current = Array.from({ length: 30 }).map(() => ({
+        id: Math.random().toString(36).substr(2, 9),
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         duration: `${Math.random() * 3 + 2}s`,
       }));
-      setStars([...starsRef.current]);
     } else {
-      setStars([]);
+      starsRef.current = [];
     }
+    forceRender((prev) => prev + 1);
   }, [isFast]);
 
   const refaniFont = require("../../assets/font/Refani-Regular.otf");
@@ -323,7 +331,6 @@ const Hero = () => {
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          <div className="stars-container">{stars}</div>
           <video
             style={{
               position: "absolute",
@@ -341,23 +348,35 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
-          {lasers.map((laser) => (
-            <div
+          {lasersRef.current.map((laser) => (
+            <span
               key={laser.id}
               className="laser"
-              style={{ top: laser.top, left: laser.left }}
+              style={{
+                position: "absolute",
+                width: "2px",
+                height: "2px",
+                top: laser.top,
+                left: laser.left,
+              }}
             />
           ))}
 
-          {lasersLeft.map((laser) => (
-            <div
+          {lasersLeftRef.current.map((laser) => (
+            <span
               key={laser.id}
               className="laser-left"
-              style={{ top: laser.top, left: laser.left }}
+              style={{
+                position: "absolute",
+                width: "2px",
+                height: "2px",
+                top: laser.top,
+                left: laser.left,
+              }}
             />
           ))}
 
-          {stars.map((star) => (
+          {starsRef.current.map((star) => (
             <div
               key={star.id}
               className="star"
@@ -418,35 +437,6 @@ const Hero = () => {
                     position: "relative",
                   }}
                 >
-                  {/* Laser Beams */}
-                  {lasers.map((laser) => (
-                    <span
-                      key={laser.id}
-                      className="laser"
-                      style={{
-                        position: "absolute",
-                        width: "2px",
-                        height: "2x",
-                        top: laser.top,
-                        left: laser.left,
-                      }}
-                    ></span>
-                  ))}
-
-                  {/* Laser Beams from Left */}
-                  {lasers.map((laser) => (
-                    <span
-                      key={laser.id}
-                      className="laser"
-                      style={{
-                        position: "absolute",
-                        width: "2px",
-                        height: "2px",
-                        top: laser.top,
-                        left: laser.left,
-                      }}
-                    ></span>
-                  ))}
                   <Button
                     onClick={() => {
                       setIsVisible(!isVisible);
@@ -457,7 +447,6 @@ const Hero = () => {
                     size="lg"
                     type="button"
                   >
-                    <div className="stars-container">{stars}</div>
                     <span>
                       {isFast
                         ? "Menu Telah Dibuka"
