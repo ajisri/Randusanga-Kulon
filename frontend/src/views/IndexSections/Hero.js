@@ -346,7 +346,6 @@ const Hero = () => {
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          {/* <div className="stars-container">{stars}</div> */}
           <video
             style={{
               position: "absolute",
@@ -364,6 +363,7 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
+          <div className="stars-container">{stars}</div>
           <div className="overlay-gradient-top"></div>
           <div className="overlay-gradient-bottom"></div>
 
