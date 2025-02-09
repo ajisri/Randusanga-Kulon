@@ -32,7 +32,7 @@ const Hero = () => {
         };
         return [...prevLasers.slice(-49), newLaser];
       });
-    }, Math.random() * 700 + 300);
+    }, Math.random() * 500 + 300);
 
     return () => clearInterval(intervalRef.current);
   }, []);
@@ -50,8 +50,8 @@ const Hero = () => {
           },
         ]);
 
-        if (lasersLeft.length > 50) {
-          setLasersLeft((prevLasers) => prevLasers.slice(-50));
+        if (lasersLeft.length > 30) {
+          setLasersLeft((prevLasers) => prevLasers.slice(-30));
         }
       },
       isFast ? 300 : 1500
