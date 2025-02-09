@@ -15,51 +15,49 @@ const Hero = () => {
   const [lasersLeft, setLasersLeft] = useState([]);
   const [isFast, setIsFast] = useState(false);
 
-  const intervalRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const lastUpdateTimeRef = useRef(0);
 
   const generateLaser = useCallback(() => {
-    const newLaser = {
+    return {
       id: Math.random().toString(36).substr(2, 9),
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
     };
-    return newLaser;
   }, []);
 
   const generateLaserLeft = useCallback(() => {
-    const newLaser = {
+    return {
       id: Math.random().toString(36).substr(2, 9),
       top: `${Math.random() * 100}%`,
       left: "0%",
     };
-    return newLaser;
   }, []);
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setLasers((prevLasers) => [...prevLasers.slice(-49), generateLaser()]);
-      setLasersLeft((prevLasers) => [
-        ...prevLasers.slice(-49),
-        generateLaserLeft(),
-      ]);
-    }, 500); // Reduced interval time
+  const updateLasers = useCallback(() => {
+    const now = Date.now();
+    if (now - lastUpdateTimeRef.current > 500) {
+      // Update every 500ms
+      setLasers((prevLasers) => {
+        const newLasers = [...prevLasers.slice(-49), generateLaser()];
+        return newLasers;
+      });
 
-    return () => clearInterval(intervalRef.current);
+      setLasersLeft((prevLasers) => {
+        const newLasers = [...prevLasers.slice(-49), generateLaserLeft()];
+        return newLasers;
+      });
+
+      lastUpdateTimeRef.current = now;
+    }
+
+    animationFrameRef.current = requestAnimationFrame(updateLasers);
   }, [generateLaser, generateLaserLeft]);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => {
-        setLasersLeft((prevLasers) => [
-          ...prevLasers.slice(-30),
-          generateLaserLeft(),
-        ]);
-      },
-      isFast ? 300 : 1500
-    );
-
-    return () => clearInterval(interval);
-  }, [isFast, generateLaserLeft]);
+    animationFrameRef.current = requestAnimationFrame(updateLasers);
+    return () => cancelAnimationFrame(animationFrameRef.current);
+  }, [updateLasers]);
 
   const stars = useMemo(() => {
     if (isFast) {
