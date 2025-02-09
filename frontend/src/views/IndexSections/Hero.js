@@ -6,78 +6,55 @@ import Tabs from "./Tabs.js";
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lasers, setLasers] = useState([]);
-  const [lasersLeft, setLasersLeft] = useState([]); // Laser dari kiri ke kanan
   const [isFast, setIsFast] = useState(false);
-
-  // Menambahkan laser baru secara acak tanpa pola
-  const intervalRef = useRef(null);
-
-  // Efek Laser Random
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setLasers((prevLasers) => {
-        const newLaser = {
-          id: Math.random().toString(36).substr(2, 9),
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-        };
-        return [...prevLasers.slice(-49), newLaser];
-      });
-
-      setLasersLeft((prevLasers) => {
-        const newLaser = {
-          id: Math.random().toString(36).substr(2, 9),
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 10}%`,
-        };
-        return [...prevLasers.slice(-49), newLaser];
-      });
-    }, Math.random() * 500 + 300);
-
-    return () => clearInterval(intervalRef.current);
-  }, []);
-
-  // Laser dari kiri ke kanan dengan kecepatan dinamis
-  useEffect(() => {
-    const interval = setInterval(
-      () => {
-        setLasersLeft((prevLasers) => [
-          ...prevLasers,
-          {
-            id: Math.random().toString(36).substr(2, 9), // ID unik
-            top: `${Math.random() * 100}%`, // Posisi vertikal acak
-            left: "0%", // Mulai dari sisi kiri
-          },
-        ]);
-
-        if (lasersLeft.length > 30) {
-          setLasersLeft((prevLasers) => prevLasers.slice(-30));
-        }
-      },
-      isFast ? 300 : 1500
-    ); // Kecepatan berubah berdasarkan isFast
-
-    return () => clearInterval(interval);
-  }, [lasersLeft, isFast]);
-
   const [stars, setStars] = useState([]);
+  const lasersRef = useRef([]);
+  const lasersLeftRef = useRef([]);
+  const starsRef = useRef([]);
+  const [lasersLeft, setLasersLeft] = useState([]);
 
   useEffect(() => {
-    // Membuat bintang hanya jika isFast true
+    const updateLasers = () => {
+      const newLaser = {
+        id: Math.random().toString(36).substr(2, 9),
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+      };
+      lasersRef.current = [...lasersRef.current.slice(-30), newLaser];
+      setLasers([...lasersRef.current]); // Update state hanya sekali
+    };
+
+    const updateLasersLeft = () => {
+      const newLaser = {
+        id: Math.random().toString(36).substr(2, 9),
+        top: `${Math.random() * 100}%`,
+        left: "0%",
+      };
+      lasersLeftRef.current = [...lasersLeftRef.current.slice(-30), newLaser];
+      setLasersLeft([...lasersLeftRef.current]); // Update state hanya sekali
+    };
+
+    const laserInterval = setInterval(updateLasers, 400);
+    const laserLeftInterval = setInterval(
+      updateLasersLeft,
+      isFast ? 300 : 1200
+    );
+
+    return () => {
+      clearInterval(laserInterval);
+      clearInterval(laserLeftInterval);
+    };
+  }, [isFast]);
+
+  useEffect(() => {
     if (isFast) {
-      const starElements = Array.from({ length: 50 }).map((_, i) => (
-        <div
-          key={i}
-          className="star"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            animationDuration: `${Math.random() * 3 + 2}s`,
-            transform: `translateZ(${Math.random() * 1000}px)`,
-          }}
-        />
-      ));
-      setStars(starElements);
+      starsRef.current = Array.from({ length: 30 }).map((_, i) => ({
+        id: i,
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        duration: `${Math.random() * 3 + 2}s`,
+      }));
+      setStars([...starsRef.current]);
     } else {
       setStars([]);
     }
@@ -364,6 +341,33 @@ const Hero = () => {
             playsInline
             src={require("assets/img/theme/vi1.mp4")}
           ></video>
+          {lasers.map((laser) => (
+            <div
+              key={laser.id}
+              className="laser"
+              style={{ top: laser.top, left: laser.left }}
+            />
+          ))}
+
+          {lasersLeft.map((laser) => (
+            <div
+              key={laser.id}
+              className="laser-left"
+              style={{ top: laser.top, left: laser.left }}
+            />
+          ))}
+
+          {stars.map((star) => (
+            <div
+              key={star.id}
+              className="star"
+              style={{
+                top: star.top,
+                left: star.left,
+                animationDuration: star.duration,
+              }}
+            />
+          ))}
           <div className="overlay-gradient-top"></div>
           <div className="overlay-gradient-bottom"></div>
 
