@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
@@ -11,38 +11,7 @@ const Pengumuman = () => {
     "https://randusanga-kulon.osc-fr1.scalingo.io/pengumumanpengunjung",
     fetcher
   );
-
-  const newsContentWrapperRef = useRef(null);
-  const animationFrameRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
-  const scrollSpeed = 1; // Kecepatan scroll
-
-  // Gunakan useCallback untuk mencegah fungsi berubah di setiap render
-  const startAutoScroll = useCallback(() => {
-    const scrollContent = () => {
-      if (newsContentWrapperRef.current && !isPaused) {
-        newsContentWrapperRef.current.scrollLeft += scrollSpeed;
-
-        // Jika sudah mencapai batas konten pertama, reset posisi untuk seamless scroll
-        if (
-          newsContentWrapperRef.current.scrollLeft >=
-          newsContentWrapperRef.current.scrollWidth / 3
-        ) {
-          newsContentWrapperRef.current.scrollLeft = 0;
-        }
-      }
-
-      animationFrameRef.current = requestAnimationFrame(scrollContent);
-    };
-
-    animationFrameRef.current = requestAnimationFrame(scrollContent);
-  }, [isPaused]); // Tambahkan `isPaused` sebagai dependensi
-
-  // Mulai infinite scroll saat komponen dimount
-  useEffect(() => {
-    startAutoScroll();
-    return () => cancelAnimationFrame(animationFrameRef.current);
-  }, [startAutoScroll]); // Sekarang `startAutoScroll` aman untuk dimasukkan dalam dependensi
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -57,23 +26,46 @@ const Pengumuman = () => {
     ...pengumumanItems,
     ...pengumumanItems,
     ...pengumumanItems,
-  ]; // Tiga kali duplikat untuk seamless scroll
+  ]; // Tiga kali duplikat untuk konten menyambung
 
   const formatTanggal = (dateString) => {
     const options = { day: "2-digit", month: "long", year: "numeric" };
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
+  // Fungsi untuk menangani klik dan menghentikan animasi
+  const handleClick = () => {
+    setIsPaused((prevState) => !prevState); // Toggle perputaran
+  };
+
   return (
     <div
-      className={styles.newsContainer}
-      onMouseEnter={() => setIsPaused(true)} // Pause saat hover
-      onMouseLeave={() => setIsPaused(false)} // Lanjutkan scroll saat mouse keluar
+      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
+      onClick={handleClick}
     >
-      <div ref={newsContentWrapperRef} className={styles.newsContentWrapper}>
+      <div
+        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
+      >
         {tripledNewsItems.map((item, index) => (
-          <div className={styles.newsItem} key={index}>
-            <div className={styles.imageContainer}>
+          <div
+            className={`${styles.newsItem} ${styles.slideIn}`}
+            key={index}
+            style={{
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className={styles.imageContainer}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "300px",
+              }}
+            >
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
@@ -81,6 +73,10 @@ const Pengumuman = () => {
                 preview
                 width="100%"
                 height="100%"
+                style={{
+                  objectFit: "contain",
+                  backgroundColor: "#ffffff",
+                }}
               />
             </div>
             <div className={styles.newsContent}>
