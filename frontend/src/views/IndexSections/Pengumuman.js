@@ -11,6 +11,7 @@ const Pengumuman = () => {
     "https://randusanga-kulon.osc-fr1.scalingo.io/pengumumanpengunjung",
     fetcher
   );
+
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -19,23 +20,26 @@ const Pengumuman = () => {
   const animationFrameRef = useRef(null);
   const scrollPositionRef = useRef(0);
 
-  // Fungsi untuk menggerakkan konten secara otomatis
+  // Fungsi untuk memulai infinite scroll yang halus
   const startAutoScroll = useCallback(() => {
     const scrollContent = () => {
       if (!isPaused && !isDragging && newsContentWrapperRef.current) {
-        scrollPositionRef.current -= 1; // Kecepatan scroll
-        const scrollWidth = newsContentWrapperRef.current.scrollWidth / 3; // Total lebar konten yang diduplikasi
+        scrollPositionRef.current -= 0.5; // Kecepatan scroll yang lebih halus
+
+        const scrollWidth = newsContentWrapperRef.current.scrollWidth / 3;
         if (scrollPositionRef.current <= -scrollWidth) {
           scrollPositionRef.current = 0; // Reset posisi saat mencapai akhir
         }
+
         newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
       }
       animationFrameRef.current = requestAnimationFrame(scrollContent);
     };
-    animationFrameRef.current = requestAnimationFrame(scrollContent);
-  }, [isPaused, isDragging]); // Dependensi isPaused dan isDragging
 
-  // Mulai animasi saat komponen dimount atau dependensi berubah
+    animationFrameRef.current = requestAnimationFrame(scrollContent);
+  }, [isPaused, isDragging]);
+
+  // Efek saat komponen dimount atau dependensi berubah
   useEffect(() => {
     startAutoScroll();
     return () => {
@@ -43,9 +47,9 @@ const Pengumuman = () => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [startAutoScroll]); // Gunakan startAutoScroll sebagai dependensi
+  }, [startAutoScroll]);
 
-  // Fungsi untuk menangani klik dan menghentikan/memulai animasi
+  // Fungsi untuk menangani klik agar bisa pause/resume scroll
   const handleClick = () => {
     setIsPaused((prevState) => !prevState);
   };
@@ -53,24 +57,37 @@ const Pengumuman = () => {
   // Fungsi untuk menangani mouse down (mulai drag)
   const handleMouseDown = (e) => {
     setIsDragging(true);
-    setStartX(e.pageX - newsContentWrapperRef.current.offsetLeft);
+    setStartX(e.pageX);
     setScrollLeft(scrollPositionRef.current);
   };
 
-  // Fungsi untuk menangani mouse move (saat drag)
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - newsContentWrapperRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Kecepatan drag
-    scrollPositionRef.current = scrollLeft - walk;
-    newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
-  };
+  // Fungsi untuk menangani mouse move (dragging manual)
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX;
+      const walk = (x - startX) * 1.5; // Kecepatan dragging
+      scrollPositionRef.current = scrollLeft + walk;
+      newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
+    },
+    [isDragging, startX, scrollLeft]
+  );
 
   // Fungsi untuk menangani mouse up (berhenti drag)
   const handleMouseUp = () => {
     setIsDragging(false);
   };
+
+  // Menambahkan event listener untuk mouse move dan mouse up
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [handleMouseMove]);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -85,7 +102,7 @@ const Pengumuman = () => {
     ...pengumumanItems,
     ...pengumumanItems,
     ...pengumumanItems,
-  ]; // Tiga kali duplikat untuk konten menyambung
+  ]; // Tiga kali duplikat agar konten seamless
 
   const formatTanggal = (dateString) => {
     const options = { day: "2-digit", month: "long", year: "numeric" };
@@ -94,37 +111,21 @@ const Pengumuman = () => {
 
   return (
     <div
-      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
+      className={`${styles.newsContainer} ${isPaused ? styles.paused : ""}`}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // Berhenti drag saat mouse meninggalkan area
+      onMouseEnter={() => setIsPaused(true)} // Pause saat hover
+      onMouseLeave={() => setIsPaused(false)} // Lanjutkan saat mouse keluar
     >
       <div
         ref={newsContentWrapperRef}
-        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
+        className={`${styles.newsContentWrapper} ${
+          isPaused ? styles.paused : ""
+        }`}
       >
         {tripledNewsItems.map((item, index) => (
-          <div
-            className={`${styles.newsItem} ${styles.slideIn}`}
-            key={index}
-            style={{
-              marginRight: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              className={styles.imageContainer}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "300px",
-              }}
-            >
+          <div className={styles.newsItem} key={index}>
+            <div className={styles.imageContainer}>
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
@@ -132,10 +133,6 @@ const Pengumuman = () => {
                 preview
                 width="100%"
                 height="100%"
-                style={{
-                  objectFit: "contain",
-                  backgroundColor: "#ffffff",
-                }}
               />
             </div>
             <div className={styles.newsContent}>
