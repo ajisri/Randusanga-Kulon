@@ -23,6 +23,7 @@
   position: relative; /* Pastikan positioning */
   z-index: 10; /* Membuat container berada di atas layer lain */
   pointer-events: auto; /* Pastikan container bisa menerima klik */
+  cursor: grab;
 }
 
 .newsDescription {
@@ -63,12 +64,16 @@
   height: auto;
   max-width: 400px;
   margin-right: 0;
-  pointer-events: auto;
+  /* pointer-events: auto; */
 }
 
 .newsItem:hover {
   transform: translateY(-10px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.newsContainer:active {
+  cursor: grabbing; /* Ubah cursor saat sedang drag */
 }
 
 .newsContentWrapper {
