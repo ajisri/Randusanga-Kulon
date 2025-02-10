@@ -35,7 +35,7 @@ const Pengumuman = () => {
       animationFrameRef.current = requestAnimationFrame(scrollContent);
     };
     animationFrameRef.current = requestAnimationFrame(scrollContent);
-  }, [isPaused, isDragging]);
+  }, [isPaused, isDragging]); // Dependensi isPaused dan isDragging
 
   // Mulai animasi saat komponen dimount atau dependensi berubah
   useEffect(() => {
@@ -52,12 +52,14 @@ const Pengumuman = () => {
     setIsPaused((prevState) => !prevState);
   };
 
+  // Fungsi untuk menangani mouse down (mulai drag)
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.pageX - newsContentWrapperRef.current.offsetLeft);
     setScrollLeft(scrollPositionRef.current);
   };
 
+  // Fungsi untuk menangani mouse move (saat drag)
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     e.preventDefault();
@@ -67,6 +69,7 @@ const Pengumuman = () => {
     newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
   };
 
+  // Fungsi untuk menangani mouse up (berhenti drag)
   const handleMouseUp = () => {
     setIsDragging(false);
   };
