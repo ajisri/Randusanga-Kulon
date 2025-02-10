@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react"; // Tambahkan useCallback
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
 
-// Fungsi fetcher untuk mengambil data dari API
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
@@ -11,33 +10,34 @@ const Pengumuman = () => {
     "https://randusanga-kulon.osc-fr1.scalingo.io/pengumumanpengunjung",
     fetcher
   );
+
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
   const newsContentWrapperRef = useRef(null);
   const animationFrameRef = useRef(null);
   const scrollPositionRef = useRef(0);
 
-  // Fungsi untuk menggerakkan konten secara otomatis
   const startAutoScroll = useCallback(() => {
     const scrollContent = () => {
       if (!isPaused && !isDragging && newsContentWrapperRef.current) {
-        scrollPositionRef.current -= 1; // Kecepatan scroll
+        scrollPositionRef.current -= 1;
         if (
           scrollPositionRef.current <=
           -newsContentWrapperRef.current.scrollWidth / 3
         ) {
-          scrollPositionRef.current = 0; // Reset posisi saat mencapai akhir
+          scrollPositionRef.current = 0;
         }
         newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
       }
       animationFrameRef.current = requestAnimationFrame(scrollContent);
     };
-    animationFrameRef.current = requestAnimationFrame(scrollContent);
-  }, [isPaused, isDragging]); // Dependensi isPaused dan isDragging
 
-  // Mulai animasi saat komponen dimount atau dependensi berubah
+    animationFrameRef.current = requestAnimationFrame(scrollContent);
+  }, [isPaused, isDragging]);
+
   useEffect(() => {
     startAutoScroll();
     return () => {
@@ -45,34 +45,49 @@ const Pengumuman = () => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [startAutoScroll]); // Gunakan startAutoScroll sebagai dependensi
+  }, [startAutoScroll]);
 
-  // Fungsi untuk menangani klik dan menghentikan/memulai animasi
   const handleClick = () => {
-    setIsPaused((prevState) => !prevState);
+    setIsPaused((prevState) => {
+      if (!prevState && animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      return !prevState;
+    });
   };
 
-  // Fungsi untuk menangani mouse down (mulai drag)
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX;
+      const walk = (x - startX) * 1.5;
+      scrollPositionRef.current = scrollLeft + walk;
+      newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
+    },
+    [isDragging, startX, scrollLeft]
+  );
+
   const handleMouseDown = (e) => {
     setIsDragging(true);
-    setStartX(e.pageX - newsContentWrapperRef.current.offsetLeft);
+    newsContentWrapperRef.current.classList.add(styles.dragging);
+    setStartX(e.pageX);
     setScrollLeft(scrollPositionRef.current);
   };
 
-  // Fungsi untuk menangani mouse move (saat drag)
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - newsContentWrapperRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Kecepatan drag
-    scrollPositionRef.current = scrollLeft - walk;
-    newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
-  };
-
-  // Fungsi untuk menangani mouse up (berhenti drag)
   const handleMouseUp = () => {
     setIsDragging(false);
+    newsContentWrapperRef.current.classList.remove(styles.dragging);
   };
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [handleMouseMove]);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -87,7 +102,7 @@ const Pengumuman = () => {
     ...pengumumanItems,
     ...pengumumanItems,
     ...pengumumanItems,
-  ]; // Tiga kali duplikat untuk konten menyambung
+  ];
 
   const formatTanggal = (dateString) => {
     const options = { day: "2-digit", month: "long", year: "numeric" };
@@ -96,37 +111,19 @@ const Pengumuman = () => {
 
   return (
     <div
-      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
+      className={`${styles.newsContainer} ${isPaused ? styles.paused : ""}`}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // Berhenti drag saat mouse meninggalkan area
     >
       <div
         ref={newsContentWrapperRef}
-        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
+        className={`${styles.newsContentWrapper} ${
+          isPaused ? styles.paused : ""
+        }`}
       >
         {tripledNewsItems.map((item, index) => (
-          <div
-            className={`${styles.newsItem} ${styles.slideIn}`}
-            key={index}
-            style={{
-              marginRight: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              className={styles.imageContainer}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "300px",
-              }}
-            >
+          <div className={styles.newsItem} key={index}>
+            <div className={styles.imageContainer}>
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
@@ -134,10 +131,6 @@ const Pengumuman = () => {
                 preview
                 width="100%"
                 height="100%"
-                style={{
-                  objectFit: "contain",
-                  backgroundColor: "#ffffff",
-                }}
               />
             </div>
             <div className={styles.newsContent}>

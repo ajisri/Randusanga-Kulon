@@ -92,6 +92,10 @@
   transform: none;
 }
 
+.newsContentWrapper.dragging {
+  transition: none; /* Hapus transisi saat drag agar lebih responsif */
+}
+
 .newsImage {
   object-fit: contain;
   max-width: 100%;
