@@ -803,8 +803,8 @@ const Modall = () => {
               className="custom-dialog bounce-in"
               contentStyle={{
                 overflowY: "auto",
-                padding: "24px 24px 10px 24px",
-                height: "300px",
+                padding: "15px 15px 10px 15px",
+                height: "auto",
               }}
               onHide={hideDialogktp}
             >
@@ -820,18 +820,17 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imageKTPURL ? (
-                      <div>
+                      <div
+                        className="image-container"
+                        style={{ marginBottom: "10px" }}
+                      >
                         <img
                           src={imageKTPURL}
                           alt="Organizational Structure"
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "20px",
-                            maxHeight: "calc(89vh - 60px)",
-                            marginBottom: "50px",
-                          }} // Adjust image size
+                          className="modal-image"
+                          // Adjust image size
                         />
+                        <div className="image-overlay"></div>
                       </div>
                     ) : (
                       <p>No image available</p>
@@ -929,18 +928,17 @@ const Modall = () => {
                 ) : (
                   <div>
                     {imagePNURL ? (
-                      <div>
+                      <div
+                        className="image-container"
+                        style={{ marginBottom: "10px" }}
+                      >
                         <img
                           src={imagePNURL}
                           alt="Organizational Structure"
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "20px",
-                            maxHeight: "calc(89vh - 60px)",
-                            marginBottom: "50px",
-                          }} // Adjust image size
+                          className="modal-image"
+                          // Adjust image size
                         />
+                        <div className="image-overlay"></div>
                       </div>
                     ) : (
                       <p>No image available</p>
