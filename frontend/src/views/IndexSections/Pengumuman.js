@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
@@ -12,6 +12,33 @@ const Pengumuman = () => {
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
+  const newsContentWrapperRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const scrollPositionRef = useRef(0);
+
+  useEffect(() => {
+    const scrollContent = () => {
+      if (!isPaused && newsContentWrapperRef.current) {
+        scrollPositionRef.current -= 1; // Kecepatan scroll
+        if (
+          scrollPositionRef.current <=
+          -newsContentWrapperRef.current.scrollWidth / 3
+        ) {
+          scrollPositionRef.current = 0; // Reset posisi saat mencapai akhir
+        }
+        newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
+      }
+      animationFrameRef.current = requestAnimationFrame(scrollContent);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(scrollContent);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isPaused]);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -44,6 +71,7 @@ const Pengumuman = () => {
       onClick={handleClick}
     >
       <div
+        ref={newsContentWrapperRef}
         className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
       >
         {tripledNewsItems.map((item, index) => (
