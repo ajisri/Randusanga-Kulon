@@ -83,6 +83,15 @@
   min-width: 100%;
   transition: transform 0.3s ease-in-out; /* Menambahkan transisi untuk pergerakan yang mulus */
   pointer-events: auto;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Hilangkan scrollbar di Firefox */
+  -ms-overflow-style: none; /* Hilangkan scrollbar di IE dan Edge */
+}
+
+.newsContentWrapper::-webkit-scrollbar {
+  display: none; /* Hilangkan scrollbar di Chrome dan Safari */
 }
 
 .newsContentWrapper.paused {

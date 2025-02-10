@@ -12,82 +12,37 @@ const Pengumuman = () => {
     fetcher
   );
 
-  const [isPaused, setIsPaused] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
   const newsContentWrapperRef = useRef(null);
   const animationFrameRef = useRef(null);
-  const scrollPositionRef = useRef(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const scrollSpeed = 1; // Kecepatan scroll
 
-  // Fungsi untuk memulai infinite scroll yang halus
+  // Gunakan useCallback untuk mencegah fungsi berubah di setiap render
   const startAutoScroll = useCallback(() => {
     const scrollContent = () => {
-      if (!isPaused && !isDragging && newsContentWrapperRef.current) {
-        scrollPositionRef.current -= 0.5; // Kecepatan scroll yang lebih halus
+      if (newsContentWrapperRef.current && !isPaused) {
+        newsContentWrapperRef.current.scrollLeft += scrollSpeed;
 
-        const scrollWidth = newsContentWrapperRef.current.scrollWidth / 3;
-        if (scrollPositionRef.current <= -scrollWidth) {
-          scrollPositionRef.current = 0; // Reset posisi saat mencapai akhir
+        // Jika sudah mencapai batas konten pertama, reset posisi untuk seamless scroll
+        if (
+          newsContentWrapperRef.current.scrollLeft >=
+          newsContentWrapperRef.current.scrollWidth / 3
+        ) {
+          newsContentWrapperRef.current.scrollLeft = 0;
         }
-
-        newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
       }
+
       animationFrameRef.current = requestAnimationFrame(scrollContent);
     };
 
     animationFrameRef.current = requestAnimationFrame(scrollContent);
-  }, [isPaused, isDragging]);
+  }, [isPaused]); // Tambahkan `isPaused` sebagai dependensi
 
-  // Efek saat komponen dimount atau dependensi berubah
+  // Mulai infinite scroll saat komponen dimount
   useEffect(() => {
     startAutoScroll();
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [startAutoScroll]);
-
-  // Fungsi untuk menangani klik agar bisa pause/resume scroll
-  const handleClick = () => {
-    setIsPaused((prevState) => !prevState);
-  };
-
-  // Fungsi untuk menangani mouse down (mulai drag)
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX);
-    setScrollLeft(scrollPositionRef.current);
-  };
-
-  // Fungsi untuk menangani mouse move (dragging manual)
-  const handleMouseMove = useCallback(
-    (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX;
-      const walk = (x - startX) * 1.5; // Kecepatan dragging
-      scrollPositionRef.current = scrollLeft + walk;
-      newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
-    },
-    [isDragging, startX, scrollLeft]
-  );
-
-  // Fungsi untuk menangani mouse up (berhenti drag)
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // Menambahkan event listener untuk mouse move dan mouse up
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [handleMouseMove]);
+    return () => cancelAnimationFrame(animationFrameRef.current);
+  }, [startAutoScroll]); // Sekarang `startAutoScroll` aman untuk dimasukkan dalam dependensi
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -102,7 +57,7 @@ const Pengumuman = () => {
     ...pengumumanItems,
     ...pengumumanItems,
     ...pengumumanItems,
-  ]; // Tiga kali duplikat agar konten seamless
+  ]; // Tiga kali duplikat untuk seamless scroll
 
   const formatTanggal = (dateString) => {
     const options = { day: "2-digit", month: "long", year: "numeric" };
@@ -111,18 +66,11 @@ const Pengumuman = () => {
 
   return (
     <div
-      className={`${styles.newsContainer} ${isPaused ? styles.paused : ""}`}
-      onClick={handleClick}
-      onMouseDown={handleMouseDown}
+      className={styles.newsContainer}
       onMouseEnter={() => setIsPaused(true)} // Pause saat hover
-      onMouseLeave={() => setIsPaused(false)} // Lanjutkan saat mouse keluar
+      onMouseLeave={() => setIsPaused(false)} // Lanjutkan scroll saat mouse keluar
     >
-      <div
-        ref={newsContentWrapperRef}
-        className={`${styles.newsContentWrapper} ${
-          isPaused ? styles.paused : ""
-        }`}
-      >
+      <div ref={newsContentWrapperRef} className={styles.newsContentWrapper}>
         {tripledNewsItems.map((item, index) => (
           <div className={styles.newsItem} key={index}>
             <div className={styles.imageContainer}>
