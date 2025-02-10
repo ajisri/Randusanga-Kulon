@@ -1,11 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 .newsContainer {
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  cursor: grab;
-  user-select: none;
+  display: grid;
   grid-template-columns: repeat(
     auto-fit,
     minmax(280px, 1fr)
@@ -27,10 +23,6 @@
   position: relative; /* Pastikan positioning */
   z-index: 10; /* Membuat container berada di atas layer lain */
   pointer-events: auto; /* Pastikan container bisa menerima klik */
-}
-
-.newsContainer:active {
-  cursor: grabbing;
 }
 
 .newsDescription {
@@ -82,7 +74,6 @@
 .newsContentWrapper {
   font-family: "Roboto", sans-serif;
   display: flex;
-  white-space: nowrap;
   animation: marquee 50s linear infinite;
   width: max-content;
   min-width: 100%;
