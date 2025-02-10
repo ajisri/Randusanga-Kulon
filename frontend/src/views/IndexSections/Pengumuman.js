@@ -10,12 +10,10 @@ const Pengumuman = () => {
     "https://randusanga-kulon.osc-fr1.scalingo.io/pengumumanpengunjung",
     fetcher
   );
-
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-
   const newsContentWrapperRef = useRef(null);
   const animationFrameRef = useRef(null);
   const scrollPositionRef = useRef(0);
@@ -34,7 +32,6 @@ const Pengumuman = () => {
       }
       animationFrameRef.current = requestAnimationFrame(scrollContent);
     };
-
     animationFrameRef.current = requestAnimationFrame(scrollContent);
   }, [isPaused, isDragging]);
 
@@ -48,54 +45,30 @@ const Pengumuman = () => {
   }, [startAutoScroll]);
 
   const handleClick = () => {
-    setIsPaused((prevState) => {
-      if (!prevState && animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      return !prevState;
-    });
+    setIsPaused((prevState) => !prevState);
   };
-
-  const handleMouseMove = useCallback(
-    (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX;
-      const walk = (x - startX) * 1.5;
-      scrollPositionRef.current = scrollLeft + walk;
-      newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
-    },
-    [isDragging, startX, scrollLeft]
-  );
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
-    newsContentWrapperRef.current.classList.add(styles.dragging);
-    setStartX(e.pageX);
+    setStartX(e.pageX - newsContentWrapperRef.current.offsetLeft);
     setScrollLeft(scrollPositionRef.current);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - newsContentWrapperRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollPositionRef.current = scrollLeft - walk;
+    newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    newsContentWrapperRef.current.classList.remove(styles.dragging);
   };
 
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [handleMouseMove]);
-
-  if (pengumumanError) {
-    return <div>Error loading data</div>;
-  }
-
-  if (!pengumumanData) {
-    return <div>Loading...</div>;
-  }
+  if (pengumumanError) return <div>Error loading data</div>;
+  if (!pengumumanData) return <div>Loading...</div>;
 
   const pengumumanItems = pengumumanData.pengumumans || [];
   const tripledNewsItems = [
@@ -111,15 +84,16 @@ const Pengumuman = () => {
 
   return (
     <div
-      className={`${styles.newsContainer} ${isPaused ? styles.paused : ""}`}
+      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
     >
       <div
         ref={newsContentWrapperRef}
-        className={`${styles.newsContentWrapper} ${
-          isPaused ? styles.paused : ""
-        }`}
+        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
       >
         {tripledNewsItems.map((item, index) => (
           <div className={styles.newsItem} key={index}>
