@@ -24,10 +24,8 @@ const Pengumuman = () => {
     const scrollContent = () => {
       if (!isPaused && !isDragging && newsContentWrapperRef.current) {
         scrollPositionRef.current -= 1; // Kecepatan scroll
-        if (
-          scrollPositionRef.current <=
-          -newsContentWrapperRef.current.scrollWidth / 3
-        ) {
+        const scrollWidth = newsContentWrapperRef.current.scrollWidth / 3; // Total lebar konten yang diduplikasi
+        if (scrollPositionRef.current <= -scrollWidth) {
           scrollPositionRef.current = 0; // Reset posisi saat mencapai akhir
         }
         newsContentWrapperRef.current.style.transform = `translateX(${scrollPositionRef.current}px)`;
