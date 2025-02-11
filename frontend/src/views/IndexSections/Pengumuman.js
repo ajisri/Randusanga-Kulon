@@ -11,58 +11,61 @@ const Pengumuman = () => {
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef(null);
-
-  const pengumumanItems = pengumumanData?.pengumumans || [];
-  const tripledNewsItems = [
-    ...pengumumanItems,
-    ...pengumumanItems,
-    ...pengumumanItems,
-  ];
-
-  const formatTanggal = (dateString) => {
-    const options = { day: "2-digit", month: "long", year: "numeric" };
-    return new Date(dateString).toLocaleDateString("id-ID", options);
-  };
-
-  const handleClick = () => {
-    setIsPaused((prev) => !prev);
-  };
+  const marqueeRef = useRef(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (marqueeRef.current) {
+      const wrapper = marqueeRef.current;
+      let scrollAmount = 0;
+      const speed = 0.5; // Kecepatan scroll
 
-    const container = containerRef.current;
-    let animationFrame;
-    const speed = 0.5;
-
-    const scrollContent = () => {
-      if (!isPaused) {
-        container.scrollLeft += speed;
-        if (container.scrollLeft >= container.scrollWidth / 3) {
-          container.scrollLeft = 0;
+      const scrollNews = () => {
+        if (!isPaused) {
+          scrollAmount -= speed;
+          wrapper.style.transform = `translateX(${scrollAmount}px)`;
+          if (Math.abs(scrollAmount) > wrapper.scrollWidth / 2) {
+            scrollAmount = 0; // Reset ke awal jika sudah mencapai setengah dari panjangnya
+          }
         }
-      }
-      animationFrame = requestAnimationFrame(scrollContent);
-    };
+        requestAnimationFrame(scrollNews);
+      };
 
-    animationFrame = requestAnimationFrame(scrollContent);
-    return () => cancelAnimationFrame(animationFrame);
+      scrollNews();
+    }
   }, [isPaused]);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
   }
 
+  if (!pengumumanData) {
+    return <div>Loading...</div>;
+  }
+
+  const pengumumanItems = pengumumanData.pengumumans || [];
+  const tripledNewsItems = [...pengumumanItems, ...pengumumanItems];
+
+  const formatTanggal = (dateString) => {
+    return new Date(dateString).toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <div
-      ref={containerRef}
       className={styles.newsContainer}
-      onClick={handleClick}
+      onClick={() => setIsPaused(!isPaused)}
     >
-      <div className={styles.newsContentWrapper}>
+      <div
+        ref={marqueeRef}
+        className={`${styles.newsContentWrapper} ${
+          isPaused ? styles.paused : ""
+        }`}
+      >
         {tripledNewsItems.map((item, index) => (
-          <div className={styles.newsItem} key={index}>
+          <div key={index} className={`${styles.newsItem} ${styles.fadeIn}`}>
             <div className={styles.imageContainer}>
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
