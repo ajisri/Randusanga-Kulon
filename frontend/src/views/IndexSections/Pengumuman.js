@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
@@ -11,7 +11,6 @@ const Pengumuman = () => {
     "https://randusanga-kulon.osc-fr1.scalingo.io/pengumumanpengunjung",
     fetcher
   );
-  const [isPaused, setIsPaused] = useState(false);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -33,22 +32,12 @@ const Pengumuman = () => {
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
-  // Fungsi untuk menangani klik dan menghentikan animasi
-  const handleClick = () => {
-    setIsPaused((prevState) => !prevState); // Toggle perputaran
-  };
-
   return (
-    <div
-      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
-      onClick={handleClick}
-    >
-      <div
-        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
-      >
+    <div className={`${styles.newsContainer}`}>
+      <div className={`${styles.newsContentWrapper}`}>
         {tripledNewsItems.map((item, index) => (
           <div
-            className={`${styles.newsItem} ${styles.slideIn}`}
+            className={`${styles.newsItem} ${styles.fadeIn}`}
             key={index}
             style={{
               marginRight: "10px",
