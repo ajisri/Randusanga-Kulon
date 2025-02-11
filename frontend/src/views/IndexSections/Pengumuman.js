@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
 
-// Fungsi fetcher untuk mengambil data dari API
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
@@ -12,6 +11,19 @@ const Pengumuman = () => {
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    let scrollInterval;
+    if (!isPaused) {
+      scrollInterval = setInterval(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollLeft += 1; // Kecepatan scroll bisa diubah di sini
+        }
+      }, 20);
+    }
+    return () => clearInterval(scrollInterval);
+  }, [isPaused]);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -26,46 +38,36 @@ const Pengumuman = () => {
     ...pengumumanItems,
     ...pengumumanItems,
     ...pengumumanItems,
-  ]; // Tiga kali duplikat untuk konten menyambung
+  ];
 
   const formatTanggal = (dateString) => {
     const options = { day: "2-digit", month: "long", year: "numeric" };
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
-  // Fungsi untuk menangani klik dan menghentikan animasi
-  const handleClick = () => {
-    setIsPaused((prevState) => !prevState); // Toggle perputaran
-  };
-
   return (
     <div
-      className={`${styles.newsContainer} ${isPaused ? styles.paused : ""}`}
-      onClick={handleClick}
+      className={styles.newsContainer}
+      onClick={() => setIsPaused(!isPaused)}
     >
       <div
-        className={`${styles.newsContentWrapper} ${
-          isPaused ? styles.paused : ""
-        }`}
+        className={styles.newsContentWrapper}
+        ref={scrollRef}
+        style={{ overflowX: "auto", whiteSpace: "nowrap" }}
       >
         {tripledNewsItems.map((item, index) => (
           <div
-            className={`${styles.newsItem} ${styles.slideIn}`}
+            className={styles.newsItem}
             key={index}
-            style={{
-              marginRight: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            style={{ display: "inline-block", marginRight: "10px" }}
           >
             <div
               className={styles.imageContainer}
               style={{
+                height: "300px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "300px",
               }}
             >
               <Image
@@ -75,10 +77,7 @@ const Pengumuman = () => {
                 preview
                 width="100%"
                 height="100%"
-                style={{
-                  objectFit: "contain",
-                  backgroundColor: "#ffffff",
-                }}
+                style={{ objectFit: "contain", backgroundColor: "#ffffff" }}
               />
             </div>
             <div className={styles.newsContent}>
