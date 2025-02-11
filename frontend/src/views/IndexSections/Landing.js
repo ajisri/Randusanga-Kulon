@@ -1176,222 +1176,222 @@ const Landing = () => {
           </div>
 
           {/* Dialog untuk detail jabatan */}
-          <Dialog
-            header={
-              <div className="dialog-header">
-                <div>
-                  <h2 className="dialog-title">Jabatan</h2>
-                  <p className="dialog-subtitle">
-                    Informasi mengenai detail jabatan
-                  </p>
+        </section>
+        <Dialog
+          header={
+            <div className="dialog-header">
+              <div>
+                <h2 className="dialog-title">Jabatan</h2>
+                <p className="dialog-subtitle">
+                  Informasi mengenai detail jabatan
+                </p>
+              </div>
+            </div>
+          }
+          visible={isDialogVisible}
+          style={{
+            width: "100vw",
+            fontFamily: "Roboto, sans-serif",
+            background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
+            borderRadius: "12px",
+            border: "none",
+          }}
+          onHide={hideDialog}
+          maximizable
+          modal
+          contentStyle={{
+            overflowY: "auto",
+            padding: "24px 24px 10px 24px",
+          }}
+          className="dialog-animation"
+        >
+          {selectedJabatan ? (
+            <div style={{ padding: "1rem" }}>
+              {/* Header dengan Nama Jabatan */}
+              <h4
+                style={{
+                  marginBottom: "1rem",
+                  fontFamily: "Roboto, sans-serif",
+                  color: "#2c3e50",
+                  fontSize: "24px",
+                  fontWeight: "600",
+                }}
+              >
+                {selectedJabatan.nama}
+              </h4>
+
+              {/* Card untuk Status Kehadiran */}
+              <div
+                style={{
+                  background: "#fff",
+                  padding: "1rem",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                    color: "#34495e",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Status Kehadiran:
+                </h5>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "1rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {selectedJabatan.Kehadiran?.length > 0 ? (
+                    selectedJabatan.Kehadiran.map((kehadiran) => (
+                      <Button
+                        key={kehadiran.id}
+                        label={kehadiran.statusHadir}
+                        icon={
+                          kehadiran.statusHadir === "Hadir"
+                            ? "pi pi-check-circle"
+                            : "pi pi-exclamation-triangle"
+                        }
+                        className={`p-button-rounded p-button-sm ${
+                          kehadiran.statusHadir === "Hadir"
+                            ? "p-button-success"
+                            : "p-button-warning"
+                        }`}
+                        style={{
+                          minWidth: "80px",
+                          height: "35px",
+                          fontSize: "14px",
+                          fontFamily: "Roboto, sans-serif",
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <p>Status Kehadiran tidak tersedia.</p>
+                  )}
                 </div>
               </div>
-            }
-            visible={isDialogVisible}
-            style={{
-              width: "95vw",
-              fontFamily: "Roboto, sans-serif",
-              background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
-              borderRadius: "12px",
-              border: "none",
-            }}
-            onHide={hideDialog}
-            maximizable
-            modal
-            contentStyle={{
-              overflowY: "auto",
-              padding: "24px 24px 10px 24px",
-            }}
-            className="dialog-animation"
-          >
-            {selectedJabatan ? (
-              <div style={{ padding: "1rem" }}>
-                {/* Header dengan Nama Jabatan */}
-                <h4
+
+              {/* Card untuk Ringkasan */}
+              <div
+                style={{
+                  background: "#fff",
+                  padding: "1rem",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                <h5
                   style={{
-                    marginBottom: "1rem",
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                    color: "#34495e",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Ringkasan:
+                </h5>
+                <div
+                  style={{
+                    textAlign: "justify",
+                    marginBottom: "1.5rem",
                     fontFamily: "Roboto, sans-serif",
                     color: "#2c3e50",
-                    fontSize: "24px",
-                    fontWeight: "600",
+                    lineHeight: "1.6",
                   }}
-                >
-                  {selectedJabatan.nama}
-                </h4>
-
-                {/* Card untuk Status Kehadiran */}
-                <div
-                  style={{
-                    background: "#fff",
-                    padding: "1rem",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    marginBottom: "1.5rem",
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
                   }}
-                >
-                  <h5
-                    style={{
-                      marginBottom: "0.75rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#34495e",
-                      fontSize: "18px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Status Kehadiran:
-                  </h5>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "1rem",
-                      marginBottom: "1.5rem",
-                    }}
-                  >
-                    {selectedJabatan.Kehadiran?.length > 0 ? (
-                      selectedJabatan.Kehadiran.map((kehadiran) => (
-                        <Button
-                          key={kehadiran.id}
-                          label={kehadiran.statusHadir}
-                          icon={
-                            kehadiran.statusHadir === "Hadir"
-                              ? "pi pi-check-circle"
-                              : "pi pi-exclamation-triangle"
-                          }
-                          className={`p-button-rounded p-button-sm ${
-                            kehadiran.statusHadir === "Hadir"
-                              ? "p-button-success"
-                              : "p-button-warning"
-                          }`}
-                          style={{
-                            minWidth: "80px",
-                            height: "35px",
-                            fontSize: "14px",
-                            fontFamily: "Roboto, sans-serif",
-                          }}
-                        />
-                      ))
-                    ) : (
-                      <p>Status Kehadiran tidak tersedia.</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Card untuk Ringkasan */}
-                <div
-                  style={{
-                    background: "#fff",
-                    padding: "1rem",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  <h5
-                    style={{
-                      marginBottom: "0.75rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#34495e",
-                      fontSize: "18px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Ringkasan:
-                  </h5>
-                  <div
-                    style={{
-                      textAlign: "justify",
-                      marginBottom: "1.5rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#2c3e50",
-                      lineHeight: "1.6",
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(selectedJabatan.ringkasan),
-                    }}
-                  />
-                </div>
-
-                {/* Card untuk Tugas */}
-                <div
-                  style={{
-                    background: "#fff",
-                    padding: "1rem",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  <h5
-                    style={{
-                      marginBottom: "0.75rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#34495e",
-                      fontSize: "18px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Tugas:
-                  </h5>
-                  <div
-                    style={{
-                      marginBottom: "1.5rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#2c3e50",
-                      lineHeight: "1.6",
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(
-                        selectedJabatan.tugas
-                          .map((tugas) => tugas.content)
-                          .join("")
-                      ),
-                    }}
-                  />
-                </div>
-
-                {/* Card untuk Fungsi */}
-                <div
-                  style={{
-                    background: "#fff",
-                    padding: "1rem",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  <h5
-                    style={{
-                      marginBottom: "0.75rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#34495e",
-                      fontSize: "18px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Fungsi:
-                  </h5>
-                  <div
-                    style={{
-                      marginBottom: "1.5rem",
-                      fontFamily: "Roboto, sans-serif",
-                      color: "#2c3e50",
-                      lineHeight: "1.6",
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(
-                        selectedJabatan.fungsi
-                          .map((fungsi) => fungsi.content)
-                          .join("")
-                      ),
-                    }}
-                  />
-                </div>
+                />
               </div>
-            ) : (
-              <p>Memuat data...</p>
-            )}
-          </Dialog>
-        </section>
+
+              {/* Card untuk Tugas */}
+              <div
+                style={{
+                  background: "#fff",
+                  padding: "1rem",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                    color: "#34495e",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Tugas:
+                </h5>
+                <div
+                  style={{
+                    marginBottom: "1.5rem",
+                    fontFamily: "Roboto, sans-serif",
+                    color: "#2c3e50",
+                    lineHeight: "1.6",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(
+                      selectedJabatan.tugas
+                        .map((tugas) => tugas.content)
+                        .join("")
+                    ),
+                  }}
+                />
+              </div>
+
+              {/* Card untuk Fungsi */}
+              <div
+                style={{
+                  background: "#fff",
+                  padding: "1rem",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                <h5
+                  style={{
+                    marginBottom: "0.75rem",
+                    fontFamily: "Roboto, sans-serif",
+                    color: "#34495e",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Fungsi:
+                </h5>
+                <div
+                  style={{
+                    marginBottom: "1.5rem",
+                    fontFamily: "Roboto, sans-serif",
+                    color: "#2c3e50",
+                    lineHeight: "1.6",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(
+                      selectedJabatan.fungsi
+                        .map((fungsi) => fungsi.content)
+                        .join("")
+                    ),
+                  }}
+                />
+              </div>
+            </div>
+          ) : (
+            <p>Memuat data...</p>
+          )}
+        </Dialog>
         {/*  */}
         <section
           className="section section-lg"
