@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
@@ -11,29 +11,9 @@ const Pengumuman = () => {
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
-  const scrollRef = useRef(null);
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    let scrollInterval;
-    if (!isPaused) {
-      scrollInterval = setInterval(() => {
-        if (scrollRef.current) {
-          scrollRef.current.scrollLeft += 1; // Kecepatan scroll bisa diubah di sini
-        }
-      }, 20);
-    }
-    return () => clearInterval(scrollInterval);
-  }, [isPaused]);
-
-  if (pengumumanError) {
-    return <div>Error loading data</div>;
-  }
-
-  if (!pengumumanData) {
-    return <div>Loading...</div>;
-  }
-
-  const pengumumanItems = pengumumanData.pengumumans || [];
+  const pengumumanItems = pengumumanData?.pengumumans || [];
   const tripledNewsItems = [
     ...pengumumanItems,
     ...pengumumanItems,
@@ -45,31 +25,59 @@ const Pengumuman = () => {
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
+  const handleClick = () => {
+    setIsPaused((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    let animationFrame;
+    const speed = 0.5;
+
+    const scrollContent = () => {
+      if (!isPaused) {
+        container.scrollLeft += speed;
+        if (container.scrollLeft >= container.scrollWidth / 3) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationFrame = requestAnimationFrame(scrollContent);
+    };
+
+    animationFrame = requestAnimationFrame(scrollContent);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isPaused]);
+
+  if (pengumumanError) {
+    return <div>Error loading data</div>;
+  }
+
   return (
     <div
+      ref={containerRef}
       className={styles.newsContainer}
-      onClick={() => setIsPaused(!isPaused)}
+      onClick={handleClick}
+      style={{ overflowX: "auto", whiteSpace: "nowrap", cursor: "pointer" }}
     >
       <div
         className={styles.newsContentWrapper}
-        ref={scrollRef}
-        style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+        style={{ display: "flex", animation: "none" }}
       >
         {tripledNewsItems.map((item, index) => (
           <div
             className={styles.newsItem}
             key={index}
-            style={{ display: "inline-block", marginRight: "10px" }}
+            style={{
+              minWidth: "300px",
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <div
-              className={styles.imageContainer}
-              style={{
-                height: "300px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className={styles.imageContainer} style={{ height: "300px" }}>
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
