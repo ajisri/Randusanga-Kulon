@@ -34,7 +34,7 @@ const Pengumuman = () => {
 
     const container = containerRef.current;
     let animationFrame;
-    const speed = 0.5;
+    const speed = 1;
 
     const scrollContent = () => {
       if (!isPaused) {
@@ -59,7 +59,12 @@ const Pengumuman = () => {
       ref={containerRef}
       className={styles.newsContainer}
       onClick={handleClick}
-      style={{ overflowX: "auto", whiteSpace: "nowrap", cursor: "pointer" }}
+      style={{
+        overflowX: "hidden",
+        whiteSpace: "nowrap",
+        cursor: "pointer",
+        display: "flex",
+      }}
     >
       <div
         className={styles.newsContentWrapper}
