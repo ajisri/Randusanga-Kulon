@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { Image } from "primereact/image";
 import styles from "../../assets/css/Pengumuman.module.css";
 
+// Fungsi fetcher untuk mengambil data dari API
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
@@ -11,28 +12,6 @@ const Pengumuman = () => {
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
-  const marqueeRef = useRef(null);
-
-  useEffect(() => {
-    if (marqueeRef.current) {
-      const wrapper = marqueeRef.current;
-      let scrollAmount = 0;
-      const speed = 0.5; // Kecepatan scroll
-
-      const scrollNews = () => {
-        if (!isPaused) {
-          scrollAmount -= speed;
-          wrapper.style.transform = `translateX(${scrollAmount}px)`;
-          if (Math.abs(scrollAmount) > wrapper.scrollWidth / 2) {
-            scrollAmount = 0; // Reset ke awal jika sudah mencapai setengah dari panjangnya
-          }
-        }
-        requestAnimationFrame(scrollNews);
-      };
-
-      scrollNews();
-    }
-  }, [isPaused]);
 
   if (pengumumanError) {
     return <div>Error loading data</div>;
@@ -43,35 +22,61 @@ const Pengumuman = () => {
   }
 
   const pengumumanItems = pengumumanData.pengumumans || [];
-  const tripledNewsItems = [...pengumumanItems, ...pengumumanItems];
+  const tripledNewsItems = [
+    ...pengumumanItems,
+    ...pengumumanItems,
+    ...pengumumanItems,
+  ]; // Tiga kali duplikat untuk konten menyambung
 
   const formatTanggal = (dateString) => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
+    const options = { day: "2-digit", month: "long", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+  };
+
+  // Fungsi untuk menangani klik dan menghentikan animasi
+  const handleClick = () => {
+    setIsPaused((prevState) => !prevState); // Toggle perputaran
   };
 
   return (
     <div
-      className={styles.newsContainer}
-      onClick={() => setIsPaused(!isPaused)}
+      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
+      onClick={handleClick}
     >
       <div
-        ref={marqueeRef}
-        className={`${styles.newsContentWrapper} ${
-          isPaused ? styles.paused : ""
-        }`}
+        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
       >
         {tripledNewsItems.map((item, index) => (
-          <div key={index} className={`${styles.newsItem} ${styles.fadeIn}`}>
-            <div className={styles.imageContainer}>
+          <div
+            className={`${styles.newsItem} ${styles.slideIn}`}
+            key={index}
+            style={{
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className={styles.imageContainer}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "300px",
+              }}
+            >
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
                 className={styles.newsImage}
                 preview
+                width="100%"
+                height="100%"
+                style={{
+                  objectFit: "contain",
+                  backgroundColor: "#ffffff",
+                }}
               />
             </div>
             <div className={styles.newsContent}>
