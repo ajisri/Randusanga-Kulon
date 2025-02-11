@@ -34,7 +34,7 @@ const Pengumuman = () => {
 
     const container = containerRef.current;
     let animationFrame;
-    const speed = 1;
+    const speed = 0.5;
 
     const scrollContent = () => {
       if (!isPaused) {
@@ -59,38 +59,16 @@ const Pengumuman = () => {
       ref={containerRef}
       className={styles.newsContainer}
       onClick={handleClick}
-      style={{
-        overflowX: "hidden",
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        display: "flex",
-      }}
     >
-      <div
-        className={styles.newsContentWrapper}
-        style={{ display: "flex", animation: "none" }}
-      >
+      <div className={styles.newsContentWrapper}>
         {tripledNewsItems.map((item, index) => (
-          <div
-            className={styles.newsItem}
-            key={index}
-            style={{
-              minWidth: "300px",
-              marginRight: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div className={styles.imageContainer} style={{ height: "300px" }}>
+          <div className={styles.newsItem} key={index}>
+            <div className={styles.imageContainer}>
               <Image
                 src={`https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}`}
                 alt={item.title}
                 className={styles.newsImage}
                 preview
-                width="100%"
-                height="100%"
-                style={{ objectFit: "contain", backgroundColor: "#ffffff" }}
               />
             </div>
             <div className={styles.newsContent}>
