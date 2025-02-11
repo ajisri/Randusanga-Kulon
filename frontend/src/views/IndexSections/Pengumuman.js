@@ -40,11 +40,13 @@ const Pengumuman = () => {
 
   return (
     <div
-      className={`${styles.newsContainer} ${isPaused ? "paused" : ""}`}
+      className={`${styles.newsContainer} ${isPaused ? styles.paused : ""}`}
       onClick={handleClick}
     >
       <div
-        className={`${styles.newsContentWrapper} ${isPaused ? "paused" : ""}`}
+        className={`${styles.newsContentWrapper} ${
+          isPaused ? styles.paused : ""
+        }`}
       >
         {tripledNewsItems.map((item, index) => (
           <div
