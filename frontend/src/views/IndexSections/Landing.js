@@ -1189,7 +1189,7 @@ const Landing = () => {
             }
             visible={isDialogVisible}
             style={{
-              width: "55vw",
+              width: "95vw",
               fontFamily: "Roboto, sans-serif",
               background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
               borderRadius: "12px",
