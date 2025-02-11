@@ -1174,9 +1174,8 @@ const Landing = () => {
               </div>
             </Container>
           </div>
-
-          {/* Dialog untuk detail jabatan */}
         </section>
+        {/* Dialog untuk detail jabatan pegawai */}
         <Dialog
           header={
             <div className="dialog-header">
@@ -1190,7 +1189,7 @@ const Landing = () => {
           }
           visible={isDialogVisible}
           style={{
-            width: "100vw",
+            width: "80vw",
             fontFamily: "Roboto, sans-serif",
             background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
             borderRadius: "12px",
