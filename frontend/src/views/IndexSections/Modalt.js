@@ -444,6 +444,18 @@ const Modalt = () => {
             overflow: hidden;
           }
 
+          .small-button {
+            width: 10px !important;
+            height: 10px !important;
+            min-width: 10px !important;
+            min-height: 10px !important;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+          }
+
           @media screen and (max-width: 1200px) {
             .button {
               width: 50px !important;
@@ -665,7 +677,7 @@ const Modalt = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button small-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
