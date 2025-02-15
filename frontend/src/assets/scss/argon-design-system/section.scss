@@ -3,6 +3,7 @@
   padding-top: $spacer * 4;
   padding-bottom: $spacer * 4;
   overflow: visible;
+  height: 500px;
 }
 
 .section-xl {
@@ -30,6 +31,7 @@
 .section-hero {
   @include media-breakpoint-up(lg) {
     min-height: 100vh;
+    height: 100vh;
   }
 }
 
