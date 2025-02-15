@@ -58,9 +58,9 @@ class TabsSection extends Component {
       background: `rgba(255, 105, 180, ${Math.random() * 0.5 + 0.5})`,
       top: `${row * size}px`,
       left: `${centerX * size}px`,
-      transform: "translate(-50%, -50%)",
+      transform: "translate(-50%, -50%) rotate(0deg)",
       opacity: 1,
-      animation: `horizontal-fly-out 2s forwards`,
+      animation: `horizontal-fly-out 2s forwards, rotate-piece 1.5s ease-in-out`,
       animationDelay: `${distance * 0.2}s`,
       "--direction": direction,
     };
@@ -74,6 +74,7 @@ class TabsSection extends Component {
             .futuristik-nav-link {
               position: relative;
               overflow: hidden;
+              transition: all 0.3s ease-in-out;
             }
             .futuristik-nav-link::after {
               content: "";
@@ -89,6 +90,23 @@ class TabsSection extends Component {
             }
             .futuristik-nav-link.active::after {
               transform: translate(-50%, -50%) scale(1);
+            }
+            .tab-content {
+              opacity: 0;
+              transform: translateY(20px);
+              transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            }
+            .tab-content.active {
+              opacity: 1;
+              transform: translateY(0);
+            }
+            @keyframes horizontal-fly-out {
+              0% { opacity: 1; transform: translateX(0) scale(1); }
+              100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
+            }
+            @keyframes rotate-piece {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
             }
           `}
         </style>
@@ -134,7 +152,10 @@ class TabsSection extends Component {
                 </Row>
               </Nav>
             </div>
-            <TabContent activeTab={"plainTabs" + this.state.plainTabs}>
+            <TabContent
+              activeTab={`plainTabs${this.state.plainTabs}`}
+              className="tab-content active"
+            >
               <TabPane tabId="plainTabs1">
                 <Modals />
               </TabPane>
