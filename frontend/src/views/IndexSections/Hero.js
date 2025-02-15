@@ -281,8 +281,8 @@ const Hero = () => {
           .btn-custom {
             overflow: hidden;
             font-family: 'Jaqueline', sans-serif;
-            font-size: 1.2rem; /* Font lebih besar */
-            padding: 20px 40px;
+            font-size: 1rem; /* Font lebih besar */
+            padding: 12px 20px;
             background: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)); /* Gradien transparan dari hitam */
             border: none;
             color: white;
@@ -380,11 +380,7 @@ const Hero = () => {
         `}
       </style>
 
-      <div
-        className={`position-relative stars-container hero-layout ${
-          isVisible ? "active" : ""
-        }`}
-      >
+      <div className="position-relative stars-container">
         <section
           className="section section-hero section-custom bg-gradient-cyan embed-responsive"
           style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -398,7 +394,7 @@ const Hero = () => {
               height: "100%",
               objectFit: "cover",
               zIndex: 1,
-              filter: isFast ? "brightness(10%)" : "brightness(100%)",
+              filter: isFast ? "brightness(10%)" : "brightness(100%)", // Ubah kecerahan saat tombol aktif
             }}
             autoPlay
             loop
@@ -419,6 +415,7 @@ const Hero = () => {
               }}
             />
           ))}
+
           {lasersLeftRef.current.map((laser) => (
             <span
               key={laser.id}
@@ -432,6 +429,7 @@ const Hero = () => {
               }}
             />
           ))}
+
           {starsRef.current.map((star) => (
             <div
               key={star.id}
@@ -440,7 +438,7 @@ const Hero = () => {
                 top: star.top,
                 left: star.left,
                 animationDuration: star.duration,
-                transform: `translateZ(${star.depth}px)`,
+                transform: `translateZ(${star.depth}px)`, // Efek 3D
               }}
             />
           ))}
@@ -485,6 +483,7 @@ const Hero = () => {
               </div>
 
               <Row className="align-items-center justify-content-center mt-4">
+                {/* Tombol menu kecil */}
                 <div
                   style={{
                     display: "flex",
@@ -497,11 +496,11 @@ const Hero = () => {
                   <Button
                     onClick={() => {
                       setIsVisible(!isVisible);
-                      setIsFast(!isFast);
+                      setIsFast(!isFast); // Toggle the laser speed
                     }}
                     className={`btn-custom ${isFast ? "active" : ""}`}
                     block
-                    size="lg"
+                    size="sm" // Tombol lebih kecil
                     type="button"
                   >
                     <span>
@@ -511,8 +510,35 @@ const Hero = () => {
                     </span>
                   </Button>
                 </div>
+
                 <Col className="text-center" lg="12">
-                  {isVisible && <Tabs />}
+                  {isVisible && (
+                    <Row>
+                      {/* Baris pertama */}
+                      <Col lg="2" className="d-none d-lg-block">
+                        {/* Menu baris pertama */}
+                        <Tabs />
+                      </Col>
+                      <Col lg="10" className="d-none d-lg-block">
+                        {/* Kolom 4/5 untuk video */}
+                        <div style={{ position: "relative", height: "100%" }}>
+                          {/* Video akan tetap di sini */}
+                        </div>
+                      </Col>
+
+                      {/* Baris kedua */}
+                      <Col lg="2" className="d-none d-lg-block">
+                        {/* Kolom pertama baris kedua */}
+                      </Col>
+                      <Col lg="4" className="d-none d-lg-block">
+                        {/* Kolom kedua baris kedua */}
+                      </Col>
+                      <Col lg="2" className="d-none d-lg-block">
+                        {/* Kolom ketiga baris kedua */}
+                      </Col>
+                    </Row>
+                  )}
+
                   <p className="subtitle">
                     <strong>
                       Udang Vaname-Wisata Laut-Wisata Pemancingan-Kerang
@@ -523,6 +549,16 @@ const Hero = () => {
               </Row>
             </div>
           </Container>
+
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg">
+              <path
+                className="bg-gradient-cyan"
+                d="M0 20 Q 10 25, 20 20 T 40 20 T 60 20 T 80 20 T 100 20 T 120 20 V 30 H 0 Z"
+                fill="#56ccf2"
+              />
+            </svg>
+          </div>
         </section>
       </div>
     </>
