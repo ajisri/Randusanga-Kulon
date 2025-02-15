@@ -41,35 +41,31 @@ const Hero = () => {
             {/* Baris Pertama */}
             <Row style={{ height: "50%" }}>
               <Col
-                md={3}
+                md={4}
                 style={{ backgroundColor: "rgba(0,0,0,0.6)", padding: "20px" }}
               >
                 <h3 style={{ color: "white" }}>Menu</h3>
-                <p
-                  style={{
-                    color: "white",
-                    fontSize: "1.2rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <Tabs />
-                </p>
+                <Tabs />
                 <Button
                   onClick={() => setIsMenuOpen(false)}
-                  style={{ fontSize: "0.7rem", padding: "6px 12px" }}
+                  style={{
+                    fontSize: "0.8rem",
+                    padding: "8px 14px",
+                    marginTop: "10px",
+                  }}
                 >
                   Tutup
                 </Button>
               </Col>
-              <Col md={9} style={{ position: "relative" }}>
-                {/* Video tetap di belakang */}
+              <Col md={8} style={{ position: "relative" }}>
+                {/* Area tambahan jika diperlukan */}
               </Col>
             </Row>
 
             {/* Baris Kedua */}
             <Row style={{ height: "50%" }}>
               <Col
-                md={3}
+                md={4}
                 style={{
                   backgroundColor: "rgba(255,255,255,0.2)",
                   padding: "20px",
@@ -78,7 +74,7 @@ const Hero = () => {
                 <p>Kolom Kiri</p>
               </Col>
               <Col
-                md={6}
+                md={4}
                 style={{
                   backgroundColor: "rgba(255,255,255,0.4)",
                   padding: "20px",
@@ -87,7 +83,7 @@ const Hero = () => {
                 <p>Kolom Tengah</p>
               </Col>
               <Col
-                md={3}
+                md={4}
                 style={{
                   backgroundColor: "rgba(255,255,255,0.2)",
                   padding: "20px",
@@ -108,7 +104,7 @@ const Hero = () => {
           >
             <Button
               onClick={() => setIsMenuOpen(true)}
-              style={{ fontSize: "0.7rem", padding: "6px 12px" }}
+              style={{ fontSize: "0.8rem", padding: "8px 14px" }}
             >
               Buka Menu
             </Button>
