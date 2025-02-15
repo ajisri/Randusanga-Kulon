@@ -44,6 +44,15 @@ const Hero = () => {
                 style={{ backgroundColor: "rgba(0,0,0,0.6)", padding: "20px" }}
               >
                 <h3 style={{ color: "white" }}>Menu</h3>
+                <p
+                  style={{
+                    color: "white",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  &lt;/Tab&gt;
+                </p>
                 <Button
                   onClick={() => setIsMenuOpen(false)}
                   style={{ fontSize: "0.7rem", padding: "6px 12px" }}
