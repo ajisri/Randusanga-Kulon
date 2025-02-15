@@ -420,7 +420,9 @@ const Hero = () => {
                 </Col>
               </Row>
               {/* Tombol kecil untuk menutup menu */}
-              <div style={{ position: "absolute", top: "50px", right: "10px" }}>
+              <div
+                style={{ position: "absolute", top: "150px", right: "10px" }}
+              >
                 <Button
                   onClick={() => {
                     setIsVisible(false);
@@ -441,7 +443,7 @@ const Hero = () => {
                 style={{ zIndex: 2, textAlign: "center" }}
                 className="col px-0"
               >
-                <div className="hero-title" style={{ paddingTop: "50px" }}>
+                <div className="hero-title" style={{ marginTop: "150px" }}>
                   <h3
                     className="text-center font-weight-bold"
                     style={{ fontSize: "1.5rem" }}
