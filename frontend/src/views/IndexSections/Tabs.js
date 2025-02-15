@@ -50,7 +50,7 @@ class TabsSection extends Component {
       const col = i % cols;
       return {
         id: i,
-        style: this.horizontalPieceStyle(row, col, size, cols),
+        style: this.pixelatedPieceStyle(row, col, size, cols),
       };
     });
   };
