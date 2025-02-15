@@ -12,7 +12,6 @@ import classnames from "classnames";
 import Modals from "./Modals";
 import Modall from "./Modall";
 import Modalt from "./Modalt";
-import "./PixelTransition.css";
 
 class TabsSection extends Component {
   constructor(props) {
