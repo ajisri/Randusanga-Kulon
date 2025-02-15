@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
+import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,7 +52,7 @@ const Hero = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  &lt;/Tab&gt;
+                  <Tabs />
                 </p>
                 <Button
                   onClick={() => setIsMenuOpen(false)}
