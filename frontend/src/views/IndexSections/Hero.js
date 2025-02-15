@@ -153,58 +153,6 @@ const Hero = () => {
               background-position: 0 0;
             }
           }
-
-          .hero-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Set the height to fill the screen */
-}
-
-.hero-layout.active {
-  flex-direction: row;
-}
-
-.hero-layout > .row {
-  display: flex;
-  flex: 1;
-}
-
-.hero-layout > .row > .col {
-  padding: 0;
-}
-
-.hero-layout .menu-col {
-  width: 20%; /* Kolom menu 1/5 */
-}
-
-.hero-layout .video-col {
-  width: 80%; /* Kolom video 4/5 */
-}
-
-.hero-layout .bottom-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.hero-layout .bottom-row > .col {
-  width: 20%; /* Kolom kiri dan kanan di baris kedua */
-}
-
-.hero-layout .bottom-row > .col.middle {
-  width: 60%; /* Kolom tengah di baris kedua */
-}
-
-.hero-layout .btn-custom {
-  font-size: 1rem; /* Ukuran tombol yang lebih kecil */
-  padding: 10px 20px;
-}
-
-.hero-layout .btn-custom.active {
-  font-size: 0.8rem; /* Ukuran tombol lebih kecil saat aktif */
-  padding: 5px 10px;
-}
-
             
           .laser-left {
             position: absolute;
@@ -281,8 +229,8 @@ const Hero = () => {
           .btn-custom {
             overflow: hidden;
             font-family: 'Jaqueline', sans-serif;
-            font-size: 1rem; /* Font lebih besar */
-            padding: 12px 20px;
+            font-size: 1.2rem; /* Font lebih besar */
+            padding: 20px 40px;
             background: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)); /* Gradien transparan dari hitam */
             border: none;
             color: white;
@@ -483,7 +431,6 @@ const Hero = () => {
               </div>
 
               <Row className="align-items-center justify-content-center mt-4">
-                {/* Tombol menu kecil */}
                 <div
                   style={{
                     display: "flex",
@@ -500,7 +447,7 @@ const Hero = () => {
                     }}
                     className={`btn-custom ${isFast ? "active" : ""}`}
                     block
-                    size="sm" // Tombol lebih kecil
+                    size="lg"
                     type="button"
                   >
                     <span>
@@ -510,35 +457,8 @@ const Hero = () => {
                     </span>
                   </Button>
                 </div>
-
                 <Col className="text-center" lg="12">
-                  {isVisible && (
-                    <Row>
-                      {/* Baris pertama */}
-                      <Col lg="2" className="d-none d-lg-block">
-                        {/* Menu baris pertama */}
-                        <Tabs />
-                      </Col>
-                      <Col lg="10" className="d-none d-lg-block">
-                        {/* Kolom 4/5 untuk video */}
-                        <div style={{ position: "relative", height: "100%" }}>
-                          {/* Video akan tetap di sini */}
-                        </div>
-                      </Col>
-
-                      {/* Baris kedua */}
-                      <Col lg="2" className="d-none d-lg-block">
-                        {/* Kolom pertama baris kedua */}
-                      </Col>
-                      <Col lg="4" className="d-none d-lg-block">
-                        {/* Kolom kedua baris kedua */}
-                      </Col>
-                      <Col lg="2" className="d-none d-lg-block">
-                        {/* Kolom ketiga baris kedua */}
-                      </Col>
-                    </Row>
-                  )}
-
+                  {isVisible && <Tabs />}
                   <p className="subtitle">
                     <strong>
                       Udang Vaname-Wisata Laut-Wisata Pemancingan-Kerang
