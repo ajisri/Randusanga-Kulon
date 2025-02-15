@@ -12,7 +12,6 @@ import classnames from "classnames";
 import Modals from "./Modals";
 import Modall from "./Modall";
 import Modalt from "./Modalt";
-import "./PixelTransition.css";
 
 class TabsSection extends Component {
   constructor(props) {
@@ -66,6 +65,63 @@ class TabsSection extends Component {
       <>
         <style>
           {`
+            .custom-cursor {
+              position: fixed;
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              pointer-events: none;
+              transform: translate(-50%, -50%);
+              z-index: 9999;
+              display: none;
+              mix-blend-mode: difference;
+            }
+            .custom-cursor.show { display: block; }
+            .cursor-icon {
+              font-size: 140px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+            }
+            .futuristik-nav-link {
+              position: relative;
+              overflow: hidden;
+              display: inline-block;
+              width: 100%;
+              padding: 15px 25px;
+              font-size: 1.2rem;
+              text-align: center;
+              margin-left: 17px;
+              border-radius: 12px;
+              color: rgb(84, 83, 83) !important;
+              background: linear-gradient(135deg, #2c2c54, #40407a);
+              border: 1px solid #f5f5f5;
+              transition: all 0.4s ease-in-out;
+            }
+            .futuristik-nav-link.active {
+              color: #000 !important;
+              background: #fff !important;
+              border-color: transparent !important;
+              box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                          0 0 20px rgba(255, 255, 255, 0.5) !important;
+            }
+            .futuristik-nav-link:hover {
+              cursor: none;
+              background: rgba(255, 255, 255, 0.1);
+              color: rgb(58, 57, 57) !important;
+              border: 2px solid #fffa65;
+              box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                          0 0 25px rgba(238, 130, 238, 0.7),
+                          0 0 45px rgba(0, 255, 255, 0.7);
+              transition: all 0.1s ease-in-out;
+            }
+            @keyframes horizontal-fly-out {
+              0% { opacity: 1; transform: translateX(0) scale(1); }
+              100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
+            }
+              
             .pixelated-tab {
               position: relative;
               overflow: hidden;
@@ -122,6 +178,13 @@ class TabsSection extends Component {
                               ? "LAYANAN"
                               : "TRANSPARANSI"}
                           </b>
+                          {this.state.pieces[index]?.map((piece) => (
+                            <div
+                              key={`${piece.id}-${this.state.animationKeys[index]}`}
+                              className="horizontal-fly-out"
+                              style={piece.style}
+                            ></div>
+                          ))}
                         </NavLink>
                       </NavItem>
                     </Col>
