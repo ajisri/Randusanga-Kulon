@@ -13,7 +13,7 @@ import Modals from "./Modals";
 import Modall from "./Modall";
 import Modalt from "./Modalt";
 
-class Tabs extends Component {
+class TabsSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,4 +86,4 @@ class Tabs extends Component {
   }
 }
 
-export default Tabs;
+export default TabsSection;
