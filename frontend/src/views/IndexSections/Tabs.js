@@ -9,7 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import classnames from "classnames";
-import Modals from "./Modals";
+import Modals from "./Modals"; // Sesuaikan dengan import yang benar
 import Modall from "./Modall";
 import Modalt from "./Modalt";
 
@@ -18,10 +18,19 @@ class TabsSection extends Component {
     super(props);
     this.state = {
       plainTabs: 1,
+      cursorPosition: { x: 0, y: 0 },
       pieces: { 1: [], 2: [], 3: [] },
       numPieces: 100,
       animationKeys: { 1: Date.now(), 2: Date.now(), 3: Date.now() },
     };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextState.plainTabs !== this.state.plainTabs ||
+      nextState.animationKeys !== this.state.animationKeys ||
+      nextState.pieces !== this.state.pieces
+    );
   }
 
   toggleNavs = (e, state, index) => {
@@ -41,22 +50,28 @@ class TabsSection extends Component {
       const col = i % cols;
       return {
         id: i,
-        style: this.pixelatedPieceStyle(row, col, size, cols),
+        style: this.horizontalPieceStyle(row, col, size, cols),
       };
     });
   };
 
-  pixelatedPieceStyle = (row, col, size, cols) => {
+  horizontalPieceStyle = (row, col, size, cols) => {
+    const centerX = cols / 4;
+    const direction = col < centerX ? -1 : 1;
+    const distance = Math.abs(centerX - col) / centerX;
+
     return {
       position: "absolute",
       width: `${size}px`,
       height: `${size}px`,
-      background: `rgba(255, 255, 255, ${Math.random() * 0.7 + 0.3})`,
+      background: `rgba(255, 105, 180, ${Math.random() * 0.5 + 0.5})`,
       top: `${row * size}px`,
-      left: `${col * size}px`,
-      opacity: 0,
-      animation: `pixelated-fade-in 0.5s forwards`,
-      animationDelay: `${Math.random() * 0.5}s`,
+      left: `${centerX * size}px`,
+      transform: "translate(-50%, -50%)",
+      opacity: 1,
+      animation: `horizontal-fly-out 2s forwards`,
+      animationDelay: `${distance * 0.2}s`,
+      "--direction": direction,
     };
   };
 
@@ -121,26 +136,6 @@ class TabsSection extends Component {
               0% { opacity: 1; transform: translateX(0) scale(1); }
               100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
             }
-              
-            .pixelated-tab {
-              position: relative;
-              overflow: hidden;
-            }
-            .pixelated-pieces {
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              top: 0;
-              left: 0;
-              display: grid;
-              grid-template-columns: repeat(10, 1fr);
-              grid-template-rows: repeat(10, 1fr);
-              pointer-events: none;
-            }
-            @keyframes pixelated-fade-in {
-              0% { opacity: 0; transform: scale(0.8); }
-              100% { opacity: 1; transform: scale(1); }
-            }
           `}
         </style>
 
@@ -162,7 +157,7 @@ class TabsSection extends Component {
                       <NavItem>
                         <NavLink
                           aria-selected={this.state.plainTabs === index}
-                          className={classnames("pixelated-tab", {
+                          className={classnames("futuristik-nav-link", {
                             active: this.state.plainTabs === index,
                           })}
                           onClick={(e) =>
@@ -192,32 +187,15 @@ class TabsSection extends Component {
                 </Row>
               </Nav>
             </div>
-            <TabContent
-              activeTab={`plainTabs${this.state.plainTabs}`}
-              className="tab-content active"
-            >
+
+            <TabContent activeTab={"plainTabs" + this.state.plainTabs}>
               <TabPane tabId="plainTabs1">
-                <div className="pixelated-pieces">
-                  {this.state.pieces[1].map((piece) => (
-                    <div key={piece.id} style={piece.style}></div>
-                  ))}
-                </div>
                 <Modals />
               </TabPane>
               <TabPane tabId="plainTabs2">
-                <div className="pixelated-pieces">
-                  {this.state.pieces[2].map((piece) => (
-                    <div key={piece.id} style={piece.style}></div>
-                  ))}
-                </div>
                 <Modall />
               </TabPane>
               <TabPane tabId="plainTabs3">
-                <div className="pixelated-pieces">
-                  {this.state.pieces[3].map((piece) => (
-                    <div key={piece.id} style={piece.style}></div>
-                  ))}
-                </div>
                 <Modalt />
               </TabPane>
             </TabContent>
