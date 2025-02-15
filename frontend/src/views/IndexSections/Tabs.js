@@ -75,6 +75,20 @@ class TabsSection extends Component {
     };
   };
 
+  pixelatedPieceStyle = (row, col, size, cols) => {
+    return {
+      position: "absolute",
+      width: `${size}px`,
+      height: `${size}px`,
+      background: `rgba(255, 255, 255, ${Math.random() * 0.7 + 0.3})`,
+      top: `${row * size}px`,
+      left: `${col * size}px`,
+      opacity: 0,
+      animation: `pixelated-fade-in 0.3s forwards`,
+      animationDelay: `${Math.random() * 0.3}s`,
+    };
+  };
+
   render() {
     return (
       <>
@@ -132,10 +146,32 @@ class TabsSection extends Component {
                           0 0 45px rgba(0, 255, 255, 0.7);
               transition: all 0.1s ease-in-out;
             }
+              
             @keyframes horizontal-fly-out {
               0% { opacity: 1; transform: translateX(0) scale(1); }
               100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
             }
+
+            .pixelated-tab {
+              position: relative;
+              overflow: hidden;
+            }
+            .pixelated-tab .pixelated-pieces {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              display: grid;
+              grid-template-columns: repeat(5, 1fr);
+              grid-template-rows: repeat(5, 1fr);
+              pointer-events: none;
+            }
+            @keyframes pixelated-fade-in {
+              0% { opacity: 0; transform: scale(0.8); }
+              100% { opacity: 1; transform: scale(1); }
+            }
+
           `}
         </style>
 
@@ -157,7 +193,7 @@ class TabsSection extends Component {
                       <NavItem>
                         <NavLink
                           aria-selected={this.state.plainTabs === index}
-                          className={classnames("futuristik-nav-link", {
+                          className={classnames("pixelated-tab", {
                             active: this.state.plainTabs === index,
                           })}
                           onClick={(e) =>
@@ -173,13 +209,11 @@ class TabsSection extends Component {
                               ? "LAYANAN"
                               : "TRANSPARANSI"}
                           </b>
-                          {this.state.pieces[index]?.map((piece) => (
-                            <div
-                              key={`${piece.id}-${this.state.animationKeys[index]}`}
-                              className="horizontal-fly-out"
-                              style={piece.style}
-                            ></div>
-                          ))}
+                          <div className="pixelated-pieces">
+                            {this.state.pieces[index].map((piece) => (
+                              <div key={piece.id} style={piece.style}></div>
+                            ))}
+                          </div>
                         </NavLink>
                       </NavItem>
                     </Col>
