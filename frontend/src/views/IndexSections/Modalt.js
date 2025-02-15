@@ -699,8 +699,7 @@ const Modalt = () => {
                 alt=""
                 style={{
                   marginBottom: "6px",
-                  width: "44%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
+                  width: "6px",
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
                 }}
