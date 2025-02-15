@@ -380,7 +380,7 @@ const Hero = () => {
                     style={{
                       textAlign: "center",
                       color: "#fff",
-                      marginTop: "20px",
+                      marginTop: "150px",
                     }}
                   >
                     <h3 style={{ fontSize: "1.5rem" }}>
@@ -443,7 +443,7 @@ const Hero = () => {
                 style={{ zIndex: 2, textAlign: "center" }}
                 className="col px-0"
               >
-                <div className="hero-title" style={{ marginTop: "150px" }}>
+                <div className="hero-title">
                   <h3
                     className="text-center font-weight-bold"
                     style={{ fontSize: "1.5rem" }}
