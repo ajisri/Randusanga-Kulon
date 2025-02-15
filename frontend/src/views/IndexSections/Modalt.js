@@ -698,13 +698,16 @@ const Modalt = () => {
                 src={require("assets/img/theme/law.png")}
                 alt=""
                 style={{
-                  width: "6px",
-                  height: "auto",
+                  marginBottom: "6px",
+                  width: "30%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "70px", // Batas maksimum lebar
+                  height: "auto", // Menjaga aspek rasio
+                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
                 }}
               />
             </div>
+            Produk Hukum
           </Button>
-
           <div>
             <Dialog
               header={
