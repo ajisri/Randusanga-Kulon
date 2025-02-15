@@ -1,111 +1,567 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
+import ReactTypingEffect from "react-typing-effect";
+import Tabs from "./Tabs.js";
 
 const Hero = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isFast, setIsFast] = useState(false);
+  const lasersRef = useRef([]);
+  const lasersLeftRef = useRef([]);
+  const starsRef = useRef([]);
+  const [, forceRender] = useState(0); // Dummy state untuk paksa render
+  const animationFrameRef = useRef(null);
+
+  // Fungsi untuk menambah laser secara acak
+  const spawnLasers = () => {
+    if (lasersRef.current.length > 50) lasersRef.current.shift(); // Batasi jumlah laser
+    lasersRef.current.push({
+      id: Math.random().toString(36).substr(2, 9),
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+    });
+
+    forceRender((prev) => prev + 1); // Paksa render hanya saat ada perubahan
+  };
+
+  // Fungsi untuk menambah laser dari kiri ke kanan
+  const spawnLasersLeft = () => {
+    if (lasersLeftRef.current.length > 30) lasersLeftRef.current.shift();
+    lasersLeftRef.current.push({
+      id: Math.random().toString(36).substr(2, 9),
+      top: `${Math.random() * 100}%`,
+      left: "0%",
+    });
+
+    forceRender((prev) => prev + 1);
+  };
+
+  // Gunakan requestAnimationFrame untuk animasi yang lebih smooth
+  useEffect(() => {
+    let lastSpawnTime = performance.now();
+
+    const animate = (time) => {
+      if (time - lastSpawnTime > (isFast ? 200 : 800)) {
+        spawnLasers();
+        spawnLasersLeft();
+        lastSpawnTime = time;
+      }
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameRef.current);
+  }, [isFast]);
+
+  // Membuat bintang jika `isFast` aktif
+  useEffect(() => {
+    if (isFast) {
+      starsRef.current = Array.from({ length: 30 }).map(() => ({
+        id: Math.random().toString(36).substr(2, 9),
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        depth: Math.random() * 1000,
+        duration: `${Math.random() * 3 + 2}s`,
+      }));
+    } else {
+      starsRef.current = [];
+    }
+    forceRender((prev) => prev + 1);
+  }, [isFast]);
+
+  const refaniFont = require("../../assets/font/Refani-Regular.otf");
 
   return (
-    <div
-      className="hero-container"
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      <video
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-        }}
-        autoPlay
-        loop
-        muted
-        playsInline
-        src={require("assets/img/theme/vi1.mp4")}
-      ></video>
+    <>
+      <style>
+        {`
+            @font-face {
+              font-family: 'Jaqueline';
+              src: url(${refaniFont}) format('truetype');
+            }
 
-      <Container
-        fluid
-        style={{ position: "relative", zIndex: 2, height: "100%" }}
-      >
-        {isMenuOpen ? (
-          <>
-            {/* Baris Pertama */}
-            <Row style={{ height: "50%" }}>
-              <Col
-                md={3}
-                style={{ backgroundColor: "rgba(0,0,0,0.6)", padding: "20px" }}
-              >
-                <h3 style={{ color: "white" }}>Menu</h3>
-                <Button
-                  onClick={() => setIsMenuOpen(false)}
-                  style={{ fontSize: "0.7rem", padding: "6px 12px" }}
-                >
-                  Tutup
-                </Button>
-              </Col>
-              <Col md={9} style={{ position: "relative" }}>
-                {/* Video tetap di belakang */}
-              </Col>
-            </Row>
+          @keyframes shakeText {
+            0% {
+              transform: translateX(0);
+            }
+            20% {
+              transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
+            }
+            40% {
+              transform: translateX(1px); /* Pergeseran sedikit ke kanan */
+            }
+            60% {
+              transform: translateX(-1px); /* Pergeseran sedikit ke kiri */
+            }
+            80% {
+              transform: translateX(1px); /* Pergeseran sedikit ke kanan */
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
 
-            {/* Baris Kedua */}
-            <Row style={{ height: "50%" }}>
-              <Col
-                md={3}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  padding: "20px",
-                }}
-              >
-                <p>Kolom Kiri</p>
-              </Col>
-              <Col
-                md={6}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.4)",
-                  padding: "20px",
-                }}
-              >
-                <p>Kolom Tengah</p>
-              </Col>
-              <Col
-                md={3}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  padding: "20px",
-                }}
-              >
-                <p>Kolom Kanan</p>
-              </Col>
-            </Row>
-          </>
-        ) : (
-          <div
+          @keyframes gradientMove {
+            0% {
+              background-position: 0% 50%;
+            }
+            50% {
+              background-position: 100% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+
+          @keyframes laserBeamInside {
+            0% {
+              left: 0; /* Mulai di kiri tombol */
+              opacity: 1;
+            }
+            100% {
+              left: 100%; /* Bergerak hingga ujung kanan tombol */
+              opacity: 0;
+            }
+          }
+
+          @keyframes spaceStars {
+            0% {
+              background-position: 0 0;
+            }
+            50% {
+              background-position: 50% 50%;
+            }
+            100% {
+              background-position: 0 0;
+            }
+          }
+
+          @keyframes randomStars {
+            0% {
+              background-position: 0 0;
+            }
+            25% {
+              background-position: 100px 50px;
+            }
+            50% {
+              background-position: -100px -50px;
+            }
+            75% {
+              background-position: 200px -100px;
+            }
+            100% {
+              background-position: 0 0;
+            }
+          }
+
+          .hero-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Set the height to fill the screen */
+}
+
+.hero-layout.active {
+  flex-direction: row;
+}
+
+.hero-layout > .row {
+  display: flex;
+  flex: 1;
+}
+
+.hero-layout > .row > .col {
+  padding: 0;
+}
+
+.hero-layout .menu-col {
+  width: 20%; /* Kolom menu 1/5 */
+}
+
+.hero-layout .video-col {
+  width: 80%; /* Kolom video 4/5 */
+}
+
+.hero-layout .bottom-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.hero-layout .bottom-row > .col {
+  width: 20%; /* Kolom kiri dan kanan di baris kedua */
+}
+
+.hero-layout .bottom-row > .col.middle {
+  width: 60%; /* Kolom tengah di baris kedua */
+}
+
+.hero-layout .btn-custom {
+  font-size: 1rem; /* Ukuran tombol yang lebih kecil */
+  padding: 10px 20px;
+}
+
+.hero-layout .btn-custom.active {
+  font-size: 0.8rem; /* Ukuran tombol lebih kecil saat aktif */
+  padding: 5px 10px;
+}
+
+            
+          .laser-left {
+            position: absolute;
+            width: 20px; /* Lebar memanjang */
+            height: 5px; /* Tinggi lebih kecil */
+            background: #ffffff;
+            border-radius: 5px;
+            animation: laserBeamInside 2s linear forwards;
+            z-index: 2;
+          }
+
+          .section-custom::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 50%;
+              background: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 1%) 10% 20%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 1%) 50% 50%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 80% 30%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 1%) 15% 80%, 
+                radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 40% 60%;
+              background-size: 150px 150px; /* Ukuran acak */
+              pointer-events: none;
+              z-index: 1; /* Agar berada di belakang konten lainnya */
+          }
+
+.overlay-gradient-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Overlay bagian bawah (fade in ke gelap) */
+.overlay-gradient-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+          .section-hero {
+            position: relative;
+            background: linear-gradient(120deg, #56ccf2, #f39c12);
+            background-size: cover;
+            padding: 80px 0;
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
+          }
+
+          .hero-title {
+            font-family: 'Jaqueline', sans-serif;
+            font-size: 2.8rem; /* Font lebih besar dan dominan */
+            font-weight: 800; /* Font tebal */
+            color: #ffffff !important
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 1.4;
+            letter-spacing: 2px;
+            padding-bottom: 20px;
+          }
+
+          .btn-custom {
+            overflow: hidden;
+            font-family: 'Jaqueline', sans-serif;
+            font-size: 1rem; /* Font lebih besar */
+            padding: 12px 20px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)); /* Gradien transparan dari hitam */
+            border: none;
+            color: white;
+            text-transform: uppercase;
+            border-radius: 12px;
+            position: relative;
+            animation: gradientMove 5s ease infinite;
+            background-size: 300% 300%;
+            text-align: center;
+            display: inline-block;
+          }
+
+          .btn-custom:hover {
+            background: rgba(0, 0, 0, 0); /* Background sepenuhnya transparan saat hover */
+            color: white; /* Warna teks tetap putih */
+          }
+
+          .btn-custom::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+              radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 1%) 10% 20%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 1%) 50% 50%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 80% 30%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 1%) 15% 80%, 
+              radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 1%) 40% 60%;
+            background-size: 150px 150px; /* Ukuran acak */
+            pointer-events: none;
+          }
+
+          .btn-custom.active {
+            background: #000000 !important; /* Latar belakang hitam */
+            color: #ffffff; /* Warna teks tetap putih */
+            font-size: 1rem;
+            text-shadow: 0 0 3px #ffffff, 0 0 5px #ffffff, 0 0 10px rgba(255, 255, 255, 0.6); /* Mengurangi efek cahaya bintang */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Mengurangi transparansi border */
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5), 0 0 15px 5px rgba(144, 238, 144, 0.5), 0 0 20px 5px rgba(255, 215, 0, 0.4); /* Mengurangi efek cahaya */
+            /* animation: movingNeonBorder 6s linear infinite, spaceStars 10s infinite; */ /* Memperlambat animasi */
+            animation: spaceStars 10s infinite; /* Memperlambat animasi */
+            transform: scale(0.95);
+          }
+
+          .btn-custom.active span {
+            display: inline-block; /* Teks bertindak sebagai elemen blok */
+            animation: shakeText 0.5s ease-in-out infinite; /* Animasi teks */
+          }
+
+          .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: #f5f5f5;
+            font-weight: 300;
+            text-align: center;
+            margin-top: 20px;
+          }
+
+          .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            z-index: 2;
+            perspective: 1000px; /* Menambahkan perspektif 3D */
+            overflow: hidden;
+          }
+
+          .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px white;
+            animation: flyThrough 4s linear infinite;
+            opacity: 0.8;
+          }
+
+          @keyframes flyThrough {
+            0% {
+              transform: translateZ(1000px) translateY(0) translateX(0);
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              transform: translateZ(-1000px) translateY(calc(100vh * (random() - 0.5))) translateX(calc(100vw * (random() - 0.5)));
+              opacity: 0;
+            }
+        `}
+      </style>
+
+      <div className="position-relative stars-container">
+        <section
+          className="section section-hero section-custom bg-gradient-cyan embed-responsive"
+          style={{ fontFamily: "Montserrat, sans-serif" }}
+        >
+          <video
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
               height: "100%",
+              objectFit: "cover",
+              zIndex: 1,
+              filter: isFast ? "brightness(10%)" : "brightness(100%)", // Ubah kecerahan saat tombol aktif
             }}
-          >
-            <Button
-              onClick={() => setIsMenuOpen(true)}
-              style={{ fontSize: "0.7rem", padding: "6px 12px" }}
+            autoPlay
+            loop
+            muted
+            playsInline
+            src={require("assets/img/theme/vi1.mp4")}
+          ></video>
+          {lasersRef.current.map((laser) => (
+            <span
+              key={laser.id}
+              className="laser"
+              style={{
+                position: "absolute",
+                width: "2px",
+                height: "2px",
+                top: laser.top,
+                left: laser.left,
+              }}
+            />
+          ))}
+
+          {lasersLeftRef.current.map((laser) => (
+            <span
+              key={laser.id}
+              className="laser-left"
+              style={{
+                position: "absolute",
+                width: "2px",
+                height: "2px",
+                top: laser.top,
+                left: laser.left,
+              }}
+            />
+          ))}
+
+          {starsRef.current.map((star) => (
+            <div
+              key={star.id}
+              className="star"
+              style={{
+                top: star.top,
+                left: star.left,
+                animationDuration: star.duration,
+                transform: `translateZ(${star.depth}px)`, // Efek 3D
+              }}
+            />
+          ))}
+          <div className="overlay-gradient-top"></div>
+          <div className="overlay-gradient-bottom"></div>
+
+          <Container className="shape-container d-flex align-items-center justify-content-center py-lg">
+            <div
+              style={{
+                zIndex: 2,
+                textAlign: "center",
+              }}
+              className="col px-0"
             >
-              Buka Menu
-            </Button>
+              <div className="hero-title">
+                <h3
+                  className="text-center font-weight-bold"
+                  style={{ fontSize: "1.5rem" }}
+                >
+                  <span style={{ color: "#ffffff" }}>
+                    Selamat Datang di Portal Desa{" "}
+                  </span>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      whiteSpace: "nowrap",
+                      minWidth: "250px",
+                      textAlign: "left",
+                    }}
+                  >
+                    <ReactTypingEffect
+                      className="h3 text-center mr-1 font-weight-bold mt-6"
+                      style={{ color: "#ffffff", fontSize: "1.5rem" }}
+                      text={["Randusanga Kulon"]}
+                      speed={100}
+                      eraseSpeed={50}
+                      eraseDelay={2000}
+                      typingDelay={500}
+                    />
+                  </span>
+                </h3>
+              </div>
+
+              <Row className="align-items-center justify-content-center mt-4">
+                {/* Tombol menu kecil */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    position: "relative",
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      setIsVisible(!isVisible);
+                      setIsFast(!isFast); // Toggle the laser speed
+                    }}
+                    className={`btn-custom ${isFast ? "active" : ""}`}
+                    block
+                    size="sm" // Tombol lebih kecil
+                    type="button"
+                  >
+                    <span>
+                      {isFast
+                        ? "Menu Telah Dibuka"
+                        : "Silahkan Klik Untuk Membuka Menu"}
+                    </span>
+                  </Button>
+                </div>
+
+                <Col className="text-center" lg="12">
+                  {isVisible && (
+                    <Row>
+                      {/* Baris pertama */}
+                      <Col lg="2" className="d-none d-lg-block">
+                        {/* Menu baris pertama */}
+                        <Tabs />
+                      </Col>
+                      <Col lg="10" className="d-none d-lg-block">
+                        {/* Kolom 4/5 untuk video */}
+                        <div style={{ position: "relative", height: "100%" }}>
+                          {/* Video akan tetap di sini */}
+                        </div>
+                      </Col>
+
+                      {/* Baris kedua */}
+                      <Col lg="2" className="d-none d-lg-block">
+                        {/* Kolom pertama baris kedua */}
+                      </Col>
+                      <Col lg="4" className="d-none d-lg-block">
+                        {/* Kolom kedua baris kedua */}
+                      </Col>
+                      <Col lg="2" className="d-none d-lg-block">
+                        {/* Kolom ketiga baris kedua */}
+                      </Col>
+                    </Row>
+                  )}
+
+                  <p className="subtitle">
+                    <strong>
+                      Udang Vaname-Wisata Laut-Wisata Pemancingan-Kerang
+                      Hijau-Ikan Bandeng-Rumput Laut
+                    </strong>
+                  </p>
+                </Col>
+              </Row>
+            </div>
+          </Container>
+
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg">
+              <path
+                className="bg-gradient-cyan"
+                d="M0 20 Q 10 25, 20 20 T 40 20 T 60 20 T 80 20 T 100 20 T 120 20 V 30 H 0 Z"
+                fill="#56ccf2"
+              />
+            </svg>
           </div>
-        )}
-      </Container>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 
