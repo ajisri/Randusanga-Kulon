@@ -364,15 +364,20 @@ const Hero = () => {
               }}
             >
               {/* Baris pertama: 2 kolom (20% & 80%) */}
-              <Row style={{ height: "50%" }}>
+              <Row style={{ height: "50%", alignItems: "stretch" }}>
                 <Col
-                  style={{ flexBasis: "20%", maxWidth: "20%" }}
+                  style={{ flexBasis: "20%", maxWidth: "20%", height: "100%" }}
                   className="p-0"
                 >
                   <Tabs />
                 </Col>
                 <Col
-                  style={{ flexBasis: "80%", maxWidth: "80%" }}
+                  style={{
+                    flexBasis: "80%",
+                    maxWidth: "80%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                   className="p-0"
                 >
                   <div
