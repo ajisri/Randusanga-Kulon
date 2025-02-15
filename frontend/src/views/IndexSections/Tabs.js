@@ -193,9 +193,12 @@ class TabsSection extends Component {
                       <NavItem>
                         <NavLink
                           aria-selected={this.state.plainTabs === index}
-                          className={classnames("pixelated-tab", {
-                            active: this.state.plainTabs === index,
-                          })}
+                          className={classnames(
+                            "pixelated-tab futuristik-nav-link",
+                            {
+                              active: this.state.plainTabs === index,
+                            }
+                          )}
                           onClick={(e) =>
                             this.toggleNavs(e, "plainTabs", index)
                           }
@@ -209,11 +212,13 @@ class TabsSection extends Component {
                               ? "LAYANAN"
                               : "TRANSPARANSI"}
                           </b>
-                          <div className="pixelated-pieces">
-                            {this.state.pieces[index].map((piece) => (
-                              <div key={piece.id} style={piece.style}></div>
-                            ))}
-                          </div>
+                          {this.state.pieces[index]?.map((piece) => (
+                            <div
+                              key={`${piece.id}-${this.state.animationKeys[index]}`}
+                              className="pixelated-pieces horizontal-fly-out"
+                              style={piece.style}
+                            ></div>
+                          ))}
                         </NavLink>
                       </NavItem>
                     </Col>
