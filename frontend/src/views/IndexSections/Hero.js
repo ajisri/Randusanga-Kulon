@@ -229,8 +229,8 @@ const Hero = () => {
           .btn-custom {
             overflow: hidden;
             font-family: 'Jaqueline', sans-serif;
-            font-size: 1.2rem; /* Font lebih besar */
-            padding: 20px 40px;
+            font-size: 1rem; /* Font lebih besar */
+            padding: 12px 20px;
             background: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)); /* Gradien transparan dari hitam */
             border: none;
             color: white;
