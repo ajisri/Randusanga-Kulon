@@ -57,19 +57,24 @@ const Hero = () => {
                   zIndex: 2,
                 }}
               >
-                <img
-                  alt="..."
-                  src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
-                  style={{
-                    position: "absolute",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "70px", // Sesuaikan ukuran bendera
-                    height: "auto",
-                    zIndex: 1, // Lebih tinggi dari video
-                  }}
-                />
-                <h3 style={{ color: "white", paddingTop: "20px" }}>Menu</h3>
+                <div style={{ position: "relative" }}>
+                  <img
+                    alt="..."
+                    src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
+                    style={{
+                      position: "absolute",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "70px", // Sesuaikan ukuran bendera
+                      height: "auto",
+                      zIndex: 0, // Gambar di bawah
+                    }}
+                  />
+                  <h3 style={{ color: "white", paddingTop: "20px", zIndex: 1 }}>
+                    Menu
+                  </h3>
+                </div>
+
                 <Tabs />
                 <Button
                   onClick={() => setIsMenuOpen(false)}
