@@ -868,10 +868,12 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
-            icon="pi pi-eye"
+            icon="pi pi-info-circle"
             onClick={() => setDialogVisiblevm(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition2)}
             onMouseLeave={() => handleMouseLeave(setIconPosition2)}
@@ -894,7 +896,7 @@ const Modals = () => {
                 }}
               />
             </div>
-            Visi dan Misi
+            VISI DAN MISI
           </Button>
           <div>
             <Dialog
@@ -967,11 +969,13 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
-            icon="pi pi-external-link"
-            onClick={() => setDialogVisibleso(true)}
+            icon="pi pi-info-circle"
+            onClick={() => setDialogVisiblevm(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
             onMouseLeave={() => handleMouseLeave(setIconPosition3)}
           >
@@ -986,14 +990,14 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
-                  width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
                 }}
               />
             </div>
-            Struktur Organisasi
+            STRUKTUR ORGANISASI
           </Button>
           <div>
             <Dialog
