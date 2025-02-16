@@ -445,10 +445,10 @@ const Modalt = () => {
           }
 
           .small-button {
-            width: 10px !important;
-            height: 10px !important;
-            min-width: 10px !important;
-            min-height: 10px !important;
+            width: 70px !important;
+            height: 70px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
             padding: 0 !important;
             display: flex;
             align-items: center;
