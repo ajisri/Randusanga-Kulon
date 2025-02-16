@@ -38,11 +38,12 @@ const Hero = () => {
       >
         {isMenuOpen ? (
           <>
+            {/* Baris Pertama */}
             <Row
               style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
-                md={3}
+                md={4}
                 style={{
                   backgroundColor: "rgba(0,0,0,0.6)",
                   padding: "20px",

@@ -1112,7 +1112,7 @@ const Modals = () => {
                 alt=""
                 style={{
                   marginBottom: "5px",
-                  width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
@@ -1297,7 +1297,6 @@ const Modals = () => {
                 src={require("assets/img/theme/planet.png")}
                 alt=""
                 style={{
-                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
