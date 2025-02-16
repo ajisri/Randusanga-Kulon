@@ -315,6 +315,16 @@ const Modals = () => {
     setIconPosition({ x: clampedX, y: clampedY });
 
     // Tambahkan efek ripple
+    const ripple = document.createElement("div");
+    ripple.className = "ripple";
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+
+    button.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 200); // Hapus ripple setelah animasi selesai
   };
 
   const handleMouseLeave = (setIconPosition) => {
