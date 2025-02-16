@@ -699,14 +699,14 @@ const Modals = () => {
                 alt=""
                 style={{
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "100px", // Batas maksimum lebar
+                  maxWidth: "50px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
                 }}
               />
             </div>
             <div className="marquee">
-              <span style={{ display: "inline-block", fontSize: "12px" }}>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
                 Tentang
               </span>
             </div>
