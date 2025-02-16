@@ -236,26 +236,37 @@ const Modalt = () => {
             justify-content: center;
             width: 100%;
             height: 100%;
+            min-height: 60px !important;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            margin: 0px
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
+            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
+          }
+
+          .button-icon img {
+            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+            max-width: 40px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+          }
+
+          .button-icon:hover img {
+            transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+            opacity: 1;
           }
 
           .button-icon:before {
-            content: "";
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(
-              circle,
-              rgba(255, 255, 255, 0.5) 10%,
-              transparent 80%
-            );
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
             transform: translate(-50%, -50%) scale(0);
             border-radius: 50%;
             transition: transform 0.5s ease-out;
@@ -268,7 +279,8 @@ const Modalt = () => {
 
           .button-icon:hover {
             transform: scale(1.05);
-            filter: url("#distortion-filter"); /* SVG filter untuk distorsi */
+            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
+            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
           }
 
           .video-button {
@@ -538,11 +550,32 @@ const Modalt = () => {
             onClick={showDialog}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon ripple-container"
               style={{
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -550,11 +583,11 @@ const Modalt = () => {
                 src={require("assets/img/theme/desaankor.png")}
                 alt=""
                 style={{
-                  marginBottom: "5px",
-                  width: "40%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
@@ -674,11 +707,32 @@ const Modalt = () => {
             onClick={showDialogPH}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
             onMouseLeave={() => handleMouseLeave(setIconPosition1)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -686,11 +740,11 @@ const Modalt = () => {
                 src={require("assets/img/theme/law.png")}
                 alt=""
                 style={{
-                  marginBottom: "6px",
-                  width: "44%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
@@ -814,11 +868,32 @@ const Modalt = () => {
             onClick={showDialogAPB}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition2)}
             onMouseLeave={() => handleMouseLeave(setIconPosition2)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -826,11 +901,11 @@ const Modalt = () => {
                 src={require("assets/img/theme/payroll.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
