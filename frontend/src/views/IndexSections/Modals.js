@@ -578,6 +578,18 @@ const Modals = () => {
             overflow: hidden;
           }
 
+          .small-button {
+            width: 70px !important;
+            height: 70px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+          }
+
           @media screen and (max-width: 1200px) {
             .button {
               width: 50px !important;
@@ -665,7 +677,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white btn-icon mb-3 mb-sm-0 small-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -687,14 +699,16 @@ const Modals = () => {
                 alt=""
                 style={{
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
+                  maxWidth: "100px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
                 }}
               />
             </div>
             <div className="marquee">
-              <span style={{ display: "inline-block" }}>Tentang</span>
+              <span style={{ display: "inline-block", fontSize: "12px" }}>
+                Tentang
+              </span>
             </div>
           </Button>
           <div>

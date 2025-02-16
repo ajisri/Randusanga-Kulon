@@ -444,18 +444,6 @@ const Modalt = () => {
             overflow: hidden;
           }
 
-          .small-button {
-            width: 70px !important;
-            height: 70px !important;
-            min-width: 50px !important;
-            min-height: 50px !important;
-            padding: 0 !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-          }
-
           @media screen and (max-width: 1200px) {
             .button {
               width: 50px !important;
@@ -677,7 +665,7 @@ const Modalt = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button small-button ${
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -699,8 +687,8 @@ const Modalt = () => {
                 alt=""
                 style={{
                   marginBottom: "6px",
-                  width: "30%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "70px", // Batas maksimum lebar
+                  width: "44%", // Ukuran gambar dikurangi menjadi 50% dari container
+                  maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
                   borderRadius: "inherit", // Menyesuaikan border radius dengan container
                 }}
