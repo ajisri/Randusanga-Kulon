@@ -921,6 +921,10 @@ const Modals = () => {
               className="button-icon"
               style={{
                 transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -1047,6 +1051,10 @@ const Modals = () => {
               className="button-icon"
               style={{
                 transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
