@@ -42,6 +42,19 @@ const Hero = () => {
             <Row
               style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
+              <img
+                alt="..."
+                src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
+                style={{
+                  position: "absolute",
+                  top: "-50px", // Menutup 50px bagian atas layar
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "120px", // Sesuaikan ukuran bendera
+                  height: "auto",
+                  zIndex: 3, // Lebih tinggi dari video
+                }}
+              />
               <Col
                 md={3}
                 style={{
