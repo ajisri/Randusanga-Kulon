@@ -38,12 +38,11 @@ const Hero = () => {
       >
         {isMenuOpen ? (
           <>
-            {/* Baris Pertama */}
             <Row
               style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
-                md={4}
+                md={3}
                 style={{
                   backgroundColor: "rgba(0,0,0,0.6)",
                   padding: "20px",
@@ -54,7 +53,7 @@ const Hero = () => {
                   minHeight: "100%",
                 }}
               >
-                <h3 style={{ color: "white", paddingTop: "50px" }}>Menu</h3>
+                <h3 style={{ color: "white", paddingTop: "20px" }}>Menu</h3>
                 <Tabs />
                 <Button
                   onClick={() => setIsMenuOpen(false)}
@@ -80,54 +79,6 @@ const Hero = () => {
                 }}
               >
                 {/* Area tambahan jika diperlukan */}
-              </Col>
-            </Row>
-
-            {/* Baris Kedua */}
-            <Row
-              style={{ minHeight: "80vh", height: "auto", paddingTop: "0px" }}
-            >
-              <Col
-                md={4}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  minHeight: "100%",
-                }}
-              >
-                <Tabs />
-              </Col>
-              <Col
-                md={4}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  minHeight: "100%",
-                }}
-              >
-                <p>Kolom Tengah</p>
-              </Col>
-              <Col
-                md={4}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  minHeight: "100%",
-                }}
-              >
-                <p>Kolom Kanan</p>
               </Col>
             </Row>
           </>
