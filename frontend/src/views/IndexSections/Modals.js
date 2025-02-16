@@ -12,13 +12,13 @@ import "primeicons/primeicons.css";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Modals = () => {
-  const [dialogVisiblevm, setDialogVisiblevm] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedLembaga, setSelectedLembaga] = useState(null);
   const [detailDialogVisible, setDetailDialogVisible] = useState(false);
   const [expandedRows, setExpandedRows] = useState([]);
   const [dialogVisiblettg, setDialogVisiblettg] = useState(false);
   const [dialogVisiblesd, setDialogVisiblesd] = useState(false);
+  const [dialogVisiblevm, setDialogVisiblevm] = useState(false);
   const [dialogVisibleso, setDialogVisibleso] = useState(false);
   const [dialogVisiblele, setDialogVisiblele] = useState(false);
   const [dialogVisiblege, setDialogVisiblege] = useState(false);
@@ -291,11 +291,11 @@ const Modals = () => {
 
   const [iconPosition, setIconPosition] = useState({ x: 0, y: 0 });
   const [iconPosition1, setIconPosition1] = useState({ x: 0, y: 0 });
-  const [iconPosition2, setIconPosition2] = useState({ x: 0, y: 0 });
   const [iconPosition3, setIconPosition3] = useState({ x: 0, y: 0 });
   const [iconPosition4, setIconPosition4] = useState({ x: 0, y: 0 });
   const [iconPosition5, setIconPosition5] = useState({ x: 0, y: 0 });
   const [iconPosition6, setIconPosition6] = useState({ x: 0, y: 0 });
+  const [iconPosition7, setIconPosition7] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e, setIconPosition) => {
     const button = e.currentTarget;
@@ -324,7 +324,7 @@ const Modals = () => {
 
     setTimeout(() => {
       ripple.remove();
-    }, 200); // Hapus ripple setelah animasi selesai
+    }, 50); // Hapus ripple setelah animasi selesai
   };
 
   const handleMouseLeave = (setIconPosition) => {
@@ -901,13 +901,26 @@ const Modals = () => {
             type="button"
             icon="pi pi-info-circle"
             onClick={() => setDialogVisiblevm(true)}
-            onMouseMove={(e) => handleMouseMove(e, setIconPosition2)}
-            onMouseLeave={() => handleMouseLeave(setIconPosition2)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition3)}
+            style={{
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
               }}
             >
               <img
@@ -915,16 +928,24 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Visi Misi
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                VISI MISI
               </span>
             </div>
           </Button>
@@ -1005,9 +1026,9 @@ const Modals = () => {
             color="default"
             type="button"
             icon="pi pi-info-circle"
-            onClick={() => setDialogVisiblevm(true)}
-            onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
-            onMouseLeave={() => handleMouseLeave(setIconPosition3)}
+            onClick={() => setDialogVisibleso(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition4)}
             style={{
               borderRadius: "12px",
               padding: "12px",
@@ -1025,7 +1046,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px)`,
               }}
             >
               <img
@@ -1133,13 +1154,13 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblele(true)}
-            onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
-            onMouseLeave={() => handleMouseLeave(setIconPosition4)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition5)}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px)`,
               }}
             >
               <img
@@ -1319,13 +1340,13 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblege(true)}
-            onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
-            onMouseLeave={() => handleMouseLeave(setIconPosition5)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition6)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition6)}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px)`,
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px)`,
               }}
             >
               <img
@@ -1390,13 +1411,13 @@ const Modals = () => {
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisible(true)}
-            onMouseMove={(e) => handleMouseMove(e, setIconPosition6)}
-            onMouseLeave={() => handleMouseLeave(setIconPosition6)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition7)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition7)}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px)`,
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px)`,
               }}
             >
               <img
