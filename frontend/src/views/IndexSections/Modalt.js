@@ -583,7 +583,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/desaankor.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -591,8 +591,18 @@ const Modalt = () => {
                 }}
               />
             </div>
-            <div className="marquee">
-              <span style={{ display: "inline-block" }}>Desa Ankor</span>
+            <div>
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                DESA ANKOR
+              </span>
             </div>
           </Button>
           <div>
@@ -740,7 +750,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/law.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -748,7 +758,19 @@ const Modalt = () => {
                 }}
               />
             </div>
-            Produk Hukum
+            <div>
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                PRODUK HUKUM
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -901,7 +923,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/payroll.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -909,7 +931,19 @@ const Modalt = () => {
                 }}
               />
             </div>
-            APB Desa
+            <div>
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                APB DESA
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog

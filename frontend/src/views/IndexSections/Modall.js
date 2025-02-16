@@ -585,7 +585,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-5px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-2px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -597,7 +597,7 @@ const Modall = () => {
                 src={require("assets/img/theme/aktakelahiran.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -723,7 +723,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-2x)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -735,7 +735,7 @@ const Modall = () => {
                 src={require("assets/img/theme/kartukeluarga.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1001,7 +1001,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-2px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1013,7 +1013,7 @@ const Modall = () => {
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1142,7 +1142,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-2px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1154,7 +1154,7 @@ const Modall = () => {
                 src={require("assets/img/theme/aktivasibpjs.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1284,7 +1284,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-2px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1296,7 +1296,7 @@ const Modall = () => {
                 src={require("assets/img/theme/sktm.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
