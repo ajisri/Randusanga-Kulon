@@ -696,11 +696,32 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -708,10 +729,11 @@ const Modals = () => {
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
                 style={{
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
@@ -799,11 +821,32 @@ const Modals = () => {
             onClick={() => setDialogVisiblesd(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
             onMouseLeave={() => handleMouseLeave(setIconPosition1)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -811,10 +854,11 @@ const Modals = () => {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
@@ -937,7 +981,7 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-5px)",
+                  transform: "translateY(-3px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1175,11 +1219,32 @@ const Modals = () => {
             onClick={() => setDialogVisiblele(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
             onMouseLeave={() => handleMouseLeave(setIconPosition5)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -1187,11 +1252,11 @@ const Modals = () => {
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
                 style={{
-                  marginBottom: "5px",
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
@@ -1361,11 +1426,32 @@ const Modals = () => {
             onClick={() => setDialogVisiblege(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition6)}
             onMouseLeave={() => handleMouseLeave(setIconPosition6)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -1373,10 +1459,11 @@ const Modals = () => {
                 src={require("assets/img/theme/planet.png")}
                 alt=""
                 style={{
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
@@ -1432,11 +1519,32 @@ const Modals = () => {
             onClick={() => setDialogVisible(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition7)}
             onMouseLeave={() => handleMouseLeave(setIconPosition7)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
@@ -1444,11 +1552,11 @@ const Modals = () => {
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
                 style={{
-                  marginBottom: "5px",
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
