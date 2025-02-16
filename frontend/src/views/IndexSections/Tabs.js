@@ -168,7 +168,7 @@ class TabsSection extends Component {
                         >
                           <b
                             style={{
-                              alignItems: "center",
+                              textAlign: "center",
                               display: "inline-block",
                               fontSize: "8px",
                             }}
