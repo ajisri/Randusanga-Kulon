@@ -386,10 +386,20 @@ const Modals = () => {
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
-            background: rgba(255, 255, 255, 0.1); /* Transparan modern */
-    backdrop-filter: blur(10px); /* Efek blur */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
           }
+
+          .button-icon img {
+    width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+    max-width: 40px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.button-icon:hover img {
+    transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+    opacity: 1;
+}
 
           .button-icon:before {
             content: '';
@@ -411,7 +421,7 @@ const Modals = () => {
 
           .button-icon:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
             filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
           }
 
@@ -1023,7 +1033,7 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
-                  width: "50%",
+                  width: "80%",
                   maxWidth: "150px",
                   height: "auto",
                   borderRadius: "inherit",
