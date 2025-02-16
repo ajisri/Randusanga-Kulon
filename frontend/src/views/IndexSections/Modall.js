@@ -1122,7 +1122,7 @@ const Modall = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition4)}
             style={{
               overflow: "visible",
-              marginTop: "40px !important",
+              marginTop: "80px !important",
               borderRadius: "12px",
               padding: "12px",
               display: "flex",
@@ -1262,6 +1262,8 @@ const Modall = () => {
             onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
             onMouseLeave={() => handleMouseLeave(setIconPosition5)}
             style={{
+              marginTop: "80px !important",
+              paddingTop: "80px !important",
               overflow: "visible",
               borderRadius: "12px",
               padding: "12px",
