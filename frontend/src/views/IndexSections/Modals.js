@@ -381,6 +381,7 @@ const Modals = () => {
             height: 100%;
             border: none;
             border-radius: 8px;
+            margin: 0px
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease;
@@ -665,7 +666,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -688,7 +689,6 @@ const Modals = () => {
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -788,7 +788,6 @@ const Modals = () => {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -888,7 +887,6 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -988,7 +986,6 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
                   width: "60%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
