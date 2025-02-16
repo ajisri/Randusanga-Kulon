@@ -45,13 +45,16 @@ const Hero = () => {
               <Col
                 md={3}
                 style={{
-                  backgroundColor: "rgba(0,0,0,0.6)",
+                  background:
+                    "linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50px, rgba(255, 255, 255, 0) 100%)",
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
                   minHeight: "100%",
+                  position: "relative",
+                  zIndex: 2,
                 }}
               >
                 <img
@@ -59,7 +62,6 @@ const Hero = () => {
                   src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
                   style={{
                     position: "absolute",
-                    top: "-50px", // Menutup 50px bagian atas layar
                     left: "50%",
                     transform: "translateX(-50%)",
                     width: "70px", // Sesuaikan ukuran bendera
