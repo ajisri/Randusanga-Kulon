@@ -1122,6 +1122,7 @@ const Modall = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition4)}
             style={{
               overflow: "visible",
+              marginTop: "20px",
               borderRadius: "12px",
               padding: "12px",
               display: "flex",
@@ -1171,7 +1172,7 @@ const Modall = () => {
                   color: "#fff", // Warna teks agar lebih kontras
                 }}
               >
-                AKTIFASI BPJS PBI-JKN
+                AKTIFASI BPJS PBI
               </span>
             </div>
           </Button>
@@ -1302,8 +1303,16 @@ const Modall = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Pembuatan SKTM
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                PEMBUATAN SKTM
               </span>
             </div>
           </Button>
