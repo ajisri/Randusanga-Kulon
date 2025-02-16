@@ -696,7 +696,11 @@ const Modals = () => {
                 }}
               />
             </div>
-            Tentang
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Tentang
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -795,7 +799,11 @@ const Modals = () => {
                 }}
               />
             </div>
-            Sejarah
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Sejarah
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -896,7 +904,11 @@ const Modals = () => {
                 }}
               />
             </div>
-            VISI DAN MISI
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Visi dan Misi
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -997,7 +1009,11 @@ const Modals = () => {
                 }}
               />
             </div>
-            STRUKTUR ORGANISASI
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Struktur Organisasi
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
