@@ -905,6 +905,7 @@ const Modals = () => {
             onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
             onMouseLeave={() => handleMouseLeave(setIconPosition3)}
             style={{
+              position: "relative",
               borderRadius: "12px",
               padding: "12px",
               display: "flex",
@@ -923,7 +924,8 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                position: "relative",
+                position: "absolute",
+                top: "-10px",
                 transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
                 display: "flex",
                 alignItems: "center",
