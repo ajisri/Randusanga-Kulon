@@ -176,7 +176,7 @@ class TabsSection extends Component {
                         >
                           <b
                             style={{
-                              fontSize: "8px",
+                              fontSize: "10px",
                               textAlign: "center",
                             }}
                           >
