@@ -414,6 +414,10 @@ const Modals = () => {
           .video-button {
             transform: translateX(-100%);
             animation: slideIn 1s forwards;
+            margin-top: 0px !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+            margin-bottom: 0px !important;
           }
 
           .no-animation {

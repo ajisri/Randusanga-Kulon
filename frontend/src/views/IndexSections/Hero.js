@@ -40,7 +40,7 @@ const Hero = () => {
           <>
             {/* Baris Pertama */}
             <Row
-              style={{ minHeight: "50vh", height: "auto", paddingTop: "150px" }}
+              style={{ minHeight: "80vh", height: "auto", paddingTop: "50px" }}
             >
               <Col
                 md={4}
@@ -84,7 +84,9 @@ const Hero = () => {
             </Row>
 
             {/* Baris Kedua */}
-            <Row style={{ minHeight: "50vh", height: "auto" }}>
+            <Row
+              style={{ minHeight: "80vh", height: "auto", paddingTop: "0px" }}
+            >
               <Col
                 md={4}
                 style={{
