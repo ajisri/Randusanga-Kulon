@@ -738,8 +738,16 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Tentang
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                TENTANG
               </span>
             </div>
           </Button>
@@ -863,8 +871,16 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Sejarah
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                SEJARAH
               </span>
             </div>
           </Button>
@@ -1261,8 +1277,16 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Lembaga
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                LEMBAGA
               </span>
             </div>
           </Button>
@@ -1468,8 +1492,16 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Geografi
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                GEOGRAFI
               </span>
             </div>
           </Button>
@@ -1561,8 +1593,16 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Demografi
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                DEMOGRAFI
               </span>
             </div>
           </Button>
