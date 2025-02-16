@@ -650,11 +650,10 @@ const Modall = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
-            color="black"
+            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            color="default"
             type="button"
+            icon="pi pi-external-link"
             onClick={showDialogkk}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
             onMouseLeave={() => handleMouseLeave(setIconPosition1)}
@@ -670,7 +669,7 @@ const Modall = () => {
                 src={require("assets/img/theme/kartukeluarga.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -678,7 +677,11 @@ const Modall = () => {
                 }}
               />
             </div>
-            Kartu Keluarga
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Kartu Keluarga
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -758,7 +761,7 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -777,7 +780,7 @@ const Modall = () => {
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -785,7 +788,11 @@ const Modall = () => {
                 }}
               />
             </div>
-            KTP
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                KTP
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -863,9 +870,7 @@ const Modall = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
+            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -884,8 +889,7 @@ const Modall = () => {
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
                 style={{
-                  marginTop: "9px",
-                  marginBottom: "10px",
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -893,7 +897,11 @@ const Modall = () => {
                 }}
               />
             </div>
-            Pendaftaran Nikah
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Pendaftaran Nikah
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -973,7 +981,7 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -992,8 +1000,7 @@ const Modall = () => {
                 src={require("assets/img/theme/aktivasibpjs.png")}
                 alt=""
                 style={{
-                  marginTop: "10px",
-                  marginBottom: "10px",
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -1001,7 +1008,11 @@ const Modall = () => {
                 }}
               />
             </div>
-            Aktifasi BPJS PBI-JKN
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Aktifasi BPJS PBI-JKN
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -1100,7 +1111,7 @@ const Modall = () => {
                 src={require("assets/img/theme/sktm.png")}
                 alt=""
                 style={{
-                  marginBottom: "10px",
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -1108,7 +1119,11 @@ const Modall = () => {
                 }}
               />
             </div>
-            Pembuatan SKTM
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Pembuatan SKTM
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
