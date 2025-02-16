@@ -678,16 +678,17 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="button-icon ripple-container"
+              className="button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
             >
               <img
                 className="img-fluid"
-                src={require("assets/img/theme/about-us.png")}
+                src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
+                  marginBottom: "10px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -695,9 +696,7 @@ const Modals = () => {
                 }}
               />
             </div>
-            <div className="marquee">
-              <span style={{ display: "inline-block" }}>Tentang</span>
-            </div>
+            Tentang
           </Button>
           <div>
             <Dialog
