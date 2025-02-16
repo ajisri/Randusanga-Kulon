@@ -39,7 +39,9 @@ const Hero = () => {
         {isMenuOpen ? (
           <>
             {/* Baris Pertama */}
-            <Row style={{ minHeight: "50vh", height: "auto" }}>
+            <Row
+              style={{ minHeight: "50vh", height: "auto", paddingTop: "150px" }}
+            >
               <Col
                 md={4}
                 style={{
