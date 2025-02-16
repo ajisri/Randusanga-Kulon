@@ -585,7 +585,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-5px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

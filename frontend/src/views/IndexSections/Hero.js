@@ -67,7 +67,7 @@ const Hero = () => {
                       transform: "translateX(-50%)",
                       width: "70px", // Sesuaikan ukuran bendera
                       height: "auto",
-                      top: "-10px",
+                      paddingtop: "10px",
                       zIndex: 0, // Gambar di bawah
                     }}
                   />
