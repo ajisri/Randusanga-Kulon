@@ -905,6 +905,7 @@ const Modals = () => {
             onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
             onMouseLeave={() => handleMouseLeave(setIconPosition3)}
             style={{
+              overflow: "visible",
               borderRadius: "12px",
               padding: "12px",
               display: "flex",
@@ -923,6 +924,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
+                overflow: "visible",
                 transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
                 display: "flex",
                 alignItems: "center",
