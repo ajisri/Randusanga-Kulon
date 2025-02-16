@@ -950,7 +950,6 @@ const Modals = () => {
                 style={{
                   display: "block",
                   textAlign: "center",
-                  marginTop: "10px",
                   fontSize: "10px",
                   fontWeight: "600",
                   color: "#fff", // Warna teks agar lebih kontras
