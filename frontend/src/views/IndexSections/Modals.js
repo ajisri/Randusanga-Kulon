@@ -324,7 +324,7 @@ const Modals = () => {
 
     setTimeout(() => {
       ripple.remove();
-    }, 50); // Hapus ripple setelah animasi selesai
+    }, 250); // Hapus ripple setelah animasi selesai
   };
 
   const handleMouseLeave = (setIconPosition) => {
@@ -392,15 +392,15 @@ const Modals = () => {
           }
 
           .button-icon img {
-    width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-    max-width: 40px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
+            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+            max-width: 40px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+          }
 
-.button-icon:hover img {
-    transform: translateY(-4px); /* Gambar sedikit naik saat hover */
-    opacity: 1;
-}
+          .button-icon:hover img {
+            transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+            opacity: 1;
+          }
 
           .button-icon:before {
             content: '';
