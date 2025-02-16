@@ -43,7 +43,7 @@ const Hero = () => {
               style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
-                md={4}
+                md={3}
                 style={{
                   backgroundColor: "rgba(0,0,0,0.6)",
                   padding: "20px",
