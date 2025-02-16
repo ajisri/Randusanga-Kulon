@@ -1040,6 +1040,7 @@ const Modals = () => {
             onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
             onMouseLeave={() => handleMouseLeave(setIconPosition4)}
             style={{
+              overflow: "visible",
               borderRadius: "12px",
               padding: "12px",
               display: "flex",
@@ -1058,7 +1059,8 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1070,6 +1072,7 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
+                  transform: "translateY(-10px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
