@@ -1010,7 +1010,7 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "9px" }}>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
                 Struktur Organisasi
               </span>
             </div>
@@ -1301,7 +1301,11 @@ const Modals = () => {
                 }}
               />
             </div>
-            Geografi
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Geografi
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog
@@ -1369,7 +1373,11 @@ const Modals = () => {
                 }}
               />
             </div>
-            Demografi
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Demografi
+              </span>
+            </div>
           </Button>
           <div>
             <Dialog

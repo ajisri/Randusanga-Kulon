@@ -541,7 +541,7 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -550,7 +550,7 @@ const Modall = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="button-icon ripple-container"
+              className="button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
@@ -560,6 +560,7 @@ const Modall = () => {
                 src={require("assets/img/theme/aktakelahiran.png")}
                 alt=""
                 style={{
+                  marginBottom: "5px",
                   width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
                   maxWidth: "150px", // Batas maksimum lebar
                   height: "auto", // Menjaga aspek rasio
@@ -567,8 +568,10 @@ const Modall = () => {
                 }}
               />
             </div>
-            <div className="marquee">
-              <span style={{ display: "inline-block" }}>Akta Kelahiran</span>
+            <div>
+              <span style={{ display: "inline-block", fontSize: "8px" }}>
+                Akta Kelahiran
+              </span>
             </div>
           </Button>
           <div>
