@@ -923,6 +923,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
+                position: "relative",
                 transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px)`,
                 display: "flex",
                 alignItems: "center",
@@ -935,7 +936,8 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-10px)",
+                  position: "absolute",
+                  top: "-10px",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
