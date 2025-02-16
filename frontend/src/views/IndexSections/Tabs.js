@@ -165,12 +165,19 @@ class TabsSection extends Component {
                           }
                           href="#pablo"
                           role="tab"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            width: "100%", // Pastikan memenuhi lebar container
+                          }}
                         >
                           <b
                             style={{
-                              textAlign: "center",
-                              display: "inline-block",
                               fontSize: "8px",
+                              textAlign: "center",
                             }}
                           >
                             {index === 1
