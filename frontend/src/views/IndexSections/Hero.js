@@ -64,10 +64,11 @@ const Hero = () => {
                     style={{
                       position: "absolute",
                       left: "50%",
+                      paddingTop: "10px",
                       transform: "translateX(-50%)",
                       width: "70px", // Sesuaikan ukuran bendera
                       height: "auto",
-                      paddingtop: "10px",
+                      top: 0,
                       zIndex: 0, // Gambar di bawah
                     }}
                   />
