@@ -166,7 +166,9 @@ class TabsSection extends Component {
                           href="#pablo"
                           role="tab"
                         >
-                          <b>
+                          <b
+                            style={{ display: "inline-block", fontSize: "8px" }}
+                          >
                             {index === 1
                               ? "PROFIL"
                               : index === 2
