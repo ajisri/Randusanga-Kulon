@@ -685,7 +685,7 @@ const Modals = () => {
             >
               <img
                 className="img-fluid"
-                src={require("assets/img/theme/book.png")}
+                src={require("assets/img/theme/about-us.png")}
                 alt=""
                 style={{
                   marginBottom: "10px",
