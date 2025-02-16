@@ -39,10 +39,18 @@ const Hero = () => {
         {isMenuOpen ? (
           <>
             {/* Baris Pertama */}
-            <Row style={{ height: "50%" }}>
+            <Row style={{ minHeight: "50vh", height: "auto" }}>
               <Col
                 md={4}
-                style={{ backgroundColor: "rgba(0,0,0,0.6)", padding: "20px" }}
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.6)",
+                  padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "100%",
+                }}
               >
                 <h3 style={{ color: "white" }}>Menu</h3>
                 <Tabs />
@@ -57,18 +65,34 @@ const Hero = () => {
                   Tutup
                 </Button>
               </Col>
-              <Col md={8} style={{ position: "relative" }}>
+              <Col
+                md={8}
+                style={{
+                  position: "relative",
+                  padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "100%",
+                }}
+              >
                 {/* Area tambahan jika diperlukan */}
               </Col>
             </Row>
 
             {/* Baris Kedua */}
-            <Row style={{ height: "50%" }}>
+            <Row style={{ minHeight: "50vh", height: "auto" }}>
               <Col
                 md={4}
                 style={{
                   backgroundColor: "rgba(255,255,255,0.2)",
                   padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "100%",
                 }}
               >
                 <p>Kolom Kiri</p>
@@ -76,8 +100,13 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.4)",
+                  backgroundColor: "rgba(255,255,255,0.2)",
                   padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "100%",
                 }}
               >
                 <p>Kolom Tengah</p>
@@ -87,6 +116,11 @@ const Hero = () => {
                 style={{
                   backgroundColor: "rgba(255,255,255,0.2)",
                   padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "100%",
                 }}
               >
                 <p>Kolom Kanan</p>

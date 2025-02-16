@@ -142,7 +142,7 @@ class TabsSection extends Component {
         <Row className="justify-content-center">
           <Col lg="12" className="mt-5 mt-lg-0">
             <div className="mb-3">
-              <small className="text-uppercase font-weight-bold">Menu</small>
+              {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
             </div>
             <div className="nav-wrapper">
               <Nav
