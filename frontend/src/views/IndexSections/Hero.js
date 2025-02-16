@@ -46,7 +46,7 @@ const Hero = () => {
                 md={3}
                 style={{
                   background:
-                    "linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
+                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
@@ -66,7 +66,7 @@ const Hero = () => {
                     transform: "translateX(-50%)",
                     width: "70px", // Sesuaikan ukuran bendera
                     height: "auto",
-                    zIndex: 3, // Lebih tinggi dari video
+                    zIndex: 1, // Lebih tinggi dari video
                   }}
                 />
                 <h3 style={{ color: "white", paddingTop: "20px" }}>Menu</h3>

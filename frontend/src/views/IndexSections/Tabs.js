@@ -167,7 +167,11 @@ class TabsSection extends Component {
                           role="tab"
                         >
                           <b
-                            style={{ display: "inline-block", fontSize: "8px" }}
+                            style={{
+                              alignItems: "center",
+                              display: "inline-block",
+                              fontSize: "8px",
+                            }}
                           >
                             {index === 1
                               ? "PROFIL"
