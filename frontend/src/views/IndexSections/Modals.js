@@ -935,7 +935,7 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  top: "-5px",
+                  transform: "translateY(-10px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
