@@ -40,7 +40,7 @@ const Hero = () => {
           <>
             {/* Baris Pertama */}
             <Row
-              style={{ minHeight: "80vh", height: "auto", paddingTop: "50px" }}
+              style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
                 md={4}
@@ -54,7 +54,7 @@ const Hero = () => {
                   minHeight: "100%",
                 }}
               >
-                <h3 style={{ color: "white" }}>Menu</h3>
+                <h3 style={{ color: "white", paddingTop: "50px" }}>Menu</h3>
                 <Tabs />
                 <Button
                   onClick={() => setIsMenuOpen(false)}
@@ -99,7 +99,7 @@ const Hero = () => {
                   minHeight: "100%",
                 }}
               >
-                <p>Kolom Kiri</p>
+                <Tabs />
               </Col>
               <Col
                 md={4}
