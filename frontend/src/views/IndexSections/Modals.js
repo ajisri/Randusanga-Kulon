@@ -372,7 +372,7 @@ const Modals = () => {
           }
 
           .btn-icon {
-           min-height: 60px !important;
+           min-height: 70px !important;
           }
             
           .button-icon {
