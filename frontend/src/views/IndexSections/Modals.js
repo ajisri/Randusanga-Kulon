@@ -380,12 +380,15 @@ const Modals = () => {
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 0px
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
+            background: rgba(255, 255, 255, 0.1); /* Transparan modern */
+    backdrop-filter: blur(10px); /* Efek blur */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
           }
 
           .button-icon:before {
@@ -408,6 +411,7 @@ const Modals = () => {
 
           .button-icon:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
             filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
           }
 
@@ -468,7 +472,7 @@ const Modals = () => {
             position: relative;
             overflow: hidden;
             display: inline-block;
-            border-radius: 8px; /* Sesuaikan sesuai bentuk tombol */
+            border-radius: 12px; /* Sesuaikan sesuai bentuk tombol */
           }
           .ripple {
             position: absolute;
@@ -910,7 +914,7 @@ const Modals = () => {
             </div>
             <div>
               <span style={{ display: "inline-block", fontSize: "8px" }}>
-                Visi dan Misi
+                Visi Misi
               </span>
             </div>
           </Button>
@@ -994,6 +998,19 @@ const Modals = () => {
             onClick={() => setDialogVisiblevm(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
             onMouseLeave={() => handleMouseLeave(setIconPosition3)}
+            style={{
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
@@ -1006,19 +1023,28 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
-                  width: "50%", // Ukuran gambar dikurangi menjadi 50% dari container
-                  maxWidth: "150px", // Batas maksimum lebar
-                  height: "auto", // Menjaga aspek rasio
-                  borderRadius: "inherit", // Menyesuaikan border radius dengan container
+                  width: "50%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
                 }}
               />
             </div>
             <div>
-              <span style={{ display: "inline-block", fontSize: "8px" }}>
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
                 Struktur Organisasi
               </span>
             </div>
           </Button>
+
           <div>
             <Dialog
               header={
