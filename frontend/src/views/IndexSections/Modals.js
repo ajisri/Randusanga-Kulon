@@ -370,10 +370,6 @@ const Modals = () => {
           .button:hover .cursor-icon {
             animation: magnetEffect 0.2s forwards;
           }
-
-          .btn-icon {
-           min-height: 70px !important;
-          }
             
           .button-icon {
             position: relative;
@@ -916,6 +912,7 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "60px",
+              height: "60px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -1047,6 +1044,7 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "60px",
+              height: "60px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
