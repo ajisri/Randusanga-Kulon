@@ -81,11 +81,13 @@ const Hero = () => {
                     }}
                   />
                   <h3 style={{ color: "white", paddingTop: "20px", zIndex: 1 }}>
-                    Menu
+                    {/* Menu */}
                   </h3>
                 </div>
 
-                <Tabs />
+                <div style={{ marginTop: "-20px" }}>
+                  <Tabs />
+                </div>
                 <Button
                   onClick={() => setIsMenuOpen(false)}
                   style={{
