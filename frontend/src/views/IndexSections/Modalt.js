@@ -558,7 +558,7 @@ const Modalt = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              maxWidth: "30px",
+              maxWidth: "60px",
               minHeight: "120px",
               height: "120px",
               gap: "6px",
