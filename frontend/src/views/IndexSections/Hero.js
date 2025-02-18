@@ -83,7 +83,9 @@ const Hero = () => {
                   style={{
                     fontSize: "0.8rem",
                     padding: "8px 14px",
-                    marginTop: "10px",
+                    position: "absolute", // Posisi absolut untuk memindahkan tombol ke bawah kanan
+                    bottom: "20px", // Jarak dari bawah
+                    right: "20px",
                   }}
                 >
                   Tutup
