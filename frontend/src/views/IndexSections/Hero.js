@@ -57,7 +57,15 @@ const Hero = () => {
                   zIndex: 2,
                 }}
               >
-                <div style={{ position: "relative" }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "10px", // Jarak dari atas halaman
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    zIndex: 3, // Logo berada di atas konten lain
+                  }}
+                >
                   <img
                     alt="..."
                     src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
@@ -68,7 +76,7 @@ const Hero = () => {
                       transform: "translateX(-50%)",
                       width: "70px", // Sesuaikan ukuran bendera
                       height: "auto",
-                      top: 0,
+                      top: "10px",
                       zIndex: 0, // Gambar di bawah
                     }}
                   />
