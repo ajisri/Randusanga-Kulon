@@ -586,7 +586,7 @@ const Modalt = () => {
                 style={{
                   transform: "translateY(-2px)",
                   width: "80%",
-                  maxWidth: "150px",
+                  maxWidth: "25vh",
                   height: "auto",
                   borderRadius: "inherit",
                 }}
