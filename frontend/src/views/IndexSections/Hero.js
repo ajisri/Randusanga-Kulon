@@ -85,7 +85,7 @@ const Hero = () => {
                   </h3>
                 </div>
 
-                <div style={{ marginTop: "-20px" }}>
+                <div style={{ marginTop: "-220px" }}>
                   <Tabs />
                 </div>
                 <Button
