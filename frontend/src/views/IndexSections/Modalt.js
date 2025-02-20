@@ -584,7 +584,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/desaankor.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-8px)",
                   width: "80%",
                   maxWidth: "30vh",
                   height: "auto",
@@ -752,7 +752,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/law.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-8px)",
                   width: "80%",
                   maxWidth: "30vh",
                   height: "auto",
@@ -926,7 +926,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/payroll.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-8px)",
                   width: "80%",
                   maxWidth: "30vh",
                   height: "auto",
