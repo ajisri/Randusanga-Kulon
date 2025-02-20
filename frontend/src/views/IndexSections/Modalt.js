@@ -559,8 +559,8 @@ const Modalt = () => {
               alignItems: "center",
               justifyContent: "center",
               maxWidth: "30vw !important",
-              minHeight: "120px",
-              height: "120px",
+              minHeight: "120px !important",
+              height: "120px !important",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -587,7 +587,7 @@ const Modalt = () => {
                 style={{
                   transform: "translateY(-8px)",
                   width: "80%",
-                  maxWidth: "20vh !important",
+                  maxWidth: "40vh !important",
                   height: "auto",
                   borderRadius: "inherit",
                 }}
