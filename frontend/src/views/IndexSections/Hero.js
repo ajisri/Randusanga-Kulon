@@ -85,7 +85,13 @@ const Hero = () => {
                   </h3>
                 </div>
 
-                <div style={{ marginTop: "-220px" }}>
+                <div
+                  style={{
+                    marginTop: "-220px",
+                    height: "300px",
+                    overflow: "auto",
+                  }}
+                >
                   <Tabs />
                 </div>
                 <Button
