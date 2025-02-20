@@ -1140,8 +1140,7 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
-                  marginTop: "1px",
-                  marginBottom: "3px",
+                  marginTop: "-2px",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
