@@ -1140,7 +1140,7 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
-                  marginTop: "-8px !important",
+                  transform: "translateY(-5px)",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
