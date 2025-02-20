@@ -87,7 +87,7 @@ const Hero = () => {
 
                 <div
                   style={{
-                    marginTop: "-220px",
+                    marginTop: "-120px",
                     height: "500px",
                   }}
                 >
