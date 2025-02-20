@@ -1128,7 +1128,7 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1140,6 +1140,7 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
+                  marginTop: "2px",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
