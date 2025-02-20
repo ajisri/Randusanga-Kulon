@@ -1004,7 +1004,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-25px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1016,7 +1016,7 @@ const Modall = () => {
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-25px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1027,7 +1027,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
-                  transform: "translateY(-5px)",
+                  transform: "translateY(-15px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
