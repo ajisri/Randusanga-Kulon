@@ -572,7 +572,7 @@ const Modalt = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -740,7 +740,7 @@ const Modalt = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -914,7 +914,7 @@ const Modalt = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

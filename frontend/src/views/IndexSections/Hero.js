@@ -89,7 +89,7 @@ const Hero = () => {
                   style={{
                     marginTop: "-220px",
                     height: "300px",
-                    overflow: "auto",
+                    overflowY: "auto",
                   }}
                 >
                   <Tabs />
