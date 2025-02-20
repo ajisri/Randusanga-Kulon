@@ -572,9 +572,9 @@ const Modall = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
+              minHeight: "90px !important",
               height: "95px !important",
-              gap: "8px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -711,9 +711,9 @@ const Modall = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
+              minHeight: "90px !important",
               height: "95px !important",
-              gap: "8px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -724,7 +724,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-2x)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15x)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -852,9 +852,9 @@ const Modall = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
+              minHeight: "90px !important",
               height: "95px !important",
-              gap: "8px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -865,7 +865,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -877,7 +877,7 @@ const Modall = () => {
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -991,9 +991,9 @@ const Modall = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
+              minHeight: "90px !important",
               height: "95px !important",
-              gap: "8px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1004,7 +1004,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-2px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1133,9 +1133,9 @@ const Modall = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
+              minHeight: "90px !important",
               height: "95px !important",
-              gap: "8px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1146,7 +1146,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-2px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1276,9 +1276,9 @@ const Modall = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
+              minHeight: "90px !important",
               height: "95px !important",
-              gap: "8px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1289,7 +1289,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-2px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
