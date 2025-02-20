@@ -558,7 +558,7 @@ const Modalt = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              maxWidth: "30vw",
+              maxWidth: "30vw !important",
               minHeight: "120px",
               height: "120px",
               gap: "6px",
@@ -575,6 +575,7 @@ const Modalt = () => {
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
+                maxWidth: "30vw !important",
                 justifyContent: "center",
                 flex: 1,
               }}
@@ -586,7 +587,7 @@ const Modalt = () => {
                 style={{
                   transform: "translateY(-8px)",
                   width: "80%",
-                  maxWidth: "20vh !important",
+                  maxWidth: "30vh !important",
                   height: "auto",
                   borderRadius: "inherit",
                 }}

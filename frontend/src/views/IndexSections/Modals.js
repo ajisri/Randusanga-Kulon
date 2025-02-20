@@ -685,9 +685,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white mb-3 mb-sm-0 video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
+            className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -955,9 +953,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
+            className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -973,8 +969,8 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "90px",
-              height: "90px",
-              gap: "6px",
+              height: "95px",
+              gap: "8px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1108,8 +1104,8 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "90px",
-              height: "90px",
-              gap: "6px",
+              height: "95px",
+              gap: "8px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1244,8 +1240,8 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "90px",
-              height: "90px",
-              gap: "6px",
+              height: "95px",
+              gap: "8px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1459,8 +1455,8 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "90px",
-              height: "90px",
-              gap: "6px",
+              height: "95px",
+              gap: "8px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -1560,8 +1556,8 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "90px",
-              height: "90px",
-              gap: "6px",
+              height: "95px",
+              gap: "8px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
