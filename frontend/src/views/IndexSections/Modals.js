@@ -1104,7 +1104,7 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "85px !important",
-              height: "90px",
+              height: "95px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
