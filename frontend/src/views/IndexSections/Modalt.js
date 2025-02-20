@@ -586,7 +586,7 @@ const Modalt = () => {
                 style={{
                   transform: "translateY(-2px)",
                   width: "80%",
-                  maxWidth: "25vh",
+                  maxWidth: "30vh",
                   height: "auto",
                   borderRadius: "inherit",
                 }}
@@ -726,8 +726,9 @@ const Modalt = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
+              maxWidth: "30vw",
+              minHeight: "120px",
+              height: "120px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -753,7 +754,7 @@ const Modalt = () => {
                 style={{
                   transform: "translateY(-2px)",
                   width: "80%",
-                  maxWidth: "150px",
+                  maxWidth: "30vh",
                   height: "auto",
                   borderRadius: "inherit",
                 }}
@@ -899,8 +900,9 @@ const Modalt = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
+              maxWidth: "30vw",
+              minHeight: "120px",
+              height: "120px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -926,7 +928,7 @@ const Modalt = () => {
                 style={{
                   transform: "translateY(-2px)",
                   width: "80%",
-                  maxWidth: "150px",
+                  maxWidth: "30vh",
                   height: "auto",
                   borderRadius: "inherit",
                 }}
