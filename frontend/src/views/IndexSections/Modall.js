@@ -865,7 +865,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -877,7 +877,7 @@ const Modall = () => {
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-20px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
