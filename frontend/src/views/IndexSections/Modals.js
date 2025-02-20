@@ -849,7 +849,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -861,7 +861,7 @@ const Modals = () => {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-12px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -983,7 +983,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -995,7 +995,7 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-12px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1119,7 +1119,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1256,7 +1256,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1268,7 +1268,7 @@ const Modals = () => {
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-12px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1471,7 +1471,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1483,7 +1483,7 @@ const Modals = () => {
                 src={require("assets/img/theme/planet.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-12px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1572,7 +1572,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1584,7 +1584,7 @@ const Modals = () => {
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-3px)",
+                  transform: "translateY(-12px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",

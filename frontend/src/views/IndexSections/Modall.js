@@ -585,7 +585,7 @@ const Modall = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-2px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -597,7 +597,7 @@ const Modall = () => {
                 src={require("assets/img/theme/aktakelahiran.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -608,6 +608,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
+                  transform: "translateY(-5px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
@@ -735,7 +736,7 @@ const Modall = () => {
                 src={require("assets/img/theme/kartukeluarga.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -746,6 +747,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
+                  transform: "translateY(-5px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
@@ -886,6 +888,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
+                  transform: "translateY(-5px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
@@ -1013,7 +1016,7 @@ const Modall = () => {
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1024,6 +1027,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
+                  transform: "translateY(-5px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
@@ -1154,7 +1158,7 @@ const Modall = () => {
                 src={require("assets/img/theme/aktivasibpjs.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1165,6 +1169,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
+                  transform: "translateY(-5px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
@@ -1296,7 +1301,7 @@ const Modall = () => {
                 src={require("assets/img/theme/sktm.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-2px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1307,6 +1312,7 @@ const Modall = () => {
             <div>
               <span
                 style={{
+                  transform: "translateY(-5px)",
                   display: "block",
                   textAlign: "center",
                   fontSize: "10px",
