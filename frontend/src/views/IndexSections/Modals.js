@@ -849,7 +849,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -983,7 +983,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1119,7 +1119,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1256,7 +1256,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1471,7 +1471,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1572,7 +1572,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
