@@ -861,7 +861,7 @@ const Modals = () => {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-20px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
