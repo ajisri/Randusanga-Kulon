@@ -575,7 +575,7 @@ const Modalt = () => {
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
-                maxWidth: "30vw !important",
+                maxWidth: "28vw !important",
                 justifyContent: "center",
                 flex: 1,
               }}
@@ -585,7 +585,7 @@ const Modalt = () => {
                 src={require("assets/img/theme/desaankor.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-8px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "40vh !important",
                   height: "auto",

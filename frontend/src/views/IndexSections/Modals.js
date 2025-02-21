@@ -861,7 +861,7 @@ const Modals = () => {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -995,7 +995,7 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1268,7 +1268,7 @@ const Modals = () => {
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1483,7 +1483,7 @@ const Modals = () => {
                 src={require("assets/img/theme/planet.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1584,7 +1584,7 @@ const Modals = () => {
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
