@@ -715,7 +715,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-20px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -727,7 +727,7 @@ const Modals = () => {
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-12px)",
+                  transform: "translateY(-15px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
