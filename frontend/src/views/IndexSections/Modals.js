@@ -598,7 +598,64 @@ const Modals = () => {
             overflow: hidden;
           }
 
-          @media screen and (max-width: 1200px) {
+.custom-button {
+  overflow: visible;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== STYLE ICON BUTTON ===== */
+.custom-button-icon {
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 50px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+/* ===== STYLE GAMBAR ICON ===== */
+.custom-button-img {
+  transform: translateY(-10px); /* Pastikan tetap keluar dari button-icon */
+  width: 100%;
+  max-width: 60px;
+  height: auto;
+  border-radius: inherit;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.custom-button-icon:hover .custom-button-img {
+  transform: translateY(-5px);
+}
+
+/* ===== STYLE TEKS BUTTON ===== */
+.custom-button-text {
+  display: block;
+  transform: translateY(-5px);
+  text-align: center;
+}
+
+.custom-button-text span {
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff; /* Warna teks agar lebih kontras */
+}
+
+@media screen and (max-width: 1200px) {
   .button {
     width: 4rem;
     height: 4rem;
@@ -694,47 +751,17 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "1rem",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "10vh",
-              height: "auto",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
-              className="button-icon"
+              className="custom-button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
-                width: "5vw",
-                maxWidth: "55px",
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="custom-button-img"
                 src={require("assets/img/theme/about-us.png")}
-                alt=""
-                style={{
-                  transform: "translateY(-15px)",
-                  width: "90%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
+                alt="icon"
               />
             </div>
             <div>
