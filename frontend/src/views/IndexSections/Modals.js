@@ -370,61 +370,6 @@ const Modals = () => {
           .button:hover .cursor-icon {
             animation: magnetEffect 0.2s forwards;
           }
-            
-          .button-icon {
-            position: relative;
-            font-size: 80px !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 115% !important;
-            height: 100%;
-            min-height: 60px !important;
-            border: none;
-            border-radius: 12px;
-            margin: 0px
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            z-index: 1;
-            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
-          }
-
-          .button-icon img {
-    width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-    max-width: 40px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.button-icon:hover img {
-    transform: translateY(-4px); /* Gambar sedikit naik saat hover */
-    opacity: 1;
-}
-
-          .button-icon:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
-            transform: translate(-50%, -50%) scale(0);
-            border-radius: 50%;
-            transition: transform 0.5s ease-out;
-            pointer-events: none;
-          }
-
-          .button-icon:hover:before {
-            transform: translate(-50%, -50%) scale(1);
-          }
-
-          .button-icon:hover {
-            transform: scale(1.05);
-            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
-            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
-          }
 
           .video-button {
             transform: translateX(-100%);
@@ -582,6 +527,104 @@ const Modals = () => {
             animation: spin 2s linear infinite;
           }
 
+          .button-icon {
+            position: relative;
+            font-size: 80px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 115% !important;
+            height: 100%;
+            min-height: 60px !important;
+            border: none;
+            border-radius: 12px;
+            margin: 0px
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
+          }
+
+          .button-icon img {
+              width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+              max-width: 40px;
+              transition: transform 0.3s ease, opacity 0.3s ease;
+          }
+
+          .button-icon:hover img {
+              transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+              opacity: 1;
+          }
+
+          .button-icon:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+          }
+
+          .button-icon:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+          }
+
+          .button-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
+            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+          }
+
+          .custom-button {
+  overflow: visible;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  height: 100px;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-icon-container {
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  transform: translateY(-10px);
+}
+
+.img-custom {
+  transform: translateY(-3px);
+  width: 80%;
+  max-width: 150px;
+  height: auto;
+  border-radius: inherit;
+}
+
+.custom-button-text {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+}
+
+
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -685,9 +728,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white mb-3 mb-sm-0 video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
+            className="custom-button btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -696,61 +737,24 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "100px",
-              height: "100px",
-              gap: "7px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
-              className="button-icon"
+              className="button-icon-container"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-custom"
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                TENTANG
-              </span>
+              <span className="custom-button-text">TENTANG</span>
             </div>
           </Button>
+
           <div>
             <Dialog
               header={
