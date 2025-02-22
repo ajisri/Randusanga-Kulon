@@ -739,7 +739,7 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="button-icon-container"
+              className="button-icon-container button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
