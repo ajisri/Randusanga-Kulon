@@ -638,6 +638,7 @@ const Modals = () => {
 .button-icon img {
   width: 50%; /* Ukuran gambar lebih kecil */
   max-width: 25px; /* Ukuran maksimum gambar lebih kecil */
+  max-height: 100%;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
