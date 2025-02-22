@@ -678,7 +678,7 @@ const Modals = () => {
   justify-content: center;
   flex: 1;
   width: 55px;
-  height: 15px;
+  height: 10px;
 }
 
 .custom-button-img {
@@ -686,7 +686,7 @@ const Modals = () => {
   max-width: 150px;
   height: auto;
   border-radius: inherit;
-  transform: translateY(-25px);
+  transform: translateY(-35px);
 }
 
 .custom-button-text {
