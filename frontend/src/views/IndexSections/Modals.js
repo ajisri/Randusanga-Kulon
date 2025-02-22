@@ -682,7 +682,6 @@ const Modals = () => {
 }
 
 .custom-button-img {
-  transform: translateY(-15px);
   width: 90%;
   max-width: 150px;
   height: auto;
