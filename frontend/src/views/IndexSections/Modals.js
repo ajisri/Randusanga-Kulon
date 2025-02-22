@@ -527,10 +527,28 @@ const Modals = () => {
             animation: spin 2s linear infinite;
           }
 
-          .button-icon {
-            position: relative;
-            font-size: 80px !important;
+          .custom-button {
+            overflow: visible;
+            border-radius: 12px;
+            padding: 12px;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            height: 100px;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          .button-icon {
+            overflow: visible;
+            position: relative;
+            display: flex;
+            flex: 1;
             align-items: center;
             justify-content: center;
             width: 115% !important;
@@ -581,6 +599,23 @@ const Modals = () => {
             box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
             filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
           }
+          
+          .img-custom {
+            transform: translateY(-3px);
+            width: 80%;
+            max-width: 150px;
+            height: auto;
+            border-radius: inherit;
+          }
+
+          .icon-button-text {
+            display: block;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #fff;
+          }
+          
 
           @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -654,33 +689,6 @@ const Modals = () => {
               font-size: 10px;
             }
           }
-
-          .custom-button {
-            overflow: visible;
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100px;
-            height: 100px;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
-
-          .button-icon-container {
-            overflow: visible;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-          }
-          
-          
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -723,7 +731,7 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="button-icon button-icon-container"
+              className="button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
               }}
@@ -732,27 +740,10 @@ const Modals = () => {
                 className="img-fluid icon-custom"
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                TENTANG
-              </span>
+              <span className="icon-button-text">TENTANG</span>
             </div>
           </Button>
           <div>
