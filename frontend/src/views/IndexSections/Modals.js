@@ -727,7 +727,7 @@ const Modals = () => {
                 alt=""
                 style={{
                   transform: "translateY(-15px)",
-                  width: "80%",
+                  width: "90%",
                   maxWidth: "150px",
                   height: "auto",
                   borderRadius: "inherit",
