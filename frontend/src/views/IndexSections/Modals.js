@@ -745,7 +745,7 @@ const Modals = () => {
             }
 
             .icon-button-text {
-                font-size: clamp(15px, 1.5vw, 30px); /* Teks lebih kecil */
+                font-size: clamp(8px, 1.5vw, 8px); /* Teks lebih kecil */
             }
 
             .dialog-title {
