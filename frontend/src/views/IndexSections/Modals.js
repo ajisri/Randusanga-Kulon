@@ -370,6 +370,61 @@ const Modals = () => {
           .button:hover .cursor-icon {
             animation: magnetEffect 0.2s forwards;
           }
+            
+          .button-icon {
+            position: relative;
+            font-size: 80px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            min-height: 60px !important;
+            border: none;
+            border-radius: 12px;
+            margin: 0px
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
+          }
+
+          .button-icon img {
+            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+            max-width: 40px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+          }
+
+          .button-icon:hover img {
+            transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+            opacity: 1;
+          }
+
+          .button-icon:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+          }
+
+          .button-icon:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+          }
+
+          .button-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
+            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+          }
 
           .video-button {
             transform: translateX(-100%);
@@ -599,95 +654,6 @@ const Modals = () => {
               font-size: 10px;
             }
           }
-
-.custom-button {
-  overflow: visible;
-  border-radius: 12px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.button-icon {
-  position: relative;
-  font-size: 30px; /* Ukuran font lebih kecil */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60%; /* Lebar lebih kecil */
-  height: 0.5rem; /* Tinggi lebih kecil */
-  border: none;
-  border-radius: 6px; /* Border radius lebih kecil */
-  margin: 0px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  z-index: 1;
-  background: #ffffff; /* Background putih polos */
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), -2px -2px 4px rgba(255, 255, 255, 0.8); /* Efek shadow lebih kecil */
-}
-
-.button-icon img {
-  width: 50%; /* Ukuran gambar lebih kecil */
-  max-width: 25px; /* Ukuran maksimum gambar lebih kecil */
-  max-height: 100%;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.button-icon:hover img {
-  transform: translateY(-2px); /* Efek hover lebih kecil */
-  opacity: 1;
-}
-
-.button-icon:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120%; /* Lebar efek radial lebih kecil */
-  height: 120%; /* Tinggi efek radial lebih kecil */
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 50%;
-  transition: transform 0.5s ease-out;
-  pointer-events: none;
-}
-
-.button-icon:hover:before {
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.button-icon:hover {
-  transform: scale(1.02); /* Skala hover lebih kecil */
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(255, 255, 255, 0.9); /* Efek shadow lebih kecil */
-  filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
-}
-
-.custom-button-img {
-  width: 90%;
-  max-width: 150px;
-  height: auto;
-  border-radius: inherit;
-  transform: translateY(-35px);
-}
-
-.custom-button-text {
-  display: block;
-  transform: translateY(-5px);
-  text-align: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: #fff;
-}
-
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -719,7 +685,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -728,24 +694,61 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
+            style={{
+              overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
           >
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
+                overflow: "visible",
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
               }}
             >
               <img
-                className="custom-button-img"
+                className="img-fluid"
                 src={require("assets/img/theme/about-us.png")}
-                alt="icon"
+                alt=""
+                style={{
+                  transform: "translateY(-3px)",
+                  width: "80%",
+                  maxWidth: "150px",
+                  height: "auto",
+                  borderRadius: "inherit",
+                }}
               />
             </div>
             <div>
-              <span className="custom-button-text">TENTANG</span>
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: "#fff", // Warna teks agar lebih kontras
+                }}
+              >
+                TENTANG
+              </span>
             </div>
           </Button>
-
           <div>
             <Dialog
               header={
@@ -832,8 +835,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
+              minHeight: "90px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -845,7 +848,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-20px)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -857,7 +860,7 @@ const Modals = () => {
                 src={require("assets/img/theme/book.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-20px)",
+                  transform: "translateY(-3px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -869,7 +872,6 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
-                  transform: "translateY(-5px)",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
@@ -966,8 +968,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
+              minHeight: "90px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -979,7 +981,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-25px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -991,7 +993,7 @@ const Modals = () => {
                 src={require("assets/img/theme/target.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-20px)",
+                  transform: "translateY(-3px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1003,7 +1005,6 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
-                  transform: "translateY(-5px)",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
@@ -1115,7 +1116,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-20px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1139,7 +1140,7 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
-                  transform: "translateY(-5px)",
+                  marginTop: "2px",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
@@ -1239,8 +1240,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
+              minHeight: "90px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -1252,7 +1253,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-20px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1264,7 +1265,7 @@ const Modals = () => {
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-3px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1454,8 +1455,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
+              minHeight: "90px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -1467,7 +1468,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-20px)`,
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1479,7 +1480,7 @@ const Modals = () => {
                 src={require("assets/img/theme/planet.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-3px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1555,8 +1556,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
+              minHeight: "90px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -1568,7 +1569,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-20px)`,
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-10px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1580,7 +1581,7 @@ const Modals = () => {
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-3px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
