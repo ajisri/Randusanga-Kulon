@@ -734,6 +734,15 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
             style={{
               overflow: "visible",
+              borderRadius: "12px",
+              padding: "12px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90px",
+              height: "90px",
+              gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
