@@ -618,26 +618,26 @@ const Modals = () => {
 
 .button-icon {
   position: relative;
-  font-size: 40px; /* Ukuran font lebih kecil */
+  font-size: 30px; /* Ukuran font lebih kecil */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%; /* Lebar lebih kecil */
-  height: 3rem; /* Tinggi lebih kecil */
+  width: 60%; /* Lebar lebih kecil */
+  height: 2.5rem; /* Tinggi lebih kecil */
   border: none;
-  border-radius: 8px; /* Border radius lebih kecil */
+  border-radius: 6px; /* Border radius lebih kecil */
   margin: 0px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   z-index: 1;
-  background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.8); /* Efek timbul lebih kecil */
+  background: #ffffff; /* Background putih polos */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), -2px -2px 4px rgba(255, 255, 255, 0.8); /* Efek shadow lebih kecil */
 }
 
 .button-icon img {
-  width: 60%; /* Ukuran gambar lebih kecil */
-  max-width: 30px; /* Ukuran maksimum gambar lebih kecil */
+  width: 50%; /* Ukuran gambar lebih kecil */
+  max-width: 25px; /* Ukuran maksimum gambar lebih kecil */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -651,8 +651,8 @@ const Modals = () => {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150%; /* Lebar efek radial lebih kecil */
-  height: 150%; /* Tinggi efek radial lebih kecil */
+  width: 120%; /* Lebar efek radial lebih kecil */
+  height: 120%; /* Tinggi efek radial lebih kecil */
   background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
   transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
@@ -665,8 +665,8 @@ const Modals = () => {
 }
 
 .button-icon:hover {
-  transform: scale(1.03); /* Skala hover lebih kecil */
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.9); /* Efek shadow lebih kecil */
+  transform: scale(1.02); /* Skala hover lebih kecil */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(255, 255, 255, 0.9); /* Efek shadow lebih kecil */
   filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
 }
 
