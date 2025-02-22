@@ -720,7 +720,7 @@ const Modals = () => {
                 justifyContent: "center",
                 flex: 1,
                 width: "55px",
-                height: "40px",
+                height: "20px",
               }}
             >
               <img
@@ -730,6 +730,7 @@ const Modals = () => {
                 style={{
                   transform: "translateY(-15px)",
                   width: "90%",
+                  maxWidth: "150px",
                   height: "auto",
                   borderRadius: "inherit",
                 }}
