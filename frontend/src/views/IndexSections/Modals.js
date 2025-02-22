@@ -377,7 +377,7 @@ const Modals = () => {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 110% !important;
+            width: 115% !important;
             height: 100%;
             min-height: 60px !important;
             border: none;
@@ -704,8 +704,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
+              minHeight: "95px",
+              height: "95px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
