@@ -686,6 +686,7 @@ const Modals = () => {
   max-width: 150px;
   height: auto;
   border-radius: inherit;
+  transform: translateY(-25px);
 }
 
 .custom-button-text {
