@@ -730,11 +730,13 @@ const Modals = () => {
 
             .custom-button {
                 max-width: 33.33vw !important; /* Lebih kecil dari sebelumnya (70vw) */
-                height: clamp(40px, 6vh, 60px); /* Tinggi lebih kecil */
+                height: clamp(60px, 10vh, 90px); /* Tinggi lebih kecil */
                 gap: 4px; /* Mengurangi jarak antar elemen */
             }
 
             .button-icon {
+                width: 90%;
+                height: 80%;
                 min-height: 40px; /* Lebih kecil untuk layar sempit */
             }
 
