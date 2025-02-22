@@ -719,7 +719,7 @@ const Modals = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 flex: 1,
-                width: "60px",
+                width: "50px",
               }}
             >
               <img
