@@ -618,31 +618,31 @@ const Modals = () => {
 
 .button-icon {
   position: relative;
-  font-size: 80px;
+  font-size: 40px; /* Ukuran font lebih kecil */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 5rem;
+  width: 80%; /* Lebar lebih kecil */
+  height: 3rem; /* Tinggi lebih kecil */
   border: none;
-  border-radius: 12px;
-  margin: 0px
+  border-radius: 8px; /* Border radius lebih kecil */
+  margin: 0px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   z-index: 1;
   background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.8); /* Efek timbul lebih kecil */
 }
 
 .button-icon img {
-  width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-  max-width: 40px;
+  width: 60%; /* Ukuran gambar lebih kecil */
+  max-width: 30px; /* Ukuran maksimum gambar lebih kecil */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .button-icon:hover img {
-  transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+  transform: translateY(-2px); /* Efek hover lebih kecil */
   opacity: 1;
 }
 
@@ -651,8 +651,8 @@ const Modals = () => {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 200%;
-  height: 200%;
+  width: 150%; /* Lebar efek radial lebih kecil */
+  height: 150%; /* Tinggi efek radial lebih kecil */
   background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
   transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
@@ -665,8 +665,8 @@ const Modals = () => {
 }
 
 .button-icon:hover {
-  transform: scale(1.05);
-  box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
+  transform: scale(1.03); /* Skala hover lebih kecil */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.9); /* Efek shadow lebih kecil */
   filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
 }
 
@@ -729,7 +729,7 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className=""
+              className="button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
