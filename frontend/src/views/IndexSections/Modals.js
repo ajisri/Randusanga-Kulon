@@ -373,7 +373,7 @@ const Modals = () => {
             
           .button-icon {
             position: relative;
-            font-size: 80px !important;
+            font-size: clamp(30px, 5vw, 80px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -392,7 +392,7 @@ const Modals = () => {
           }
 
           .button-icon img {
-            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+            width: 70%; /* Ukuran gambar lebih besar agar lebih jelas */
             max-width: 40px;
             transition: transform 0.3s ease, opacity 0.3s ease;
           }
@@ -599,61 +599,61 @@ const Modals = () => {
           }
 
           @media screen and (max-width: 1200px) {
-            .button {
-              width: 50px !important;
-              height: 45px !important;
-            }
+  .button {
+    width: 4rem;
+    height: 4rem;
+  }
 
-            .button-icon {
-              font-size: 60px !important;
-            }
+  .button-icon {
+    font-size: clamp(30px, 4vw, 60px);
+  }
 
-            .dialog-title {
-              font-size: 20px;
-            }
+  .dialog-title {
+    font-size: 1.25rem;
+  }
 
-            .dialog-subtitle {
-              font-size: 12px;
-            }
-          }
+  .dialog-subtitle {
+    font-size: 0.875rem;
+  }
+}
 
-          @media screen and (max-width: 768px) {
-            .button {
-              width: 40px !important;
-              height: 40px !important;
-            }
+@media screen and (max-width: 768px) {
+  .button {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 
-            .button-icon {
-              font-size: 40px !important;
-            }
+  .button-icon {
+    font-size: clamp(20px, 3vw, 40px);
+  }
 
-            .marquee {
-              font-size: 12px;
-            }
+  .marquee {
+    font-size: 0.75rem;
+  }
 
-            .custom-dialog {
-              width: 85vw !important;
-            }
-          }
+  .custom-dialog {
+    width: 85vw;
+  }
+}
 
-          @media screen and (max-width: 480px) {
-            .button {
-              width: 35px !important;
-              height: 35px !important;
-            }
+@media screen and (max-width: 480px) {
+  .button {
+    width: 3rem;
+    height: 3rem;
+  }
 
-            .button-icon {
-              font-size: 30px !important;
-            }
+  .button-icon {
+    font-size: clamp(15px, 2.5vw, 30px);
+  }
 
-            .dialog-title {
-              font-size: 16px;
-            }
+  .dialog-title {
+    font-size: 1rem;
+  }
 
-            .dialog-subtitle {
-              font-size: 10px;
-            }
-          }
+  .dialog-subtitle {
+    font-size: 0.75rem;
+  }
+}
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -697,12 +697,13 @@ const Modals = () => {
             style={{
               overflow: "visible",
               borderRadius: "12px",
-              padding: "12px",
+              padding: "1rem",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              height: "90px",
+              minHeight: "10vh",
+              height: "auto",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -719,8 +720,8 @@ const Modals = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 flex: 1,
-                width: "55px",
-                height: "20px",
+                width: "5vw",
+                maxWidth: "55px",
               }}
             >
               <img
