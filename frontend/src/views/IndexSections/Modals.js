@@ -623,7 +623,7 @@ const Modals = () => {
   align-items: center;
   justify-content: center;
   width: 60%; /* Lebar lebih kecil */
-  height: 2.5rem; /* Tinggi lebih kecil */
+  height: 0.5rem; /* Tinggi lebih kecil */
   border: none;
   border-radius: 6px; /* Border radius lebih kecil */
   margin: 0px;
