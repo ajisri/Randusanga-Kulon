@@ -536,13 +536,40 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100px;
-            height: 100px;
+            min-height: 80px;
+            height: clamp(80px, 10vh, 100px);
             gap: 8px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 33.33vw; /* 1/3 layar laptop */
+            width: 100%;
+          }
+
+          @media (max-width: 1024px) {
+              .custom-button {
+                  max-width: 50vw; /* Setengah layar untuk tablet */
+              }
+          }
+
+          @media (max-width: 768px) {
+              .custom-button {
+                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
+                  height: clamp(60px, 8vh, 80px);
+              }
+          }
+
+          @media (min-width: 1440px) {
+              .custom-button {
+                  max-width: 25vw; /* Lebih kecil agar tidak terlalu lebar di layar besar */
+              }
+          }
+
+          @media (min-width: 1920px) {
+              .custom-button {
+                  max-width: 20vw; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
+              }
           }
 
           .button-icon {
@@ -568,7 +595,7 @@ const Modals = () => {
 
           .button-icon img {
               width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-              max-width: 40px;
+              max-width: clamp(30px, 8vw, 40px);
               transition: transform 0.3s ease, opacity 0.3s ease;
           }
 
@@ -604,7 +631,7 @@ const Modals = () => {
           .img-custom {
             transform: translateY(-3px);
             width: 80%;
-            max-width: 150px;
+            max-width: clamp(100px, 15vw, 150px);
             height: auto;
             border-radius: inherit;
           }
@@ -612,12 +639,21 @@ const Modals = () => {
           .icon-button-text {
             display: block;
             text-align: center;
-            font-size: 10px;
+            font-size: clamp(8px, 2vw, 10px);
             font-weight: 600;
             color: #fff;
           }
-          
 
+          @media (max-width: 768px) {
+              .button-icon {
+                  min-height: 50px;
+              }
+
+              .icon-button-text {
+                  font-size: clamp(7px, 1.8vw, 9px);
+              }
+          }
+            
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
