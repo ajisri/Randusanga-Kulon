@@ -720,6 +720,7 @@ const Modals = () => {
                 justifyContent: "center",
                 flex: 1,
                 width: "55px",
+                height: "40px",
               }}
             >
               <img
