@@ -324,7 +324,7 @@ const Modals = () => {
 
     setTimeout(() => {
       ripple.remove();
-    }, 250); // Hapus ripple setelah animasi selesai
+    }, 50); // Hapus ripple setelah animasi selesai
   };
 
   const handleMouseLeave = (setIconPosition) => {
@@ -392,15 +392,15 @@ const Modals = () => {
           }
 
           .button-icon img {
-            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-            max-width: 40px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-          }
+    width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+    max-width: 40px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
 
-          .button-icon:hover img {
-            transform: translateY(-4px); /* Gambar sedikit naik saat hover */
-            opacity: 1;
-          }
+.button-icon:hover img {
+    transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+    opacity: 1;
+}
 
           .button-icon:before {
             content: '';
@@ -685,7 +685,9 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className={`btn-white mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -953,7 +955,9 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -1103,8 +1107,8 @@ const Modals = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
+              minHeight: "90px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -1116,7 +1120,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-2px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1128,7 +1132,7 @@ const Modals = () => {
                 src={require("assets/img/theme/management.png")}
                 alt=""
                 style={{
-                  transform: "translateY(-15px)",
+                  transform: "translateY(-2px)",
                   width: "80%",
                   maxWidth: "150px",
                   height: "auto",
@@ -1140,7 +1144,6 @@ const Modals = () => {
               <span
                 style={{
                   display: "block",
-                  marginTop: "2px",
                   textAlign: "center",
                   fontSize: "10px",
                   fontWeight: "600",
