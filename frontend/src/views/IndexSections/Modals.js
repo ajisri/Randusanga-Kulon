@@ -671,6 +671,16 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
+
+          .button-icon-container {
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+          }
+          
+          
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -713,14 +723,9 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="button-icon"
+              className="button-icon button-icon-container"
               style={{
-                overflow: "visible",
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
               }}
             >
               <img
