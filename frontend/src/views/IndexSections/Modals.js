@@ -721,7 +721,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -840,6 +840,7 @@ const Modals = () => {
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
             }}
           >
