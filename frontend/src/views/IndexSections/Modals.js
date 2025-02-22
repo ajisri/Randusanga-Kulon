@@ -680,6 +680,21 @@ const Modals = () => {
             flex: 1;
           }
           
+          .img-custom {
+            transform: translateY(-3px);
+            width: 80%;
+            max-width: 150px;
+            height: auto;
+            border-radius: inherit;
+          }
+
+          .icon-button-text {
+            display: block;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #fff;
+          }
           
         `}
       </style>
@@ -725,34 +740,17 @@ const Modals = () => {
             <div
               className="button-icon button-icon-container"
               style={{
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-10px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                TENTANG
-              </span>
+              <span className="icon-button-text">TENTANG</span>
             </div>
           </Button>
           <div>
