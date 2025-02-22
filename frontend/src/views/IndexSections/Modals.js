@@ -536,8 +536,8 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 80px;
-            height: clamp(80px, 10vh, 100px);
+            min-height: 90px;
+            height: clamp(90px, 10vh, 100px);
             gap: 8px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -745,7 +745,7 @@ const Modals = () => {
             }
 
             .icon-button-text {
-                font-size: clamp(8px, 1.5vw, 8px); /* Teks lebih kecil */
+                font-size: clamp(12px, 1.5vw, 12px); /* Teks lebih kecil */
             }
 
             .dialog-title {
