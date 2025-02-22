@@ -604,14 +604,15 @@ const Modals = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  max-height: 80px;
+  flex-shrink: 0;
   transform: translateY(-10px);
 }
 
 .img-custom {
   transform: translateY(-3px);
-  width: 80%;
-  max-width: 150px;
+  width: 70%;
+  max-width: 100px;
   height: auto;
   border-radius: inherit;
 }
@@ -623,7 +624,6 @@ const Modals = () => {
   font-weight: 600;
   color: #fff;
 }
-
 
           @keyframes spin {
             0% { transform: rotate(0deg); }
