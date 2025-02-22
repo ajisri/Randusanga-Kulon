@@ -530,6 +530,7 @@ const Modals = () => {
           .custom-button {
             overflow: visible;
             border-radius: 12px;
+            border: rgb(240, 236, 236);
             padding: 12px;
             display: flex;
             flex-direction: column;
