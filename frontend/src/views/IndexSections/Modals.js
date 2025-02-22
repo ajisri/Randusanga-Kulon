@@ -703,7 +703,7 @@ const Modals = () => {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "90px !important",
-              height: "100px",
+              height: "90px",
               gap: "6px",
               background: "rgba(255, 255, 255, 0.1)",
               backdropFilter: "blur(10px)",
@@ -728,7 +728,7 @@ const Modals = () => {
                 alt=""
                 style={{
                   transform: "translateY(-15px)",
-                  width: "80%",
+                  width: "90%",
                   maxWidth: "150px",
                   height: "auto",
                   borderRadius: "inherit",
