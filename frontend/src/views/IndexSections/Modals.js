@@ -695,8 +695,22 @@ const Modals = () => {
               height: 40px !important;
             }
 
+            .custom-button {
+                max-width: 70vw; /* Lebih kecil dari sebelumnya (80vw) */
+                height: clamp(50px, 7vh, 70px); /* Tinggi lebih kecil */
+                gap: 5px; /* Mengurangi jarak antar elemen */
+            }
+
             .button-icon {
-              font-size: 40px !important;
+                min-height: 45px; /* Lebih kecil dari sebelumnya */
+            }
+
+            .button-icon img {
+                max-width: clamp(25px, 7vw, 35px); /* Ikon lebih kecil */
+            }
+
+            .icon-button-text {
+                font-size: clamp(6px, 1.5vw, 8px); /* Ukuran teks lebih kecil */
             }
 
             .marquee {
@@ -714,8 +728,22 @@ const Modals = () => {
               height: 35px !important;
             }
 
+            .custom-button {
+                max-width: 60vw; /* Lebih kecil dari sebelumnya (70vw) */
+                height: clamp(40px, 6vh, 60px); /* Tinggi lebih kecil */
+                gap: 4px; /* Mengurangi jarak antar elemen */
+            }
+
             .button-icon {
-              font-size: 30px !important;
+                min-height: 40px; /* Lebih kecil untuk layar sempit */
+            }
+
+            .button-icon img {
+                max-width: clamp(20px, 6vw, 30px); /* Ikon lebih kecil */
+            }
+
+            .icon-button-text {
+                font-size: clamp(5px, 1.3vw, 7px); /* Teks lebih kecil */
             }
 
             .dialog-title {
