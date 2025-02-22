@@ -377,7 +377,7 @@ const Modals = () => {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 90% !important;
+            width: 110% !important;
             height: 100%;
             min-height: 60px !important;
             border: none;
