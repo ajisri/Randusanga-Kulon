@@ -370,61 +370,6 @@ const Modals = () => {
           .button:hover .cursor-icon {
             animation: magnetEffect 0.2s forwards;
           }
-            
-          .button-icon {
-            position: relative;
-            font-size: 80px !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: auto;
-            min-height: 60px !important;
-            border: none;
-            border-radius: 12px;
-            margin: 0px
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            z-index: 1;
-            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
-          }
-
-          .button-icon img {
-            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-            max-width: 40px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-          }
-
-          .button-icon:hover img {
-            transform: translateY(-4px); /* Gambar sedikit naik saat hover */
-            opacity: 1;
-          }
-
-          .button-icon:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
-            transform: translate(-50%, -50%) scale(0);
-            border-radius: 50%;
-            transition: transform 0.5s ease-out;
-            pointer-events: none;
-          }
-
-          .button-icon:hover:before {
-            transform: translate(-50%, -50%) scale(1);
-          }
-
-          .button-icon:hover {
-            transform: scale(1.05);
-            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
-            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
-          }
 
           .video-button {
             transform: translateX(-100%);
@@ -655,7 +600,7 @@ const Modals = () => {
             }
           }
 
-          .custom-button {
+.custom-button {
   overflow: visible;
   border-radius: 12px;
   padding: 12px;
@@ -679,6 +624,61 @@ const Modals = () => {
   flex: 1;
   width: 55px;
   height: 10px;
+}
+
+.button-icon {
+  position: relative;
+  font-size: 80px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  min-height: 60px !important;
+  border: none;
+  border-radius: 12px;
+  margin: 0px
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+  background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
+}
+
+.button-icon img {
+  width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+  max-width: 40px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.button-icon:hover img {
+  transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+  opacity: 1;
+}
+
+.button-icon:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: transform 0.5s ease-out;
+  pointer-events: none;
+}
+
+.button-icon:hover:before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.button-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
+  filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
 }
 
 .custom-button-img {
@@ -740,7 +740,7 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="custom-button-icon button-icon"
+              className="custom-button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
