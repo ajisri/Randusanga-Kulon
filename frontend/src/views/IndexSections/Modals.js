@@ -616,16 +616,6 @@ const Modals = () => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.custom-button-icon {
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  width: 55px;
-  height: 10px;
-}
-
 .button-icon {
   position: relative;
   font-size: 80px !important;
@@ -740,7 +730,7 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="custom-button-icon"
+              className="button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
