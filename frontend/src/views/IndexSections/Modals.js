@@ -714,11 +714,10 @@ const Modals = () => {
               className="button-icon"
               style={{
                 overflow: "visible",
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-20px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "30px",
                 flex: 1,
               }}
             >
