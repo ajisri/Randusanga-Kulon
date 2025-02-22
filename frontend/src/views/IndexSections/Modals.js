@@ -735,9 +735,9 @@ const Modals = () => {
             }
 
             .button-icon {
-                width: 90%;
+                width: 50%;
                 height: 80%;
-                min-height: 40px; /* Lebih kecil untuk layar sempit */
+                min-height: 60px; /* Lebih kecil untuk layar sempit */
             }
 
             .button-icon img {
