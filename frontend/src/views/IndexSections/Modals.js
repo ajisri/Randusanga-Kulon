@@ -721,7 +721,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -732,6 +732,9 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
+            style={{
+              overflow: "visible",
+            }}
           >
             <div
               className="button-icon"
