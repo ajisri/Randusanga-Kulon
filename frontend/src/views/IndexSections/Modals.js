@@ -373,7 +373,7 @@ const Modals = () => {
             
           .button-icon {
             position: relative;
-            font-size: clamp(30px, 5vw, 80px);
+            font-size: 80px !important;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -392,7 +392,7 @@ const Modals = () => {
           }
 
           .button-icon img {
-            width: 70%; /* Ukuran gambar lebih besar agar lebih jelas */
+            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
             max-width: 40px;
             transition: transform 0.3s ease, opacity 0.3s ease;
           }
@@ -598,119 +598,106 @@ const Modals = () => {
             overflow: hidden;
           }
 
-.custom-button {
+          @media screen and (max-width: 1200px) {
+            .button {
+              width: 50px !important;
+              height: 45px !important;
+            }
+
+            .button-icon {
+              font-size: 60px !important;
+            }
+
+            .dialog-title {
+              font-size: 20px;
+            }
+
+            .dialog-subtitle {
+              font-size: 12px;
+            }
+          }
+
+          @media screen and (max-width: 768px) {
+            .button {
+              width: 40px !important;
+              height: 40px !important;
+            }
+
+            .button-icon {
+              font-size: 40px !important;
+            }
+
+            .marquee {
+              font-size: 12px;
+            }
+
+            .custom-dialog {
+              width: 85vw !important;
+            }
+          }
+
+          @media screen and (max-width: 480px) {
+            .button {
+              width: 35px !important;
+              height: 35px !important;
+            }
+
+            .button-icon {
+              font-size: 30px !important;
+            }
+
+            .dialog-title {
+              font-size: 16px;
+            }
+
+            .dialog-subtitle {
+              font-size: 10px;
+            }
+          }
+
+          .custom-button {
   overflow: visible;
   border-radius: 12px;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 90px;
   gap: 6px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: none;
-  cursor: pointer;
 }
 
-/* ===== STYLE ICON BUTTON ===== */
 .custom-button-icon {
   overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
-  width: 50px;
-  height: 40px;
-  transition: transform 0.3s ease;
+  width: 55px;
+  height: 20px;
 }
 
-/* ===== STYLE GAMBAR ICON ===== */
 .custom-button-img {
-  transform: translateY(-10px); /* Pastikan tetap keluar dari button-icon */
-  width: 100%;
-  max-width: 60px;
+  transform: translateY(-15px);
+  width: 90%;
+  max-width: 150px;
   height: auto;
   border-radius: inherit;
-  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.custom-button-icon:hover .custom-button-img {
-  transform: translateY(-5px);
-}
-
-/* ===== STYLE TEKS BUTTON ===== */
 .custom-button-text {
   display: block;
   transform: translateY(-5px);
   text-align: center;
-}
-
-.custom-button-text span {
   font-size: 10px;
   font-weight: 600;
-  color: #fff; /* Warna teks agar lebih kontras */
+  color: #fff;
 }
 
-@media screen and (max-width: 1200px) {
-  .button {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  .button-icon {
-    font-size: clamp(30px, 4vw, 60px);
-  }
-
-  .dialog-title {
-    font-size: 1.25rem;
-  }
-
-  .dialog-subtitle {
-    font-size: 0.875rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .button {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-
-  .button-icon {
-    font-size: clamp(20px, 3vw, 40px);
-  }
-
-  .marquee {
-    font-size: 0.75rem;
-  }
-
-  .custom-dialog {
-    width: 85vw;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .button {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  .button-icon {
-    font-size: clamp(15px, 2.5vw, 30px);
-  }
-
-  .dialog-title {
-    font-size: 1rem;
-  }
-
-  .dialog-subtitle {
-    font-size: 0.75rem;
-  }
-}
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -742,7 +729,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="custom-button btn-white btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -753,7 +740,7 @@ const Modals = () => {
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
             <div
-              className="custom-button-icon"
+              className="custom-button-icon button-icon"
               style={{
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px)`,
               }}
@@ -765,20 +752,10 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  transform: "translateY(-5px)",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                TENTANG
-              </span>
+              <span className="custom-button-text">TENTANG</span>
             </div>
           </Button>
+
           <div>
             <Dialog
               header={
