@@ -721,7 +721,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white custom-button btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
