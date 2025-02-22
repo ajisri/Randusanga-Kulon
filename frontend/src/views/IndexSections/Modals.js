@@ -729,7 +729,7 @@ const Modals = () => {
             }
 
             .custom-button {
-                max-width: 60vw; /* Lebih kecil dari sebelumnya (70vw) */
+                max-width: 33.33vw !important; /* Lebih kecil dari sebelumnya (70vw) */
                 height: clamp(40px, 6vh, 60px); /* Tinggi lebih kecil */
                 gap: 4px; /* Mengurangi jarak antar elemen */
             }
@@ -743,7 +743,7 @@ const Modals = () => {
             }
 
             .icon-button-text {
-                font-size: clamp(5px, 1.3vw, 7px); /* Teks lebih kecil */
+                font-size: clamp(15px, 1.5vw, 30px); /* Teks lebih kecil */
             }
 
             .dialog-title {
