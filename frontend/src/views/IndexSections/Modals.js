@@ -530,8 +530,9 @@ const Modals = () => {
           .custom-button-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);  /* Membuat 3 kolom yang sama lebarnya */
-            gap: 8px;  /* Memberikan jarak antar tombol */
-            justify-items: center; /* Menyusun tombol di tengah kolom */
+            gap: 6px;  /* Memberikan jarak antar tombol */
+            justify-items: center;
+              align-items: center;
           }
 
           .custom-button {
