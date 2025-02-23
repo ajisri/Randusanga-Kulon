@@ -546,7 +546,7 @@ const Modals = () => {
           }
 
           .video-button:hover {
-            transform: translateY(-3px); /* sedikit gerakan ke atas saat hover */
+            transform: translateY(-3px);
           }
 
           @media (max-width: 1024px) {
