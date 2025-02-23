@@ -542,7 +542,7 @@ const Modals = () => {
               background: rgba(255, 255, 255, 0.05);  /* transparansi lebih rendah saat hover */
               border: 3px solid rgba(255, 255, 255, 0.5); /* membuat border sedikit lebih terang saat hover */
               box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* menambahkan efek bayangan lebih besar pada hover */
-              transform: translateY(-3px); /* sedikit gerakan ke atas saat hover */
+              transform: translateY(-3px);
           }
 
           .video-button:hover {
