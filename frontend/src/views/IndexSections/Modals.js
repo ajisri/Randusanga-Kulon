@@ -371,15 +371,6 @@ const Modals = () => {
             animation: magnetEffect 0.2s forwards;
           }
 
-          .video-button {
-            transform: translateX(-100%);
-            animation: slideIn 1s forwards;
-            margin-top: 0px !important;
-            margin-left: 0px !important;
-            margin-right: 0px !important;
-            margin-bottom: 0px !important;
-          }
-
           .no-animation {
             animation: none; /* Menghilangkan animasi setelah selesai */
           }
@@ -552,6 +543,10 @@ const Modals = () => {
               border: 3px solid rgba(255, 255, 255, 0.5); /* membuat border sedikit lebih terang saat hover */
               box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* menambahkan efek bayangan lebih besar pada hover */
               transform: translateY(-3px); /* sedikit gerakan ke atas saat hover */
+          }
+
+          .video-button:hover {
+            transform: translateY(-3px); /* sedikit gerakan ke atas saat hover */
           }
 
           @media (max-width: 1024px) {
