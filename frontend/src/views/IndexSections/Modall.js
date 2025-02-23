@@ -373,6 +373,11 @@ const Modall = () => {
               transform: translateY(-3px);
           }
 
+          .video-button {
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+          }
+
           .video-button:hover {
             transform: translateY(-3px);
           }
@@ -612,7 +617,7 @@ const Modall = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -712,7 +717,7 @@ const Modall = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -814,7 +819,7 @@ const Modall = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -914,7 +919,7 @@ const Modall = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1016,7 +1021,7 @@ const Modall = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1121,7 +1126,7 @@ const Modall = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button

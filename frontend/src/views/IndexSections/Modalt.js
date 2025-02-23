@@ -396,6 +396,11 @@ const Modalt = () => {
               transform: translateY(-3px);
           }
 
+          .video-button {
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+          }
+
           .video-button:hover {
             transform: translateY(-3px);
           }
@@ -634,7 +639,7 @@ const Modalt = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -767,7 +772,7 @@ const Modalt = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -900,7 +905,7 @@ const Modalt = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button

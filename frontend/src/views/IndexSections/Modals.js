@@ -545,6 +545,11 @@ const Modals = () => {
               transform: translateY(-3px);
           }
 
+          .video-button {
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+          }
+
           .video-button:hover {
             transform: translateY(-3px);
           }
