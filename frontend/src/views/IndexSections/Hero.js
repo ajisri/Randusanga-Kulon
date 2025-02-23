@@ -40,7 +40,11 @@ const Hero = () => {
           <>
             {/* Baris Pertama */}
             <Row
-              style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
+              style={{
+                minHeight: "100vh",
+                height: "auto",
+                paddingTop: "0px",
+              }}
             >
               <Col
                 md={4}
@@ -50,57 +54,54 @@ const Hero = () => {
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
+                  justifyContent: "flex-start", // Mulai dari atas
                   alignItems: "center",
-                  minHeight: "100%",
+                  height: "auto", // Biarkan tinggi menyesuaikan konten
                   position: "relative",
                   zIndex: 2,
+                  overflowY: "auto", // Tambahkan scroll jika konten panjang
                 }}
               >
+                {/* Logo Kabupaten Brebes */}
                 <div
                   style={{
-                    position: "absolute",
-                    top: "10px", // Jarak dari atas halaman
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    zIndex: 3, // Logo berada di atas konten lain
+                    textAlign: "center",
+                    marginBottom: "20px", // Berikan jarak antara logo dan konten Tabs
                   }}
                 >
                   <img
                     alt="..."
                     src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
                     style={{
-                      position: "relative",
-                      left: "50%",
-                      paddingTop: "10px",
-                      transform: "translateX(-50%)",
-                      width: "70px", // Sesuaikan ukuran bendera
+                      width: "70px",
                       height: "auto",
-                      top: "10px",
-                      zIndex: 0, // Gambar di bawah
+                      marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px", zIndex: 1 }}>
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>
                     {/* Menu */}
                   </h3>
                 </div>
 
+                {/* Konten Tabs */}
                 <div
                   style={{
-                    marginTop: "-120px",
-                    height: "700px",
+                    width: "100%",
+                    height: "auto", // Biarkan tinggi menyesuaikan konten
+                    overflowY: "auto", // Tambahkan scroll jika konten panjang
                   }}
                 >
                   <Tabs />
                 </div>
+
+                {/* Tombol Tutup */}
                 <Button
                   onClick={() => setIsMenuOpen(false)}
                   style={{
                     fontSize: "0.8rem",
                     padding: "8px 14px",
-                    position: "absolute", // Posisi absolut untuk memindahkan tombol ke bawah kanan
-                    bottom: "20px", // Jarak dari bawah
-                    right: "20px",
+                    marginTop: "20px", // Berikan jarak antara konten Tabs dan tombol
+                    alignSelf: "flex-end", // Posisikan tombol di sebelah kanan
                   }}
                 >
                   Tutup
@@ -115,7 +116,7 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  minHeight: "100%",
+                  height: "auto", // Biarkan tinggi menyesuaikan konten
                 }}
               >
                 {/* Area tambahan jika diperlukan */}

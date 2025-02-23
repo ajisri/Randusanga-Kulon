@@ -140,10 +140,11 @@ class TabsSection extends Component {
             @media screen and (max-width: 480px) {
             .futuristik-nav-link {
               width: 30% !important; /* Kurangi lebar button */
-              min-width: 150px; /* Pastikan button tidak terlalu kecil */
-              margin-left: 8px !important; /* Sesuaikan margin */
-              margin-right: 8px !important; /* Sesuaikan margin */
+              min-width: 100px; /* Pastikan button tidak terlalu kecil */
+              margin-left: 3px !important; /* Sesuaikan margin */
+              margin-right: 3px !important; /* Sesuaikan margin */
               font-size: 0.8rem !important; /* Sesuaikan ukuran font */
+              padding: 4px 8px !important; /* Sesuaikan padding */
             }
 
             .nav-wrapper .row {
@@ -159,7 +160,7 @@ class TabsSection extends Component {
           `}
         </style>
 
-        <Row className="justify-content-center" style={{ flexWrap: "nowrap" }}>
+        <Row className="justify-content-center">
           <Col lg="12" className="mt-5 mt-lg-0">
             <div className="mb-3">
               {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
@@ -171,9 +172,14 @@ class TabsSection extends Component {
                 pills
                 role="tablist"
               >
-                <Row className="w-100">
+                <Row className="w-100" style={{ flexWrap: "nowrap" }}>
                   {[1, 2, 3].map((index) => (
-                    <Col key={index} lg="4" className="mb-3">
+                    <Col
+                      key={index}
+                      lg="4"
+                      className="mb-3"
+                      style={{ flex: "0 0 auto" }}
+                    >
                       <NavItem>
                         <NavLink
                           aria-selected={this.state.plainTabs === index}
