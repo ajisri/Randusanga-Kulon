@@ -984,9 +984,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 custom-button video-button ${
-              animationTriggered ? "video-button" : "no-animation"
-            }`}
+            className="btn-white btn-icon mb-3 mb-sm-0 custom-button video-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
