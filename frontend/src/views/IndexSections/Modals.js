@@ -553,6 +553,7 @@ const Modals = () => {
             max-width: 30vw; /* 1/3 layar laptop */
             width: 95%;
             z-index: 1;
+            margin: 0;
           }
 
           .custom-button:hover {
