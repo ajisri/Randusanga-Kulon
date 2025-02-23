@@ -582,10 +582,9 @@ const Modals = () => {
             width: 115% !important;
             height: 100%;
             min-height: 60px !important;
-            border: none;
+            border: 3px solid rgba(255, 255, 255, 0.8);
             border-radius: 12px;
             margin: 0px
-            overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
@@ -789,7 +788,6 @@ const Modals = () => {
           <Button
             block
             className="custom-button mb-3 mb-sm-0"
-            color="default"
             type="button"
             icon="pi pi-info-circle"
             onClick={(e) => {
