@@ -539,7 +539,6 @@ const Modals = () => {
             overflow: visible;
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
-            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -553,7 +552,6 @@ const Modals = () => {
             max-width: 30vw; /* 1/3 layar laptop */
             width: 95%;
             z-index: 1;
-            margin: 0;
           }
 
           .custom-button:hover {
