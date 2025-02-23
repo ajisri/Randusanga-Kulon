@@ -136,10 +136,30 @@ class TabsSection extends Component {
               0% { opacity: 1; transform: translateX(0) scale(1); }
               100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
             }
+
+            @media screen and (max-width: 480px) {
+            .futuristik-nav-link {
+              width: 30% !important; /* Kurangi lebar button */
+              min-width: 150px; /* Pastikan button tidak terlalu kecil */
+              margin-left: 8px !important; /* Sesuaikan margin */
+              margin-right: 8px !important; /* Sesuaikan margin */
+              font-size: 0.8rem !important; /* Sesuaikan ukuran font */
+            }
+
+            .nav-wrapper .row {
+              flex-wrap: nowrap !important; /* Hindari wrap */
+              overflow-x: auto; /* Tambahkan scroll horizontal jika diperlukan */
+            }
+
+            .nav-wrapper .row .col {
+              flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
+              width: auto !important; /* Sesuaikan lebar kolom */
+            }
+          }
           `}
         </style>
 
-        <Row className="justify-content-center">
+        <Row className="justify-content-center" style={{ flexWrap: "nowrap" }}>
           <Col lg="12" className="mt-5 mt-lg-0">
             <div className="mb-3">
               {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
