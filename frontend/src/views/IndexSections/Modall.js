@@ -616,7 +616,7 @@ const Modall = () => {
       <Row>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
@@ -716,13 +716,13 @@ const Modall = () => {
         </Col>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -818,7 +818,7 @@ const Modall = () => {
         </Col>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
@@ -916,15 +916,17 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
+      </Row>
+      <Row>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
             block
-            className="mb-3 mb-sm-0 custom=button video-button"
+            className="mb-3 mb-sm-0 custom-button video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1016,11 +1018,9 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-      </Row>
-      <Row>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
@@ -1125,7 +1125,7 @@ const Modall = () => {
         </Col>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
