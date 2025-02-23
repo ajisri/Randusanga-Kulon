@@ -762,6 +762,22 @@ const Modals = () => {
               font-size: 10px;
             }
           }
+
+          .grid-container {
+            display: grid;
+          }
+
+          @media screen and (max-width: 480px) {
+            .grid-container {
+              grid-template-columns: repeat(3, 1fr); /* 3 kolom per baris pada mobile */
+            }
+          }
+
+          @media screen and (min-width: 768px) {
+            .grid-container {
+              grid-template-columns: repeat(4, 1fr); /* 4 kolom per baris pada desktop */
+            }
+          }
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -785,6 +801,7 @@ const Modals = () => {
         <span></span>
       </h2>
       <Row>
+        <div className="grid-container"></div>
         <Col
           className="mt-1"
           md="3"
@@ -984,7 +1001,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="mb-3 mb-sm-0 custom-button video-button"
+            className="mb-3 mb-sm-0 custom-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -1074,7 +1091,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="3"
-          xs="6"
+          xs="12"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1173,8 +1190,8 @@ const Modals = () => {
       <Row>
         <Col
           className="mt-1"
-          md="3"
-          xs="6"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1350,8 +1367,8 @@ const Modals = () => {
 
         <Col
           className="mt-1"
-          md="3"
-          xs="6"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1413,8 +1430,8 @@ const Modals = () => {
 
         <Col
           className="mt-1"
-          md="3"
-          xs="6"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button

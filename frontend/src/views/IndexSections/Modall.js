@@ -722,7 +722,7 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="btn-white btn-icon custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -924,7 +924,7 @@ const Modall = () => {
         >
           <Button
             block
-            className="mb-3 mb-sm-0 custom=button video-button"
+            className="mb-3 mb-sm-0 custom-button video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
