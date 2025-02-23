@@ -198,66 +198,6 @@ const Modall = () => {
           .button:hover .cursor-icon {
             animation: magnetEffect 0.2s forwards;
           }
-            
-          .button-icon {
-            position: relative;
-            font-size: 80px !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            min-height: 60px !important;
-            border: none;
-            border-radius: 12px;
-            margin: 0px
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            z-index: 1;
-            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
-          }
-
-          .button-icon img {
-            width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
-            max-width: 40px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-          }
-
-          .button-icon:hover img {
-            transform: translateY(-4px); /* Gambar sedikit naik saat hover */
-            opacity: 1;
-          }
-
-          .button-icon:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
-            transform: translate(-50%, -50%) scale(0);
-            border-radius: 50%;
-            transition: transform 0.5s ease-out;
-            pointer-events: none;
-          }
-
-          .button-icon:hover:before {
-            transform: translate(-50%, -50%) scale(1);
-          }
-
-          .button-icon:hover {
-            transform: scale(1.05);
-            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
-            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
-          }
-
-          .video-button {
-            transform: translateX(-100%);
-            animation: slideIn 1s forwards;
-          }
 
           .no-animation {
             animation: none; /* Menghilangkan animasi setelah selesai */
@@ -307,7 +247,7 @@ const Modall = () => {
             position: relative;
             overflow: hidden;
             display: inline-block;
-            border-radius: 8px; /* Sesuaikan sesuai bentuk tombol */
+            border-radius: 12px; /* Sesuaikan sesuai bentuk tombol */
           }
           .ripple {
             position: absolute;
@@ -350,20 +290,6 @@ const Modall = () => {
             animation: bounceIn 1s ease-in-out;
           }
 
-          /* Custom Dialog Content */
-          .custom-dialog {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-          }
-
-          body {
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px; /* Ukuran font untuk teks */
-            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
-            color: #333; /* Warna teks */
-          }
-
           .dialog-header {
             display: flex;
             justify-content: space-between;
@@ -383,58 +309,25 @@ const Modall = () => {
             color: #777;
           }
 
+          /* Custom Dialog Content */
+          .custom-dialog {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+          }
+
+          body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px; /* Ukuran font untuk teks */
+            line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
+            color: #333; /* Warna teks */
+          }
+
           .dialog-text {
             font-family: 'Roboto', sans-serif;
             font-size: 16px; /* Ukuran font untuk teks panjang */
             line-height: 1.5; /* Jarak antar baris untuk kenyamanan membaca */
             color: #333; /* Warna teks */
-          }
-
-          .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-height: calc(80vh - 40px);
-            overflow: hidden;
-            position: relative; /* Untuk overlay */
-            margin: 20px 0; /* Beri jarak atas dan bawah */
-          }
-
-          .modal-image {
-            width: 100%; /* Sesuaikan lebar gambar */
-            max-width: 70vw; /* Batasi lebar maksimum */
-            height: auto;
-            object-fit: cover; /* Pastikan gambar menutupi area */
-            border-radius: 12px; /* Rounded */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow lebih tegas */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi hover */
-            animation: fadeIn 0.5s ease-in-out;
-          }
-
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-
-          .modal-image:hover {
-            transform: scale(1.02); /* Zoom sedikit saat hover */
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Shadow lebih besar saat hover */
-          }
-
-          /* Overlay untuk gambar */
-          .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3); /* Overlay gelap */
-            border-radius: 12px; /* Sesuaikan dengan gambar */
-            pointer-events: none; /* Biarkan interaksi tetap pada gambar */
           }
 
           .loading-container {
@@ -453,6 +346,143 @@ const Modall = () => {
             animation: spin 2s linear infinite;
           }
 
+          .custom-button {
+            overflow: visible;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: clamp(100px, 10vh, 100px);
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 30vw; /* 1/3 layar laptop */
+            width: 95%;
+            z-index: 1;
+          }
+
+          .custom-button:hover {
+              background: rgba(255, 255, 255, 0.05);  /* transparansi lebih rendah saat hover */
+              border: 3px solid rgba(255, 255, 255, 0.5); /* membuat border sedikit lebih terang saat hover */
+              box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* menambahkan efek bayangan lebih besar pada hover */
+              transform: translateY(-3px);
+          }
+
+          .video-button:hover {
+            transform: translateY(-3px);
+          }
+
+          @media (max-width: 1024px) {
+              .custom-button {
+                  max-width: 50vw; /* Setengah layar untuk tablet */
+              }
+          }
+
+          @media (max-width: 768px) {
+              .custom-button {
+                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
+                  height: clamp(60px, 8vh, 80px);
+              }
+          }
+
+          @media (min-width: 1440px) {
+              .custom-button {
+                  max-width: 25vw; /* Lebih kecil agar tidak terlalu lebar di layar besar */
+              }
+          }
+
+          @media (min-width: 1920px) {
+              .custom-button {
+                  max-width: 20vw; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
+              }
+          }
+
+          .button-icon {
+            overflow: visible;
+            position: relative;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            width: 105% !important;
+            height: 100%;
+            min-height: 60px !important;
+            border-radius: 12px;
+            margin: 0px
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
+          }
+
+          .button-icon img {
+              width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+              max-width: clamp(30px, 8vw, 40px);
+              transition: transform 0.3s ease, opacity 0.3s ease;
+          }
+
+          .button-icon:hover img {
+              transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+              opacity: 1;
+          }
+
+          .button-icon:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+          }
+
+          .button-icon:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+          }
+
+          .button-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
+            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+          }
+          
+          .img-custom {
+            transform: translateY(-3px);
+            width: 80%;
+            max-width: clamp(100px, 15vw, 150px);
+            height: auto;
+            border-radius: inherit;
+          }
+
+          .icon-button-text {
+            display: block;
+            text-align: center;
+            font-size: clamp(8px, 2vw, 10px);
+            font-weight: 600;
+            transform: translateY(-15px);
+            color: #fff;
+          }
+
+          @media (max-width: 768px) {
+              .button-icon {
+                  min-height: 50px;
+              }
+
+              .icon-button-text {
+                  font-size: clamp(7px, 1.8vw, 9px);
+              }
+          }
+            
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -494,8 +524,22 @@ const Modall = () => {
               height: 40px !important;
             }
 
+            .custom-button {
+                max-width: 70vw; /* Lebih kecil dari sebelumnya (80vw) */
+                height: clamp(50px, 7vh, 70px); /* Tinggi lebih kecil */
+                gap: 5px; /* Mengurangi jarak antar elemen */
+            }
+
             .button-icon {
-              font-size: 40px !important;
+                min-height: 45px; /* Lebih kecil dari sebelumnya */
+            }
+
+            .button-icon img {
+                max-width: clamp(25px, 7vw, 35px); /* Ikon lebih kecil */
+            }
+
+            .icon-button-text {
+                font-size: clamp(6px, 1.5vw, 8px); /* Ukuran teks lebih kecil */
             }
 
             .marquee {
@@ -513,8 +557,24 @@ const Modall = () => {
               height: 35px !important;
             }
 
+            .custom-button {
+              max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
+              height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
+              gap: 2px !important; /* Mengurangi jarak antar elemen */
+            }
+
             .button-icon {
-              font-size: 30px !important;
+                width: 20vw !important;
+                height: 80%;
+                min-height: 60px; /* Lebih kecil untuk layar sempit */
+            }
+
+            .button-icon img {
+                max-width: clamp(20px, 6vw, 30px); /* Ikon lebih kecil */
+            }
+
+            .icon-button-text {
+                font-size: clamp(12px, 1.5vw, 12px); /* Teks lebih kecil */
             }
 
             .dialog-title {
@@ -557,67 +617,28 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="custom-button video-button mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={showDialog}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/aktakelahiran.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-15px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  transform: "translateY(-5px)",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                AKTA KELAHIRAN
-              </span>
+              <span className="icon-button-text">AKTA KELAHIRAN</span>
             </div>
           </Button>
           <div>
@@ -703,60 +724,21 @@ const Modall = () => {
             onClick={showDialogkk}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
             onMouseLeave={() => handleMouseLeave(setIconPosition1)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
                 transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/kartukeluarga.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-15px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  transform: "translateY(-5px)",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                KARTU KELUARGA
-              </span>
+              <span className="icon-button-text">KARTU KELUARGA</span>
             </div>
           </Button>
           <div>
@@ -837,67 +819,28 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="custom-button video-button mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={showDialogktp}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition2)}
             onMouseLeave={() => handleMouseLeave(setIconPosition2)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-25px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-15px)`,
               }}
             >
               <img
                 className="img-fluid"
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-25px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  transform: "translateY(-5px)",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                KTP
-              </span>
+              <span className="icon-button-text">KTP</span>
             </div>
           </Button>
           <div>
@@ -976,67 +919,28 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="mb-3 mb-sm-0 custom=button video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={showDialogpn}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
             onMouseLeave={() => handleMouseLeave(setIconPosition3)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-20px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-20px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  transform: "translateY(-15px)",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                PENDAFTARAN NIKAH
-              </span>
+              <span className="icon-button-text">PENDAFTARAN NIKAH</span>
             </div>
           </Button>
           <div>
@@ -1117,29 +1021,13 @@ const Modall = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="custom-button video-button mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={showDialogabp}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
             onMouseLeave={() => handleMouseLeave(setIconPosition4)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
@@ -1153,31 +1041,13 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid custom-icon"
                 src={require("assets/img/theme/aktivasibpjs.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-15px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  transform: "translateY(-5px)",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                AKTIFASI BPJS PBI
-              </span>
+              <span className="icon-button-text">AKTIFASI BPJS PBI</span>
             </div>
           </Button>
           <div>
@@ -1256,7 +1126,7 @@ const Modall = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -1265,27 +1135,10 @@ const Modall = () => {
             onClick={showDialogpsktm}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
             onMouseLeave={() => handleMouseLeave(setIconPosition5)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px !important",
-              height: "100px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
                 transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
                 display: "flex",
                 alignItems: "center",
@@ -1294,31 +1147,13 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid custom-icon"
                 src={require("assets/img/theme/sktm.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-15px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  transform: "translateY(-5px)",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                PEMBUATAN SKTM
-              </span>
+              <span className="icon-button-text">PEMBUATAN SKTM</span>
             </div>
           </Button>
           <div>
