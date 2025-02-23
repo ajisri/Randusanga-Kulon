@@ -887,7 +887,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white btn-custom btn-icon mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -896,59 +896,21 @@ const Modals = () => {
             onClick={() => setDialogVisiblesd(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
             onMouseLeave={() => handleMouseLeave(setIconPosition1)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/book.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                SEJARAH
-              </span>
+              <span className="icon-button-text">SEJARAH</span>
             </div>
           </Button>
           <div>
@@ -1022,7 +984,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white btn-icon mb-3 mb-sm-0 custom-button video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -1031,59 +993,21 @@ const Modals = () => {
             onClick={() => setDialogVisiblevm(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
             onMouseLeave={() => handleMouseLeave(setIconPosition3)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/target.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                VISI MISI
-              </span>
+              <span className="icon-button-text">VISI MISI</span>
             </div>
           </Button>
           <div>
@@ -1157,7 +1081,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`btn-white btn-icon mb-3 mb-sm-0 video-button ${
+            className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -1166,59 +1090,21 @@ const Modals = () => {
             onClick={() => setDialogVisibleso(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
             onMouseLeave={() => handleMouseLeave(setIconPosition4)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-2px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/management.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-2px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                Struktur Organisasi
-              </span>
+              <span className="icon-button-text">Struktur Organisasi</span>
             </div>
           </Button>
 
@@ -1295,66 +1181,28 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0"
+            className="btn-white custom-button btn-icon mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblele(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition5)}
             onMouseLeave={() => handleMouseLeave(setIconPosition5)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                LEMBAGA
-              </span>
+              <span className="icon-button-text">LEMBAGA</span>
             </div>
           </Button>
           <div>
@@ -1510,66 +1358,28 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="btn-white custom-button btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisiblege(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition6)}
             onMouseLeave={() => handleMouseLeave(setIconPosition6)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/planet.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                GEOGRAFI
-              </span>
+              <span className="icon-button-text">GEOGRAFI</span>
             </div>
           </Button>
           <div>
@@ -1611,66 +1421,28 @@ const Modals = () => {
         >
           <Button
             block
-            className="btn-white btn-icon mb-3 mb-sm-0 video-button"
+            className="btn-white custom-button btn-icon mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
             onClick={() => setDialogVisible(true)}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition7)}
             onMouseLeave={() => handleMouseLeave(setIconPosition7)}
-            style={{
-              overflow: "visible",
-              borderRadius: "12px",
-              padding: "12px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "90px",
-              height: "90px",
-              gap: "6px",
-              background: "rgba(255, 255, 255, 0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
           >
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
-                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-10px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-15px)`,
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
-                style={{
-                  transform: "translateY(-3px)",
-                  width: "80%",
-                  maxWidth: "150px",
-                  height: "auto",
-                  borderRadius: "inherit",
-                }}
               />
             </div>
             <div>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "10px",
-                  fontWeight: "600",
-                  color: "#fff", // Warna teks agar lebih kontras
-                }}
-              >
-                DEMOGRAFI
-              </span>
+              <span className="icon-button-text">DEMOGRAFI</span>
             </div>
           </Button>
           <div>
