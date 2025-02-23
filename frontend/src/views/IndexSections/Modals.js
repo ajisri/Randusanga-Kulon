@@ -530,7 +530,7 @@ const Modals = () => {
           .custom-button {
             overflow: visible;
             border-radius: 12px;
-            border: rgb(240, 236, 236);
+            border: 3px solid rgba(255, 255, 255, 0.8);
             padding: 12px;
             display: flex;
             flex-direction: column;
@@ -545,6 +545,7 @@ const Modals = () => {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 33.33vw; /* 1/3 layar laptop */
             width: 100%;
+            z-index: 1;
           }
 
           @media (max-width: 1024px) {
@@ -582,7 +583,6 @@ const Modals = () => {
             width: 115% !important;
             height: 100%;
             min-height: 60px !important;
-            border: 3px solid rgba(255, 255, 255, 0.8);
             border-radius: 12px;
             margin: 0px
             cursor: pointer;
