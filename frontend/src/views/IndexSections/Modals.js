@@ -536,14 +536,13 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90px;
-            height: clamp(90px, 10vh, 100px);
+            height: clamp(100px, 10vh, 100px);
             gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 33.33vw; /* 1/3 layar laptop */
+            max-width: 30vw; /* 1/3 layar laptop */
             width: 95%;
             z-index: 1;
           }
