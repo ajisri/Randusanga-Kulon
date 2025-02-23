@@ -638,7 +638,7 @@ const Modalt = () => {
       <Row>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
@@ -771,7 +771,7 @@ const Modalt = () => {
         </Col>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
@@ -904,7 +904,7 @@ const Modalt = () => {
         </Col>
         <Col
           className="mt-1"
-          md="3"
+          md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
@@ -1396,7 +1396,7 @@ const Modalt = () => {
             </Dialog>
           </div>
         </Col>
-        {/* <Col className="mt-1" md="3" xs="4">
+        {/* <Col className="mt-1" md="3" xs="6">
           <Button
             block
             className="btn-white btn-icon mb-3 mb-sm-0 video-button"
