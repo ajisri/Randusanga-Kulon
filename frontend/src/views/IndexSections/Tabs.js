@@ -200,12 +200,7 @@ class TabsSection extends Component {
                             width: "100%", // Pastikan memenuhi lebar container
                           }}
                         >
-                          <b
-                            style={{
-                              fontSize: "10px",
-                              textAlign: "center",
-                            }}
-                          >
+                          <b style={{ fontSize: "10px", textAlign: "center" }}>
                             {index === 1
                               ? "PROFIL"
                               : index === 2
