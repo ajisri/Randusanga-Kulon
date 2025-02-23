@@ -437,9 +437,9 @@ const Modalt = () => {
             flex: 1;
             align-items: center;
             justify-content: center;
-            width: 105% !important;
+            width: 100% !important;
             height: 100%;
-            min-height: 60px !important;
+            min-height: 70px !important;
             border-radius: 12px;
             margin: 0px
             cursor: pointer;

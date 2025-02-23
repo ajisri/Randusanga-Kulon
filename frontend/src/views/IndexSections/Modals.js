@@ -534,7 +534,7 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw; /* 1/3 layar laptop */
-            width: 95%;
+            width: 90%;
             z-index: 1;
           }
 
@@ -586,9 +586,9 @@ const Modals = () => {
             flex: 1;
             align-items: center;
             justify-content: center;
-            width: 105% !important;
+            width: 100% !important;
             height: 100%;
-            min-height: 60px !important;
+            min-height: 70px !important;
             border-radius: 12px;
             margin: 0px
             cursor: pointer;

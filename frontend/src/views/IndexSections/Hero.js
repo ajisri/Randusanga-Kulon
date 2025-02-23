@@ -70,7 +70,7 @@ const Hero = () => {
                     alt="..."
                     src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
                     style={{
-                      position: "absolute",
+                      position: "relative",
                       left: "50%",
                       paddingTop: "10px",
                       transform: "translateX(-50%)",
@@ -88,7 +88,7 @@ const Hero = () => {
                 <div
                   style={{
                     marginTop: "-120px",
-                    height: "500px",
+                    height: "auto",
                   }}
                 >
                   <Tabs />
