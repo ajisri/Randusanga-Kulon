@@ -534,7 +534,7 @@ const Modals = () => {
             justify-items: center;
             align-items: center;
             width: fit-content; /* Menyesuaikan dengan konten */
-  margin: 0 auto; /* Agar grid berada di tengah */
+            margin: 0 auto; /* Agar grid berada di tengah */
           }
 
           .custom-button {
