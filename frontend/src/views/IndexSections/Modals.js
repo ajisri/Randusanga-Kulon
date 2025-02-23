@@ -641,6 +641,7 @@ const Modals = () => {
             text-align: center;
             font-size: clamp(8px, 2vw, 10px);
             font-weight: 600;
+            transform: translateY(-15px);
             color: #fff;
           }
 
