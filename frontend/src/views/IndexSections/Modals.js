@@ -743,7 +743,7 @@ const Modals = () => {
 
             .custom-button-container {
               grid-template-columns: repeat(3, 1fr); /* Menjaga 3 kolom pada layar kecil */
-              gap: 2px;
+              gap: 2px !important;
             }
 
             .custom-button {
