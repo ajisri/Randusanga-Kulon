@@ -533,6 +533,8 @@ const Modals = () => {
             gap: 6px;  /* Memberikan jarak antar tombol */
             justify-items: center;
             align-items: center;
+            width: fit-content; /* Menyesuaikan dengan konten */
+  margin: 0 auto; /* Agar grid berada di tengah */
           }
 
           .custom-button {
