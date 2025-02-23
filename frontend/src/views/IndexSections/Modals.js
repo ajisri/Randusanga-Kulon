@@ -528,10 +528,10 @@ const Modals = () => {
           }
 
           .custom-button-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);  /* Membuat 3 kolom yang sama lebarnya */
+            display: flex;
+            flex-wrap: wrap;  /* Tombol akan membungkus ke baris baru jika dibutuhkan */
+            justify-content: space-between;  /* Tombol akan tersebar merata dalam baris */
             gap: 8px;  /* Memberikan jarak antar tombol */
-            justify-items: center; /* Menyusun tombol di tengah kolom */
           }
 
           .custom-button {
@@ -742,12 +742,14 @@ const Modals = () => {
             }
 
             .custom-button-container {
-              grid-template-columns: repeat(3, 1fr); /* Menjaga 3 kolom pada layar kecil */
-              gap: 2px !important;
+              display: flex;
+              flex-wrap: wrap;  /* Membuat tombol membungkus ke baris baru */
+              justify-content: space-between;
             }
 
             .custom-button {
-              max-width: 50vw !important; /* Lebih kecil dari sebelumnya (70vw) */
+              flex: 1 1 calc(33.33% - 16px);
+              max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
               height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
               gap: 2px !important; /* Mengurangi jarak antar elemen */
             }
