@@ -839,7 +839,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid"
+                className="img-fluid icon-custom"
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
               />
@@ -1145,10 +1145,6 @@ const Modall = () => {
               className="button-icon"
               style={{
                 transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
               }}
             >
               <img

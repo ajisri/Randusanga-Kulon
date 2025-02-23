@@ -655,13 +655,7 @@ const Modalt = () => {
             <div
               className="button-icon"
               style={{
-                overflow: "visible",
                 transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
-                display: "flex",
-                alignItems: "center",
-                maxWidth: "28vw !important",
-                justifyContent: "center",
-                flex: 1,
               }}
             >
               <img

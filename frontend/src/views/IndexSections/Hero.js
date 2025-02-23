@@ -88,7 +88,7 @@ const Hero = () => {
                 <div
                   style={{
                     marginTop: "-120px",
-                    height: "auto",
+                    height: "700px",
                   }}
                 >
                   <Tabs />
