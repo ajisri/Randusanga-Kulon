@@ -43,7 +43,7 @@ const Hero = () => {
               style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
-                md={3}
+                md={4}
                 style={{
                   background:
                     "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
