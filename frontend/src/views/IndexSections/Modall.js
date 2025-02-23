@@ -916,6 +916,8 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
+      </Row>
+      <Row>
         <Col
           className="mt-1"
           md="3"
@@ -1016,8 +1018,6 @@ const Modall = () => {
             </Dialog>
           </div>
         </Col>
-      </Row>
-      <Row>
         <Col
           className="mt-1"
           md="3"

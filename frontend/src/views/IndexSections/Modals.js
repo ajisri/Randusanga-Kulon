@@ -801,11 +801,10 @@ const Modals = () => {
         <span></span>
       </h2>
       <Row>
-        <div className="grid-container"></div>
         <Col
           className="mt-1"
-          md="3"
-          xs="6"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -895,11 +894,10 @@ const Modals = () => {
             </Dialog>
           </div>
         </Col>
-
         <Col
           className="mt-1"
-          md="3"
-          xs="6"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -992,11 +990,10 @@ const Modals = () => {
             </Dialog>
           </div>
         </Col>
-
         <Col
           className="mt-1"
-          md="3"
-          xs="6"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1087,11 +1084,13 @@ const Modals = () => {
             </Dialog>
           </div>
         </Col>
+      </Row>
 
+      <Row>
         <Col
           className="mt-1"
-          md="3"
-          xs="12"
+          md="4"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1185,9 +1184,6 @@ const Modals = () => {
             </Dialog>
           </div>
         </Col>
-      </Row>
-
-      <Row>
         <Col
           className="mt-1"
           md="4"
@@ -1364,7 +1360,6 @@ const Modals = () => {
             )}
           </div>
         </Col>
-
         <Col
           className="mt-1"
           md="4"
@@ -1427,11 +1422,12 @@ const Modals = () => {
             </Dialog>
           </div>
         </Col>
-
+      </Row>
+      <Row>
         <Col
           className="mt-1"
-          md="4"
-          xs="4"
+          md="3"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
