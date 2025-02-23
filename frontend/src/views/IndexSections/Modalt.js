@@ -638,8 +638,8 @@ const Modalt = () => {
       <Row>
         <Col
           className="mt-1"
-          md="4"
-          xs="4"
+          md="3"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -771,8 +771,8 @@ const Modalt = () => {
         </Col>
         <Col
           className="mt-1"
-          md="4"
-          xs="4"
+          md="3"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -904,8 +904,8 @@ const Modalt = () => {
         </Col>
         <Col
           className="mt-1"
-          md="4"
-          xs="4"
+          md="3"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
