@@ -747,7 +747,6 @@ const Modals = () => {
             }
 
             .custom-button {
-              flex: 1 1 calc(33.33% - 16px);
               max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
               height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
               gap: 2px !important; /* Mengurangi jarak antar elemen */
