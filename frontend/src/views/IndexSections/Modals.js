@@ -527,13 +527,6 @@ const Modals = () => {
             animation: spin 2s linear infinite;
           }
 
-          .custom-button-container {
-            display: flex;
-            flex-wrap: wrap;  /* Tombol akan membungkus ke baris baru jika dibutuhkan */
-            justify-content: space-between;  /* Tombol akan tersebar merata dalam baris */
-            gap: 8px;  /* Memberikan jarak antar tombol */
-          }
-
           .custom-button {
             overflow: visible;
             border-radius: 12px;
@@ -741,14 +734,7 @@ const Modals = () => {
               height: 35px !important;
             }
 
-            .custom-button-container {
-              display: flex;
-              flex-wrap: wrap;  /* Membuat tombol membungkus ke baris baru */
-              justify-content: space-between;
-            }
-
             .custom-button {
-              flex: 1 1 calc(33.33% - 16px);
               max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
               height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
               gap: 2px !important; /* Mengurangi jarak antar elemen */
@@ -799,393 +785,391 @@ const Modals = () => {
         <span></span>
       </h2>
       <Row>
-        <div className="custom-button-container">
-          <Col
-            className="mt-1"
-            md="3"
-            xs="6"
-            style={{ fontFamily: "Roboto, sans-serif" }}
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Roboto, sans-serif" }}
+        >
+          <Button
+            block
+            className="custom-button mb-3 mb-sm-0"
+            type="button"
+            icon="pi pi-info-circle"
+            onClick={(e) => {
+              setDialogVisiblettg(true);
+            }}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition)}
           >
-            <Button
-              block
-              className="custom-button mb-3 mb-sm-0"
-              type="button"
-              icon="pi pi-info-circle"
-              onClick={(e) => {
-                setDialogVisiblettg(true);
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
               }}
-              onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
-              onMouseLeave={() => handleMouseLeave(setIconPosition)}
             >
-              <div
-                className="button-icon"
-                style={{
-                  transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
-                }}
-              >
-                <img
-                  className="img-fluid icon-custom"
-                  src={require("assets/img/theme/about-us.png")}
-                  alt=""
-                />
-              </div>
-              <div>
-                <span className="icon-button-text">TENTANG</span>
-              </div>
-            </Button>
+              <img
+                className="img-fluid icon-custom"
+                src={require("assets/img/theme/about-us.png")}
+                alt=""
+              />
+            </div>
             <div>
-              <Dialog
-                header={
-                  <div className="dialog-header">
-                    <div>
-                      <h2 className="dialog-title">Tentang</h2>
-                      <p className="dialog-subtitle">Informasi mengenai desa</p>
-                    </div>
+              <span className="icon-button-text">TENTANG</span>
+            </div>
+          </Button>
+          <div>
+            <Dialog
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Tentang</h2>
+                    <p className="dialog-subtitle">Informasi mengenai desa</p>
                   </div>
-                }
-                visible={dialogVisiblettg}
-                style={{ width: "55vw" }}
-                maximizable
-                modal
-                className="custom-dialog bounce-in"
-                contentStyle={{
-                  overflowY: "auto",
-                  padding: "24px 24px 10px 24px",
-                }}
-                onHide={() => setDialogVisiblettg(false)}
-              >
-                <div>
-                  {imageURLT ? (
-                    <div style={{ marginBottom: "20px" }}>
-                      <img
-                        src={imageURLT}
-                        alt="About"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "20px",
-                          maxHeight: "calc(89vh - 60px)",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <p>No image available</p>
-                  )}
-
-                  <div className="dialog-divider"></div>
-                  {loadingTentang ? (
-                    <div className="loading-container">
-                      <span className="loader"></span>
-                    </div>
-                  ) : tentangError ? (
-                    <p className="error-message">{tentangError}</p>
-                  ) : (
-                    <div
-                      className="dialog-text"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          tentangData?.profile?.content ||
-                          "<p>No content available</p>",
+                </div>
+              }
+              visible={dialogVisiblettg}
+              style={{ width: "55vw" }}
+              maximizable
+              modal
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
+              onHide={() => setDialogVisiblettg(false)}
+            >
+              <div>
+                {imageURLT ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLT}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
                       }}
                     />
-                  )}
-                </div>
-              </Dialog>
-            </div>
-          </Col>
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
 
-          <Col
-            className="mt-1"
-            md="3"
-            xs="6"
-            style={{ fontFamily: "Roboto, sans-serif" }}
+                <div className="dialog-divider"></div>
+                {loadingTentang ? (
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
+                ) : tentangError ? (
+                  <p className="error-message">{tentangError}</p>
+                ) : (
+                  <div
+                    className="dialog-text"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        tentangData?.profile?.content ||
+                        "<p>No content available</p>",
+                    }}
+                  />
+                )}
+              </div>
+            </Dialog>
+          </div>
+        </Col>
+
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Roboto, sans-serif" }}
+        >
+          <Button
+            block
+            className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
+            color="default"
+            type="button"
+            icon="pi pi-info-circle"
+            onClick={() => setDialogVisiblesd(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition1)}
           >
-            <Button
-              block
-              className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
-                animationTriggered ? "video-button" : "no-animation"
-              }`}
-              color="default"
-              type="button"
-              icon="pi pi-info-circle"
-              onClick={() => setDialogVisiblesd(true)}
-              onMouseMove={(e) => handleMouseMove(e, setIconPosition1)}
-              onMouseLeave={() => handleMouseLeave(setIconPosition1)}
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
+              }}
             >
-              <div
-                className="button-icon"
-                style={{
-                  transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
-                }}
-              >
-                <img
-                  className="img-fluid icon-custom"
-                  src={require("assets/img/theme/book.png")}
-                  alt=""
-                />
-              </div>
-              <div>
-                <span className="icon-button-text">SEJARAH</span>
-              </div>
-            </Button>
+              <img
+                className="img-fluid icon-custom"
+                src={require("assets/img/theme/book.png")}
+                alt=""
+              />
+            </div>
             <div>
-              <Dialog
-                header={
-                  <div className="dialog-header">
-                    <div>
-                      <h2 className="dialog-title">Sejarah</h2>
-                      <p className="dialog-subtitle">
-                        Informasi mengenai sejarah desa
-                      </p>
-                    </div>
+              <span className="icon-button-text">SEJARAH</span>
+            </div>
+          </Button>
+          <div>
+            <Dialog
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Sejarah</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai sejarah desa
+                    </p>
                   </div>
-                }
-                visible={dialogVisiblesd}
-                style={{ width: "55vw" }}
-                maximizable
-                modal
-                className="custom-dialog bounce-in"
-                contentStyle={{
-                  overflowY: "auto",
-                  padding: "24px 24px 10px 24px",
-                }}
-                onHide={() => setDialogVisiblesd(false)}
-              >
-                <div>
-                  {imageURLSejarah ? (
-                    <div style={{ marginBottom: "20px" }}>
-                      <img
-                        src={imageURLSejarah}
-                        alt="About"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "20px",
-                          maxHeight: "calc(89vh - 60px)",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <p>No image available</p>
-                  )}
-
-                  <div className="dialog-divider"></div>
-                  {loadingSejarah ? (
-                    <div className="loading-container">
-                      <span className="loader"></span>
-                    </div>
-                  ) : sejarahError ? (
-                    <p className="error-message">{sejarahError}</p>
-                  ) : (
-                    <div
-                      className="dialog-text"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          sejarahData?.profile?.content ||
-                          "<p>No content available</p>",
+                </div>
+              }
+              visible={dialogVisiblesd}
+              style={{ width: "55vw" }}
+              maximizable
+              modal
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
+              onHide={() => setDialogVisiblesd(false)}
+            >
+              <div>
+                {imageURLSejarah ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLSejarah}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
                       }}
                     />
-                  )}
-                </div>
-              </Dialog>
-            </div>
-          </Col>
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
 
-          <Col
-            className="mt-1"
-            md="3"
-            xs="6"
-            style={{ fontFamily: "Roboto, sans-serif" }}
+                <div className="dialog-divider"></div>
+                {loadingSejarah ? (
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
+                ) : sejarahError ? (
+                  <p className="error-message">{sejarahError}</p>
+                ) : (
+                  <div
+                    className="dialog-text"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        sejarahData?.profile?.content ||
+                        "<p>No content available</p>",
+                    }}
+                  />
+                )}
+              </div>
+            </Dialog>
+          </div>
+        </Col>
+
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Roboto, sans-serif" }}
+        >
+          <Button
+            block
+            className={`btn-white btn-icon mb-3 mb-sm-0 custom-button video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
+            color="default"
+            type="button"
+            icon="pi pi-info-circle"
+            onClick={() => setDialogVisiblevm(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition3)}
           >
-            <Button
-              block
-              className={`btn-white btn-icon mb-3 mb-sm-0 custom-button video-button ${
-                animationTriggered ? "video-button" : "no-animation"
-              }`}
-              color="default"
-              type="button"
-              icon="pi pi-info-circle"
-              onClick={() => setDialogVisiblevm(true)}
-              onMouseMove={(e) => handleMouseMove(e, setIconPosition3)}
-              onMouseLeave={() => handleMouseLeave(setIconPosition3)}
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
+              }}
             >
-              <div
-                className="button-icon"
-                style={{
-                  transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
-                }}
-              >
-                <img
-                  className="img-fluid icon-custom"
-                  src={require("assets/img/theme/target.png")}
-                  alt=""
-                />
-              </div>
-              <div>
-                <span className="icon-button-text">VISI MISI</span>
-              </div>
-            </Button>
+              <img
+                className="img-fluid icon-custom"
+                src={require("assets/img/theme/target.png")}
+                alt=""
+              />
+            </div>
             <div>
-              <Dialog
-                header={
-                  <div className="dialog-header">
-                    <div>
-                      <h2 className="dialog-title">Visi dan Misi</h2>
-                      <p className="dialog-subtitle">
-                        Informasi mengenai visi dan misi desa
-                      </p>
-                    </div>
+              <span className="icon-button-text">VISI MISI</span>
+            </div>
+          </Button>
+          <div>
+            <Dialog
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Visi dan Misi</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai visi dan misi desa
+                    </p>
                   </div>
-                }
-                visible={dialogVisiblevm}
-                style={{ width: "55vw" }}
-                className="custom-dialog bounce-in"
-                maximizable
-                modal
-                contentStyle={{
-                  overflowY: "auto",
-                  padding: "24px 24px 10px 24px",
-                }}
-                onHide={() => setDialogVisiblevm(false)}
-              >
-                <div>
-                  {imageURLVisi ? (
-                    <div style={{ marginBottom: "20px" }}>
-                      <img
-                        src={imageURLVisi}
-                        alt="About"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "20px",
-                          maxHeight: "calc(89vh - 60px)",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <p>No image available</p>
-                  )}
-
-                  <div className="dialog-divider"></div>
-                  {loadingVision ? (
-                    <div className="loading-container">
-                      <span className="loader"></span>
-                    </div>
-                  ) : visionError ? (
-                    <p className="error-message">{visionError}</p>
-                  ) : (
-                    <div
-                      className="dialog-text"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          visionData?.profile?.content ||
-                          "<p>No content available</p>",
+                </div>
+              }
+              visible={dialogVisiblevm}
+              style={{ width: "55vw" }}
+              className="custom-dialog bounce-in"
+              maximizable
+              modal
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
+              onHide={() => setDialogVisiblevm(false)}
+            >
+              <div>
+                {imageURLVisi ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLVisi}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
                       }}
                     />
-                  )}
-                </div>
-              </Dialog>
-            </div>
-          </Col>
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
 
-          <Col
-            className="mt-1"
-            md="3"
-            xs="6"
-            style={{ fontFamily: "Roboto, sans-serif" }}
+                <div className="dialog-divider"></div>
+                {loadingVision ? (
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
+                ) : visionError ? (
+                  <p className="error-message">{visionError}</p>
+                ) : (
+                  <div
+                    className="dialog-text"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        visionData?.profile?.content ||
+                        "<p>No content available</p>",
+                    }}
+                  />
+                )}
+              </div>
+            </Dialog>
+          </div>
+        </Col>
+
+        <Col
+          className="mt-1"
+          md="3"
+          xs="6"
+          style={{ fontFamily: "Roboto, sans-serif" }}
+        >
+          <Button
+            block
+            className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
+              animationTriggered ? "video-button" : "no-animation"
+            }`}
+            color="default"
+            type="button"
+            icon="pi pi-info-circle"
+            onClick={() => setDialogVisibleso(true)}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition4)}
           >
-            <Button
-              block
-              className={`btn-white custom-button btn-icon mb-3 mb-sm-0 video-button ${
-                animationTriggered ? "video-button" : "no-animation"
-              }`}
-              color="default"
-              type="button"
-              icon="pi pi-info-circle"
-              onClick={() => setDialogVisibleso(true)}
-              onMouseMove={(e) => handleMouseMove(e, setIconPosition4)}
-              onMouseLeave={() => handleMouseLeave(setIconPosition4)}
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
+              }}
             >
-              <div
-                className="button-icon"
-                style={{
-                  transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
-                }}
-              >
-                <img
-                  className="img-fluid icon-custom"
-                  src={require("assets/img/theme/management.png")}
-                  alt=""
-                />
-              </div>
-              <div>
-                <span className="icon-button-text">Struktur Organisasi</span>
-              </div>
-            </Button>
-
+              <img
+                className="img-fluid icon-custom"
+                src={require("assets/img/theme/management.png")}
+                alt=""
+              />
+            </div>
             <div>
-              <Dialog
-                header={
-                  <div className="dialog-header">
-                    <div>
-                      <h2 className="dialog-title">Struktur Organisasi</h2>
-                      <p className="dialog-subtitle">
-                        Informasi mengenai struktur organisasi desa
-                      </p>
-                    </div>
-                  </div>
-                }
-                visible={dialogVisibleso}
-                style={{ width: "55vw" }}
-                className="custom-dialog bounce-in"
-                maximizable
-                modal
-                contentStyle={{
-                  overflowY: "auto",
-                  padding: "24px 24px 10px 24px",
-                }}
-                onHide={() => setDialogVisibleso(false)}
-              >
-                <div>
-                  {imageURL ? (
-                    <div style={{ marginBottom: "20px" }}>
-                      <img
-                        src={imageURL}
-                        alt="About"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "20px",
-                          maxHeight: "calc(89vh - 60px)",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <p>No image available</p>
-                  )}
+              <span className="icon-button-text">Struktur Organisasi</span>
+            </div>
+          </Button>
 
-                  <div className="dialog-divider"></div>
-                  {loadingStrukturorganisasi ? (
-                    <div className="loading-container">
-                      <span className="loader"></span>
-                    </div>
-                  ) : strukturorganisasiError ? (
-                    <p className="error-message">{strukturorganisasiError}</p>
-                  ) : (
-                    <div
-                      className="dialog-text"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          strukturorganisasiData?.profile?.content ||
-                          "<p>No content available</p>",
+          <div>
+            <Dialog
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Struktur Organisasi</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai struktur organisasi desa
+                    </p>
+                  </div>
+                </div>
+              }
+              visible={dialogVisibleso}
+              style={{ width: "55vw" }}
+              className="custom-dialog bounce-in"
+              maximizable
+              modal
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
+              onHide={() => setDialogVisibleso(false)}
+            >
+              <div>
+                {imageURL ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURL}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
                       }}
                     />
-                  )}
-                </div>
-              </Dialog>
-            </div>
-          </Col>
-        </div>
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
+
+                <div className="dialog-divider"></div>
+                {loadingStrukturorganisasi ? (
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
+                ) : strukturorganisasiError ? (
+                  <p className="error-message">{strukturorganisasiError}</p>
+                ) : (
+                  <div
+                    className="dialog-text"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        strukturorganisasiData?.profile?.content ||
+                        "<p>No content available</p>",
+                    }}
+                  />
+                )}
+              </div>
+            </Dialog>
+          </div>
+        </Col>
       </Row>
 
       <Row>
