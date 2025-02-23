@@ -88,7 +88,7 @@ const Hero = () => {
                 <div
                   style={{
                     marginTop: "-120px",
-                    height: "auto",
+                    height: "500px",
                   }}
                 >
                   <Tabs />
@@ -115,8 +115,7 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  // minHeight: "100%",
-                  height: "auto",
+                  minHeight: "100%",
                 }}
               >
                 {/* Area tambahan jika diperlukan */}
