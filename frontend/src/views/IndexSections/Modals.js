@@ -564,7 +564,8 @@ const Modals = () => {
               .custom-button {
                   max-width: 60vw; /* Hampir seluruh layar pada ponsel */
                   height: clamp(50px, 8vh, 70px);
-                  
+              }
+
               .button-icon {
                   min-height: 50px;
               }
@@ -597,7 +598,7 @@ const Modals = () => {
             height: 100%;
             min-height: 70px !important;
             border-radius: 12px;
-            margin: 0px
+            margin: 0px;
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
@@ -655,22 +656,6 @@ const Modals = () => {
             font-weight: 600;
             transform: translateY(-15px);
             color: #fff;
-          }
-            
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-
-          .error-message {
-            color: #e74c3c;
-            font-size: 16px;
-            text-align: center;
-          }
-
-          /* Mengunci scroll saat modal terbuka */
-          body.modal-open {
-            overflow: hidden;
           }
 
           @media screen and (max-width: 1200px) {
@@ -758,6 +743,22 @@ const Modals = () => {
             .dialog-subtitle {
               font-size: 10px;
             }
+          }
+
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          .error-message {
+            color: #e74c3c;
+            font-size: 16px;
+            text-align: center;
+          }
+
+          /* Mengunci scroll saat modal terbuka */
+          body.modal-open {
+            overflow: hidden;
           }
         `}
       </style>

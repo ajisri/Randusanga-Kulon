@@ -9,7 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import classnames from "classnames";
-import Modals from "./Modals"; // Sesuaikan dengan import yang benar
+import Modals from "./Modals";
 import Modall from "./Modall";
 import Modalt from "./Modalt";
 
@@ -18,61 +18,12 @@ class TabsSection extends Component {
     super(props);
     this.state = {
       plainTabs: 1,
-      cursorPosition: { x: 0, y: 0 },
-      pieces: { 1: [], 2: [], 3: [] },
-      numPieces: 100,
-      animationKeys: { 1: Date.now(), 2: Date.now(), 3: Date.now() },
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      nextState.plainTabs !== this.state.plainTabs ||
-      nextState.animationKeys !== this.state.animationKeys ||
-      nextState.pieces !== this.state.pieces
-    );
-  }
-
-  toggleNavs = (e, state, index) => {
+  toggleNavs = (e, index) => {
     e.preventDefault();
-    this.setState((prevState) => ({
-      [state]: index,
-      animationKeys: { ...prevState.animationKeys, [index]: Date.now() },
-      pieces: { ...prevState.pieces, [index]: this.generatePieces() },
-    }));
-  };
-
-  generatePieces = () => {
-    const size = 50;
-    const cols = Math.ceil(Math.sqrt(this.state.numPieces));
-    return Array.from({ length: this.state.numPieces }, (_, i) => {
-      const row = Math.floor(i / cols);
-      const col = i % cols;
-      return {
-        id: i,
-        style: this.horizontalPieceStyle(row, col, size, cols),
-      };
-    });
-  };
-
-  horizontalPieceStyle = (row, col, size, cols) => {
-    const centerX = cols / 4;
-    const direction = col < centerX ? -1 : 1;
-    const distance = Math.abs(centerX - col) / centerX;
-
-    return {
-      position: "absolute",
-      width: `${size}px`,
-      height: `${size}px`,
-      background: `rgba(255, 105, 180, ${Math.random() * 0.5 + 0.5})`,
-      top: `${row * size}px`,
-      left: `${centerX * size}px`,
-      transform: "translate(-50%, -50%)",
-      opacity: 1,
-      animation: `horizontal-fly-out 2s forwards`,
-      animationDelay: `${distance * 0.2}s`,
-      "--direction": direction,
-    };
+    this.setState({ plainTabs: index });
   };
 
   render() {
@@ -80,165 +31,79 @@ class TabsSection extends Component {
       <>
         <style>
           {`
-            .custom-cursor {
-              position: fixed;
-              width: 150px;
-              height: 150px;
-              border-radius: 50%;
-              pointer-events: none;
-              transform: translate(-50%, -50%);
-              z-index: 9999;
-              display: none;
-              mix-blend-mode: difference;
-            }
-            .custom-cursor.show { display: block; }
-            .cursor-icon {
-              font-size: 140px;
+            .nav-wrapper {
               display: flex;
-              align-items: center;
               justify-content: center;
               width: 100%;
-              height: 100%;
             }
+
             .futuristik-nav-link {
-              position: relative;
-              overflow: hidden;
-              display: inline-block;
               width: 100%;
-              padding: 8px 15px;
-              font-size: 0.9rem;
+              padding: 8px 12px;
               text-align: center;
-              margin-left: 17px;
-              border-radius: 12px;
-              color: rgb(84, 83, 83) !important;
+              font-size: 0.9rem;
+              border-radius: 8px;
               background: linear-gradient(135deg, #2c2c54, #40407a);
+              color: white !important;
               border: 1px solid #f5f5f5;
-              transition: all 0.4s ease-in-out;
+              transition: all 0.3s ease-in-out;
             }
+
             .futuristik-nav-link.active {
-              color: #000 !important;
               background: #fff !important;
-              border-color: transparent !important;
-              box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
-                          0 0 20px rgba(255, 255, 255, 0.5) !important;
-            }
-            .futuristik-nav-link:hover {
-              cursor: none;
-              background: rgba(255, 255, 255, 0.1);
-              color: rgb(58, 57, 57) !important;
-              border: 2px solid #fffa65;
-              box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
-                          0 0 25px rgba(238, 130, 238, 0.7),
-                          0 0 45px rgba(0, 255, 255, 0.7);
-              transition: all 0.1s ease-in-out;
-            }
-            @keyframes horizontal-fly-out {
-              0% { opacity: 1; transform: translateX(0) scale(1); }
-              100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
+              color: #000 !important;
+              box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
             }
 
-           @media screen and (max-width: 480px) {
-  .futuristik-nav-link {
-    flex: 0 0 32%; /* Membuat setiap tombol memiliki lebar sekitar 32% */
-    min-width: auto; /* Menghapus batasan minimum */
-    font-size: 0.8rem; /* Menyesuaikan ukuran font */
-    padding: 8px 5px; /* Mengurangi padding agar lebih compact */
-    text-align: center;
-  }
-
-  .nav-wrapper .row {
-    display: flex;
-    flex-wrap: wrap; /* Pastikan tombol tetap sejajar */
-    justify-content: center; /* Memastikan semua tombol ada di tengah */
-    gap: 5px; /* Menyesuaikan jarak antar tombol */
-    overflow-x: hidden; /* Hilangkan scroll horizontal */
-  }
-
-  .nav-wrapper .row .col {
-    flex: 0 0 32%; /* Sama dengan tombol agar setiap kolom memiliki lebar yang pas */
-    max-width: 32%;
-    padding: 0;
-  }
-}
-
+            @media screen and (max-width: 480px) {
+              .nav-wrapper .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+              }
+              .nav-wrapper .col {
+                flex: 0 0 30%;
+                max-width: 30%;
+              }
+            }
 
             @media screen and (min-width: 481px) {
-            .futuristik-nav-link {
-              width: 80%; /* Kurangi lebar tombol */
-              min-width: 150px; /* Pastikan button tidak terlalu kecil */
-              margin-left: 10px; /* Sesuaikan margin */
-              margin-right: 10px; /* Sesuaikan margin */
-              font-size: 0.9rem; /* Sesuaikan ukuran font */
-              padding: 8px 15px; /* Sesuaikan padding */
+              .nav-wrapper .row {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: center;
+              }
+              .nav-wrapper .col {
+                flex: 1;
+                max-width: 200px;
+              }
             }
-
-            .nav-wrapper .row {
-              flex-wrap: wrap; /* Biarkan wrap jika diperlukan */
-              overflow-x: hidden; /* Hilangkan scroll horizontal */
-            }
-
-            .nav-wrapper .row .col {
-              flex: 1 1 auto; /* Biarkan kolom mengambil ruang yang tersedia */
-              width: auto; /* Sesuaikan lebar kolom */
-            }
-          }
           `}
         </style>
 
         <Row className="justify-content-center">
           <Col lg="12" className="mt-5 mt-lg-0">
-            <div className="mb-3">
-              {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
-            </div>
             <div className="nav-wrapper">
-              <Nav
-                className="nav-fill flex-md-row"
-                id="tabs-icons-text"
-                pills
-                role="tablist"
-              >
-                <Row className="w-100" style={{ flexWrap: "nowrap" }}>
+              <Nav className="w-100" pills role="tablist">
+                <Row className="w-100">
                   {[1, 2, 3].map((index) => (
-                    <Col
-                      key={index}
-                      lg="4"
-                      className="mb-3"
-                      style={{ flex: "0 0 auto", minWidth: "150px" }}
-                    >
+                    <Col key={index} className="col">
                       <NavItem>
                         <NavLink
                           aria-selected={this.state.plainTabs === index}
                           className={classnames("futuristik-nav-link", {
                             active: this.state.plainTabs === index,
                           })}
-                          onClick={(e) =>
-                            this.toggleNavs(e, "plainTabs", index)
-                          }
-                          href="#pablo"
+                          onClick={(e) => this.toggleNavs(e, index)}
+                          href="#"
                           role="tab"
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            textAlign: "center",
-                            width: "100%", // Pastikan memenuhi lebar container
-                          }}
                         >
-                          <b style={{ fontSize: "10px", textAlign: "center" }}>
-                            {index === 1
-                              ? "PROFIL"
-                              : index === 2
-                              ? "LAYANAN"
-                              : "TRANSPARANSI"}
-                          </b>
-                          {this.state.pieces[index]?.map((piece) => (
-                            <div
-                              key={`${piece.id}-${this.state.animationKeys[index]}`}
-                              className="horizontal-fly-out"
-                              style={piece.style}
-                            ></div>
-                          ))}
+                          {index === 1
+                            ? "PROFIL"
+                            : index === 2
+                            ? "LAYANAN"
+                            : "TRANSPARANSI"}
                         </NavLink>
                       </NavItem>
                     </Col>
