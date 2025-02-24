@@ -139,22 +139,19 @@ class TabsSection extends Component {
 
            @media screen and (max-width: 480px) {
               .futuristik-nav-link {
-                width: 100% !important; /* Lebar button penuh */
-                min-width: 120px; /* Pastikan button tidak terlalu kecil */
-                margin-left: 8px !important; /* Sesuaikan margin */
-                margin-right: 8px !important; /* Sesuaikan margin */
+                width: 30% !important; /* Lebar button penuh */
+                min-width: 60px; /* Pastikan button tidak terlalu kecil */
+                margin-left: 2px !important; /* Sesuaikan margin */
+                margin-right: 2px !important; /* Sesuaikan margin */
                 font-size: 0.8rem !important; /* Sesuaikan ukuran font */
-                padding: 6px 10px !important; /* Sesuaikan padding */
               }
 
               .nav-wrapper .row {
                 flex-wrap: nowrap !important; /* Hindari wrap */
-                overflow-x: auto; /* Tambahkan scroll horizontal jika diperlukan */
               }
 
               .nav-wrapper .row .col {
                 flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
-                width: auto !important; /* Sesuaikan lebar kolom */
               }
             }
           `}
@@ -200,7 +197,7 @@ class TabsSection extends Component {
                             justifyContent: "center",
                             alignItems: "center",
                             textAlign: "center",
-                            width: "30%", // Pastikan memenuhi lebar container
+                            width: "100%", // Pastikan memenuhi lebar container
                           }}
                         >
                           <b style={{ fontSize: "10px", textAlign: "center" }}>
