@@ -88,7 +88,6 @@ const Hero = () => {
                   style={{
                     width: "100%",
                     height: "auto", // Biarkan tinggi menyesuaikan konten
-                    overflowY: "auto", // Tambahkan scroll jika konten panjang
                   }}
                 >
                   <Tabs />

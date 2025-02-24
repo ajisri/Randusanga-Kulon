@@ -138,30 +138,29 @@ class TabsSection extends Component {
             }
 
            @media screen and (max-width: 480px) {
-            .futuristik-nav-link {
-              width: 100%; /* Tombol memenuhi lebar container */
-              min-width: auto; /* Menghapus min-width agar tombol fleksibel */
-              margin-left: 4px; /* Jarak antar tombol */
-              margin-right: 4px;
-              font-size: 0.8rem; /* Ukuran font yang sesuai */
-              padding: 8px 10px; /* Padding yang nyaman */
-              text-align: center; /* Teks di tengah tombol */
-              flex: 1; /* Membagi lebar secara merata */
-            }
+  .futuristik-nav-link {
+    flex: 0 0 32%; /* Membuat setiap tombol memiliki lebar sekitar 32% */
+    min-width: auto; /* Menghapus batasan minimum */
+    font-size: 0.8rem; /* Menyesuaikan ukuran font */
+    padding: 8px 5px; /* Mengurangi padding agar lebih compact */
+    text-align: center;
+  }
 
-            .nav-wrapper .row {
-              display: flex; /* Mengaktifkan Flexbox */
-              flex-wrap: nowrap; /* Mencegah tombol berpindah baris */
-              justify-content: space-between; /* Jarak merata antar tombol */
-              overflow-x: hidden; /* Menghilangkan scroll horizontal */
-              gap: 8px; /* Jarak antar tombol */
-            }
+  .nav-wrapper .row {
+    display: flex;
+    flex-wrap: wrap; /* Pastikan tombol tetap sejajar */
+    justify-content: center; /* Memastikan semua tombol ada di tengah */
+    gap: 5px; /* Menyesuaikan jarak antar tombol */
+    overflow-x: hidden; /* Hilangkan scroll horizontal */
+  }
 
-            .nav-wrapper .row .col {
-              flex: 1; /* Membagi lebar kolom secara merata */
-              padding: 0; /* Menghapus padding default */
-            }
-          }
+  .nav-wrapper .row .col {
+    flex: 0 0 32%; /* Sama dengan tombol agar setiap kolom memiliki lebar yang pas */
+    max-width: 32%;
+    padding: 0;
+  }
+}
+
 
             @media screen and (min-width: 481px) {
             .futuristik-nav-link {
@@ -198,10 +197,7 @@ class TabsSection extends Component {
                 pills
                 role="tablist"
               >
-                <Row
-                  className="w-100"
-                  style={{ flexWrap: "nowrap", overflowX: "auto" }}
-                >
+                <Row className="w-100" style={{ flexWrap: "nowrap" }}>
                   {[1, 2, 3].map((index) => (
                     <Col
                       key={index}

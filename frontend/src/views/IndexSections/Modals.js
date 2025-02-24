@@ -534,8 +534,7 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw; /* 1/3 layar laptop */
-            width: 40%;
-            max-width: 40%;
+            width: 100%;
             z-index: 1;
           }
 
@@ -563,8 +562,15 @@ const Modals = () => {
 
           @media (max-width: 768px) {
               .custom-button {
-                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
-                  height: clamp(60px, 8vh, 80px);
+                  max-width: 60vw; /* Hampir seluruh layar pada ponsel */
+                  height: clamp(50px, 8vh, 70px);
+                  
+              .button-icon {
+                  min-height: 50px;
+              }
+
+              .icon-button-text {
+                  font-size: clamp(7px, 1.8vw, 9px);
               }
           }
 
@@ -649,16 +655,6 @@ const Modals = () => {
             font-weight: 600;
             transform: translateY(-15px);
             color: #fff;
-          }
-
-          @media (max-width: 768px) {
-              .button-icon {
-                  min-height: 50px;
-              }
-
-              .icon-button-text {
-                  font-size: clamp(7px, 1.8vw, 9px);
-              }
           }
             
           @keyframes spin {
