@@ -87,7 +87,7 @@ const Hero = () => {
                 <div
                   style={{
                     width: "100%",
-                    height: "auto", // Biarkan tinggi menyesuaikan konten
+                    height: "900px", // Biarkan tinggi menyesuaikan konten
                   }}
                 >
                   <Tabs />
