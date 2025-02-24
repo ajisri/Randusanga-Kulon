@@ -138,25 +138,25 @@ class TabsSection extends Component {
             }
 
            @media screen and (max-width: 480px) {
-  .futuristik-nav-link {
-    width: 100% !important; /* Lebar button penuh */
-    min-width: 120px; /* Pastikan button tidak terlalu kecil */
-    margin-left: 8px !important; /* Sesuaikan margin */
-    margin-right: 8px !important; /* Sesuaikan margin */
-    font-size: 0.8rem !important; /* Sesuaikan ukuran font */
-    padding: 6px 10px !important; /* Sesuaikan padding */
-  }
+              .futuristik-nav-link {
+                width: 100% !important; /* Lebar button penuh */
+                min-width: 120px; /* Pastikan button tidak terlalu kecil */
+                margin-left: 8px !important; /* Sesuaikan margin */
+                margin-right: 8px !important; /* Sesuaikan margin */
+                font-size: 0.8rem !important; /* Sesuaikan ukuran font */
+                padding: 6px 10px !important; /* Sesuaikan padding */
+              }
 
-  .nav-wrapper .row {
-    flex-wrap: nowrap !important; /* Hindari wrap */
-    overflow-x: auto; /* Tambahkan scroll horizontal jika diperlukan */
-  }
+              .nav-wrapper .row {
+                flex-wrap: nowrap !important; /* Hindari wrap */
+                overflow-x: auto; /* Tambahkan scroll horizontal jika diperlukan */
+              }
 
-  .nav-wrapper .row .col {
-    flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
-    width: auto !important; /* Sesuaikan lebar kolom */
-  }
-}
+              .nav-wrapper .row .col {
+                flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
+                width: auto !important; /* Sesuaikan lebar kolom */
+              }
+            }
           `}
         </style>
 
