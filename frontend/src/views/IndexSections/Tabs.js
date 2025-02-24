@@ -173,7 +173,7 @@ class TabsSection extends Component {
                 role="tablist"
               >
                 <Row
-                  className="w-100"
+                  className="w-100 justify-content-center"
                   style={{ flexWrap: "nowrap", overflowX: "hidden" }}
                 >
                   {[1, 2, 3].map((index) => (
@@ -200,6 +200,7 @@ class TabsSection extends Component {
                             justifyContent: "center",
                             alignItems: "center",
                             textAlign: "center",
+                            margin: "0 auto",
                             width: "100%", // Pastikan memenuhi lebar container
                           }}
                         >
