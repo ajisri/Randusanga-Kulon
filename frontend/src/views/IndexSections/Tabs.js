@@ -108,7 +108,7 @@ class TabsSection extends Component {
               padding: 8px 15px;
               font-size: 0.9rem;
               text-align: center;
-              margin-left: 17px;
+              margin-left: 10px;
               border-radius: 12px;
               color: rgb(84, 83, 83) !important;
               background: linear-gradient(135deg, #2c2c54, #40407a);
@@ -141,8 +141,8 @@ class TabsSection extends Component {
             .futuristik-nav-link {
               width: 100% !important; /* Lebar tombol lebih kecil */
               min-width: 100% !important;
-              margin-left: 2px !important;
-              margin-right: 2px !important;
+              margin-left: 6px !important;
+              margin-right: 6px !important;
               font-size: 0.7rem !important; /* Ukuran font lebih kecil */
               padding: 6px 10px !important; /* Padding lebih kecil */
             }
@@ -160,7 +160,7 @@ class TabsSection extends Component {
           `}
         </style>
 
-        <Row className="justify-content-center">
+        <Row className="justify-content-start">
           <Col lg="12" className="mt-5 mt-lg-0">
             <div className="mb-3">
               {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
@@ -171,9 +171,10 @@ class TabsSection extends Component {
                 id="tabs-icons-text"
                 pills
                 role="tablist"
+                style={{ paddingLeft: "10px" }}
               >
                 <Row
-                  className="w-100 justify-content-center"
+                  className="w-100 justify-content-start"
                   style={{ flexWrap: "nowrap", overflowX: "hidden" }}
                 >
                   {[1, 2, 3].map((index) => (
