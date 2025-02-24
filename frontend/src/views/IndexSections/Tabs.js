@@ -9,7 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import classnames from "classnames";
-import Modals from "./Modals";
+import Modals from "./Modals"; // Sesuaikan dengan import yang benar
 import Modall from "./Modall";
 import Modalt from "./Modalt";
 
@@ -80,14 +80,35 @@ class TabsSection extends Component {
       <>
         <style>
           {`
+            .custom-cursor {
+              position: fixed;
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              pointer-events: none;
+              transform: translate(-50%, -50%);
+              z-index: 9999;
+              display: none;
+              mix-blend-mode: difference;
+            }
+            .custom-cursor.show { display: block; }
+            .cursor-icon {
+              font-size: 140px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+            }
             .futuristik-nav-link {
               position: relative;
               overflow: hidden;
               display: inline-block;
-              width: 90%;
-              padding: 12px 20px;
-              font-size: 0.85rem;
+              width: 100%;
+              padding: 8px 15px;
+              font-size: 0.9rem;
               text-align: center;
+              margin-left: 17px;
               border-radius: 12px;
               color: rgb(84, 83, 83) !important;
               background: linear-gradient(135deg, #2c2c54, #40407a);
@@ -111,25 +132,56 @@ class TabsSection extends Component {
                           0 0 45px rgba(0, 255, 255, 0.7);
               transition: all 0.1s ease-in-out;
             }
-            .nav-wrapper {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 100%;
+            @keyframes horizontal-fly-out {
+              0% { opacity: 1; transform: translateX(0) scale(1); }
+              100% { opacity: 0; transform: translateX(calc(550px * var(--direction))) scale(0.5); }
             }
+
+           @media screen and (max-width: 480px) {
+  .futuristik-nav-link {
+    width: 100% !important; /* Lebar button penuh */
+    min-width: 120px; /* Pastikan button tidak terlalu kecil */
+    margin-left: 8px !important; /* Sesuaikan margin */
+    margin-right: 8px !important; /* Sesuaikan margin */
+    font-size: 0.8rem !important; /* Sesuaikan ukuran font */
+    padding: 6px 10px !important; /* Sesuaikan padding */
+  }
+
+  .nav-wrapper .row {
+    flex-wrap: nowrap !important; /* Hindari wrap */
+    overflow-x: auto; /* Tambahkan scroll horizontal jika diperlukan */
+  }
+
+  .nav-wrapper .row .col {
+    flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
+    width: auto !important; /* Sesuaikan lebar kolom */
+  }
+}
           `}
         </style>
 
         <Row className="justify-content-center">
           <Col lg="12" className="mt-5 mt-lg-0">
+            <div className="mb-3">
+              {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
+            </div>
             <div className="nav-wrapper">
-              <Nav className="w-100" pills role="tablist">
-                <Row className="w-100 justify-content-center">
+              <Nav
+                className="nav-fill flex-md-row"
+                id="tabs-icons-text"
+                pills
+                role="tablist"
+              >
+                <Row
+                  className="w-100"
+                  style={{ flexWrap: "nowrap", overflowX: "auto" }}
+                >
                   {[1, 2, 3].map((index) => (
                     <Col
                       key={index}
                       lg="4"
-                      className="mb-3 d-flex justify-content-center"
+                      className="mb-3"
+                      style={{ flex: "0 0 auto", minWidth: "150px" }}
                     >
                       <NavItem>
                         <NavLink
@@ -142,12 +194,22 @@ class TabsSection extends Component {
                           }
                           href="#pablo"
                           role="tab"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            width: "100%", // Pastikan memenuhi lebar container
+                          }}
                         >
-                          {index === 1
-                            ? "PROFIL"
-                            : index === 2
-                            ? "LAYANAN"
-                            : "TRANSPARANSI"}
+                          <b style={{ fontSize: "10px", textAlign: "center" }}>
+                            {index === 1
+                              ? "PROFIL"
+                              : index === 2
+                              ? "LAYANAN"
+                              : "TRANSPARANSI"}
+                          </b>
                           {this.state.pieces[index]?.map((piece) => (
                             <div
                               key={`${piece.id}-${this.state.animationKeys[index]}`}
