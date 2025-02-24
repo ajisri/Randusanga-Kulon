@@ -139,7 +139,8 @@ class TabsSection extends Component {
 
            @media screen and (max-width: 480px) {
             .futuristik-nav-link {
-              width: 90% !important; /* Lebar tombol lebih kecil */
+              width: 100% !important; /* Lebar tombol lebih kecil */
+              min-width: 100% !important;
               margin-left: 2px !important;
               margin-right: 2px !important;
               font-size: 0.7rem !important; /* Ukuran font lebih kecil */
