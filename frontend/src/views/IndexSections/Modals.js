@@ -534,7 +534,7 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw; /* 1/3 layar laptop */
-            width: 40%;
+            width: 30%;
             z-index: 1;
           }
 
@@ -788,7 +788,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -881,7 +881,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -977,7 +977,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1074,7 +1074,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1171,7 +1171,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1347,7 +1347,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1411,7 +1411,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="4"
+          xs="6"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button

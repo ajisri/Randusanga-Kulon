@@ -200,7 +200,7 @@ class TabsSection extends Component {
                             justifyContent: "center",
                             alignItems: "center",
                             textAlign: "center",
-                            width: "100%", // Pastikan memenuhi lebar container
+                            width: "30%", // Pastikan memenuhi lebar container
                           }}
                         >
                           <b style={{ fontSize: "10px", textAlign: "center" }}>
