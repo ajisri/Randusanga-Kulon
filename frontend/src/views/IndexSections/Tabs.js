@@ -138,46 +138,51 @@ class TabsSection extends Component {
             }
 
            @media screen and (max-width: 480px) {
-              .futuristik-nav-link {
-                width: 100% !important; /* Lebar button penuh */
-                min-width: 40px; /* Pastikan button tidak terlalu kecil */
-                margin-left: 3px !important; /* Sesuaikan margin */
-                margin-right: 3px !important; /* Sesuaikan margin */
-                font-size: 0.7rem !important; /* Ukuran font lebih kecil */
-                padding: 4px 8px !important; /* Padding lebih kecil */
-              }
-
-              .nav-wrapper .row {
-                flex-wrap: nowrap !important; /* Hindari wrap */
-                gap: 8px;
-              }
-
-              .nav-wrapper .row .col {
-                flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
-                width: auto !important; /* Sesuaikan lebar kolom */
-              }
+            .futuristik-nav-link {
+              width: 100%; /* Tombol memenuhi lebar container */
+              min-width: auto; /* Menghapus min-width agar tombol fleksibel */
+              margin-left: 4px; /* Jarak antar tombol */
+              margin-right: 4px;
+              font-size: 0.8rem; /* Ukuran font yang sesuai */
+              padding: 8px 10px; /* Padding yang nyaman */
+              text-align: center; /* Teks di tengah tombol */
+              flex: 1; /* Membagi lebar secara merata */
             }
 
+            .nav-wrapper .row {
+              display: flex; /* Mengaktifkan Flexbox */
+              flex-wrap: nowrap; /* Mencegah tombol berpindah baris */
+              justify-content: space-between; /* Jarak merata antar tombol */
+              overflow-x: hidden; /* Menghilangkan scroll horizontal */
+              gap: 8px; /* Jarak antar tombol */
+            }
+
+            .nav-wrapper .row .col {
+              flex: 1; /* Membagi lebar kolom secara merata */
+              padding: 0; /* Menghapus padding default */
+            }
+          }
+
             @media screen and (min-width: 481px) {
-  .futuristik-nav-link {
-    width: 80%; /* Kurangi lebar tombol */
-    min-width: 150px; /* Pastikan button tidak terlalu kecil */
-    margin-left: 10px; /* Sesuaikan margin */
-    margin-right: 10px; /* Sesuaikan margin */
-    font-size: 0.9rem; /* Sesuaikan ukuran font */
-    padding: 8px 15px; /* Sesuaikan padding */
-  }
+            .futuristik-nav-link {
+              width: 80%; /* Kurangi lebar tombol */
+              min-width: 150px; /* Pastikan button tidak terlalu kecil */
+              margin-left: 10px; /* Sesuaikan margin */
+              margin-right: 10px; /* Sesuaikan margin */
+              font-size: 0.9rem; /* Sesuaikan ukuran font */
+              padding: 8px 15px; /* Sesuaikan padding */
+            }
 
-  .nav-wrapper .row {
-    flex-wrap: wrap; /* Biarkan wrap jika diperlukan */
-    overflow-x: hidden; /* Hilangkan scroll horizontal */
-  }
+            .nav-wrapper .row {
+              flex-wrap: wrap; /* Biarkan wrap jika diperlukan */
+              overflow-x: hidden; /* Hilangkan scroll horizontal */
+            }
 
-  .nav-wrapper .row .col {
-    flex: 1 1 auto; /* Biarkan kolom mengambil ruang yang tersedia */
-    width: auto; /* Sesuaikan lebar kolom */
-  }
-}
+            .nav-wrapper .row .col {
+              flex: 1 1 auto; /* Biarkan kolom mengambil ruang yang tersedia */
+              width: auto; /* Sesuaikan lebar kolom */
+            }
+          }
           `}
         </style>
 
