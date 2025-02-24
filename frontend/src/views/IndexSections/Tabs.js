@@ -138,23 +138,44 @@ class TabsSection extends Component {
             }
 
            @media screen and (max-width: 480px) {
+              .futuristik-nav-link {
+                width: 100% !important; /* Lebar button penuh */
+                min-width: 40px; /* Pastikan button tidak terlalu kecil */
+                margin-left: 3px !important; /* Sesuaikan margin */
+                margin-right: 3px !important; /* Sesuaikan margin */
+                font-size: 0.7rem !important; /* Ukuran font lebih kecil */
+                padding: 4px 8px !important; /* Padding lebih kecil */
+              }
+
+              .nav-wrapper .row {
+                flex-wrap: nowrap !important; /* Hindari wrap */
+                gap: 8px;
+              }
+
+              .nav-wrapper .row .col {
+                flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
+                width: auto !important; /* Sesuaikan lebar kolom */
+              }
+            }
+
+            @media screen and (min-width: 481px) {
   .futuristik-nav-link {
-    width: 100% !important; /* Lebar button penuh */
-    min-width: 120px; /* Pastikan button tidak terlalu kecil */
-    margin-left: 8px !important; /* Sesuaikan margin */
-    margin-right: 8px !important; /* Sesuaikan margin */
-    font-size: 0.8rem !important; /* Sesuaikan ukuran font */
-    padding: 6px 10px !important; /* Sesuaikan padding */
+    width: 80%; /* Kurangi lebar tombol */
+    min-width: 150px; /* Pastikan button tidak terlalu kecil */
+    margin-left: 10px; /* Sesuaikan margin */
+    margin-right: 10px; /* Sesuaikan margin */
+    font-size: 0.9rem; /* Sesuaikan ukuran font */
+    padding: 8px 15px; /* Sesuaikan padding */
   }
 
   .nav-wrapper .row {
-    flex-wrap: nowrap !important; /* Hindari wrap */
-    overflow-x: auto; /* Tambahkan scroll horizontal jika diperlukan */
+    flex-wrap: wrap; /* Biarkan wrap jika diperlukan */
+    overflow-x: hidden; /* Hilangkan scroll horizontal */
   }
 
   .nav-wrapper .row .col {
-    flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
-    width: auto !important; /* Sesuaikan lebar kolom */
+    flex: 1 1 auto; /* Biarkan kolom mengambil ruang yang tersedia */
+    width: auto; /* Sesuaikan lebar kolom */
   }
 }
           `}
