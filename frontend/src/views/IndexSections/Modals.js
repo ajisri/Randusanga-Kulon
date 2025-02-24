@@ -788,7 +788,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -881,7 +881,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -977,7 +977,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1074,7 +1074,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1171,7 +1171,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1347,7 +1347,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
@@ -1411,7 +1411,7 @@ const Modals = () => {
         <Col
           className="mt-1"
           md="4"
-          xs="6"
+          xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button

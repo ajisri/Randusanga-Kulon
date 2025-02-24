@@ -138,22 +138,25 @@ class TabsSection extends Component {
             }
 
            @media screen and (max-width: 480px) {
-              .futuristik-nav-link {
-                width: 30% !important; /* Lebar button penuh */
-                min-width: 60px; /* Pastikan button tidak terlalu kecil */
-                margin-left: 2px !important; /* Sesuaikan margin */
-                margin-right: 2px !important; /* Sesuaikan margin */
-                font-size: 0.8rem !important; /* Sesuaikan ukuran font */
-              }
-
-              .nav-wrapper .row {
-                flex-wrap: nowrap !important; /* Hindari wrap */
-              }
-
-              .nav-wrapper .row .col {
-                flex: 0 0 auto !important; /* Hindari kolom mengambil ruang lebih */
-              }
+            .futuristik-nav-link {
+              width: 30% !important; /* Lebar tombol lebih kecil */
+              min-width: auto; /* Hapus min-width jika tidak diperlukan */
+              margin-left: 2px !important;
+              margin-right: 2px !important;
+              font-size: 0.7rem !important; /* Ukuran font lebih kecil */
+              padding: 6px 10px !important; /* Padding lebih kecil */
             }
+
+            .nav-wrapper .row {
+              flex-wrap: nowrap !important; /* Nonaktifkan wrapping */
+              overflow-x: hidden; /* Nonaktifkan scroll horizontal */
+            }
+
+            .nav-wrapper .row .col {
+              flex: 0 0 33.33% !important; /* Setiap kolom mengambil 33.33% lebar */
+              max-width: 33.33% !important; /* Maksimal 33.33% lebar */
+            }
+          }
           `}
         </style>
 
@@ -171,14 +174,14 @@ class TabsSection extends Component {
               >
                 <Row
                   className="w-100"
-                  style={{ flexWrap: "nowrap", overflowX: "auto" }}
+                  style={{ flexWrap: "nowrap", overflowX: "hidden" }}
                 >
                   {[1, 2, 3].map((index) => (
                     <Col
                       key={index}
                       lg="4"
                       className="mb-3"
-                      style={{ flex: "0 0 auto", minWidth: "150px" }}
+                      style={{ flex: "0 0 33.33%", maxWidth: "33.33%" }}
                     >
                       <NavItem>
                         <NavLink
