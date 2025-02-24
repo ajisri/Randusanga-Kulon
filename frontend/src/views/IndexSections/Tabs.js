@@ -18,12 +18,61 @@ class TabsSection extends Component {
     super(props);
     this.state = {
       plainTabs: 1,
+      cursorPosition: { x: 0, y: 0 },
+      pieces: { 1: [], 2: [], 3: [] },
+      numPieces: 100,
+      animationKeys: { 1: Date.now(), 2: Date.now(), 3: Date.now() },
     };
   }
 
-  toggleNavs = (e, index) => {
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextState.plainTabs !== this.state.plainTabs ||
+      nextState.animationKeys !== this.state.animationKeys ||
+      nextState.pieces !== this.state.pieces
+    );
+  }
+
+  toggleNavs = (e, state, index) => {
     e.preventDefault();
-    this.setState({ plainTabs: index });
+    this.setState((prevState) => ({
+      [state]: index,
+      animationKeys: { ...prevState.animationKeys, [index]: Date.now() },
+      pieces: { ...prevState.pieces, [index]: this.generatePieces() },
+    }));
+  };
+
+  generatePieces = () => {
+    const size = 50;
+    const cols = Math.ceil(Math.sqrt(this.state.numPieces));
+    return Array.from({ length: this.state.numPieces }, (_, i) => {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      return {
+        id: i,
+        style: this.horizontalPieceStyle(row, col, size, cols),
+      };
+    });
+  };
+
+  horizontalPieceStyle = (row, col, size, cols) => {
+    const centerX = cols / 4;
+    const direction = col < centerX ? -1 : 1;
+    const distance = Math.abs(centerX - col) / centerX;
+
+    return {
+      position: "absolute",
+      width: `${size}px`,
+      height: `${size}px`,
+      background: `rgba(255, 105, 180, ${Math.random() * 0.5 + 0.5})`,
+      top: `${row * size}px`,
+      left: `${centerX * size}px`,
+      transform: "translate(-50%, -50%)",
+      opacity: 1,
+      animation: `horizontal-fly-out 2s forwards`,
+      animationDelay: `${distance * 0.2}s`,
+      "--direction": direction,
+    };
   };
 
   render() {
@@ -31,53 +80,42 @@ class TabsSection extends Component {
       <>
         <style>
           {`
+            .futuristik-nav-link {
+              position: relative;
+              overflow: hidden;
+              display: inline-block;
+              width: 90%;
+              padding: 12px 20px;
+              font-size: 0.85rem;
+              text-align: center;
+              border-radius: 12px;
+              color: rgb(84, 83, 83) !important;
+              background: linear-gradient(135deg, #2c2c54, #40407a);
+              border: 1px solid #f5f5f5;
+              transition: all 0.4s ease-in-out;
+            }
+            .futuristik-nav-link.active {
+              color: #000 !important;
+              background: #fff !important;
+              border-color: transparent !important;
+              box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                          0 0 20px rgba(255, 255, 255, 0.5) !important;
+            }
+            .futuristik-nav-link:hover {
+              cursor: none;
+              background: rgba(255, 255, 255, 0.1);
+              color: rgb(58, 57, 57) !important;
+              border: 2px solid #fffa65;
+              box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                          0 0 25px rgba(238, 130, 238, 0.7),
+                          0 0 45px rgba(0, 255, 255, 0.7);
+              transition: all 0.1s ease-in-out;
+            }
             .nav-wrapper {
               display: flex;
               justify-content: center;
+              align-items: center;
               width: 100%;
-            }
-
-            .futuristik-nav-link {
-              width: 100%;
-              padding: 8px 12px;
-              text-align: center;
-              font-size: 0.9rem;
-              border-radius: 8px;
-              background: linear-gradient(135deg, #2c2c54, #40407a);
-              color: white !important;
-              border: 1px solid #f5f5f5;
-              transition: all 0.3s ease-in-out;
-            }
-
-            .futuristik-nav-link.active {
-              background: #fff !important;
-              color: #000 !important;
-              box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-            }
-
-            @media screen and (max-width: 480px) {
-              .nav-wrapper .row {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 5px;
-              }
-              .nav-wrapper .col {
-                flex: 0 0 30%;
-                max-width: 30%;
-              }
-            }
-
-            @media screen and (min-width: 481px) {
-              .nav-wrapper .row {
-                display: flex;
-                flex-wrap: nowrap;
-                justify-content: center;
-              }
-              .nav-wrapper .col {
-                flex: 1;
-                max-width: 200px;
-              }
             }
           `}
         </style>
@@ -86,17 +124,23 @@ class TabsSection extends Component {
           <Col lg="12" className="mt-5 mt-lg-0">
             <div className="nav-wrapper">
               <Nav className="w-100" pills role="tablist">
-                <Row className="w-100">
+                <Row className="w-100 justify-content-center">
                   {[1, 2, 3].map((index) => (
-                    <Col key={index} className="col">
+                    <Col
+                      key={index}
+                      lg="4"
+                      className="mb-3 d-flex justify-content-center"
+                    >
                       <NavItem>
                         <NavLink
                           aria-selected={this.state.plainTabs === index}
                           className={classnames("futuristik-nav-link", {
                             active: this.state.plainTabs === index,
                           })}
-                          onClick={(e) => this.toggleNavs(e, index)}
-                          href="#"
+                          onClick={(e) =>
+                            this.toggleNavs(e, "plainTabs", index)
+                          }
+                          href="#pablo"
                           role="tab"
                         >
                           {index === 1
@@ -104,6 +148,13 @@ class TabsSection extends Component {
                             : index === 2
                             ? "LAYANAN"
                             : "TRANSPARANSI"}
+                          {this.state.pieces[index]?.map((piece) => (
+                            <div
+                              key={`${piece.id}-${this.state.animationKeys[index]}`}
+                              className="horizontal-fly-out"
+                              style={piece.style}
+                            ></div>
+                          ))}
                         </NavLink>
                       </NavItem>
                     </Col>
