@@ -407,14 +407,12 @@ const Modals = () => {
           }
 
           @keyframes slideIn {
-              from {
-                  transform: translateX(-100%);
-                  opacity: 0;
-              }
-              to {
-                  transform: translateX(0);
-                  opacity: 1;
-              }
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(0);
+            }
           }
 
           .ripple-container {
@@ -536,7 +534,8 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw; /* 1/3 layar laptop */
-            width: 100%;
+            width: 40%;
+            max-width: 40%;
             z-index: 1;
           }
 
@@ -549,7 +548,6 @@ const Modals = () => {
 
           .video-button {
             transform: translateX(-100%);
-            opacity: 0;
             animation: slideIn 1s forwards;
           }
 
@@ -565,16 +563,8 @@ const Modals = () => {
 
           @media (max-width: 768px) {
               .custom-button {
-                  max-width: 60vw; /* Hampir seluruh layar pada ponsel */
-                  height: clamp(50px, 8vh, 70px);
-              }
-
-              .button-icon {
-                  min-height: 50px;
-              }
-
-              .icon-button-text {
-                  font-size: clamp(7px, 1.8vw, 9px);
+                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
+                  height: clamp(60px, 8vh, 80px);
               }
           }
 
@@ -601,7 +591,7 @@ const Modals = () => {
             height: 100%;
             min-height: 70px !important;
             border-radius: 12px;
-            margin: 0px;
+            margin: 0px
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
@@ -616,7 +606,7 @@ const Modals = () => {
           }
 
           .button-icon:hover img {
-              transform: translateY(-2px); /* Gambar sedikit naik saat hover */
+              transform: translateY(-4px); /* Gambar sedikit naik saat hover */
               opacity: 1;
           }
 
@@ -659,6 +649,32 @@ const Modals = () => {
             font-weight: 600;
             transform: translateY(-15px);
             color: #fff;
+          }
+
+          @media (max-width: 768px) {
+              .button-icon {
+                  min-height: 50px;
+              }
+
+              .icon-button-text {
+                  font-size: clamp(7px, 1.8vw, 9px);
+              }
+          }
+            
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          .error-message {
+            color: #e74c3c;
+            font-size: 16px;
+            text-align: center;
+          }
+
+          /* Mengunci scroll saat modal terbuka */
+          body.modal-open {
+            overflow: hidden;
           }
 
           @media screen and (max-width: 1200px) {
@@ -720,8 +736,8 @@ const Modals = () => {
             }
 
             .custom-button {
-              max-width: 50vw !important; /* Lebih kecil dari sebelumnya (70vw) */
-              height: clamp(60px, 10vh, 90px); /* Tinggi lebih kecil */
+              max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
+              height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
               gap: 2px !important; /* Mengurangi jarak antar elemen */
             }
 
@@ -746,22 +762,6 @@ const Modals = () => {
             .dialog-subtitle {
               font-size: 10px;
             }
-          }
-
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-
-          .error-message {
-            color: #e74c3c;
-            font-size: 16px;
-            text-align: center;
-          }
-
-          /* Mengunci scroll saat modal terbuka */
-          body.modal-open {
-            overflow: hidden;
           }
         `}
       </style>
