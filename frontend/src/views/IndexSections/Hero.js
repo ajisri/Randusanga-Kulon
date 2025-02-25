@@ -41,7 +41,16 @@ const Hero = () => {
       backgroundColor: "white",
       borderRadius: "50%",
       boxShadow: "0 0 5px white", // Efek cahaya bintang
-      animation: "fallingStar 5s linear infinite", // Animasi bintang jatuh
+      opacity: 0.8,
+    },
+    movingStar: {
+      position: "absolute",
+      width: "2px",
+      height: "2px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+      boxShadow: "0 0 5px white", // Efek cahaya bintang
+      animation: "moveStar 5s linear infinite", // Animasi bintang bergerak
       opacity: 0.8,
     },
   };
@@ -58,18 +67,27 @@ const Hero = () => {
     perspective: "1000px", // Menambahkan efek 3D
   };
 
-  // Generate random stars hanya di setengah layar bagian atas
-  const stars = Array.from({ length: 30 }).map((_, index) => {
-    const depth = Math.random() * 1000; // Kedalaman 3D
-    const duration = `${Math.random() * 3 + 2}s`; // Durasi animasi acak
+  // Generate random stars (bintang diam)
+  const staticStars = Array.from({ length: 50 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
       top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
       left: `${Math.random() * 100}%`,
-      animationDuration: duration, // Durasi animasi
-      transform: `translateZ(${depth}px)`, // Efek 3D
+      transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
     };
-    return <div key={index} style={style}></div>;
+    return <div key={`static-${index}`} style={style}></div>;
+  });
+
+  // Generate moving stars (bintang bergerak)
+  const movingStars = Array.from({ length: 10 }).map((_, index) => {
+    const style = {
+      ...spaceStyles.movingStar,
+      top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
+      left: `${Math.random() * 100}%`,
+      transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
+      animationDuration: `${Math.random() * 3 + 2}s`, // Durasi animasi acak
+    };
+    return <div key={`moving-${index}`} style={style}></div>;
   });
 
   return (
@@ -99,6 +117,21 @@ const Hero = () => {
         playsInline
         src={require("assets/img/theme/vi1.mp4")}
       ></video>
+
+      <style>
+        {`
+          @keyframes moveStar {
+            0% {
+              transform: translate(100%, -100%) translateZ(1000px); /* Mulai dari kanan atas */
+              opacity: 1;
+            }
+            100% {
+              transform: translate(-100%, 100%) translateZ(-1000px); /* Bergerak ke kiri bawah */
+              opacity: 0;
+            }
+          }
+        `}
+      </style>
 
       <Container
         fluid
@@ -185,7 +218,10 @@ const Hero = () => {
                 }}
               >
                 {/* Container khusus untuk bintang */}
-                <div style={starsContainerStyles}>{stars}</div>
+                <div style={starsContainerStyles}>
+                  {staticStars} {/* Bintang diam */}
+                  {movingStars} {/* Bintang bergerak */}
+                </div>
 
                 {/* Planet yang Berputar */}
                 <div style={spaceStyles.planet}></div>
