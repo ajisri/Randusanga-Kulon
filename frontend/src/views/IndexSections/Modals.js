@@ -525,7 +525,8 @@ const Modals = () => {
             padding: 12px;
             display: flex;
             flex-direction: column;
-            flex-shrink: 0;
+            flex-grow: 0 !important;
+            flex-basis: 25vw;
             align-items: center;
             justify-content: center;
             height: clamp(100px, 10vh, 100px);
@@ -535,7 +536,7 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw !important; /* 1/3 layar laptop */
-            width: 30%;
+            width: auto;
             z-index: 1;
           }
 
