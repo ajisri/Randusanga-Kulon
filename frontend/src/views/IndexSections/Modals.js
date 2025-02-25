@@ -792,7 +792,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className="custom-button mb-3 mb-sm-0"
+            block
+            className="custom-button "
             type="button"
             icon="pi pi-info-circle"
             onClick={(e) => {
@@ -884,7 +885,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className={`custom-button mb-3 mb-sm-0 video-button ${
+            block
+            className={`custom-button  video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -979,7 +981,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className="mb-3 mb-sm-0 custom-button video-button"
+            block
+            className=" custom-button video-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -1075,7 +1078,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className={`custom-button mb-3 mb-sm-0 video-button ${
+            block
+            className={`custom-button  video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -1171,7 +1175,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className="custom-button video-button mb-3 mb-sm-0"
+            block
+            className="custom-button video-button "
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1346,7 +1351,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className="custom-button mb-3 mb-sm-0 video-button"
+            block
+            className="custom-button  video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1409,7 +1415,8 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            className="custom-button mb-3 mb-sm-0 video-button"
+            block
+            className="custom-button  video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
