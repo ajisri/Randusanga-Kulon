@@ -519,7 +519,10 @@ const Modals = () => {
           }
 
           .custom-button {
-            overflow: visible;
+            flex-shrink: 0;
+            flex-grow: 0;
+            width: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
+            height: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
             padding: 12px;
@@ -527,13 +530,11 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: clamp(100px, 10vh, 100px);
-            gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 30vw !important; /* 1/3 layar laptop */
+            max-width: 30vw !important;
             width: auto;
             z-index: 1;
           }
@@ -699,71 +700,39 @@ const Modals = () => {
             }
           }
 
-          @media screen and (max-width: 768px) {
-            .button {
-              width: 40px !important;
-              height: 40px !important;
-            }
-
+          @media (max-width: 768px) {
             .custom-button {
-                max-width: 50vw !important; /* Lebih kecil dari sebelumnya (80vw) */
-                height: clamp(50px, 7vh, 70px); /* Tinggi lebih kecil */
-                gap: 5px; /* Mengurangi jarak antar elemen */
+              max-width: 50vw !important;
+              height: clamp(60px, 8vh, 80px);
             }
 
             .button-icon {
-                min-height: 45px; /* Lebih kecil dari sebelumnya */
-            }
-
-            .button-icon img {
-                max-width: clamp(25px, 7vw, 35px); /* Ikon lebih kecil */
+              min-height: 50px;
             }
 
             .icon-button-text {
-                font-size: clamp(6px, 1.5vw, 8px); /* Ukuran teks lebih kecil */
-            }
-
-            .marquee {
-              font-size: 12px;
-            }
-
-            .custom-dialog {
-              width: 85vw !important;
+              font-size: clamp(7px, 1.8vw, 9px);
             }
           }
 
-          @media screen and (max-width: 480px) {
-            .button {
-              width: 35px !important;
-              height: 35px !important;
-            }
-
+          @media (max-width: 480px) {
             .custom-button {
-              max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
-              height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
-              gap: 2px !important; /* Mengurangi jarak antar elemen */
+              max-width: 30vw !important;
+              height: clamp(120px, 40vh, 120px);
             }
 
             .button-icon {
-                width: 20vw !important;
-                height: 80%;
-                min-height: 60px; /* Lebih kecil untuk layar sempit */
+              width: 20vw !important;
+              height: 80%;
+              min-height: 60px;
             }
 
             .button-icon img {
-                max-width: clamp(20px, 6vw, 30px); /* Ikon lebih kecil */
+              max-width: clamp(20px, 6vw, 30px);
             }
 
             .icon-button-text {
-                font-size: clamp(12px, 1.5vw, 12px); /* Teks lebih kecil */
-            }
-
-            .dialog-title {
-              font-size: 16px;
-            }
-
-            .dialog-subtitle {
-              font-size: 10px;
+              font-size: clamp(12px, 1.5vw, 12px);
             }
           }
         `}
