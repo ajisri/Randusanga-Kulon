@@ -55,12 +55,12 @@ const Hero = () => {
     height: "50%", // Hanya 50% bagian atas
     overflow: "hidden",
     zIndex: 2,
-    perspective: "700px",
+    perspective: "1000px", // Menambahkan efek 3D
   };
 
   // Generate random stars hanya di setengah layar bagian atas
   const stars = Array.from({ length: 30 }).map((_, index) => {
-    const depth = Math.random() * 700; // Kedalaman 3D
+    const depth = Math.random() * 1000; // Kedalaman 3D
     const duration = `${Math.random() * 3 + 2}s`; // Durasi animasi acak
     const style = {
       ...spaceStyles.star,
@@ -73,211 +73,177 @@ const Hero = () => {
   });
 
   return (
-    <>
-      <style>
-        {`
-    @keyframes fallingStar {
-      0% {
-        transform: translateY(-100%) translateZ(1000px); /* Mulai dari atas dan jauh */
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) translateZ(-1000px); /* Jatuh ke bawah dan mendekat */
-        opacity: 0;
-      }
-    }
-
-    @keyframes flyThrough {
-      0% {
-        transform: translateZ(1000px) translateY(0) translateX(0);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateZ(-1000px) translateY(calc(100vh * (random() - 0.5))) translateX(calc(100vw * (random() - 0.5)));
-        opacity: 0;
-      }
-    }
-  `}
-      </style>
-      <div
-        className="hero-container"
+    <div
+      className="hero-container"
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
+      {/* Video Background */}
+      <video
         style={{
-          position: "relative",
+          position: "absolute",
+          top: 0,
+          left: 0,
           width: "100%",
-          height: "100vh",
-          overflow: "hidden",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 1,
         }}
-      >
-        {/* Video Background */}
-        <video
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 1,
-          }}
-          autoPlay
-          loop
-          muted
-          playsInline
-          src={require("assets/img/theme/vi1.mp4")}
-        ></video>
+        autoPlay
+        loop
+        muted
+        playsInline
+        src={require("assets/img/theme/vi1.mp4")}
+      ></video>
 
-        <Container
-          fluid
-          style={{ position: "relative", zIndex: 2, height: "100%" }}
-        >
-          {isMenuOpen ? (
-            <>
-              {/* Baris Pertama */}
-              <Row
+      <Container
+        fluid
+        style={{ position: "relative", zIndex: 2, height: "100%" }}
+      >
+        {isMenuOpen ? (
+          <>
+            {/* Baris Pertama */}
+            <Row
+              style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
+            >
+              <Col
+                md={4}
                 style={{
-                  minHeight: "100vh",
+                  background:
+                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+                  padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
                   height: "auto",
-                  paddingTop: "0px",
+                  position: "relative",
+                  zIndex: 2,
+                  overflowY: "auto",
                 }}
               >
-                <Col
-                  md={4}
+                {/* Logo Kabupaten Brebes */}
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                  <img
+                    alt="..."
+                    src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
+                    style={{
+                      width: "70px",
+                      height: "auto",
+                      marginTop: "10px",
+                    }}
+                  />
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>
+                    {/* fjfj */}
+                  </h3>
+                </div>
+
+                {/* Konten Tabs */}
+                <div
                   style={{
-                    background:
-                      "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    height: "auto",
-                    position: "relative",
-                    zIndex: 2,
-                    overflowY: "auto",
+                    width: "100%",
+                    maxWidth: "900px",
+                    height: "1200px",
+                    margin: "0 auto",
                   }}
                 >
-                  {/* Logo Kabupaten Brebes */}
-                  <div style={{ textAlign: "center", marginBottom: "20px" }}>
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
-                      style={{
-                        width: "70px",
-                        height: "auto",
-                        marginTop: "10px",
-                      }}
-                    />
-                    <h3 style={{ color: "white", paddingTop: "20px" }}>
-                      {/* fjfj */}
-                    </h3>
-                  </div>
+                  <Tabs />
+                </div>
 
-                  {/* Konten Tabs */}
+                {/* Tombol Tutup */}
+                <Button
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    fontSize: "0.8rem",
+                    padding: "8px 14px",
+                    marginTop: "20px",
+                    alignSelf: "flex-end",
+                    position: "absolute",
+                    bottom: "20px",
+                  }}
+                >
+                  Tutup
+                </Button>
+              </Col>
+
+              {/* Kolom Orbit */}
+              <Col
+                md={8}
+                style={{
+                  position: "relative",
+                  padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "auto",
+                  backgroundColor: "rgba(0, 0, 0, 0.9)", // Overlay hitam nuansa luar angkasa
+                }}
+              >
+                {/* Container khusus untuk bintang */}
+                <div style={starsContainerStyles}>{stars}</div>
+
+                {/* Planet yang Berputar */}
+                <div style={spaceStyles.planet}></div>
+
+                {/* Container untuk Orbit */}
+                <div style={spaceStyles.orbitContainer}>
+                  {/* Orbit Lebih Besar */}
                   <div
                     style={{
-                      width: "100%",
-                      maxWidth: "900px",
-                      height: "1200px",
-                      margin: "0 auto",
+                      ...spaceStyles.orbit,
+                      width: "1400px",
+                      height: "700px",
                     }}
-                  >
-                    <Tabs />
-                  </div>
-
-                  {/* Tombol Tutup */}
-                  <Button
-                    onClick={() => setIsMenuOpen(false)}
+                  ></div>
+                  <div
                     style={{
-                      fontSize: "0.8rem",
-                      padding: "8px 14px",
-                      marginTop: "20px",
-                      alignSelf: "flex-end",
-                      position: "absolute",
-                      bottom: "20px",
+                      ...spaceStyles.orbit,
+                      width: "1200px",
+                      height: "600px",
                     }}
-                  >
-                    Tutup
-                  </Button>
-                </Col>
-
-                {/* Kolom Orbit */}
-                <Col
-                  md={8}
-                  style={{
-                    position: "relative",
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "auto",
-                    backgroundColor: "rgba(0, 0, 0, 0.9)", // Overlay hitam nuansa luar angkasa
-                  }}
-                >
-                  {/* Container khusus untuk bintang */}
-                  <div style={starsContainerStyles}>{stars}</div>
-
-                  {/* Planet yang Berputar */}
-                  <div style={spaceStyles.planet}></div>
-
-                  {/* Container untuk Orbit */}
-                  <div style={spaceStyles.orbitContainer}>
-                    {/* Orbit Lebih Besar */}
-                    <div
-                      style={{
-                        ...spaceStyles.orbit,
-                        width: "1400px",
-                        height: "700px",
-                      }}
-                    ></div>
-                    <div
-                      style={{
-                        ...spaceStyles.orbit,
-                        width: "1200px",
-                        height: "600px",
-                      }}
-                    ></div>
-                    <div
-                      style={{
-                        ...spaceStyles.orbit,
-                        width: "1000px",
-                        height: "500px",
-                      }}
-                    ></div>
-                    <div
-                      style={{
-                        ...spaceStyles.orbit,
-                        width: "800px",
-                        height: "400px",
-                      }}
-                    ></div>
-                  </div>
-                </Col>
-              </Row>
-            </>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "1000px",
+                      height: "500px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "800px",
+                      height: "400px",
+                    }}
+                  ></div>
+                </div>
+              </Col>
+            </Row>
+          </>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <Button
+              onClick={() => setIsMenuOpen(true)}
+              style={{ fontSize: "0.8rem", padding: "8px 14px" }}
             >
-              <Button
-                onClick={() => setIsMenuOpen(true)}
-                style={{ fontSize: "0.8rem", padding: "8px 14px" }}
-              >
-                Buka Menu
-              </Button>
-            </div>
-          )}
-        </Container>
-      </div>
-    </>
+              Buka Menu
+            </Button>
+          </div>
+        )}
+      </Container>
+    </div>
   );
 };
 
