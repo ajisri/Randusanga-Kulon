@@ -122,7 +122,25 @@ const Hero = () => {
                   height: "auto", // Biarkan tinggi menyesuaikan konten
                 }}
               >
-                {/* Area tambahan jika diperlukan */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginBottom: "20px", // Berikan jarak antara logo dan konten Tabs
+                  }}
+                >
+                  <img
+                    alt="..."
+                    src={require("assets/img/theme/selamatdtg.png")}
+                    style={{
+                      width: "70px",
+                      height: "auto",
+                      marginTop: "10px",
+                    }}
+                  />
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>
+                    {/* Menu */}
+                  </h3>
+                </div>
               </Col>
             </Row>
           </>
