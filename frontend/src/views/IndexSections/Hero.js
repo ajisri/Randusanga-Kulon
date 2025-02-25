@@ -165,6 +165,8 @@ const Hero = () => {
                   backgroundColor: "rgba(0, 0, 0, 0.9)", // Overlay hitam nuansa luar angkasa
                 }}
               >
+                {/* Bintang */}
+                {stars}
                 {/* Container untuk Orbit dan Bintang */}
                 <div style={spaceStyles.orbitContainer}>
                   {/* Orbit Lebih Besar */}
@@ -199,9 +201,6 @@ const Hero = () => {
 
                   {/* Planet yang Berputar */}
                   <div style={spaceStyles.planet}></div>
-
-                  {/* Bintang */}
-                  {stars}
                 </div>
               </Col>
             </Row>
