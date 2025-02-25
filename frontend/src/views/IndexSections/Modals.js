@@ -527,7 +527,7 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: clamp(500px, 50vh, 500px !important);
+            height: clamp(100px, 10vh, 100px);
             gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -560,26 +560,26 @@ const Modals = () => {
 
           @media (max-width: 1024px) {
               .custom-button {
-                  max-width: 50vw; /* Setengah layar untuk tablet */
+                  max-width: 50vw !important; /* Setengah layar untuk tablet */
               }
           }
 
           @media (max-width: 768px) {
               .custom-button {
-                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
+                  max-width: 80vw !important; /* Hampir seluruh layar pada ponsel */
                   height: clamp(60px, 8vh, 80px);
               }
           }
 
           @media (min-width: 1440px) {
               .custom-button {
-                  max-width: 25vw; /* Lebih kecil agar tidak terlalu lebar di layar besar */
+                  max-width: 25vw !important; /* Lebih kecil agar tidak terlalu lebar di layar besar */
               }
           }
 
           @media (min-width: 1920px) {
               .custom-button {
-                  max-width: 20vw; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
+                  max-width: 20vw !important; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
               }
           }
 
@@ -706,7 +706,7 @@ const Modals = () => {
             }
 
             .custom-button {
-                max-width: 70vw; /* Lebih kecil dari sebelumnya (80vw) */
+                max-width: 50vw !important; /* Lebih kecil dari sebelumnya (80vw) */
                 height: clamp(50px, 7vh, 70px); /* Tinggi lebih kecil */
                 gap: 5px; /* Mengurangi jarak antar elemen */
             }
