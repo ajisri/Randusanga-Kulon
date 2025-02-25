@@ -43,14 +43,14 @@ const Hero = () => {
       boxShadow: "0 0 5px white", // Efek cahaya bintang
       opacity: 0.8,
     },
-    movingStar: {
+    fallingStar: {
       position: "absolute",
       width: "2px",
       height: "2px",
       backgroundColor: "white",
       borderRadius: "50%",
       boxShadow: "0 0 5px white", // Efek cahaya bintang
-      animation: "moveStar 8s linear infinite", // Animasi bintang bergerak
+      animation: "fallingStar 8s linear infinite", // Animasi bintang jatuh
       opacity: 0.8,
     },
   };
@@ -68,7 +68,7 @@ const Hero = () => {
   };
 
   // Generate random stars (bintang diam)
-  const staticStars = Array.from({ length: 50 }).map((_, index) => {
+  const staticStars = Array.from({ length: 15 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
       top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
@@ -78,18 +78,18 @@ const Hero = () => {
     return <div key={`static-${index}`} style={style}></div>;
   });
 
-  // Generate moving stars (bintang bergerak)
-  const movingStars = Array.from({ length: 5 }).map((_, index) => {
+  // Generate falling stars (bintang jatuh)
+  const fallingStars = Array.from({ length: 5 }).map((_, index) => {
     const startX = Math.random() * 100; // Posisi awal horizontal acak
     const startY = Math.random() * 50; // Posisi awal vertikal acak (hanya di 50% atas)
     const duration = `${Math.random() * 5 + 8}s`; // Durasi animasi acak antara 8-13 detik
     const style = {
-      ...spaceStyles.movingStar,
+      ...spaceStyles.fallingStar,
       top: `${startY}%`, // Posisi awal vertikal
       left: `${startX}%`, // Posisi awal horizontal
       animationDuration: duration, // Durasi animasi acak
     };
-    return <div key={`moving-${index}`} style={style}></div>;
+    return <div key={`falling-${index}`} style={style}></div>;
   });
 
   return (
@@ -122,13 +122,17 @@ const Hero = () => {
 
       <style>
         {`
-          @keyframes moveStar {
+          @keyframes fallingStar {
             0% {
-              transform: translate(100%, -100%); /* Mulai dari kanan atas */
+              transform: translateY(-100%) scale(1); /* Mulai dari atas dengan ukuran normal */
               opacity: 1;
             }
+            50% {
+              transform: translateY(50%) scale(0.5); /* Bergerak ke tengah dengan ukuran mengecil */
+              opacity: 0.5;
+            }
             100% {
-              transform: translate(-100%, 100%); /* Bergerak ke kiri bawah */
+              transform: translateY(100%) scale(0); /* Bergerak ke bawah dengan ukuran menghilang */
               opacity: 0;
             }
           }
@@ -222,7 +226,7 @@ const Hero = () => {
                 {/* Container khusus untuk bintang */}
                 <div style={starsContainerStyles}>
                   {staticStars} {/* Bintang diam */}
-                  {movingStars} {/* Bintang bergerak */}
+                  {fallingStars} {/* Bintang jatuh */}
                 </div>
 
                 {/* Planet yang Berputar */}
