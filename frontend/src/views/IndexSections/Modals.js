@@ -527,7 +527,7 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: clamp(200px, 10vh, 200px);
+            height: clamp(500px, 50vh, 500px !important);
             gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
