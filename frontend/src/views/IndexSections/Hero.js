@@ -9,7 +9,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "75vh", // Nuansa luar angkasa hingga 75% dari layar
+      height: "50vh", // Setengah layar
       overflow: "hidden",
     },
     orbit: {
@@ -47,7 +47,7 @@ const Hero = () => {
   const stars = Array.from({ length: 100 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 75}%`, // Bintang hanya di 75% atas
+      top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
     };
     return <div key={index} style={style}></div>;
@@ -176,22 +176,22 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "3000px",
-                      height: "1500px",
+                      width: "600px",
+                      height: "300px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "2500px",
-                      height: "1250px",
+                      width: "500px",
+                      height: "250px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "2000px",
-                      height: "1000px",
+                      width: "400px",
+                      height: "200px",
                     }}
                   ></div>
                   <div style={spaceStyles.planet}></div>
