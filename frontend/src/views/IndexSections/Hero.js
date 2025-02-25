@@ -83,6 +83,7 @@ const Hero = () => {
   useEffect(() => {
     if (isMenuOpen) {
       const starPositions = [10, 30, 50, 70, 90]; // Posisi horizontal bintang jatuh
+      const stars = [];
 
       starPositions.forEach((position, index) => {
         setTimeout(() => {
