@@ -525,8 +525,6 @@ const Modals = () => {
             padding: 12px;
             display: flex;
             flex-direction: column;
-            flex-grow: 0 !important;
-            flex-basis: 25vw;
             align-items: center;
             justify-content: center;
             height: clamp(100px, 10vh, 100px);
@@ -786,9 +784,9 @@ const Modals = () => {
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
-      <Row>
+      <Row className="row-custom">
         <Col
-          className="mt-1"
+          className="mt-1 col-custom"
           md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
@@ -803,6 +801,7 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
+            style={{ flexGrow: 0, flexBasis: "auto" }}
           >
             <div
               className="button-icon"
