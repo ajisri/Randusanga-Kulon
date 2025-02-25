@@ -519,10 +519,7 @@ const Modals = () => {
           }
 
           .custom-button {
-            flex-shrink: 0;
-            flex-grow: 0;
-            width: 100px;
-            height: 100px;
+            overflow: visible;
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
             padding: 12px;
@@ -530,50 +527,86 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: clamp(100px, 10vh, 100px);
+            gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 30vw !important;
-            width: auto;
+            max-width: 30vw; /* 1/3 layar laptop */
+            width: 40%;
             z-index: 1;
           }
 
           .custom-button:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+              background: rgba(255, 255, 255, 0.05);  /* transparansi lebih rendah saat hover */
+              border: 3px solid rgba(255, 255, 255, 0.5); /* membuat border sedikit lebih terang saat hover */
+              box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* menambahkan efek bayangan lebih besar pada hover */
+              transform: translateY(-3px);
+          }
+
+          .video-button {
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+          }
+
+          .video-button:hover {
             transform: translateY(-3px);
+          }
+
+          @media (max-width: 1024px) {
+              .custom-button {
+                  max-width: 50vw; /* Setengah layar untuk tablet */
+              }
+          }
+
+          @media (max-width: 768px) {
+              .custom-button {
+                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
+                  height: clamp(60px, 8vh, 80px);
+              }
+          }
+
+          @media (min-width: 1440px) {
+              .custom-button {
+                  max-width: 25vw; /* Lebih kecil agar tidak terlalu lebar di layar besar */
+              }
+          }
+
+          @media (min-width: 1920px) {
+              .custom-button {
+                  max-width: 20vw; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
+              }
           }
 
           .button-icon {
             overflow: visible;
             position: relative;
             display: flex;
-            flex: none;
+            flex: 1;
             align-items: center;
             justify-content: center;
-            width: 80% !important;
+            width: 100% !important;
             height: 100%;
             min-height: 70px !important;
             border-radius: 12px;
-            margin: 0px;
+            margin: 0px
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
-            background: linear-gradient(145deg, #ffffff, #e0e0e0);
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8);
+            background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Efek timbul */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.8); /* Efek timbul */
           }
 
           .button-icon img {
-            width: 80%;
-            max-width: clamp(30px, 8vw, 40px);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+              width: 80%; /* Ukuran gambar lebih besar agar lebih jelas */
+              max-width: clamp(30px, 8vw, 40px);
+              transition: transform 0.3s ease, opacity 0.3s ease;
           }
 
           .button-icon:hover img {
-            transform: translateY(-4px);
-            opacity: 1;
+              transform: translateY(-4px); /* Gambar sedikit naik saat hover */
+              opacity: 1;
           }
 
           .button-icon:before {
@@ -595,9 +628,17 @@ const Modals = () => {
           }
 
           .button-icon:hover {
-            transform: scale(2.05);
+            transform: scale(1.05);
             box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
-            filter: url('#distortion-filter');
+            filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
+          }
+          
+          .img-custom {
+            transform: translateY(-3px);
+            width: 80%;
+            max-width: clamp(100px, 15vw, 150px);
+            height: auto;
+            border-radius: inherit;
           }
 
           .icon-button-text {
@@ -610,38 +651,115 @@ const Modals = () => {
           }
 
           @media (max-width: 768px) {
-            .custom-button {
-              max-width: 50vw !important;
-              height: clamp(60px, 8vh, 80px);
+              .button-icon {
+                  min-height: 50px;
+              }
+
+              .icon-button-text {
+                  font-size: clamp(7px, 1.8vw, 9px);
+              }
+          }
+            
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          .error-message {
+            color: #e74c3c;
+            font-size: 16px;
+            text-align: center;
+          }
+
+          /* Mengunci scroll saat modal terbuka */
+          body.modal-open {
+            overflow: hidden;
+          }
+
+          @media screen and (max-width: 1200px) {
+            .button {
+              width: 50px !important;
+              height: 45px !important;
             }
 
             .button-icon {
-              min-height: 50px;
+              font-size: 60px !important;
             }
 
-            .icon-button-text {
-              font-size: clamp(7px, 1.8vw, 9px);
+            .dialog-title {
+              font-size: 20px;
+            }
+
+            .dialog-subtitle {
+              font-size: 12px;
             }
           }
 
-          @media (max-width: 480px) {
+          @media screen and (max-width: 768px) {
+            .button {
+              width: 40px !important;
+              height: 40px !important;
+            }
+
             .custom-button {
-              max-width: 30vw !important;
-              height: clamp(120px, 40vh, 120px);
+                max-width: 70vw; /* Lebih kecil dari sebelumnya (80vw) */
+                height: clamp(50px, 7vh, 70px); /* Tinggi lebih kecil */
+                gap: 5px; /* Mengurangi jarak antar elemen */
             }
 
             .button-icon {
-              width: 20vw !important;
-              height: 80%;
-              min-height: 60px;
+                min-height: 45px; /* Lebih kecil dari sebelumnya */
             }
 
             .button-icon img {
-              max-width: clamp(20px, 6vw, 30px);
+                max-width: clamp(25px, 7vw, 35px); /* Ikon lebih kecil */
             }
 
             .icon-button-text {
-              font-size: clamp(12px, 1.5vw, 12px);
+                font-size: clamp(6px, 1.5vw, 8px); /* Ukuran teks lebih kecil */
+            }
+
+            .marquee {
+              font-size: 12px;
+            }
+
+            .custom-dialog {
+              width: 85vw !important;
+            }
+          }
+
+          @media screen and (max-width: 480px) {
+            .button {
+              width: 35px !important;
+              height: 35px !important;
+            }
+
+            .custom-button {
+              max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
+              height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
+              gap: 2px !important; /* Mengurangi jarak antar elemen */
+            }
+
+            .button-icon {
+                width: 20vw !important;
+                height: 80%;
+                min-height: 60px; /* Lebih kecil untuk layar sempit */
+            }
+
+            .button-icon img {
+                max-width: clamp(20px, 6vw, 30px); /* Ikon lebih kecil */
+            }
+
+            .icon-button-text {
+                font-size: clamp(12px, 1.5vw, 12px); /* Teks lebih kecil */
+            }
+
+            .dialog-title {
+              font-size: 16px;
+            }
+
+            .dialog-subtitle {
+              font-size: 10px;
             }
           }
         `}
@@ -666,9 +784,9 @@ const Modals = () => {
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
-      <Row className="row-custom">
+      <Row>
         <Col
-          className="mt-1 col-custom"
+          className="mt-1"
           md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
@@ -683,7 +801,6 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
-            style={{ flexGrow: 0, flexBasis: "auto" }}
           >
             <div
               className="button-icon"
@@ -769,7 +886,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`custom-button  video-button ${
+            className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -865,7 +982,7 @@ const Modals = () => {
         >
           <Button
             block
-            className=" custom-button video-button"
+            className="mb-3 mb-sm-0 custom-button video-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -962,7 +1079,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`custom-button  video-button ${
+            className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -1059,7 +1176,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button video-button "
+            className="custom-button video-button mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1235,7 +1352,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button  video-button"
+            className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1299,7 +1416,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button  video-button"
+            className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
