@@ -5,6 +5,51 @@ import Tabs from "./Tabs.js";
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const spaceStyles = {
+    orbit: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      width: "200px",
+      height: "100px",
+      border: "2px dashed white",
+      borderRadius: "50%",
+      borderBottom: "none",
+      borderLeft: "none",
+      borderRight: "none",
+      transform: "translate(-50%, -50%) rotateX(60deg)",
+      zIndex: 1,
+    },
+    planet: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      width: "20px",
+      height: "20px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+      transform: "translate(-50%, -50%)",
+      animation: "orbit 5s linear infinite",
+    },
+    star: {
+      position: "absolute",
+      width: "2px",
+      height: "2px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+    },
+  };
+
+  // Generate random stars
+  const stars = Array.from({ length: 100 }).map((_, index) => {
+    const style = {
+      ...spaceStyles.star,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+    };
+    return <div key={index} style={style}></div>;
+  });
+
   return (
     <div
       className="hero-container"
@@ -54,19 +99,19 @@ const Hero = () => {
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "flex-start", // Mulai dari atas
+                  justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "auto", // Biarkan tinggi menyesuaikan konten
+                  height: "auto",
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "auto", // Tambahkan scroll jika konten panjang
+                  overflowY: "auto",
                 }}
               >
                 {/* Logo Kabupaten Brebes */}
                 <div
                   style={{
                     textAlign: "center",
-                    marginBottom: "20px", // Berikan jarak antara logo dan konten Tabs
+                    marginBottom: "20px",
                   }}
                 >
                   <img
@@ -101,8 +146,8 @@ const Hero = () => {
                   style={{
                     fontSize: "0.8rem",
                     padding: "8px 14px",
-                    marginTop: "20px", // Berikan jarak antara konten Tabs dan tombol
-                    alignSelf: "flex-end", // Posisikan tombol di sebelah kanan
+                    marginTop: "20px",
+                    alignSelf: "flex-end",
                     position: "absolute",
                     bottom: "20px",
                   }}
@@ -117,33 +162,15 @@ const Hero = () => {
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "flex-start", // Pastikan konten dimulai dari atas
+                  justifyContent: "center",
                   alignItems: "center",
                   height: "auto",
                 }}
               >
-                <div
-                  style={{
-                    textAlign: "center",
-                    marginBottom: "20px", // Berikan jarak antara logo dan konten Tabs
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  <img
-                    alt="..."
-                    src={require("assets/img/theme/selamatdtg.png")}
-                    style={{
-                      width: "100%", // Pastikan gambar memenuhi lebar
-                      maxWidth: "600px", // Ukuran maksimal untuk mode landscape
-                      height: "auto", // Jaga aspek rasio gambar
-                      objectFit: "cover", // Pastikan gambar tetap proporsional
-                      marginBottom: "20px", // Beri jarak dengan konten di bawahnya
-                    }}
-                  />
-                </div>
+                {/* Area tambahan planet, revolusi lintasan, nuansa luar angkasa */}
+                <div style={spaceStyles.orbit}></div>
+                <div style={spaceStyles.planet}></div>
+                {stars}
               </Col>
             </Row>
           </>
