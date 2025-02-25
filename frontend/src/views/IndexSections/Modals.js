@@ -525,6 +525,7 @@ const Modals = () => {
             padding: 12px;
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
             align-items: center;
             justify-content: center;
             height: clamp(100px, 10vh, 100px);

@@ -88,7 +88,7 @@ const Hero = () => {
                   style={{
                     width: "100%",
                     maxWidth: "900px",
-                    height: "1100px",
+                    height: "1200px",
                     margin: "0 auto",
                   }}
                 >
