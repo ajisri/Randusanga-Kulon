@@ -108,7 +108,7 @@ class TabsSection extends Component {
               padding: 8px 15px;
               font-size: 0.9rem;
               text-align: center;
-              margin-left: 17px;
+              margin-left: 10px;
               border-radius: 12px;
               color: rgb(84, 83, 83) !important;
               background: linear-gradient(135deg, #2c2c54, #40407a);
@@ -139,54 +139,28 @@ class TabsSection extends Component {
 
            @media screen and (max-width: 480px) {
             .futuristik-nav-link {
-              width: 100%; /* Tombol memenuhi lebar container */
-              min-width: auto; /* Menghapus min-width agar tombol fleksibel */
-              margin-left: 4px; /* Jarak antar tombol */
-              margin-right: 4px;
-              font-size: 0.8rem; /* Ukuran font yang sesuai */
-              padding: 8px 10px; /* Padding yang nyaman */
-              text-align: center; /* Teks di tengah tombol */
-              flex: 1; /* Membagi lebar secara merata */
+              width: 100% !important; /* Lebar tombol lebih kecil */
+              min-width: 100% !important;
+              margin-left: 6px !important;
+              margin-right: 6px !important;
+              font-size: 0.7rem !important; /* Ukuran font lebih kecil */
+              padding: 6px 10px !important; /* Padding lebih kecil */
             }
 
             .nav-wrapper .row {
-              display: flex; /* Mengaktifkan Flexbox */
-              flex-wrap: nowrap; /* Mencegah tombol berpindah baris */
-              justify-content: space-between; /* Jarak merata antar tombol */
-              overflow-x: hidden; /* Menghilangkan scroll horizontal */
-              gap: 8px; /* Jarak antar tombol */
+              flex-wrap: nowrap !important; /* Nonaktifkan wrapping */
+              overflow-x: hidden; /* Nonaktifkan scroll horizontal */
             }
 
             .nav-wrapper .row .col {
-              flex: 1; /* Membagi lebar kolom secara merata */
-              padding: 0; /* Menghapus padding default */
-            }
-          }
-
-            @media screen and (min-width: 481px) {
-            .futuristik-nav-link {
-              width: 80%; /* Kurangi lebar tombol */
-              min-width: 150px; /* Pastikan button tidak terlalu kecil */
-              margin-left: 10px; /* Sesuaikan margin */
-              margin-right: 10px; /* Sesuaikan margin */
-              font-size: 0.9rem; /* Sesuaikan ukuran font */
-              padding: 8px 15px; /* Sesuaikan padding */
-            }
-
-            .nav-wrapper .row {
-              flex-wrap: wrap; /* Biarkan wrap jika diperlukan */
-              overflow-x: hidden; /* Hilangkan scroll horizontal */
-            }
-
-            .nav-wrapper .row .col {
-              flex: 1 1 auto; /* Biarkan kolom mengambil ruang yang tersedia */
-              width: auto; /* Sesuaikan lebar kolom */
+              flex: 0 0 33.33% !important; /* Setiap kolom mengambil 33.33% lebar */
+              max-width: 33.33% !important; /* Maksimal 33.33% lebar */
             }
           }
           `}
         </style>
 
-        <Row className="justify-content-center">
+        <Row className="justify-content-start">
           <Col lg="12" className="mt-5 mt-lg-0">
             <div className="mb-3">
               {/* <small className="text-uppercase font-weight-bold">Menu</small> */}
@@ -197,17 +171,18 @@ class TabsSection extends Component {
                 id="tabs-icons-text"
                 pills
                 role="tablist"
+                style={{ paddingLeft: "10px" }}
               >
                 <Row
-                  className="w-100"
-                  style={{ flexWrap: "nowrap", overflowX: "auto" }}
+                  className="w-100 justify-content-start"
+                  style={{ flexWrap: "nowrap", overflowX: "hidden" }}
                 >
                   {[1, 2, 3].map((index) => (
                     <Col
                       key={index}
                       lg="4"
                       className="mb-3"
-                      style={{ flex: "1", padding: "0" }}
+                      style={{ flex: "0 0 33.33%", maxWidth: "33.33%" }}
                     >
                       <NavItem>
                         <NavLink
@@ -226,6 +201,7 @@ class TabsSection extends Component {
                             justifyContent: "center",
                             alignItems: "center",
                             textAlign: "center",
+                            margin: "0 auto",
                             width: "100%", // Pastikan memenuhi lebar container
                           }}
                         >

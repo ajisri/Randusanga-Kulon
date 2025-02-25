@@ -535,7 +535,10 @@ const Modals = () => {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw; /* 1/3 layar laptop */
             width: 30%;
+<<<<<<< HEAD
             max-width: 30%;
+=======
+>>>>>>> 7ebb4a5a68be07f85f84b3f78826923ff4499c6b
             z-index: 1;
           }
 
