@@ -44,7 +44,7 @@ const Hero = () => {
   };
 
   // Generate random stars hanya di setengah layar bagian atas
-  const stars = Array.from({ length: 100 }).map((_, index) => {
+  const stars = Array.from({ length: 30 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
       top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
@@ -167,6 +167,8 @@ const Hero = () => {
               >
                 {/* Bintang */}
                 {stars}
+                {/* Planet yang Berputar */}
+                <div style={spaceStyles.planet}></div>
                 {/* Container untuk Orbit dan Bintang */}
                 <div style={spaceStyles.orbitContainer}>
                   {/* Orbit Lebih Besar */}
@@ -198,9 +200,6 @@ const Hero = () => {
                       height: "400px",
                     }}
                   ></div>
-
-                  {/* Planet yang Berputar */}
-                  <div style={spaceStyles.planet}></div>
                 </div>
               </Col>
             </Row>
