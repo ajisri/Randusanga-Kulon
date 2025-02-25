@@ -88,7 +88,7 @@ const Hero = () => {
                   style={{
                     width: "100%",
                     maxWidth: "900px",
-                    height: "1200px",
+                    height: "1100px",
                     margin: "0 auto",
                   }}
                 >
@@ -103,6 +103,8 @@ const Hero = () => {
                     padding: "8px 14px",
                     marginTop: "20px", // Berikan jarak antara konten Tabs dan tombol
                     alignSelf: "flex-end", // Posisikan tombol di sebelah kanan
+                    position: "absolute",
+                    bottom: "20px",
                   }}
                 >
                   Tutup
