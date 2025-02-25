@@ -50,7 +50,7 @@ const Hero = () => {
       backgroundColor: "white",
       borderRadius: "50%",
       boxShadow: "0 0 5px white", // Efek cahaya bintang
-      animation: "moveStar 5s linear infinite", // Animasi bintang bergerak
+      animation: "moveStar 8s linear infinite", // Animasi bintang bergerak
       opacity: 0.8,
     },
   };
@@ -79,13 +79,15 @@ const Hero = () => {
   });
 
   // Generate moving stars (bintang bergerak)
-  const movingStars = Array.from({ length: 10 }).map((_, index) => {
+  const movingStars = Array.from({ length: 5 }).map((_, index) => {
+    const startX = Math.random() * 100; // Posisi awal horizontal acak
+    const startY = Math.random() * 50; // Posisi awal vertikal acak (hanya di 50% atas)
+    const duration = `${Math.random() * 5 + 8}s`; // Durasi animasi acak antara 8-13 detik
     const style = {
       ...spaceStyles.movingStar,
-      top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
-      left: `${Math.random() * 100}%`,
-      transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
-      animationDuration: `${Math.random() * 3 + 2}s`, // Durasi animasi acak
+      top: `${startY}%`, // Posisi awal vertikal
+      left: `${startX}%`, // Posisi awal horizontal
+      animationDuration: duration, // Durasi animasi acak
     };
     return <div key={`moving-${index}`} style={style}></div>;
   });
@@ -122,11 +124,11 @@ const Hero = () => {
         {`
           @keyframes moveStar {
             0% {
-              transform: translate(100%, -100%) translateZ(1000px); /* Mulai dari kanan atas */
+              transform: translate(100%, -100%); /* Mulai dari kanan atas */
               opacity: 1;
             }
             100% {
-              transform: translate(-100%, 100%) translateZ(-1000px); /* Bergerak ke kiri bawah */
+              transform: translate(-100%, 100%); /* Bergerak ke kiri bawah */
               opacity: 0;
             }
           }
