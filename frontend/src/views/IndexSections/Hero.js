@@ -9,7 +9,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "50vh", // Setengah layar
+      height: "50vh", // Setengah layar untuk orbit
       overflow: "hidden",
     },
     orbit: {
@@ -21,18 +21,18 @@ const Hero = () => {
       borderBottom: "none",
       borderLeft: "none",
       borderRight: "none",
-      transform: "translateX(-50%)",
+      transform: "translateX(-50%) rotate(180deg)", // Membalik orbit ke atas
     },
     planet: {
       position: "absolute",
       bottom: "0",
       left: "50%",
-      width: "20px",
-      height: "20px",
+      width: "30px",
+      height: "30px",
       backgroundColor: "blue",
       borderRadius: "50%",
       transform: "translate(-50%, -50%)",
-      animation: "orbit 5s linear infinite",
+      animation: "orbit 10s linear infinite",
     },
     star: {
       position: "absolute",
@@ -47,7 +47,7 @@ const Hero = () => {
   const stars = Array.from({ length: 100 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 50}%`, // Bintang hanya di setengah layar bagian atas
+      top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
       left: `${Math.random() * 100}%`,
     };
     return <div key={index} style={style}></div>;
@@ -63,6 +63,7 @@ const Hero = () => {
         overflow: "hidden",
       }}
     >
+      {/* Video Background */}
       <video
         style={{
           position: "absolute",
@@ -88,17 +89,13 @@ const Hero = () => {
           <>
             {/* Baris Pertama */}
             <Row
-              style={{
-                minHeight: "100vh",
-                height: "auto",
-                paddingTop: "0px",
-              }}
+              style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
                 md={4}
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
+                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
@@ -111,12 +108,7 @@ const Hero = () => {
                 }}
               >
                 {/* Logo Kabupaten Brebes */}
-                <div
-                  style={{
-                    textAlign: "center",
-                    marginBottom: "20px",
-                  }}
-                >
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
                     alt="..."
                     src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
@@ -127,7 +119,7 @@ const Hero = () => {
                     }}
                   />
                   <h3 style={{ color: "white", paddingTop: "20px" }}>
-                    {/* Menu */}
+                    {/* fjfj */}
                   </h3>
                 </div>
 
@@ -158,6 +150,8 @@ const Hero = () => {
                   Tutup
                 </Button>
               </Col>
+
+              {/* Kolom Orbit */}
               <Col
                 md={8}
                 style={{
@@ -171,36 +165,42 @@ const Hero = () => {
                   backgroundColor: "rgba(0, 0, 0, 0.9)", // Overlay hitam nuansa luar angkasa
                 }}
               >
-                {/* Container untuk orbit dan planet */}
+                {/* Container untuk Orbit dan Bintang */}
                 <div style={spaceStyles.orbitContainer}>
+                  {/* Orbit Lebih Besar */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "1200px", // Ukuran sangat besar
-                      height: "600px", // Ukuran sangat besar
-                      bottom: "0",
-                      transform: "translateX(-50%) rotate(180deg)",
+                      width: "1400px",
+                      height: "700px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "1000px", // Ukuran sangat besar
-                      height: "500px", // Ukuran sangat besar
-                      bottom: "0",
-                      transform: "translateX(-50%) rotate(180deg)",
+                      width: "1200px",
+                      height: "600px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "800px", // Ukuran sangat besar
-                      height: "400px", // Ukuran sangat besar
-                      bottom: "0",
-                      transform: "translateX(-50%) rotate(180deg)",
+                      width: "1000px",
+                      height: "500px",
                     }}
                   ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "800px",
+                      height: "400px",
+                    }}
+                  ></div>
+
+                  {/* Planet yang Berputar */}
                   <div style={spaceStyles.planet}></div>
+
+                  {/* Bintang */}
                   {stars}
                 </div>
               </Col>
