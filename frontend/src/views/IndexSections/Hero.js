@@ -126,13 +126,18 @@ const Hero = () => {
                   style={{
                     textAlign: "center",
                     marginBottom: "20px", // Berikan jarak antara logo dan konten Tabs
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
                   }}
                 >
                   <img
                     alt="..."
                     src={require("assets/img/theme/selamatdtg.png")}
                     style={{
-                      width: "70px",
+                      width: "100%", // Gambar lebih besar
+                      maxWidth: "400px", // Batasi ukuran maksimal agar tidak terlalu besar
                       height: "auto",
                       marginTop: "10px",
                     }}
