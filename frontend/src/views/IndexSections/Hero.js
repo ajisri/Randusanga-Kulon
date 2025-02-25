@@ -136,10 +136,11 @@ const Hero = () => {
                     alt="..."
                     src={require("assets/img/theme/selamatdtg.png")}
                     style={{
-                      width: "100%", // Responsif
-                      maxWidth: "400px", // Batasi agar tidak terlalu besar
-                      height: "auto",
-                      marginBottom: "20px", // Tambahkan jarak antara gambar dan konten di bawahnya
+                      width: "100%", // Pastikan gambar memenuhi lebar
+                      maxWidth: "600px", // Ukuran maksimal untuk mode landscape
+                      height: "auto", // Jaga aspek rasio gambar
+                      objectFit: "cover", // Pastikan gambar tetap proporsional
+                      marginBottom: "20px", // Beri jarak dengan konten di bawahnya
                     }}
                   />
                 </div>
