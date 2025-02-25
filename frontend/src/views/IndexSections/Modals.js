@@ -519,10 +519,7 @@ const Modals = () => {
           }
 
           .custom-button {
-            flex-shrink: 0;
-            flex-grow: 0;
-            width: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
-            height: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
+            overflow: visible;
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
             padding: 12px;
@@ -530,11 +527,13 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: clamp(100px, 10vh, 100px);
+            gap: 2px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 30vw !important;
+            max-width: 30vw !important; /* 1/3 layar laptop */
             width: auto;
             z-index: 1;
           }
@@ -544,10 +543,6 @@ const Modals = () => {
               border: 3px solid rgba(255, 255, 255, 0.5); /* membuat border sedikit lebih terang saat hover */
               box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* menambahkan efek bayangan lebih besar pada hover */
               transform: translateY(-3px);
-          }
-
-          .row-custom .col-custom .custom-button {
-              flex-grow: 0 !important;
           }
 
           .video-button {
@@ -561,26 +556,26 @@ const Modals = () => {
 
           @media (max-width: 1024px) {
               .custom-button {
-                  max-width: 50vw !important; /* Setengah layar untuk tablet */
+                  max-width: 50vw; /* Setengah layar untuk tablet */
               }
           }
 
           @media (max-width: 768px) {
               .custom-button {
-                  max-width: 80vw !important; /* Hampir seluruh layar pada ponsel */
+                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
                   height: clamp(60px, 8vh, 80px);
               }
           }
 
           @media (min-width: 1440px) {
               .custom-button {
-                  max-width: 25vw !important; /* Lebih kecil agar tidak terlalu lebar di layar besar */
+                  max-width: 25vw; /* Lebih kecil agar tidak terlalu lebar di layar besar */
               }
           }
 
           @media (min-width: 1920px) {
               .custom-button {
-                  max-width: 20vw !important; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
+                  max-width: 20vw; /* Di layar 4K, tombol lebih kecil dan tetap proporsional */
               }
           }
 
@@ -700,39 +695,71 @@ const Modals = () => {
             }
           }
 
-          @media (max-width: 768px) {
+          @media screen and (max-width: 768px) {
+            .button {
+              width: 40px !important;
+              height: 40px !important;
+            }
+
             .custom-button {
-              max-width: 50vw !important;
-              height: clamp(60px, 8vh, 80px);
+                max-width: 70vw; /* Lebih kecil dari sebelumnya (80vw) */
+                height: clamp(50px, 7vh, 70px); /* Tinggi lebih kecil */
+                gap: 5px; /* Mengurangi jarak antar elemen */
             }
 
             .button-icon {
-              min-height: 50px;
-            }
-
-            .icon-button-text {
-              font-size: clamp(7px, 1.8vw, 9px);
-            }
-          }
-
-          @media (max-width: 480px) {
-            .custom-button {
-              max-width: 30vw !important;
-              height: clamp(120px, 40vh, 120px);
-            }
-
-            .button-icon {
-              width: 20vw !important;
-              height: 80%;
-              min-height: 60px;
+                min-height: 45px; /* Lebih kecil dari sebelumnya */
             }
 
             .button-icon img {
-              max-width: clamp(20px, 6vw, 30px);
+                max-width: clamp(25px, 7vw, 35px); /* Ikon lebih kecil */
             }
 
             .icon-button-text {
-              font-size: clamp(12px, 1.5vw, 12px);
+                font-size: clamp(6px, 1.5vw, 8px); /* Ukuran teks lebih kecil */
+            }
+
+            .marquee {
+              font-size: 12px;
+            }
+
+            .custom-dialog {
+              width: 85vw !important;
+            }
+          }
+
+          @media screen and (max-width: 480px) {
+            .button {
+              width: 35px !important;
+              height: 35px !important;
+            }
+
+            .custom-button {
+              max-width: 30vw !important; /* Lebih kecil dari sebelumnya (70vw) */
+              height: clamp(120px, 40vh, 120px); /* Tinggi lebih kecil */
+              gap: 2px !important; /* Mengurangi jarak antar elemen */
+            }
+
+            .button-icon {
+                width: 20vw !important;
+                height: 80%;
+                min-height: 60px; /* Lebih kecil untuk layar sempit */
+            }
+
+            .button-icon img {
+                max-width: clamp(20px, 6vw, 30px); /* Ikon lebih kecil */
+            }
+
+            .icon-button-text {
+                font-size: clamp(12px, 1.5vw, 12px); /* Teks lebih kecil */
+            }
+
+            .dialog-title {
+              font-size: 16px;
+            }
+
+            .dialog-subtitle {
+              font-size: 10px;
             }
           }
         `}
@@ -757,15 +784,14 @@ const Modals = () => {
       <h2 className="mt-sm mb-2">
         <span></span>
       </h2>
-      <Row className="row-custom">
+      <Row>
         <Col
-          className="mt-1 col-custom"
+          className="mt-1"
           md="4"
           xs="4"
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className="custom-button mb-3 mb-sm-0"
             type="button"
             icon="pi pi-info-circle"
@@ -774,7 +800,6 @@ const Modals = () => {
             }}
             onMouseMove={(e) => handleMouseMove(e, setIconPosition)}
             onMouseLeave={() => handleMouseLeave(setIconPosition)}
-            style={{ flexGrow: 0, flexBasis: "auto" }}
           >
             <div
               className="button-icon"
@@ -859,7 +884,6 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
@@ -955,7 +979,6 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className="mb-3 mb-sm-0 custom-button video-button"
             color="default"
             type="button"
@@ -1052,7 +1075,6 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
@@ -1149,7 +1171,6 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className="custom-button video-button mb-3 mb-sm-0"
             color="default"
             type="button"
@@ -1325,7 +1346,6 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
@@ -1389,7 +1409,6 @@ const Modals = () => {
           style={{ fontFamily: "Roboto, sans-serif" }}
         >
           <Button
-            block
             className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
