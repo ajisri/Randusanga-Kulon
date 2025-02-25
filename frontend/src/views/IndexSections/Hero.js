@@ -117,9 +117,9 @@ const Hero = () => {
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
+                  justifyContent: "flex-start", // Pastikan konten dimulai dari atas
                   alignItems: "center",
-                  height: "auto", // Biarkan tinggi menyesuaikan konten
+                  height: "auto",
                 }}
               >
                 <div
@@ -136,9 +136,10 @@ const Hero = () => {
                     alt="..."
                     src={require("assets/img/theme/selamatdtg.png")}
                     style={{
-                      width: "100%", // Gambar lebih besar
-                      maxWidth: "900px", // Batasi ukuran maksimal agar tidak terlalu besar
+                      width: "100%", // Responsif
+                      maxWidth: "400px", // Batasi agar tidak terlalu besar
                       height: "auto",
+                      marginBottom: "20px", // Tambahkan jarak antara gambar dan konten di bawahnya
                     }}
                   />
                 </div>
