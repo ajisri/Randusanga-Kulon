@@ -6,27 +6,44 @@ const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const spaceStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.9)",
+      zIndex: 3,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    orbitContainer: {
+      position: "relative",
+      width: "100%",
+      height: "50%",
+      overflow: "hidden",
+    },
     orbit: {
       position: "absolute",
-      top: "50%",
+      bottom: "0",
       left: "50%",
-      width: "200px",
-      height: "100px",
-      border: "2px dashed white",
+      width: "300px",
+      height: "150px",
+      border: "2px dashed rgba(255, 255, 255, 0.3)",
       borderRadius: "50%",
       borderBottom: "none",
       borderLeft: "none",
       borderRight: "none",
-      transform: "translate(-50%, -50%) rotateX(60deg)",
-      zIndex: 1,
+      transform: "translateX(-50%)",
     },
     planet: {
       position: "absolute",
-      top: "50%",
+      bottom: "0",
       left: "50%",
       width: "20px",
       height: "20px",
-      backgroundColor: "white",
+      backgroundColor: "blue",
       borderRadius: "50%",
       transform: "translate(-50%, -50%)",
       animation: "orbit 5s linear infinite",
@@ -167,10 +184,34 @@ const Hero = () => {
                   height: "auto",
                 }}
               >
-                {/* Area tambahan planet, revolusi lintasan, nuansa luar angkasa */}
-                <div style={spaceStyles.orbit}></div>
-                <div style={spaceStyles.planet}></div>
-                {stars}
+                {/* Overlay Hitam Nuansa Luar Angkasa */}
+                <div style={spaceStyles.overlay}>
+                  <div style={spaceStyles.orbitContainer}>
+                    <div
+                      style={{
+                        ...spaceStyles.orbit,
+                        width: "300px",
+                        height: "150px",
+                      }}
+                    ></div>
+                    <div
+                      style={{
+                        ...spaceStyles.orbit,
+                        width: "250px",
+                        height: "125px",
+                      }}
+                    ></div>
+                    <div
+                      style={{
+                        ...spaceStyles.orbit,
+                        width: "200px",
+                        height: "100px",
+                      }}
+                    ></div>
+                    <div style={{ ...spaceStyles.planet }}></div>
+                    {stars}
+                  </div>
+                </div>
               </Col>
             </Row>
           </>
