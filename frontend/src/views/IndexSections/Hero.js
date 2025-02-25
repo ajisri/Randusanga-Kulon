@@ -68,7 +68,7 @@ const Hero = () => {
   };
 
   // Generate random stars (bintang diam)
-  const staticStars = Array.from({ length: 15 }).map((_, index) => {
+  const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
       top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
@@ -81,12 +81,14 @@ const Hero = () => {
   // Generate falling stars (bintang jatuh)
   const fallingStars = Array.from({ length: 5 }).map((_, index) => {
     const startX = Math.random() * 100; // Posisi awal horizontal acak
-    const duration = `${Math.random() * 5 + 8}s`; // Durasi animasi acak antara 8-13 detik
+    const duration = `${Math.random() * 5 + 18}s`; // Durasi animasi acak antara 18-23 detik
+    const delay = `${index * 8}s`; // Delay animasi (3 detik antara setiap bintang)
     const style = {
       ...spaceStyles.fallingStar,
       top: `0%`, // Mulai dari atas layar
       left: `${startX}%`, // Posisi awal horizontal
       animationDuration: duration, // Durasi animasi acak
+      animationDelay: delay, // Delay animasi
     };
     return <div key={`falling-${index}`} style={style}></div>;
   });
