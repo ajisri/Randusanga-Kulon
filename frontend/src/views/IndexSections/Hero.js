@@ -137,9 +137,6 @@ const Hero = () => {
                       marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px" }}>
-                    {/* Menu */}
-                  </h3>
                 </div>
               </Col>
             </Row>
