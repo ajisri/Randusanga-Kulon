@@ -207,7 +207,7 @@ class TabsSection extends Component {
                       key={index}
                       lg="4"
                       className="mb-3"
-                      style={{ flex: "0 0 auto", minWidth: "150px" }}
+                      style={{ flex: "1", padding: "0" }}
                     >
                       <NavItem>
                         <NavLink

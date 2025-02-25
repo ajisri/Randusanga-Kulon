@@ -534,8 +534,8 @@ const Modals = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 30vw; /* 1/3 layar laptop */
-            width: 40%;
-            max-width: 40%;
+            width: 30%;
+            max-width: 30%;
             z-index: 1;
           }
 
@@ -587,7 +587,7 @@ const Modals = () => {
             flex: 1;
             align-items: center;
             justify-content: center;
-            width: 100% !important;
+            width: 80% !important;
             height: 100%;
             min-height: 70px !important;
             border-radius: 12px;
@@ -629,15 +629,15 @@ const Modals = () => {
           }
 
           .button-icon:hover {
-            transform: scale(1.05);
+            transform: scale(2.05);
             box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.9);
             filter: url('#distortion-filter'); /* SVG filter untuk distorsi */
           }
           
           .img-custom {
             transform: translateY(-3px);
-            width: 80%;
-            max-width: clamp(100px, 15vw, 150px);
+            width: 90%;
+            max-width: clamp(120px, 16vw, 150px);
             height: auto;
             border-radius: inherit;
           }
