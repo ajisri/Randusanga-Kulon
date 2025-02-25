@@ -43,6 +43,17 @@ const Hero = () => {
     },
   };
 
+  // Container khusus untuk bintang
+  const starsContainerStyles = {
+    position: "absolute",
+    top: 0, // Mulai dari atas layar
+    left: 0,
+    width: "100%",
+    height: "50%", // Hanya 50% bagian atas
+    overflow: "hidden",
+    zIndex: 2,
+  };
+
   // Generate random stars hanya di setengah layar bagian atas
   const stars = Array.from({ length: 30 }).map((_, index) => {
     const style = {
@@ -165,11 +176,13 @@ const Hero = () => {
                   backgroundColor: "rgba(0, 0, 0, 0.9)", // Overlay hitam nuansa luar angkasa
                 }}
               >
-                {/* Bintang */}
-                {stars}
+                {/* Container khusus untuk bintang */}
+                <div style={starsContainerStyles}>{stars}</div>
+
                 {/* Planet yang Berputar */}
                 <div style={spaceStyles.planet}></div>
-                {/* Container untuk Orbit dan Bintang */}
+
+                {/* Container untuk Orbit */}
                 <div style={spaceStyles.orbitContainer}>
                   {/* Orbit Lebih Besar */}
                   <div
