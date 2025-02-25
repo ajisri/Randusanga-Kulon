@@ -55,12 +55,12 @@ const Hero = () => {
     height: "50%", // Hanya 50% bagian atas
     overflow: "hidden",
     zIndex: 2,
-    perspective: "1000px",
+    perspective: "700px",
   };
 
   // Generate random stars hanya di setengah layar bagian atas
   const stars = Array.from({ length: 30 }).map((_, index) => {
-    const depth = Math.random() * 1000; // Kedalaman 3D
+    const depth = Math.random() * 700; // Kedalaman 3D
     const duration = `${Math.random() * 3 + 2}s`; // Durasi animasi acak
     const style = {
       ...spaceStyles.star,
