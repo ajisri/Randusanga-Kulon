@@ -43,11 +43,11 @@ const Hero = () => {
     },
   };
 
-  // Generate random stars
+  // Generate random stars hanya di setengah layar bagian atas
   const stars = Array.from({ length: 100 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 100}%`,
+      top: `${Math.random() * 50}%`, // Bintang hanya di setengah layar bagian atas
       left: `${Math.random() * 100}%`,
     };
     return <div key={index} style={style}></div>;
@@ -176,22 +176,28 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "600px",
-                      height: "300px",
+                      width: "1200px", // Ukuran sangat besar
+                      height: "600px", // Ukuran sangat besar
+                      bottom: "0",
+                      transform: "translateX(-50%) rotate(180deg)",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "500px",
-                      height: "250px",
+                      width: "1000px", // Ukuran sangat besar
+                      height: "500px", // Ukuran sangat besar
+                      bottom: "0",
+                      transform: "translateX(-50%) rotate(180deg)",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "400px",
-                      height: "200px",
+                      width: "800px", // Ukuran sangat besar
+                      height: "400px", // Ukuran sangat besar
+                      bottom: "0",
+                      transform: "translateX(-50%) rotate(180deg)",
                     }}
                   ></div>
                   <div style={spaceStyles.planet}></div>
