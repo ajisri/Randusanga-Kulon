@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [fallingStars, setFallingStars] = useState([]);
 
   const spaceStyles = {
     orbitContainer: {
@@ -50,7 +51,7 @@ const Hero = () => {
       backgroundColor: "white",
       borderRadius: "50%",
       boxShadow: "0 0 5px white", // Efek cahaya bintang
-      animation: "fallingStar 8s linear infinite", // Animasi bintang jatuh
+      animation: "fallingStar 10s linear forwards", // Animasi bintang jatuh
       opacity: 0.8,
     },
   };
@@ -78,18 +79,37 @@ const Hero = () => {
     return <div key={`static-${index}`} style={style}></div>;
   });
 
-  // Generate falling stars (bintang jatuh)
-  const fallingStars = Array.from({ length: 5 }).map((_, index) => {
-    const startX = Math.random() * 100; // Posisi awal horizontal acak
-    const duration = `${Math.random() * 5 + 8}s`; // Durasi animasi acak antara 8-13 detik
-    const style = {
-      ...spaceStyles.fallingStar,
-      top: `0%`, // Mulai dari atas layar
-      left: `${startX}%`, // Posisi awal horizontal
-      animationDuration: duration, // Durasi animasi acak
-    };
-    return <div key={`falling-${index}`} style={style}></div>;
-  });
+  // Fungsi untuk menambahkan bintang jatuh secara berurutan
+  useEffect(() => {
+    if (isMenuOpen) {
+      const starPositions = [10, 30, 50, 70, 90]; // Posisi horizontal bintang jatuh
+
+      starPositions.forEach((position, index) => {
+        setTimeout(() => {
+          const star = (
+            <div
+              key={`falling-${index}`}
+              style={{
+                ...spaceStyles.fallingStar,
+                top: `0%`, // Mulai dari atas layar
+                left: `${position}%`, // Posisi horizontal
+              }}
+            ></div>
+          );
+          setFallingStars((prev) => [...prev, star]);
+        }, index * 2000); // Jeda 2 detik antara setiap bintang
+      });
+
+      // Reset bintang jatuh setelah semua animasi selesai
+      const resetTimeout = setTimeout(() => {
+        setFallingStars([]);
+      }, starPositions.length * 2000 + 10000); // Total durasi animasi + 10 detik
+
+      return () => clearTimeout(resetTimeout); // Bersihkan timeout saat komponen unmount
+    } else {
+      setFallingStars([]); // Reset bintang jatuh saat menu ditutup
+    }
+  }, [isMenuOpen, spaceStyles.fallingStar]); // Tambahkan spaceStyles.fallingStar ke dependencies
 
   return (
     <div
