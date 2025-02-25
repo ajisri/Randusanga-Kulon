@@ -9,7 +9,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "75vh", // Nuansa luar angkasa hanya di 75% atas
+      height: "75vh", // Nuansa luar angkasa hingga 75% dari layar
       overflow: "hidden",
     },
     orbit: {
@@ -43,8 +43,8 @@ const Hero = () => {
     },
   };
 
-  // Generate random stars hanya di 75% atas
-  const stars = Array.from({ length: 200 }).map((_, index) => {
+  // Generate random stars
+  const stars = Array.from({ length: 100 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
       top: `${Math.random() * 75}%`, // Bintang hanya di 75% atas
@@ -173,18 +173,25 @@ const Hero = () => {
               >
                 {/* Container untuk orbit dan planet */}
                 <div style={spaceStyles.orbitContainer}>
-                  {/* Lintasan melengkung dari bottom 0 hingga setengah tinggi section */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "100%",
-                      height: "50vh", // Setengah dari tinggi section
-                      borderBottom: "2px dashed rgba(255, 255, 255, 0.3)",
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      bottom: "0",
-                      transform: "translateX(-50%) rotate(180deg)",
+                      width: "3000px",
+                      height: "1500px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "2500px",
+                      height: "1250px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "2000px",
+                      height: "1000px",
                     }}
                   ></div>
                   <div style={spaceStyles.planet}></div>
