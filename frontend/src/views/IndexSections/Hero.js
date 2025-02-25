@@ -81,11 +81,10 @@ const Hero = () => {
   // Generate falling stars (bintang jatuh)
   const fallingStars = Array.from({ length: 5 }).map((_, index) => {
     const startX = Math.random() * 100; // Posisi awal horizontal acak
-    const startY = Math.random() * 50; // Posisi awal vertikal acak (hanya di 50% atas)
     const duration = `${Math.random() * 5 + 8}s`; // Durasi animasi acak antara 8-13 detik
     const style = {
       ...spaceStyles.fallingStar,
-      top: `${startY}%`, // Posisi awal vertikal
+      top: `0%`, // Mulai dari atas layar
       left: `${startX}%`, // Posisi awal horizontal
       animationDuration: duration, // Durasi animasi acak
     };
@@ -124,15 +123,15 @@ const Hero = () => {
         {`
           @keyframes fallingStar {
             0% {
-              transform: translateY(-100%) scale(1); /* Mulai dari atas dengan ukuran normal */
+              top: 0%; /* Mulai dari atas layar */
               opacity: 1;
             }
             50% {
-              transform: translateY(50%) scale(0.5); /* Bergerak ke tengah dengan ukuran mengecil */
-              opacity: 0.5;
+              top: 50%; /* Bergerak ke tengah layar */
+              opacity: 0;
             }
             100% {
-              transform: translateY(100%) scale(0); /* Bergerak ke bawah dengan ukuran menghilang */
+              top: 50%; /* Tetap di tengah layar */
               opacity: 0;
             }
           }
