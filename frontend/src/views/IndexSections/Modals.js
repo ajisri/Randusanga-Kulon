@@ -545,6 +545,10 @@ const Modals = () => {
               transform: translateY(-3px);
           }
 
+          .row-custom .col-custom .custom-button {
+              flex-grow: 0 !important;
+          }
+
           .video-button {
             transform: translateX(-100%);
             animation: slideIn 1s forwards;
