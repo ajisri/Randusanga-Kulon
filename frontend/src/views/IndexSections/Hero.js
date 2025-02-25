@@ -137,9 +137,8 @@ const Hero = () => {
                     src={require("assets/img/theme/selamatdtg.png")}
                     style={{
                       width: "100%", // Gambar lebih besar
-                      maxWidth: "400px", // Batasi ukuran maksimal agar tidak terlalu besar
+                      maxWidth: "900px", // Batasi ukuran maksimal agar tidak terlalu besar
                       height: "auto",
-                      marginTop: "10px",
                     }}
                   />
                 </div>
