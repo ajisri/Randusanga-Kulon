@@ -70,7 +70,7 @@ const Hero = () => {
     width: "100%",
     height: "50%", // Hanya 50% bagian atas
     overflow: "hidden",
-    zIndex: 2,
+    zIndex: 1, // z-index lebih rendah dari konten Tabs
     perspective: "1000px", // Menambahkan efek 3D
   };
 
@@ -157,19 +157,32 @@ const Hero = () => {
             .col-md-4 {
               width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
               padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
+              position: relative;
             }
 
             .tabs-container {
               width: 100%; /* Lebar penuh untuk container Tabs */
               max-width: none; /* Hilangkan batas maksimum lebar */
               padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
+              position: relative;
+              z-index: 2; /* z-index lebih tinggi dari efek bintang */
             }
 
             .close-button {
               position: fixed;
               bottom: 20px;
               right: 20px;
-              z-index: 1000;
+              z-index: 1000; /* z-index lebih tinggi dari efek bintang */
+            }
+
+            .stars-container {
+              display: block; /* Tampilkan efek bintang hanya pada mobile */
+            }
+          }
+
+          @media (min-width: 769px) {
+            .stars-container {
+              display: none; /* Sembunyikan efek bintang pada desktop */
             }
           }
         `}
@@ -209,8 +222,8 @@ const Hero = () => {
                   flex: "1 1 100%", // Flexbox property
                 }}
               >
-                {/* Container khusus untuk bintang (ditambahkan di sini untuk mobile) */}
-                <div style={starsContainerStyles}>
+                {/* Container khusus untuk bintang (hanya ditampilkan pada mobile) */}
+                <div className="stars-container" style={starsContainerStyles}>
                   {staticStars} {/* Bintang diam */}
                   {fallingStars} {/* Bintang jatuh */}
                 </div>
