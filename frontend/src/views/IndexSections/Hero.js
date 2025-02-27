@@ -7,7 +7,7 @@ const Hero = () => {
 
   useEffect(() => {
     const link = document.createElement("link");
-    link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
+    link.href = require("assets/font/soria-font.ttf");
     link.rel = "stylesheet";
     document.head.appendChild(link);
   }, []);
