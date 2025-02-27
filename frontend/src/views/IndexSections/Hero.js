@@ -74,7 +74,7 @@ const Hero = () => {
     perspective: "1000px", // Menambahkan efek 3D
   };
 
-  // Overlay hitam samar
+  // Overlay hitam samar (hanya untuk mobile)
   const overlayStyles = {
     position: "absolute",
     top: 0,
@@ -179,14 +179,14 @@ const Hero = () => {
               max-width: none; /* Hilangkan batas maksimum lebar */
               padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
               position: relative;
-              z-index: 2; /* z-index lebih tinggi dari efek bintang */
+              z-index: 2; /* z-index lebih tinggi dari efek bintang dan overlay */
             }
 
             .close-button {
               position: fixed;
               bottom: 20px;
               right: 20px;
-              z-index: 1000; /* z-index lebih tinggi dari efek bintang */
+              z-index: 1000; /* z-index lebih tinggi dari efek bintang dan overlay */
             }
 
             .stars-container {
@@ -240,7 +240,7 @@ const Hero = () => {
                 }}
               >
                 {/* Overlay hitam samar (hanya pada mobile) */}
-                <div style={overlayStyles}></div>
+                <div className="stars-container" style={overlayStyles}></div>
 
                 {/* Container khusus untuk bintang (hanya pada mobile) */}
                 <div className="stars-container" style={starsContainerStyles}>
