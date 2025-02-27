@@ -16,7 +16,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "50vh", // Setengah layar untuk orbit
+      height: "75%", // Efek bintang mengisi 75% bagian atas
       overflow: "hidden",
     },
     orbit: {
@@ -68,7 +68,7 @@ const Hero = () => {
     top: 0, // Mulai dari atas layar
     left: 0,
     width: "100%",
-    height: "100%", // Menutupi seluruh kolom
+    height: "75%", // Efek bintang mengisi 75% bagian atas
     overflow: "hidden",
     zIndex: 1, // z-index lebih rendah dari konten Tabs
     perspective: "1000px", // Menambahkan efek 3D
@@ -89,7 +89,7 @@ const Hero = () => {
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 100}%`, // Bintang di seluruh area
+      top: `${Math.random() * 75}%`, // Bintang hanya di 75% bagian atas
       left: `${Math.random() * 100}%`,
       transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
     };
@@ -147,11 +147,11 @@ const Hero = () => {
               opacity: 1;
             }
             50% {
-              top: 50%; /* Bergerak ke tengah layar */
+              top: 75%; /* Bergerak ke 75% bagian atas */
               opacity: 0;
             }
             100% {
-              top: 50%; /* Tetap di tengah layar */
+              top: 75%; /* Tetap di 75% bagian atas */
               opacity: 0;
             }
           }
@@ -167,7 +167,7 @@ const Hero = () => {
 
             .col-md-4 {
               width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
-              height: auto; /* Tinggi fleksibel */
+              height: 100vh; /* Mengisi seluruh tinggi layar */
               padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
               position: relative;
               background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
@@ -190,6 +190,7 @@ const Hero = () => {
 
             .stars-container {
               display: block; /* Tampilkan efek bintang hanya pada mobile */
+              height: 75%; /* Efek bintang mengisi 75% bagian atas */
             }
           }
 
@@ -230,7 +231,7 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "auto",
+                  height: "100vh", // Mengisi seluruh tinggi layar
                   position: "relative",
                   zIndex: 2,
                   overflowY: "auto",
