@@ -68,17 +68,28 @@ const Hero = () => {
     top: 0, // Mulai dari atas layar
     left: 0,
     width: "100%",
-    height: "50%", // Hanya 50% bagian atas
+    height: "100%", // Menutupi seluruh kolom
     overflow: "hidden",
     zIndex: 1, // z-index lebih rendah dari konten Tabs
     perspective: "1000px", // Menambahkan efek 3D
+  };
+
+  // Overlay hitam samar
+  const overlayStyles = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Overlay hitam samar
+    zIndex: 1, // z-index lebih rendah dari konten Tabs
   };
 
   // Generate random stars (bintang diam)
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
+      top: `${Math.random() * 100}%`, // Bintang di seluruh area
       left: `${Math.random() * 100}%`,
       transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
     };
@@ -156,8 +167,10 @@ const Hero = () => {
 
             .col-md-4 {
               width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
+              height: auto; /* Tinggi fleksibel */
               padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
               position: relative;
+              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
             }
 
             .tabs-container {
@@ -208,8 +221,6 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  background:
-                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
@@ -222,6 +233,9 @@ const Hero = () => {
                   flex: "1 1 100%", // Flexbox property
                 }}
               >
+                {/* Overlay hitam samar */}
+                <div style={overlayStyles}></div>
+
                 {/* Container khusus untuk bintang (hanya ditampilkan pada mobile) */}
                 <div className="stars-container" style={starsContainerStyles}>
                   {staticStars} {/* Bintang diam */}
@@ -271,78 +285,6 @@ const Hero = () => {
                 >
                   Tutup
                 </Button>
-              </Col>
-
-              {/* Kolom Orbit (hanya ditampilkan pada desktop) */}
-              <Col
-                md={8}
-                style={{
-                  position: "relative",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "auto",
-                  backgroundColor: "rgba(0, 0, 0, 0.9)",
-                  flex: "1 1 100%", // Flexbox property
-                }}
-              >
-                {/* Container khusus untuk bintang */}
-                <div style={starsContainerStyles}>
-                  {staticStars} {/* Bintang diam */}
-                  {fallingStars} {/* Bintang jatuh */}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "Soria, serif",
-                    fontSize: "5vw", // Ubah ke unit relatif
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "200px",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  Randusanga Kulon
-                </div>
-                {/* Planet yang Berputar */}
-                <div style={spaceStyles.planet}></div>
-
-                {/* Container untuk Orbit */}
-                <div style={spaceStyles.orbitContainer}>
-                  {/* Orbit Lebih Besar */}
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "100%",
-                      height: "50%",
-                    }}
-                  ></div>
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "80%",
-                      height: "40%",
-                    }}
-                  ></div>
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "60%",
-                      height: "30%",
-                    }}
-                  ></div>
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "40%",
-                      height: "20%",
-                    }}
-                  ></div>
-                </div>
               </Col>
             </Row>
           </>
