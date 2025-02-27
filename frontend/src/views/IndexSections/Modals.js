@@ -741,6 +741,7 @@ const Modals = () => {
             }
 
             .button-icon {
+            background-color: red;
                 width: 20vw !important;
                 height: 80%;
                 min-height: 60px; /* Lebih kecil untuk layar sempit */
