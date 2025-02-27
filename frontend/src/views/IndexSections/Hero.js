@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
 
   const spaceStyles = {
     orbitContainer: {
@@ -229,7 +236,21 @@ const Hero = () => {
                   {staticStars} {/* Bintang diam */}
                   {fallingStars} {/* Bintang jatuh */}
                 </div>
-
+                <div
+                  style={{
+                    fontFamily: "Soria, serif",
+                    fontSize: "100px", // Sesuaikan ukuran teks
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  Randusanga Kulon
+                </div>
                 {/* Planet yang Berputar */}
                 <div style={spaceStyles.planet}></div>
 
