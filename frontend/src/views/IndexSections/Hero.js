@@ -70,7 +70,7 @@ const Hero = () => {
     width: "100%",
     height: "50%", // Hanya 50% bagian atas
     overflow: "hidden",
-    zIndex: 2,
+    zIndex: 1, // z-index lebih rendah dari konten Tabs
     perspective: "1000px", // Menambahkan efek 3D
   };
 
@@ -150,81 +150,39 @@ const Hero = () => {
               height: auto;
             }
 
-            .orbitContainer {
-              height: 30vh;
-            }
-
-            .starsContainerStyles {
-              height: 30%;
-            }
-
-            .orbit {
-              width: 100% !important;
-              height: 50% !important;
-            }
-
-            .planet {
-              width: 20px;
-              height: 20px;
-            }
-
-            .hero-container h1 {
-              font-size: 2rem;
-            }
-
-            .tabs-container {
-              height: auto;
-              padding: 10px;
+            .col-md-8 {
+              display: none; /* Sembunyikan kolom md8 pada tampilan mobile */
             }
 
             .col-md-4 {
-              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
+              width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
+              padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
+              position: relative;
+            }
+
+            .tabs-container {
+              width: 100%; /* Lebar penuh untuk container Tabs */
+              max-width: none; /* Hilangkan batas maksimum lebar */
+              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
+              position: relative;
+              z-index: 2; /* z-index lebih tinggi dari efek bintang */
             }
 
             .close-button {
               position: fixed;
-              bottom: 10px;
-              right: 10px;
-              z-index: 1000;
+              bottom: 20px;
+              right: 20px;
+              z-index: 1000; /* z-index lebih tinggi dari efek bintang */
+            }
+
+            .stars-container {
+              display: block; /* Tampilkan efek bintang hanya pada mobile */
             }
           }
 
-          @media (max-width: 480px) {
-            .hero-container h1 {
-              font-size: 1.5rem;
-            }
-
-            .orbitContainer {
-              height: 20vh;
-            }
-
-            .starsContainerStyles {
-              height: 20%;
-            }
-
-            .orbit {
-              width: 80% !important;
-              height: 40% !important;
-            }
-
-            .planet {
-              width: 15px;
-              height: 15px;
-            }
-
-            .tabs-container {
-              padding: 5px;
-            }
-
-            .col-md-4 {
-              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
-            }
-
-            .close-button {
-              position: fixed;
-              bottom: 10px;
-              right: 10px;
-              z-index: 1000;
+          @media (min-width: 769px) {
+            .stars-container {
+              display: none; /* Sembunyikan efek bintang pada desktop */
             }
           }
         `}
@@ -264,6 +222,12 @@ const Hero = () => {
                   flex: "1 1 100%", // Flexbox property
                 }}
               >
+                {/* Container khusus untuk bintang (hanya ditampilkan pada mobile) */}
+                <div className="stars-container" style={starsContainerStyles}>
+                  {staticStars} {/* Bintang diam */}
+                  {fallingStars} {/* Bintang jatuh */}
+                </div>
+
                 {/* Logo Kabupaten Brebes */}
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
@@ -282,12 +246,13 @@ const Hero = () => {
 
                 {/* Konten Tabs */}
                 <div
+                  className="tabs-container"
                   style={{
                     width: "100%",
-                    maxWidth: "900px",
-                    height: "auto", // Ubah height ke auto
+                    maxWidth: "1200px", // Lebar container Tabs diperbesar
+                    height: "auto",
                     margin: "0 auto",
-                    overflow: "hidden", // Tambahkan overflow handling
+                    overflow: "hidden",
                   }}
                 >
                   <Tabs />
@@ -308,7 +273,7 @@ const Hero = () => {
                 </Button>
               </Col>
 
-              {/* Kolom Orbit */}
+              {/* Kolom Orbit (hanya ditampilkan pada desktop) */}
               <Col
                 md={8}
                 style={{
