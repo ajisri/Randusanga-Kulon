@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-  }, []);
 
   const spaceStyles = {
     orbitContainer: {
@@ -144,89 +137,6 @@ const Hero = () => {
               opacity: 0;
             }
           }
-
-          @media (max-width: 768px) {
-            .hero-container {
-              height: auto;
-            }
-
-            .orbitContainer {
-              height: 30vh;
-            }
-
-            .starsContainerStyles {
-              height: 30%;
-            }
-
-            .orbit {
-              width: 100% !important;
-              height: 50% !important;
-            }
-
-            .planet {
-              width: 20px;
-              height: 20px;
-            }
-
-            .hero-container h1 {
-              font-size: 2rem;
-            }
-
-            .tabs-container {
-              height: auto;
-              padding: 10px;
-            }
-
-            .col-md-4 {
-              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
-            }
-
-            .close-button {
-              position: fixed;
-              bottom: 10px;
-              right: 10px;
-              z-index: 1000;
-            }
-          }
-
-          @media (max-width: 480px) {
-            .hero-container h1 {
-              font-size: 1.5rem;
-            }
-
-            .orbitContainer {
-              height: 20vh;
-            }
-
-            .starsContainerStyles {
-              height: 20%;
-            }
-
-            .orbit {
-              width: 80% !important;
-              height: 40% !important;
-            }
-
-            .planet {
-              width: 15px;
-              height: 15px;
-            }
-
-            .tabs-container {
-              padding: 5px;
-            }
-
-            .col-md-4 {
-              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
-            }
-
-            .close-button {
-              position: fixed;
-              bottom: 10px;
-              right: 10px;
-              z-index: 1000;
-            }
-          }
         `}
       </style>
 
@@ -238,14 +148,7 @@ const Hero = () => {
           <>
             {/* Baris Pertama */}
             <Row
-              style={{
-                minHeight: "100vh",
-                height: "auto",
-                paddingTop: "0px",
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-              }}
+              style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
             >
               <Col
                 md={4}
@@ -261,7 +164,6 @@ const Hero = () => {
                   position: "relative",
                   zIndex: 2,
                   overflowY: "auto",
-                  flex: "1 1 100%", // Flexbox property
                 }}
               >
                 {/* Logo Kabupaten Brebes */}
@@ -285,9 +187,8 @@ const Hero = () => {
                   style={{
                     width: "100%",
                     maxWidth: "900px",
-                    height: "auto", // Ubah height ke auto
+                    height: "1200px",
                     margin: "0 auto",
-                    overflow: "hidden", // Tambahkan overflow handling
                   }}
                 >
                   <Tabs />
@@ -296,12 +197,13 @@ const Hero = () => {
                 {/* Tombol Tutup */}
                 <Button
                   onClick={() => setIsMenuOpen(false)}
-                  className="close-button"
                   style={{
                     fontSize: "0.8rem",
                     padding: "8px 14px",
                     marginTop: "20px",
                     alignSelf: "flex-end",
+                    position: "absolute",
+                    bottom: "20px",
                   }}
                 >
                   Tutup
@@ -319,8 +221,7 @@ const Hero = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   height: "auto",
-                  backgroundColor: "rgba(0, 0, 0, 0.9)",
-                  flex: "1 1 100%", // Flexbox property
+                  backgroundColor: "rgba(0, 0, 0, 0.9)", // Overlay hitam nuansa luar angkasa
                 }}
               >
                 {/* Container khusus untuk bintang */}
@@ -328,21 +229,7 @@ const Hero = () => {
                   {staticStars} {/* Bintang diam */}
                   {fallingStars} {/* Bintang jatuh */}
                 </div>
-                <div
-                  style={{
-                    fontFamily: "Soria, serif",
-                    fontSize: "5vw", // Ubah ke unit relatif
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "200px",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  Randusanga Kulon
-                </div>
+
                 {/* Planet yang Berputar */}
                 <div style={spaceStyles.planet}></div>
 
@@ -352,29 +239,29 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "100%",
-                      height: "50%",
+                      width: "1400px",
+                      height: "700px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "80%",
-                      height: "40%",
+                      width: "1200px",
+                      height: "600px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "60%",
-                      height: "30%",
+                      width: "1000px",
+                      height: "500px",
                     }}
                   ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "40%",
-                      height: "20%",
+                      width: "800px",
+                      height: "400px",
                     }}
                   ></div>
                 </div>
