@@ -744,10 +744,11 @@ const Modals = () => {
                 width: 20vw !important;
                 height: 80%;
                 min-height: 60px; /* Lebih kecil untuk layar sempit */
+                transform: translateY(-20px);
             }
 
             .button-icon img {
-                max-width: clamp(20px, 6vw, 30px); /* Ikon lebih kecil */
+                max-width: clamp(40px, 69vw, 50px); /* Ikon lebih kecil */
             }
 
             .icon-button-text {
@@ -1187,7 +1188,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-19px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
               }}
             >
               <img
