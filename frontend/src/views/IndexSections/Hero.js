@@ -176,6 +176,17 @@ const Hero = () => {
               height: auto;
               padding: 10px;
             }
+
+            .col-md-4 {
+              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
+            }
+
+            .close-button {
+              position: fixed;
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
+            }
           }
 
           @media (max-width: 480px) {
@@ -203,6 +214,17 @@ const Hero = () => {
 
             .tabs-container {
               padding: 5px;
+            }
+
+            .col-md-4 {
+              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
+            }
+
+            .close-button {
+              position: fixed;
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
             }
           }
         `}
@@ -274,13 +296,12 @@ const Hero = () => {
                 {/* Tombol Tutup */}
                 <Button
                   onClick={() => setIsMenuOpen(false)}
+                  className="close-button"
                   style={{
                     fontSize: "0.8rem",
                     padding: "8px 14px",
                     marginTop: "20px",
                     alignSelf: "flex-end",
-                    position: "absolute",
-                    bottom: "20px",
                   }}
                 >
                   Tutup
