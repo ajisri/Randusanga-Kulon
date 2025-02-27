@@ -162,6 +162,7 @@ const Hero = () => {
             .tabs-container {
               width: 100%; /* Lebar penuh untuk container Tabs */
               max-width: none; /* Hilangkan batas maksimum lebar */
+              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
             }
 
             .close-button {
