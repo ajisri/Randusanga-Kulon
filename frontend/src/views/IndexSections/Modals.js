@@ -1187,7 +1187,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition5.x}px, ${iconPosition5.y}px) translateY(-19px)`,
               }}
             >
               <img
