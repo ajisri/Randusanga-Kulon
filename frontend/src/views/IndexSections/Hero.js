@@ -74,6 +74,17 @@ const Hero = () => {
     perspective: "1000px", // Menambahkan efek 3D
   };
 
+  // Overlay hitam samar
+  const overlayStyles = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.7)", // Overlay hitam samar
+    zIndex: 1, // z-index lebih rendah dari konten Tabs
+  };
+
   // Generate random stars (bintang diam)
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
@@ -159,7 +170,8 @@ const Hero = () => {
               height: 100vh; /* Mengisi seluruh tinggi layar */
               padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
               position: relative;
-              background: transparent; /* Hilangkan overlay hitam */
+              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
+              overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
             }
 
             .tabs-container {
@@ -223,10 +235,13 @@ const Hero = () => {
                   height: "100vh", // Mengisi seluruh tinggi layar
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "auto",
+                  overflowY: "auto", // Memungkinkan scrolling jika konten melebihi tinggi layar
                   flex: "1 1 100%", // Flexbox property
                 }}
               >
+                {/* Overlay hitam samar (hanya pada mobile) */}
+                <div style={overlayStyles}></div>
+
                 {/* Container khusus untuk bintang (hanya pada mobile) */}
                 <div className="stars-container" style={starsContainerStyles}>
                   {staticStars} {/* Bintang diam */}
