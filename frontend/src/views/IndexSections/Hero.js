@@ -16,7 +16,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "75%", // Efek bintang mengisi 75% bagian atas
+      height: "50vh", // Setengah layar untuk orbit
       overflow: "hidden",
     },
     orbit: {
@@ -68,28 +68,17 @@ const Hero = () => {
     top: 0, // Mulai dari atas layar
     left: 0,
     width: "100%",
-    height: "75%", // Efek bintang mengisi 75% bagian atas
+    height: "50%", // Hanya 50% bagian atas
     overflow: "hidden",
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
+    zIndex: 2,
     perspective: "1000px", // Menambahkan efek 3D
-  };
-
-  // Overlay hitam samar (hanya untuk mobile)
-  const overlayStyles = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.7)", // Overlay hitam samar
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
   };
 
   // Generate random stars (bintang diam)
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 75}%`, // Bintang hanya di 75% bagian atas
+      top: `${Math.random() * 50}%`, // Bintang hanya berada di setengah layar atas
       left: `${Math.random() * 100}%`,
       transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
     };
@@ -147,11 +136,11 @@ const Hero = () => {
               opacity: 1;
             }
             50% {
-              top: 75%; /* Bergerak ke 75% bagian atas */
+              top: 50%; /* Bergerak ke tengah layar */
               opacity: 0;
             }
             100% {
-              top: 75%; /* Tetap di 75% bagian atas */
+              top: 50%; /* Tetap di tengah layar */
               opacity: 0;
             }
           }
@@ -161,47 +150,81 @@ const Hero = () => {
               height: auto;
             }
 
-            .col-md-8 {
-              display: none; /* Sembunyikan kolom md8 pada tampilan mobile */
+            .orbitContainer {
+              height: 30vh;
             }
 
-            .col-md-4 {
-              width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
-              height: 100vh; /* Mengisi seluruh tinggi layar */
-              padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
-              position: relative;
-              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
-              overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
+            .starsContainerStyles {
+              height: 30%;
+            }
+
+            .orbit {
+              width: 100% !important;
+              height: 50% !important;
+            }
+
+            .planet {
+              width: 20px;
+              height: 20px;
+            }
+
+            .hero-container h1 {
+              font-size: 2rem;
             }
 
             .tabs-container {
-              width: 100%; /* Lebar penuh untuk container Tabs */
-              max-width: none; /* Hilangkan batas maksimum lebar */
-              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
-              position: relative;
-              z-index: 2; /* z-index lebih tinggi dari efek bintang dan overlay */
+              height: auto;
+              padding: 10px;
+            }
+
+            .col-md-4 {
+              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
             }
 
             .close-button {
               position: fixed;
-              bottom: 20px;
-              right: 20px;
-              z-index: 1000; /* z-index lebih tinggi dari efek bintang dan overlay */
-            }
-
-            .stars-container {
-              display: block; /* Tampilkan efek bintang hanya pada mobile */
-              height: 75%; /* Efek bintang mengisi 75% bagian atas */
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
             }
           }
 
-          @media (min-width: 769px) {
-            .col-md-4 {
-              background: none; /* Hilangkan overlay hitam pada desktop */
+          @media (max-width: 480px) {
+            .hero-container h1 {
+              font-size: 1.5rem;
             }
 
-            .stars-container {
-              display: none; /* Sembunyikan efek bintang pada kolom md4 di desktop */
+            .orbitContainer {
+              height: 20vh;
+            }
+
+            .starsContainerStyles {
+              height: 20%;
+            }
+
+            .orbit {
+              width: 80% !important;
+              height: 40% !important;
+            }
+
+            .planet {
+              width: 15px;
+              height: 15px;
+            }
+
+            .tabs-container {
+              padding: 5px;
+            }
+
+            .col-md-4 {
+              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
+            }
+
+            .close-button {
+              position: fixed;
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
             }
           }
         `}
@@ -227,27 +250,20 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
+                  background:
+                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
                   padding: "20px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "100vh", // Mengisi seluruh tinggi layar
+                  height: "auto",
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "auto", // Memungkinkan scrolling jika konten melebihi tinggi layar
+                  overflowY: "auto",
                   flex: "1 1 100%", // Flexbox property
                 }}
               >
-                {/* Overlay hitam samar (hanya pada mobile) */}
-                <div className="stars-container" style={overlayStyles}></div>
-
-                {/* Container khusus untuk bintang (hanya pada mobile) */}
-                <div className="stars-container" style={starsContainerStyles}>
-                  {staticStars} {/* Bintang diam */}
-                  {fallingStars} {/* Bintang jatuh */}
-                </div>
-
                 {/* Logo Kabupaten Brebes */}
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
@@ -266,13 +282,12 @@ const Hero = () => {
 
                 {/* Konten Tabs */}
                 <div
-                  className="tabs-container"
                   style={{
                     width: "100%",
-                    maxWidth: "1200px", // Lebar container Tabs diperbesar
-                    height: "auto",
+                    maxWidth: "900px",
+                    height: "auto", // Ubah height ke auto
                     margin: "0 auto",
-                    overflow: "hidden",
+                    overflow: "hidden", // Tambahkan overflow handling
                   }}
                 >
                   <Tabs />
@@ -293,7 +308,7 @@ const Hero = () => {
                 </Button>
               </Col>
 
-              {/* Kolom Orbit (hanya ditampilkan pada desktop) */}
+              {/* Kolom Orbit */}
               <Col
                 md={8}
                 style={{
