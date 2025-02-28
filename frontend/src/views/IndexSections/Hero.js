@@ -157,45 +157,43 @@ const Hero = () => {
           }
 
           @media (max-width: 768px) {
-          .hero-container {
-            height: auto;
-          }
+            .hero-container {
+              height: auto;
+            }
 
-          .col-md-8 {
-            display: none; /* Sembunyikan kolom md8 pada tampilan mobile */
-          }
+            .col-md-8 {
+              display: none; /* Sembunyikan kolom md8 pada tampilan mobile */
+            }
 
-          .col-md-4 {
-            width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
-            height: 100vh; /* Mengisi seluruh tinggi layar */
-            padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
-            position: relative;
-            background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
-            overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
-          }
+            .col-md-4 {
+              width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
+              height: 100vh; /* Mengisi seluruh tinggi layar */
+              padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
+              position: relative;
+              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
+              overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
+            }
 
-          .tabs-container {
-            width: 100%; /* Lebar penuh untuk container Tabs */
-            max-width: none; /* Hilangkan batas maksimum lebar */
-            padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
-            position: relative;
-            z-index: 2; /* z-index lebih tinggi dari efek bintang dan overlay */
-            height: auto; /* Pastikan tinggi menyesuaikan konten */
-            overflow-y: auto; /* Izinkan scrolling */
-          }
+            .tabs-container {
+              width: 100%; /* Lebar penuh untuk container Tabs */
+              max-width: none; /* Hilangkan batas maksimum lebar */
+              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
+              position: relative;
+              z-index: 2; /* z-index lebih tinggi dari efek bintang dan overlay */
+            }
 
-          .close-button {
-            position: fixed;
-            top: 20px; /* Pindahkan ke bagian atas */
-            right: 20px;
-            z-index: 1000; /* z-index lebih tinggi dari efek bintang dan overlay */
-          }
+            .close-button {
+              position: fixed;
+              bottom: 20px;
+              right: 20px;
+              z-index: 1000; /* z-index lebih tinggi dari efek bintang dan overlay */
+            }
 
-          .stars-container {
-            display: block; /* Tampilkan efek bintang hanya pada mobile */
-            height: 75%; /* Efek bintang mengisi 75% bagian atas */
+            .stars-container {
+              display: block; /* Tampilkan efek bintang hanya pada mobile */
+              height: 75%; /* Efek bintang mengisi 75% bagian atas */
+            }
           }
-        }
 
           @media (min-width: 769px) {
             .col-md-4 {
@@ -230,15 +228,15 @@ const Hero = () => {
                 md={4}
                 style={{
                   padding: "20px",
-                  paddingBottom: "80px", // Tambahkan padding bottom untuk ruang tombol tutup
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "100vh",
+                  height: "100vh", // Mengisi seluruh tinggi layar
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "auto",
+                  overflowY: "auto", // Memungkinkan scrolling jika konten melebihi tinggi layar
+                  flex: "1 1 100%", // Flexbox property
                 }}
               >
                 {/* Overlay hitam samar (hanya pada mobile) */}
@@ -271,13 +269,10 @@ const Hero = () => {
                   className="tabs-container"
                   style={{
                     width: "100%",
-                    maxWidth: "1200px",
-                    height: "auto", // Pastikan tinggi menyesuaikan konten
+                    maxWidth: "1200px", // Lebar container Tabs diperbesar
+                    height: "auto",
                     margin: "0 auto",
-                    overflowY: "auto", // Izinkan scrolling jika konten melebihi tinggi
-                    display: "flex",
-                    flexDirection: "column",
-                    flexWrap: "wrap", // Izinkan button untuk pindah ke baris baru
+                    overflow: "hidden",
                   }}
                 >
                   <Tabs />
@@ -288,12 +283,10 @@ const Hero = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className="close-button"
                   style={{
-                    position: "fixed",
-                    top: "20px", // Pindahkan ke bagian atas
-                    right: "20px",
-                    zIndex: 1000,
                     fontSize: "0.8rem",
                     padding: "8px 14px",
+                    marginTop: "20px",
+                    alignSelf: "flex-end",
                   }}
                 >
                   Tutup
