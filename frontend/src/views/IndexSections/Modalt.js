@@ -46,14 +46,14 @@ const Modalt = () => {
   }, [allapbdData]);
 
   // Debugging: log struktur data
-  useEffect(() => {
-    if (allapbdData) {
-      console.log(
-        "Struktur data dari API:",
-        JSON.stringify(allapbdData, null, 2)
-      );
-    }
-  }, [allapbdData]);
+  // useEffect(() => {
+  //   if (allapbdData) {
+  //     console.log(
+  //       "Struktur data dari API:",
+  //       JSON.stringify(allapbdData, null, 2)
+  //     );
+  //   }
+  // }, [allapbdData]);
 
   //ankor
   const { data: allankorData } = useSWR(
@@ -69,14 +69,14 @@ const Modalt = () => {
   }, [allankorData]);
 
   // Debugging: log struktur data
-  useEffect(() => {
-    if (allankorData) {
-      console.log(
-        "Struktur data dari API:",
-        JSON.stringify(allankorData, null, 2)
-      );
-    }
-  }, [allankorData]);
+  // useEffect(() => {
+  //   if (allankorData) {
+  //     console.log(
+  //       "Struktur data dari API:",
+  //       JSON.stringify(allankorData, null, 2)
+  //     );
+  //   }
+  // }, [allankorData]);
 
   const showDialog = () => {
     setDialogVisible(true);
