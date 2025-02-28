@@ -213,6 +213,7 @@ const Hero = () => {
             }
 
             .tabs-container {
+              height: auto;
               padding: 5px;
             }
 
