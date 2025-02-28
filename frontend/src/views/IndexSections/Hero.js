@@ -68,7 +68,7 @@ const Hero = () => {
     top: 0, // Mulai dari atas layar
     left: 0,
     width: "100%",
-    height: "50%", // Hanya 50% bagian atas
+    height: "70%", // Hanya 50% bagian atas
     overflow: "hidden",
     zIndex: 2,
     perspective: "1000px", // Menambahkan efek 3D
@@ -174,16 +174,25 @@ const Hero = () => {
 
             .tabs-container {
               height: auto;
-              padding: 10px;
+              width: 100%; /* Lebar penuh untuk container Tabs */
+              max-width: none; /* Hilangkan batas maksimum lebar */
+              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
+              position: relative;
+              z-index: 2;
             }
 
             .col-md-4 {
-              padding-bottom: 60px; /* Memberikan ruang untuk tombol tutup */
+              width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
+              height: 100vh; /* Mengisi seluruh tinggi layar */
+              padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
+              position: relative;
+              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
+              overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
             }
 
             .close-button {
               position: fixed;
-              bottom: 10px;
+              bottom: 20px;
               right: 10px;
               z-index: 1000;
             }
@@ -213,7 +222,7 @@ const Hero = () => {
             }
 
             .tabs-container {
-              padding: 5px;
+              padding: 0 5px;
             }
 
             .col-md-4 {
