@@ -74,17 +74,6 @@ const Hero = () => {
     perspective: "1000px", // Menambahkan efek 3D
   };
 
-  // Overlay hitam samar (hanya untuk mobile)
-  const overlayStyles = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.7)", // Overlay hitam samar
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
-  };
-
   // Generate random stars (bintang diam)
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
@@ -161,47 +150,15 @@ const Hero = () => {
               height: auto;
             }
 
-            .col-md-8 {
-              display: none; /* Sembunyikan kolom md8 pada tampilan mobile */
-            }
-
             .col-md-4 {
-              width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
-              height: 100vh; /* Mengisi seluruh tinggi layar */
               padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
-              position: relative;
-              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
-              overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
-            }
-
-            .tabs-container {
-              width: 100%; /* Lebar penuh untuk container Tabs */
-              max-width: none; /* Hilangkan batas maksimum lebar */
-              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
-              position: relative;
-              z-index: 2; /* z-index lebih tinggi dari efek bintang dan overlay */
             }
 
             .close-button {
               position: fixed;
-              bottom: 20px;
-              right: 20px;
-              z-index: 1000; /* z-index lebih tinggi dari efek bintang dan overlay */
-            }
-
-            .stars-container {
-              display: block; /* Tampilkan efek bintang hanya pada mobile */
-              height: 75%; /* Efek bintang mengisi 75% bagian atas */
-            }
-          }
-
-          @media (min-width: 769px) {
-            .col-md-4 {
-              background: none; /* Hilangkan overlay hitam pada desktop */
-            }
-
-            .stars-container {
-              display: none; /* Sembunyikan efek bintang pada kolom md4 di desktop */
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
             }
           }
         `}
@@ -227,27 +184,18 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px",
+                  padding: "20px 20px 80px 20px", // Tambahkan padding-bottom untuk tombol tutup
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "100vh", // Mengisi seluruh tinggi layar
+                  height: "auto", // Tinggi menyesuaikan konten
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "auto", // Memungkinkan scrolling jika konten melebihi tinggi layar
-                  flex: "1 1 100%", // Flexbox property
+                  overflowY: "hidden", // Nonaktifkan scroll
+                  flex: "1 1 100%",
                 }}
               >
-                {/* Overlay hitam samar (hanya pada mobile) */}
-                <div className="stars-container" style={overlayStyles}></div>
-
-                {/* Container khusus untuk bintang (hanya pada mobile) */}
-                <div className="stars-container" style={starsContainerStyles}>
-                  {staticStars} {/* Bintang diam */}
-                  {fallingStars} {/* Bintang jatuh */}
-                </div>
-
                 {/* Logo Kabupaten Brebes */}
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
@@ -266,13 +214,12 @@ const Hero = () => {
 
                 {/* Konten Tabs */}
                 <div
-                  className="tabs-container"
                   style={{
                     width: "100%",
-                    maxWidth: "1200px", // Lebar container Tabs diperbesar
-                    height: "auto",
+                    maxWidth: "1200px",
+                    height: "auto", // Tinggi menyesuaikan konten
                     margin: "0 auto",
-                    overflow: "hidden",
+                    overflow: "hidden", // Nonaktifkan scroll
                   }}
                 >
                   <Tabs />
@@ -287,13 +234,17 @@ const Hero = () => {
                     padding: "8px 14px",
                     marginTop: "20px",
                     alignSelf: "flex-end",
+                    position: "fixed", // Posisi tetap di bagian bawah
+                    bottom: "20px", // Jarak dari bawah
+                    right: "20px", // Jarak dari kanan
+                    zIndex: 1000, // Pastikan tombol di atas elemen lain
                   }}
                 >
                   Tutup
                 </Button>
               </Col>
 
-              {/* Kolom Orbit (hanya ditampilkan pada desktop) */}
+              {/* Kolom Orbit */}
               <Col
                 md={8}
                 style={{
@@ -305,7 +256,7 @@ const Hero = () => {
                   alignItems: "center",
                   height: "auto",
                   backgroundColor: "rgba(0, 0, 0, 0.9)",
-                  flex: "1 1 100%", // Flexbox property
+                  flex: "1 1 100%",
                 }}
               >
                 {/* Container khusus untuk bintang */}
