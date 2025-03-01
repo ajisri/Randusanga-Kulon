@@ -43,7 +43,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "70%", // Efek bintang mengisi 75% bagian atas
+      height: "65%", // Efek bintang mengisi 75% bagian atas
       overflow: "visible",
     },
     orbit: {
@@ -97,7 +97,7 @@ const Hero = () => {
     top: 0, // Mulai dari atas layar
     left: 0,
     width: "100%",
-    height: "75%", // Efek bintang mengisi 75% bagian atas
+    height: "69%", // Efek bintang mengisi 75% bagian atas
     overflow: "hidden",
     zIndex: 1, // z-index lebih rendah dari konten Tabs
     perspective: "1000px", // Menambahkan efek 3D
@@ -107,7 +107,7 @@ const Hero = () => {
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 75}%`, // Bintang hanya di 75% bagian atas
+      top: `${Math.random() * 69}%`, // Bintang hanya di 75% bagian atas
       left: `${Math.random() * 100}%`,
       transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
     };
@@ -166,11 +166,11 @@ const Hero = () => {
               opacity: 1;
             }
             50% {
-              top: 75%; /* Bergerak ke 75% bagian atas */
+              top: 69%; /* Bergerak ke 75% bagian atas */
               opacity: 0;
             }
             100% {
-              top: 75%; /* Tetap di 75% bagian atas */
+              top: 69%; /* Tetap di 75% bagian atas */
               opacity: 0;
             }
           }
@@ -195,7 +195,7 @@ const Hero = () => {
               max-width: 90vw; /* Lebar tombol lebih kecil */
               height: auto; /* Tinggi menyesuaikan konten */
               margin-bottom: 5px; /* Jarak antar tombol lebih kecil */
-              padding: 8px; /* Padding lebih kecil */
+              padding: 2px; /* Padding lebih kecil */
             }
 
             .button-icon {

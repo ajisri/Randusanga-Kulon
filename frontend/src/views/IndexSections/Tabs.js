@@ -105,10 +105,11 @@ class TabsSection extends Component {
               overflow: hidden;
               display: inline-block;
               width: 100%;
-              padding: 8px 15px;
+              padding: 6px 10px;
               font-size: 0.9rem;
               text-align: center;
-              margin-left: 10px;
+              margin-left: 5px !important; /* Hilangkan margin kiri */
+              margin-right: 5px !important; /* Hilangkan margin kanan */
               border-radius: 12px;
               color: rgb(84, 83, 83) !important;
               background: linear-gradient(135deg, #2c2c54, #40407a);
