@@ -43,7 +43,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "65%", // Efek bintang mengisi 75% bagian atas
+      height: "200vh", // Efek bintang mengisi 75% bagian atas
       overflow: "visible",
     },
     orbit: {
@@ -287,25 +287,25 @@ const Hero = () => {
                 </div>
 
                 {/* Tombol Tutup */}
-                {isMenuOpen &&
-                  isInHeroSection && ( // Tombol tutup hanya muncul jika menu dibuka dan berada di section Hero
-                    <Button
-                      onClick={() => setIsMenuOpen(false)}
-                      className="close-button"
-                      style={{
-                        fontSize: "0.8rem",
-                        padding: "8px 14px",
-                        marginTop: "20px",
-                        alignSelf: "flex-end",
-                        position: "fixed", // Posisi tetap di bagian bawah
-                        bottom: "20px", // Jarak dari bawah
-                        right: "20px", // Jarak dari kanan
-                        zIndex: 1000, // Pastikan tombol di atas elemen lain
-                      }}
-                    >
-                      Tutup
-                    </Button>
-                  )}
+                {isMenuOpen && isInHeroSection && (
+                  <Button
+                    onClick={() => setIsMenuOpen(false)}
+                    className="close-button"
+                    style={{
+                      fontSize: "0.8rem",
+                      padding: "8px 14px",
+                      position: "fixed",
+                      bottom: "20px",
+                      right: "20px",
+                      zIndex: 1000,
+                      transition: "opacity 0.3s ease-in-out", // Efek transisi untuk muncul/menghilang
+                      opacity: isInHeroSection ? 1 : 0, // Sembunyikan jika tidak di section Hero
+                      pointerEvents: isInHeroSection ? "auto" : "none", // Cegah klik saat tersembunyi
+                    }}
+                  >
+                    Tutup
+                  </Button>
+                )}
               </Col>
 
               {/* Kolom Orbit */}
@@ -348,7 +348,13 @@ const Hero = () => {
 
                 {/* Container untuk Orbit */}
                 <div style={spaceStyles.orbitContainer}>
-                  {/* Orbit Lebih Besar */}
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "120%",
+                      height: "60%",
+                    }}
+                  ></div>
                   <div
                     style={{
                       ...spaceStyles.orbit,
@@ -368,13 +374,6 @@ const Hero = () => {
                       ...spaceStyles.orbit,
                       width: "60%",
                       height: "30%",
-                    }}
-                  ></div>
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "40%",
-                      height: "20%",
                     }}
                   ></div>
                 </div>
