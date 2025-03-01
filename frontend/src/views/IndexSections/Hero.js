@@ -43,7 +43,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "200vh", // Efek bintang mengisi 75% bagian atas
+      height: "67%", // Efek bintang mengisi 75% bagian atas
       overflow: "visible",
     },
     orbit: {
@@ -180,8 +180,9 @@ const Hero = () => {
               height: auto;
             }
 
-            .col-md-4 {
-              padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
+            .row {
+              margin: 0 !important;
+              padding: 0 !important;
             }
 
             .tabs-container {
