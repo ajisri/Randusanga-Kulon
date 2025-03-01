@@ -181,8 +181,8 @@ const Hero = () => {
             }
 
             .row {
-              margin: 0 !important;
-              padding: 0 !important;
+              margin: 5px !important;
+              padding: 5px !important;
             }
 
             .tabs-container {
