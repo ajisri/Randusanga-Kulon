@@ -23,25 +23,16 @@ const Hero = () => {
 
         setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
       }
+
+      // Menghilangkan tombol setelah scroll lebih dari 100px
+      if (window.scrollY > 100) {
+        setIsMenuOpen(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Logika menghilangkan tombol setelah scroll pertama
-  useEffect(() => {
-    const handleFirstScroll = () => {
-      setIsMenuOpen(false);
-      window.removeEventListener("scroll", handleFirstScroll);
-    };
-
-    if (isMenuOpen) {
-      window.addEventListener("scroll", handleFirstScroll);
-    }
-
-    return () => window.removeEventListener("scroll", handleFirstScroll);
-  }, [isMenuOpen]);
 
   const spaceStyles = {
     orbitContainer: {
@@ -298,7 +289,7 @@ const Hero = () => {
                       fontSize: "0.8rem",
                       padding: "8px 14px",
                       position: "fixed",
-                      bottom: "20px",
+                      bottom: "30px",
                       right: "20px",
                       zIndex: 1000,
                       transition: "opacity 0.3s ease-in-out", // Efek transisi untuk muncul/menghilang
