@@ -16,8 +16,8 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "75%", // Efek bintang mengisi 75% bagian atas
-      overflow: "hidden",
+      height: "70%", // Efek bintang mengisi 75% bagian atas
+      overflow: "visible",
     },
     orbit: {
       position: "absolute",
@@ -29,6 +29,8 @@ const Hero = () => {
       borderLeft: "none",
       borderRight: "none",
       transform: "translateX(-50%) rotate(180deg)", // Membalik orbit ke atas
+      width: "100%",
+      height: "100%",
     },
     planet: {
       position: "absolute",
@@ -154,11 +156,42 @@ const Hero = () => {
               padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
             }
 
+            .tabs-container {
+              width: 100%;
+              padding: 0 10px; /* Padding lebih kecil untuk mobile */
+              margin: 0 auto;
+              overflow-y: auto; /* Aktifkan scroll jika diperlukan */
+            }
+
+            .custom-button {
+              max-width: 90vw; /* Lebar tombol lebih kecil */
+              height: auto; /* Tinggi menyesuaikan konten */
+              margin-bottom: 5px; /* Jarak antar tombol lebih kecil */
+              padding: 8px; /* Padding lebih kecil */
+            }
+
+            .button-icon {
+              min-height: 40px; /* Tinggi ikon lebih kecil */
+            }
+
+            .icon-button-text {
+              font-size: 12px; /* Ukuran teks lebih kecil */
+            }
+
             .close-button {
               position: fixed;
               bottom: 10px;
               right: 10px;
               z-index: 1000;
+            }
+
+            .orbitContainer {
+              height: 50vh; /* Tinggi orbit lebih kecil pada mobile */
+            }
+
+            .orbit {
+              width: 80% !important; /* Lebar orbit lebih kecil pada mobile */
+              height: 80% !important; /* Tinggi orbit lebih kecil pada mobile */
             }
           }
         `}
