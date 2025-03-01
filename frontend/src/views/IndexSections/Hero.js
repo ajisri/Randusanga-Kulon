@@ -21,23 +21,27 @@ const Hero = () => {
         const heroSection = heroRef.current;
         const rect = heroSection.getBoundingClientRect();
 
-        // Cek apakah pengguna berada di dalam section Hero
-        if (rect.top <= 0 && rect.bottom >= 0) {
-          setIsInHeroSection(true);
-        } else {
-          setIsInHeroSection(false);
-        }
+        setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
       }
     };
 
-    // Tambahkan event listener untuk scroll
     window.addEventListener("scroll", handleScroll);
-
-    // Bersihkan event listener saat komponen di-unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Logika menghilangkan tombol setelah scroll pertama
+  useEffect(() => {
+    const handleFirstScroll = () => {
+      setIsMenuOpen(false);
+      window.removeEventListener("scroll", handleFirstScroll);
+    };
+
+    if (isMenuOpen) {
+      window.addEventListener("scroll", handleFirstScroll);
+    }
+
+    return () => window.removeEventListener("scroll", handleFirstScroll);
+  }, [isMenuOpen]);
 
   const spaceStyles = {
     orbitContainer: {
