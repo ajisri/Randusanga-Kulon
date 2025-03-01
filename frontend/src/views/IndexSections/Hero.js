@@ -187,6 +187,8 @@ const Hero = () => {
             .tabs-container {
               width: 100%;
               padding: 0 10px; /* Padding lebih kecil untuk mobile */
+              margin-left: 0px !important; /* Hilangkan margin kiri */
+              margin-right: 0px !important; /* Hilangkan margin kanan */
               margin: 0 auto;
               overflow-y: auto; /* Aktifkan scroll jika diperlukan */
             }
@@ -275,6 +277,7 @@ const Hero = () => {
 
                 {/* Konten Tabs */}
                 <div
+                  className="tabs-container"
                   style={{
                     width: "100%",
                     maxWidth: "1200px",
