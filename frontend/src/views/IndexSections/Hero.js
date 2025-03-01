@@ -184,11 +184,6 @@ const Hero = () => {
               height: auto;
             }
 
-            .row {
-              margin: 25px !important;
-              padding: 25px !important;
-            }
-
             .tabs-container {
               width: 100%;
               padding: 0 10px; /* Padding lebih kecil untuk mobile */
