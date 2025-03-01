@@ -1,15 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(false); // State untuk mengecek apakah pengguna berada di section Hero
+  const heroRef = useRef(null); // Ref untuk section Hero
 
   useEffect(() => {
     const link = document.createElement("link");
     link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
     link.rel = "stylesheet";
     document.head.appendChild(link);
+  }, []);
+
+  // Fungsi untuk mendeteksi posisi scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroSection = heroRef.current;
+        const rect = heroSection.getBoundingClientRect();
+
+        // Cek apakah pengguna berada di dalam section Hero
+        if (rect.top <= 0 && rect.bottom >= 0) {
+          setIsInHeroSection(true);
+        } else {
+          setIsInHeroSection(false);
+        }
+      }
+    };
+
+    // Tambahkan event listener untuk scroll
+    window.addEventListener("scroll", handleScroll);
+
+    // Bersihkan event listener saat komponen di-unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const spaceStyles = {
@@ -104,6 +131,7 @@ const Hero = () => {
 
   return (
     <div
+      ref={heroRef} // Ref untuk section Hero
       className="hero-container"
       style={{
         position: "relative",
@@ -259,22 +287,25 @@ const Hero = () => {
                 </div>
 
                 {/* Tombol Tutup */}
-                <Button
-                  onClick={() => setIsMenuOpen(false)}
-                  className="close-button"
-                  style={{
-                    fontSize: "0.8rem",
-                    padding: "8px 14px",
-                    marginTop: "20px",
-                    alignSelf: "flex-end",
-                    position: "fixed", // Posisi tetap di bagian bawah
-                    bottom: "20px", // Jarak dari bawah
-                    right: "20px", // Jarak dari kanan
-                    zIndex: 1000, // Pastikan tombol di atas elemen lain
-                  }}
-                >
-                  Tutup
-                </Button>
+                {isMenuOpen &&
+                  isInHeroSection && ( // Tombol tutup hanya muncul jika menu dibuka dan berada di section Hero
+                    <Button
+                      onClick={() => setIsMenuOpen(false)}
+                      className="close-button"
+                      style={{
+                        fontSize: "0.8rem",
+                        padding: "8px 14px",
+                        marginTop: "20px",
+                        alignSelf: "flex-end",
+                        position: "fixed", // Posisi tetap di bagian bawah
+                        bottom: "20px", // Jarak dari bawah
+                        right: "20px", // Jarak dari kanan
+                        zIndex: 1000, // Pastikan tombol di atas elemen lain
+                      }}
+                    >
+                      Tutup
+                    </Button>
+                  )}
               </Col>
 
               {/* Kolom Orbit */}
