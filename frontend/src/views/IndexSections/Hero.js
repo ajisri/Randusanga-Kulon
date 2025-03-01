@@ -16,8 +16,8 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "75%", // Efek bintang mengisi 75% bagian atas
-      overflow: "hidden",
+      height: "70%", // Efek bintang mengisi 70% bagian atas
+      overflow: "visible", // Ubah dari hidden ke visible
     },
     orbit: {
       position: "absolute",
@@ -29,6 +29,8 @@ const Hero = () => {
       borderLeft: "none",
       borderRight: "none",
       transform: "translateX(-50%) rotate(180deg)", // Membalik orbit ke atas
+      width: "100%", // Pastikan orbit tidak melebihi container
+      height: "100%", // Pastikan orbit tidak melebihi container
     },
     planet: {
       position: "absolute",
@@ -68,9 +70,9 @@ const Hero = () => {
     top: 0, // Mulai dari atas layar
     left: 0,
     width: "100%",
-    height: "75%", // Efek bintang mengisi 75% bagian atas
+    height: "70%", // Efek bintang mengisi 70% bagian atas
     overflow: "hidden",
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
+    zIndex: 2, // Pastikan z-index lebih tinggi dari video background
     perspective: "1000px", // Menambahkan efek 3D
   };
 
@@ -78,7 +80,7 @@ const Hero = () => {
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 75}%`, // Bintang hanya di 75% bagian atas
+      top: `${Math.random() * 72}%`, // Bintang hanya di 72% bagian atas
       left: `${Math.random() * 100}%`,
       transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
     };
@@ -119,7 +121,7 @@ const Hero = () => {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          zIndex: 1,
+          zIndex: 1, // Pastikan z-index lebih rendah dari orbit
         }}
         autoPlay
         loop
@@ -136,11 +138,11 @@ const Hero = () => {
               opacity: 1;
             }
             50% {
-              top: 75%; /* Bergerak ke 75% bagian atas */
+              top: 72%; /* Bergerak ke 72% bagian atas */
               opacity: 0;
             }
             100% {
-              top: 75%; /* Tetap di 75% bagian atas */
+              top: 72%; /* Tetap di 72% bagian atas */
               opacity: 0;
             }
           }
