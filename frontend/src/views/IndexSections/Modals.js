@@ -533,7 +533,7 @@ const Modals = () => {
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 33vw; /* 1/3 layar laptop */
+            max-width: 33vw !important; /* 1/3 layar laptop */
             z-index: 1;
           }
 
