@@ -230,24 +230,21 @@ const Hero = () => {
                 minHeight: "100vh",
                 height: "auto",
                 paddingTop: "0px",
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
               }}
             >
               <Col
-                md={3}
+                md={4}
                 style={{
-                  padding: "20px 20px 80px 20px", // Tambahkan padding-bottom untuk tombol tutup
+                  background:
+                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
+                  padding: "20px",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   alignItems: "center",
-                  height: "auto", // Tinggi menyesuaikan konten
+                  minHeight: "100%",
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "hidden", // Nonaktifkan scroll
-                  flex: "1 1 100%",
                 }}
               >
                 {/* Logo Kabupaten Brebes */}
@@ -270,8 +267,6 @@ const Hero = () => {
                 <div
                   className="tabs-container"
                   style={{
-                    width: "100%",
-                    maxWidth: "1200px",
                     height: "auto", // Tinggi menyesuaikan konten
                     margin: "0 auto",
                     overflow: "hidden", // Nonaktifkan scroll
