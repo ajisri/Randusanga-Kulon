@@ -177,11 +177,9 @@ const Hero = () => {
 
             .tabs-container {
               width: 100%;
-              padding: 0 8px; /* Padding lebih kecil untuk mobile */
-              margin-left: 0px !important; /* Hilangkan margin kiri */
-              margin-right: 0px !important; /* Hilangkan margin kanan */
-              margin: 0 auto;
-              overflow-y: auto; /* Aktifkan scroll jika diperlukan */
+              padding: 0; /* Padding dihapus untuk mobile */
+              margin: 0; /* Margin dihapus untuk mobile */
+              overflow-x: auto; /* Aktifkan scroll horizontal jika diperlukan */
             }
 
             .custom-button {
@@ -238,54 +236,48 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  background:
-                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
-                  padding: "20px",
+                  padding: "20px 0 80px 0", // Padding hanya di atas dan bawah
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
+                  justifyContent: "flex-start",
                   alignItems: "center",
-                  Height: "100%",
+                  height: "auto", // Tinggi menyesuaikan konten
                   position: "relative",
                   zIndex: 2,
+                  overflow: "visible", // Nonaktifkan scroll
+                  flex: "1 1 100%",
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "10px", // Jarak dari atas halaman
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    zIndex: 3, // Logo berada di atas konten lain
-                  }}
-                >
+                {/* Logo Kabupaten Brebes */}
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
                     alt="..."
                     src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
                     style={{
-                      position: "absolute",
-                      left: "50%",
-                      paddingTop: "10px",
-                      transform: "translateX(-50%)",
-                      width: "70px", // Sesuaikan ukuran bendera
+                      width: "70px",
                       height: "auto",
-                      top: "10px",
-                      zIndex: 0, // Gambar di bawah
+                      marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px", zIndex: 1 }}>
-                    {/* Menu */}
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>
+                    {/* fjfj */}
                   </h3>
                 </div>
 
+                {/* Konten Tabs */}
                 <div
+                  className="tabs-container"
                   style={{
-                    marginTop: "-120px",
-                    height: "auto",
+                    width: "100%",
+                    height: "auto", // Tinggi menyesuaikan konten
+                    margin: "0", // Margin dihapus
+                    overflow: "visible", // Nonaktifkan scroll
                   }}
                 >
                   <Tabs />
                 </div>
+
+                {/* Tombol Tutup */}
                 {isMenuOpen && isInHeroSection && (
                   <Button
                     onClick={() => setIsMenuOpen(false)}
