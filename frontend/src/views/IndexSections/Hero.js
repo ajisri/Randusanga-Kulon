@@ -124,8 +124,8 @@ const Hero = () => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
-        overflow: "auto", // Scroll vertikal diaktifkan
+        height: "100vh", // Tinggi sesuai viewport
+        overflow: "hidden", // Nonaktifkan scroll
       }}
     >
       <video
@@ -216,8 +216,7 @@ const Hero = () => {
           <>
             <Row
               style={{
-                minHeight: "100vh", // Tinggi minimal sama dengan viewport
-                height: "auto", // Tinggi menyesuaikan konten
+                height: "100%", // Tinggi menyesuaikan container utama
                 paddingTop: "0px",
                 display: "flex",
                 flexDirection: "row",
@@ -227,15 +226,15 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px 20px 120px 20px", // Padding bawah diperbesar menjadi 120px
+                  padding: "20px 20px 80px 20px", // Padding bawah untuk tombol tutup
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "auto",
+                  height: "100%", // Tinggi menyesuaikan container utama
                   position: "relative",
                   zIndex: 2,
-                  overflow: "visible",
+                  overflow: "auto", // Scroll di dalam container jika konten melebihi tinggi
                   flex: "1 1 100%",
                 }}
               >
@@ -256,10 +255,10 @@ const Hero = () => {
                   className="tabs-container"
                   style={{
                     width: "100%",
-                    height: "auto",
+                    height: "100%", // Tinggi menyesuaikan container
                     margin: "0",
                     padding: "0 10px",
-                    overflow: "auto", // Scroll vertikal diaktifkan
+                    overflow: "auto", // Scroll di dalam container jika konten melebihi tinggi
                   }}
                 >
                   <Tabs />
@@ -295,7 +294,7 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "auto",
+                  height: "100%", // Tinggi menyesuaikan container utama
                   backgroundColor: "rgba(0, 0, 0, 0.9)",
                   flex: "1 1 100%",
                 }}
