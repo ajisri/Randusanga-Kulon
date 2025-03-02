@@ -124,7 +124,7 @@ const Hero = () => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
+        minHeight: "100vh", // Ganti height dengan minHeight
         overflow: "hidden",
       }}
     >
@@ -210,13 +210,13 @@ const Hero = () => {
 
       <Container
         fluid
-        style={{ position: "relative", zIndex: 2, height: "100%" }}
+        style={{ position: "relative", zIndex: 2, minHeight: "100vh" }} // Ganti height dengan minHeight
       >
         {isMenuOpen ? (
           <>
             <Row
               style={{
-                minHeight: "100vh",
+                minHeight: "100vh", // Pastikan tinggi minimal mencukupi
                 height: "auto",
                 paddingTop: "0px",
                 display: "flex",
@@ -227,7 +227,7 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px 20px 120px 20px", // Padding bawah diperbesar menjadi 120px
+                  padding: "20px 20px 80px 20px", // Padding bawah dikurangi menjadi 80px
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
@@ -259,7 +259,7 @@ const Hero = () => {
                     height: "auto",
                     margin: "0",
                     padding: "0 10px",
-                    overflow: "visible",
+                    overflow: "auto", // Aktifkan scroll jika konten terlalu panjang
                   }}
                 >
                   <Tabs />
@@ -290,12 +290,12 @@ const Hero = () => {
                 md={8}
                 style={{
                   position: "relative",
-                  padding: "20px 20px 40px 20px", // Padding bawah ditambahkan 40px
+                  padding: "20px 20px 40px 20px", // Padding bawah 40px
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "auto",
+                  minHeight: "100vh", // Ganti height dengan minHeight
                   backgroundColor: "rgba(0, 0, 0, 0.9)",
                   flex: "1 1 100%",
                 }}
