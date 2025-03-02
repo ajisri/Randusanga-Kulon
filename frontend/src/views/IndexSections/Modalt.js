@@ -373,7 +373,7 @@ const Modalt = () => {
             overflow: visible;
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
-            padding: 32px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
