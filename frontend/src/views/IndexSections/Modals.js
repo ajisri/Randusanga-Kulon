@@ -522,8 +522,19 @@ const Modals = () => {
             overflow: visible;
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: clamp(100px, 10vh, 100px);
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 30vw; /* 1/3 layar laptop */
+            width: 30%;
             z-index: 1;
           }
 
@@ -782,7 +793,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button "
+            className="custom-button mb-3 mb-sm-0"
             type="button"
             icon="pi pi-info-circle"
             onClick={(e) => {
@@ -875,7 +886,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`custom-button  video-button ${
+            className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -971,7 +982,7 @@ const Modals = () => {
         >
           <Button
             block
-            className=" custom-button video-button"
+            className="mb-3 mb-sm-0 custom-button video-button"
             color="default"
             type="button"
             icon="pi pi-info-circle"
@@ -1068,7 +1079,7 @@ const Modals = () => {
         >
           <Button
             block
-            className={`custom-button  video-button ${
+            className={`custom-button mb-3 mb-sm-0 video-button ${
               animationTriggered ? "video-button" : "no-animation"
             }`}
             color="default"
@@ -1165,7 +1176,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button video-button "
+            className="custom-button video-button mb-3 mb-sm-0"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1341,7 +1352,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button  video-button"
+            className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"
@@ -1405,7 +1416,7 @@ const Modals = () => {
         >
           <Button
             block
-            className="custom-button  video-button"
+            className="custom-button mb-3 mb-sm-0 video-button"
             color="default"
             type="button"
             icon="pi pi-external-link"

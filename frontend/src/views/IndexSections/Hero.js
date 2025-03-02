@@ -236,7 +236,7 @@ const Hero = () => {
               }}
             >
               <Col
-                md={4}
+                md={3}
                 style={{
                   padding: "20px 20px 80px 20px", // Tambahkan padding-bottom untuk tombol tutup
                   display: "flex",
