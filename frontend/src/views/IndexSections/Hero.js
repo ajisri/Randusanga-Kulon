@@ -4,27 +4,23 @@ import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isInHeroSection, setIsInHeroSection] = useState(false); // State untuk mengecek apakah pengguna berada di section Hero
-  const heroRef = useRef(null); // Ref untuk section Hero
+  const [isInHeroSection, setIsInHeroSection] = useState(false);
+  const heroRef = useRef(null);
 
   useEffect(() => {
     const link = document.createElement("link");
-    link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
+    link.href = require("assets/font/soria-font.ttf");
     link.rel = "stylesheet";
     document.head.appendChild(link);
   }, []);
 
-  // Fungsi untuk mendeteksi posisi scroll
   useEffect(() => {
     const handleScroll = () => {
       if (heroRef.current) {
         const heroSection = heroRef.current;
         const rect = heroSection.getBoundingClientRect();
-
         setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
       }
-
-      // Menutup menu otomatis
       if (window.scrollY > 500) {
         setIsMenuOpen(false);
       }
@@ -38,7 +34,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "67%", // Efek bintang mengisi 75% bagian atas
+      height: "67%",
       overflow: "visible",
     },
     orbit: {
@@ -50,7 +46,7 @@ const Hero = () => {
       borderBottom: "none",
       borderLeft: "none",
       borderRight: "none",
-      transform: "translateX(-50%) rotate(180deg)", // Membalik orbit ke atas
+      transform: "translateX(-50%) rotate(180deg)",
       width: "100%",
       height: "100%",
     },
@@ -71,7 +67,7 @@ const Hero = () => {
       height: "2px",
       backgroundColor: "white",
       borderRadius: "50%",
-      boxShadow: "0 0 5px white", // Efek cahaya bintang
+      boxShadow: "0 0 5px white",
       opacity: 0.8,
     },
     fallingStar: {
@@ -80,53 +76,50 @@ const Hero = () => {
       height: "2px",
       backgroundColor: "white",
       borderRadius: "50%",
-      boxShadow: "0 0 5px white", // Efek cahaya bintang
-      animation: "fallingStar 8s linear infinite", // Animasi bintang jatuh
+      boxShadow: "0 0 5px white",
+      animation: "fallingStar 8s linear infinite",
       opacity: 0.8,
     },
   };
 
-  // Container khusus untuk bintang
   const starsContainerStyles = {
     position: "absolute",
-    top: 0, // Mulai dari atas layar
+    top: 0,
     left: 0,
     width: "100%",
-    height: "69%", // Efek bintang mengisi 75% bagian atas
+    height: "69%",
     overflow: "hidden",
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
-    perspective: "1000px", // Menambahkan efek 3D
+    zIndex: 1,
+    perspective: "1000px",
   };
 
-  // Generate random stars (bintang diam)
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 69}%`, // Bintang hanya di 75% bagian atas
+      top: `${Math.random() * 69}%`,
       left: `${Math.random() * 100}%`,
-      transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
+      transform: `translateZ(${Math.random() * 1000}px)`,
     };
     return <div key={`static-${index}`} style={style}></div>;
   });
 
-  // Generate falling stars (bintang jatuh)
   const fallingStars = Array.from({ length: 5 }).map((_, index) => {
-    const startX = Math.random() * 100; // Posisi awal horizontal acak
-    const duration = `${Math.random() * 5 + 18}s`; // Durasi animasi acak antara 18-23 detik
-    const delay = `${index * 8}s`; // Delay animasi (3 detik antara setiap bintang)
+    const startX = Math.random() * 100;
+    const duration = `${Math.random() * 5 + 18}s`;
+    const delay = `${index * 8}s`;
     const style = {
       ...spaceStyles.fallingStar,
-      top: `0%`, // Mulai dari atas layar
-      left: `${startX}%`, // Posisi awal horizontal
-      animationDuration: duration, // Durasi animasi acak
-      animationDelay: delay, // Delay animasi
+      top: `0%`,
+      left: `${startX}%`,
+      animationDuration: duration,
+      animationDelay: delay,
     };
     return <div key={`falling-${index}`} style={style}></div>;
   });
 
   return (
     <div
-      ref={heroRef} // Ref untuk section Hero
+      ref={heroRef}
       className="hero-container"
       style={{
         position: "relative",
@@ -135,7 +128,6 @@ const Hero = () => {
         overflow: "hidden",
       }}
     >
-      {/* Video Background */}
       <video
         style={{
           position: "absolute",
@@ -157,15 +149,15 @@ const Hero = () => {
         {`
           @keyframes fallingStar {
             0% {
-              top: 0%; /* Mulai dari atas layar */
+              top: 0%;
               opacity: 1;
             }
             50% {
-              top: 69%; /* Bergerak ke 75% bagian atas */
+              top: 69%;
               opacity: 0;
             }
             100% {
-              top: 69%; /* Tetap di 75% bagian atas */
+              top: 69%;
               opacity: 0;
             }
           }
@@ -177,24 +169,24 @@ const Hero = () => {
 
             .tabs-container {
               width: 100%;
-              padding: 0; /* Padding dihapus untuk mobile */
-              margin: 0; /* Margin dihapus untuk mobile */
-              overflow-x: auto; /* Aktifkan scroll horizontal jika diperlukan */
+              padding: 0 8px;
+              margin: 0;
+              overflow-x: auto;
             }
 
             .custom-button {
-              max-width: 90vw; /* Lebar tombol lebih kecil */
-              height: auto; /* Tinggi menyesuaikan konten */
-              margin-bottom: 5px; /* Jarak antar tombol lebih kecil */
-              padding: 2px; /* Padding lebih kecil */
+              max-width: 90vw;
+              height: auto;
+              margin-bottom: 5px;
+              padding: 2px;
             }
 
             .button-icon {
-              min-height: 40px; /* Tinggi ikon lebih kecil */
+              min-height: 40px;
             }
 
             .icon-button-text {
-              font-size: 12px; /* Ukuran teks lebih kecil */
+              font-size: 12px;
             }
 
             .close-button {
@@ -205,12 +197,12 @@ const Hero = () => {
             }
 
             .orbitContainer {
-              height: 50vh; /* Tinggi orbit lebih kecil pada mobile */
+              height: 50vh;
             }
 
             .orbit {
-              width: 80% !important; /* Lebar orbit lebih kecil pada mobile */
-              height: 80% !important; /* Tinggi orbit lebih kecil pada mobile */
+              width: 80% !important;
+              height: 80% !important;
             }
           }
         `}
@@ -222,7 +214,6 @@ const Hero = () => {
       >
         {isMenuOpen ? (
           <>
-            {/* Baris Pertama */}
             <Row
               style={{
                 minHeight: "100vh",
@@ -236,19 +227,18 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px 0 80px 0", // Padding hanya di atas dan bawah
+                  padding: "20px 20px 80px 20px", // Padding atas 20px, kanan 20px, bawah 80px, kiri 20px
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "auto", // Tinggi menyesuaikan konten
+                  height: "auto",
                   position: "relative",
                   zIndex: 2,
-                  overflow: "visible", // Nonaktifkan scroll
+                  overflow: "visible",
                   flex: "1 1 100%",
                 }}
               >
-                {/* Logo Kabupaten Brebes */}
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
                     alt="..."
@@ -259,25 +249,22 @@ const Hero = () => {
                       marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px" }}>
-                    {/* fjfj */}
-                  </h3>
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>menu</h3>
                 </div>
 
-                {/* Konten Tabs */}
                 <div
                   className="tabs-container"
                   style={{
                     width: "100%",
-                    height: "auto", // Tinggi menyesuaikan konten
-                    margin: "0 5px", // Margin dihapus
-                    overflow: "visible", // Nonaktifkan scroll
+                    height: "auto",
+                    margin: "0",
+                    padding: "0 10px", // Padding kanan dan kiri 10px
+                    overflow: "visible",
                   }}
                 >
                   <Tabs />
                 </div>
 
-                {/* Tombol Tutup */}
                 {isMenuOpen && isInHeroSection && (
                   <Button
                     onClick={() => setIsMenuOpen(false)}
@@ -289,9 +276,9 @@ const Hero = () => {
                       bottom: "30px",
                       right: "20px",
                       zIndex: 1000,
-                      transition: "opacity 0.3s ease-in-out", // Efek transisi untuk muncul/menghilang
-                      opacity: isInHeroSection ? 1 : 0, // Sembunyikan jika tidak di section Hero
-                      pointerEvents: isInHeroSection ? "auto" : "none", // Cegah klik saat tersembunyi
+                      transition: "opacity 0.3s ease-in-out",
+                      opacity: isInHeroSection ? 1 : 0,
+                      pointerEvents: isInHeroSection ? "auto" : "none",
                     }}
                   >
                     Tutup
@@ -299,7 +286,6 @@ const Hero = () => {
                 )}
               </Col>
 
-              {/* Kolom Orbit */}
               <Col
                 md={8}
                 style={{
@@ -314,15 +300,14 @@ const Hero = () => {
                   flex: "1 1 100%",
                 }}
               >
-                {/* Container khusus untuk bintang */}
                 <div style={starsContainerStyles}>
-                  {staticStars} {/* Bintang diam */}
-                  {fallingStars} {/* Bintang jatuh */}
+                  {staticStars}
+                  {fallingStars}
                 </div>
                 <div
                   style={{
                     fontFamily: "Soria, serif !important",
-                    fontSize: "5vw", // Ubah ke unit relatif
+                    fontSize: "5vw",
                     fontWeight: "bold",
                     textAlign: "center",
                     display: "flex",
@@ -334,10 +319,7 @@ const Hero = () => {
                 >
                   Randusanga Kulon
                 </div>
-                {/* Planet yang Berputar */}
                 <div style={spaceStyles.planet}></div>
-
-                {/* Container untuk Orbit */}
                 <div style={spaceStyles.orbitContainer}>
                   <div
                     style={{
