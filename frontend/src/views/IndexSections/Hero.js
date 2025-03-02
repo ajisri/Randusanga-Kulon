@@ -227,7 +227,7 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px 20px 80px 20px", // Padding atas 20px, kanan 20px, bawah 80px, kiri 20px
+                  padding: "20px 20px 120px 20px", // Padding bawah diperbesar menjadi 120px
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
@@ -249,7 +249,7 @@ const Hero = () => {
                       marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px" }}>menu</h3>
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>Menu</h3>
                 </div>
 
                 <div
@@ -258,7 +258,7 @@ const Hero = () => {
                     width: "100%",
                     height: "auto",
                     margin: "0",
-                    padding: "0 10px", // Padding kanan dan kiri 10px
+                    padding: "0 10px",
                     overflow: "visible",
                   }}
                 >
@@ -290,7 +290,7 @@ const Hero = () => {
                 md={8}
                 style={{
                   position: "relative",
-                  padding: "20px",
+                  padding: "20px 20px 40px 20px", // Padding bawah ditambahkan 40px
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
