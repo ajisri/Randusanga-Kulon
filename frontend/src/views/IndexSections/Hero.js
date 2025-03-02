@@ -273,26 +273,19 @@ const Hero = () => {
                       zIndex: 0, // Gambar di bawah
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px" }}>
-                    {/* fjfj */}
+                  <h3 style={{ color: "white", paddingTop: "20px", zIndex: 1 }}>
+                    {/* Menu */}
                   </h3>
                 </div>
 
-                {/* Konten Tabs */}
                 <div
-                  className="tabs-container"
                   style={{
-                    width: "100%",
-                    maxWidth: "1200px",
-                    height: "auto", // Tinggi menyesuaikan konten
-                    margin: "0 auto",
-                    overflow: "hidden", // Nonaktifkan scroll
+                    marginTop: "-120px",
+                    height: "auto",
                   }}
                 >
                   <Tabs />
                 </div>
-
-                {/* Tombol Tutup */}
                 {isMenuOpen && isInHeroSection && (
                   <Button
                     onClick={() => setIsMenuOpen(false)}
