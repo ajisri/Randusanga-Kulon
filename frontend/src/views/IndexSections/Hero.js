@@ -24,8 +24,8 @@ const Hero = () => {
         setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
       }
 
-      // Menghilangkan tombol setelah scroll lebih dari 100px
-      if (window.scrollY > 100) {
+      // Menutup menu otomatis
+      if (window.scrollY > 500) {
         setIsMenuOpen(false);
       }
     };
@@ -177,7 +177,7 @@ const Hero = () => {
 
             .tabs-container {
               width: 100%;
-              padding: 0 10px; /* Padding lebih kecil untuk mobile */
+              padding: 0 8px; /* Padding lebih kecil untuk mobile */
               margin-left: 0px !important; /* Hilangkan margin kiri */
               margin-right: 0px !important; /* Hilangkan margin kanan */
               margin: 0 auto;
@@ -324,7 +324,7 @@ const Hero = () => {
                 </div>
                 <div
                   style={{
-                    fontFamily: "Soria, serif",
+                    fontFamily: "Soria, serif !important",
                     fontSize: "5vw", // Ubah ke unit relatif
                     fontWeight: "bold",
                     textAlign: "center",
