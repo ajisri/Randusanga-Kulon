@@ -236,7 +236,7 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px 0 80px 0", // Padding hanya di atas dan bawah
+                  padding: "20px 2px 80px 2px", // Padding hanya di atas dan bawah
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
