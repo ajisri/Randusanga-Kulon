@@ -245,7 +245,7 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  minHeight: "100%",
+                  Height: "100%",
                   position: "relative",
                   zIndex: 2,
                 }}
