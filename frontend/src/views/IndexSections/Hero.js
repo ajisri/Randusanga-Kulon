@@ -1,12 +1,132 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(false); // State untuk mengecek apakah pengguna berada di section Hero
+  const heroRef = useRef(null); // Ref untuk section Hero
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
+
+  // Fungsi untuk mendeteksi posisi scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroSection = heroRef.current;
+        const rect = heroSection.getBoundingClientRect();
+
+        setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
+      }
+
+      // Menutup menu otomatis
+      if (window.scrollY > 500) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const spaceStyles = {
+    orbitContainer: {
+      position: "relative",
+      width: "100%",
+      height: "67%", // Efek bintang mengisi 75% bagian atas
+      overflow: "visible",
+    },
+    orbit: {
+      position: "absolute",
+      bottom: "0",
+      left: "50%",
+      border: "2px dashed rgba(255, 255, 255, 0.3)",
+      borderRadius: "50%",
+      borderBottom: "none",
+      borderLeft: "none",
+      borderRight: "none",
+      transform: "translateX(-50%) rotate(180deg)", // Membalik orbit ke atas
+      width: "100%",
+      height: "100%",
+    },
+    planet: {
+      position: "absolute",
+      bottom: "0",
+      left: "50%",
+      width: "30px",
+      height: "30px",
+      backgroundColor: "blue",
+      borderRadius: "50%",
+      transform: "translate(-50%, -50%)",
+      animation: "orbit 10s linear infinite",
+    },
+    star: {
+      position: "absolute",
+      width: "2px",
+      height: "2px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+      boxShadow: "0 0 5px white", // Efek cahaya bintang
+      opacity: 0.8,
+    },
+    fallingStar: {
+      position: "absolute",
+      width: "2px",
+      height: "2px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+      boxShadow: "0 0 5px white", // Efek cahaya bintang
+      animation: "fallingStar 8s linear infinite", // Animasi bintang jatuh
+      opacity: 0.8,
+    },
+  };
+
+  // Container khusus untuk bintang
+  const starsContainerStyles = {
+    position: "absolute",
+    top: 0, // Mulai dari atas layar
+    left: 0,
+    width: "100%",
+    height: "69%", // Efek bintang mengisi 75% bagian atas
+    overflow: "hidden",
+    zIndex: 1, // z-index lebih rendah dari konten Tabs
+    perspective: "1000px", // Menambahkan efek 3D
+  };
+
+  // Generate random stars (bintang diam)
+  const staticStars = Array.from({ length: 25 }).map((_, index) => {
+    const style = {
+      ...spaceStyles.star,
+      top: `${Math.random() * 69}%`, // Bintang hanya di 75% bagian atas
+      left: `${Math.random() * 100}%`,
+      transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
+    };
+    return <div key={`static-${index}`} style={style}></div>;
+  });
+
+  // Generate falling stars (bintang jatuh)
+  const fallingStars = Array.from({ length: 5 }).map((_, index) => {
+    const startX = Math.random() * 100; // Posisi awal horizontal acak
+    const duration = `${Math.random() * 5 + 18}s`; // Durasi animasi acak antara 18-23 detik
+    const delay = `${index * 8}s`; // Delay animasi (3 detik antara setiap bintang)
+    const style = {
+      ...spaceStyles.fallingStar,
+      top: `0%`, // Mulai dari atas layar
+      left: `${startX}%`, // Posisi awal horizontal
+      animationDuration: duration, // Durasi animasi acak
+      animationDelay: delay, // Delay animasi
+    };
+    return <div key={`falling-${index}`} style={style}></div>;
+  });
 
   return (
     <div
+      ref={heroRef} // Ref untuk section Hero
       className="hero-container"
       style={{
         position: "relative",
@@ -15,6 +135,7 @@ const Hero = () => {
         overflow: "hidden",
       }}
     >
+      {/* Video Background */}
       <video
         style={{
           position: "absolute",
@@ -32,6 +153,71 @@ const Hero = () => {
         src={require("assets/img/theme/vi1.mp4")}
       ></video>
 
+      <style>
+        {`
+          @keyframes fallingStar {
+            0% {
+              top: 0%; /* Mulai dari atas layar */
+              opacity: 1;
+            }
+            50% {
+              top: 69%; /* Bergerak ke 75% bagian atas */
+              opacity: 0;
+            }
+            100% {
+              top: 69%; /* Tetap di 75% bagian atas */
+              opacity: 0;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .hero-container {
+              height: auto;
+            }
+
+            .tabs-container {
+              width: 100%;
+              padding: 0 8px; /* Padding lebih kecil untuk mobile */
+              margin-left: 0px !important; /* Hilangkan margin kiri */
+              margin-right: 0px !important; /* Hilangkan margin kanan */
+              margin: 0 auto;
+              overflow-y: auto; /* Aktifkan scroll jika diperlukan */
+            }
+
+            .custom-button {
+              max-width: 90vw; /* Lebar tombol lebih kecil */
+              height: auto; /* Tinggi menyesuaikan konten */
+              margin-bottom: 5px; /* Jarak antar tombol lebih kecil */
+              padding: 2px; /* Padding lebih kecil */
+            }
+
+            .button-icon {
+              min-height: 40px; /* Tinggi ikon lebih kecil */
+            }
+
+            .icon-button-text {
+              font-size: 12px; /* Ukuran teks lebih kecil */
+            }
+
+            .close-button {
+              position: fixed;
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
+            }
+
+            .orbitContainer {
+              height: 50vh; /* Tinggi orbit lebih kecil pada mobile */
+            }
+
+            .orbit {
+              width: 80% !important; /* Lebar orbit lebih kecil pada mobile */
+              height: 80% !important; /* Tinggi orbit lebih kecil pada mobile */
+            }
+          }
+        `}
+      </style>
+
       <Container
         fluid
         style={{ position: "relative", zIndex: 2, height: "100%" }}
@@ -40,72 +226,83 @@ const Hero = () => {
           <>
             {/* Baris Pertama */}
             <Row
-              style={{ minHeight: "100vh", height: "auto", paddingTop: "0px" }}
+              style={{
+                minHeight: "100vh",
+                height: "auto",
+                paddingTop: "0px",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
             >
               <Col
-                md={4}
+                md={3}
                 style={{
-                  background:
-                    "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50px, rgba(0, 0, 0, 0) 100%)",
-                  padding: "20px",
+                  padding: "20px 20px 80px 20px", // Tambahkan padding-bottom untuk tombol tutup
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
+                  justifyContent: "flex-start",
                   alignItems: "center",
-                  minHeight: "100%",
+                  height: "auto", // Tinggi menyesuaikan konten
                   position: "relative",
                   zIndex: 2,
+                  overflowY: "hidden", // Nonaktifkan scroll
+                  flex: "1 1 100%",
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "10px", // Jarak dari atas halaman
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    zIndex: 3, // Logo berada di atas konten lain
-                  }}
-                >
+                {/* Logo Kabupaten Brebes */}
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
                     alt="..."
                     src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
                     style={{
-                      position: "absolute",
-                      left: "50%",
-                      paddingTop: "10px",
-                      transform: "translateX(-50%)",
-                      width: "70px", // Sesuaikan ukuran bendera
+                      width: "70px",
                       height: "auto",
-                      top: "10px",
-                      zIndex: 0, // Gambar di bawah
+                      marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px", zIndex: 1 }}>
-                    {/* Menu */}
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>
+                    {/* fjfj */}
                   </h3>
                 </div>
 
+                {/* Konten Tabs */}
                 <div
+                  className="tabs-container"
                   style={{
-                    marginTop: "-120px",
-                    height: "auto",
+                    width: "100%",
+                    maxWidth: "1200px",
+                    height: "auto", // Tinggi menyesuaikan konten
+                    margin: "0 auto",
+                    overflow: "hidden", // Nonaktifkan scroll
                   }}
                 >
                   <Tabs />
                 </div>
-                <Button
-                  onClick={() => setIsMenuOpen(false)}
-                  style={{
-                    fontSize: "0.8rem",
-                    padding: "8px 14px",
-                    position: "absolute", // Posisi absolut untuk memindahkan tombol ke bawah kanan
-                    bottom: "20px", // Jarak dari bawah
-                    right: "20px",
-                  }}
-                >
-                  Tutup
-                </Button>
+
+                {/* Tombol Tutup */}
+                {isMenuOpen && isInHeroSection && (
+                  <Button
+                    onClick={() => setIsMenuOpen(false)}
+                    className="close-button"
+                    style={{
+                      fontSize: "0.8rem",
+                      padding: "8px 14px",
+                      position: "fixed",
+                      bottom: "30px",
+                      right: "20px",
+                      zIndex: 1000,
+                      transition: "opacity 0.3s ease-in-out", // Efek transisi untuk muncul/menghilang
+                      opacity: isInHeroSection ? 1 : 0, // Sembunyikan jika tidak di section Hero
+                      pointerEvents: isInHeroSection ? "auto" : "none", // Cegah klik saat tersembunyi
+                    }}
+                  >
+                    Tutup
+                  </Button>
+                )}
               </Col>
+
+              {/* Kolom Orbit */}
               <Col
                 md={8}
                 style={{
@@ -115,11 +312,65 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  // minHeight: "100%",
                   height: "auto",
+                  backgroundColor: "rgba(0, 0, 0, 0.9)",
+                  flex: "1 1 100%",
                 }}
               >
-                {/* Area tambahan jika diperlukan */}
+                {/* Container khusus untuk bintang */}
+                <div style={starsContainerStyles}>
+                  {staticStars} {/* Bintang diam */}
+                  {fallingStars} {/* Bintang jatuh */}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "Soria, serif !important",
+                    fontSize: "5vw", // Ubah ke unit relatif
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "200px",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  Randusanga Kulon
+                </div>
+                {/* Planet yang Berputar */}
+                <div style={spaceStyles.planet}></div>
+
+                {/* Container untuk Orbit */}
+                <div style={spaceStyles.orbitContainer}>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "120%",
+                      height: "60%",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "100%",
+                      height: "50%",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "80%",
+                      height: "40%",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "60%",
+                      height: "30%",
+                    }}
+                  ></div>
+                </div>
               </Col>
             </Row>
           </>
