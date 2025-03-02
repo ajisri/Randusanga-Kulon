@@ -518,15 +518,6 @@ const Modals = () => {
             animation: spin 2s linear infinite;
           }
 
-          .custom-button {
-            overflow: visible;
-            border-radius: 12px;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            z-index: 1;
-          }
-
           .custom-button:hover {
               background: rgba(255, 255, 255, 0.05);  /* transparansi lebih rendah saat hover */
               border: 3px solid rgba(255, 255, 255, 0.5); /* membuat border sedikit lebih terang saat hover */
