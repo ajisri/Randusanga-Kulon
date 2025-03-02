@@ -528,13 +528,12 @@ const Modals = () => {
             align-items: center;
             justify-content: center;
             height: clamp(100px, 10vh, 100px);
-            gap: 2px !important;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 30vw; /* 1/3 layar laptop */
-            width: 40%;
+            max-width: 33vw; /* 1/3 layar laptop */
             z-index: 1;
           }
 
