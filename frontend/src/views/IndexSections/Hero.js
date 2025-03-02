@@ -125,7 +125,7 @@ const Hero = () => {
         position: "relative",
         width: "100%",
         height: "100vh",
-        overflow: "hidden",
+        overflow: "auto", // Scroll vertikal diaktifkan
       }}
     >
       <video
@@ -216,8 +216,8 @@ const Hero = () => {
           <>
             <Row
               style={{
-                minHeight: "100vh",
-                height: "auto",
+                minHeight: "100vh", // Tinggi minimal sama dengan viewport
+                height: "auto", // Tinggi menyesuaikan konten
                 paddingTop: "0px",
                 display: "flex",
                 flexDirection: "row",
@@ -249,7 +249,7 @@ const Hero = () => {
                       marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px" }}>Menu</h3>
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>menu</h3>
                 </div>
 
                 <div
@@ -259,7 +259,7 @@ const Hero = () => {
                     height: "auto",
                     margin: "0",
                     padding: "0 10px",
-                    overflow: "visible",
+                    overflow: "auto", // Scroll vertikal diaktifkan
                   }}
                 >
                   <Tabs />
