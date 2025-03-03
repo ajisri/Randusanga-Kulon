@@ -39,7 +39,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowWelcomeText(false); // Sembunyikan teks setelah 3 detik
-    }, 3000);
+    }, 8000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -198,13 +198,33 @@ const Hero = () => {
           }
 
           @keyframes fadeIn {
-            0% {
+            from {
               opacity: 0;
               transform: translateY(-20px);
             }
-            100% {
+            to {
               opacity: 1;
               transform: translateY(0);
+            }
+          }
+
+          @keyframes glow {
+            from {
+              text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            }
+            to {
+              text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            }
+          }
+
+          @keyframes slideIn {
+            from {
+              transform: translateY(100px);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0);
+              opacity: 1;
             }
           }
 
@@ -428,7 +448,8 @@ const Hero = () => {
                   fontWeight: "bold",
                   color: "white",
                   textAlign: "center",
-                  animation: "fadeIn 2s ease-in-out",
+                  opacity: 1,
+                  animation: "glow 2s infinite alternate",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
@@ -437,11 +458,25 @@ const Hero = () => {
             <Button
               onClick={() => setIsMenuOpen(true)}
               style={{
-                fontSize: "0.8rem",
-                padding: "8px 14px",
+                fontSize: "1rem",
+                padding: "10px 20px",
                 marginTop: "20px",
-                animation: "pulse 2s infinite",
+                background:
+                  "linear-gradient(135deg, rgba(0, 140, 255, 0.8), rgba(0, 255, 180, 0.8))",
+                border: "none",
+                borderRadius: "30px",
+                color: "white",
+                fontWeight: "bold",
+                boxShadow: "0 0 15px rgba(0, 255, 180, 0.8)",
+                transition: "all 0.3s ease-in-out",
+                cursor: "pointer",
               }}
+              onMouseOver={(e) =>
+                (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 180, 1)")
+              }
+              onMouseOut={(e) =>
+                (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 180, 0.8)")
+              }
             >
               Buka Menu
             </Button>
