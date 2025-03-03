@@ -163,6 +163,25 @@ const Hero = () => {
 
       <style>
         {`
+          /* Scrollbar Styling */
+          ::-webkit-scrollbar {
+            width: 8px;
+          }
+
+          ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+          }
+
+          ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+          }
+
+          ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.7);
+          }
+
           @keyframes fallingStar {
             0% {
               top: 0%;
@@ -334,7 +353,7 @@ const Hero = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   height: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.9)",
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
                   flex: "1 1 100%",
                 }}
               >
