@@ -7,8 +7,6 @@ const Hero = () => {
   const [isInHeroSection, setIsInHeroSection] = useState(false);
   const [showWelcomeText, setShowWelcomeText] = useState(true); // State untuk animasi pembuka
   const heroRef = useRef(null);
-  const pathRef = useRef(null);
-  const beamRef = useRef(null);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -22,22 +20,6 @@ const Hero = () => {
       if (heroRef.current) {
         const rect = heroRef.current.getBoundingClientRect();
         setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
-      }
-
-      // Efek Beam Scroll
-      const path = pathRef.current;
-      const beam = beamRef.current;
-
-      if (path && beam) {
-        const pathLength = path.getTotalLength();
-        const scrollPercentage =
-          (window.scrollY /
-            (document.documentElement.scrollHeight - window.innerHeight)) *
-          1.5;
-        const beamLength = pathLength * scrollPercentage;
-
-        beam.style.strokeDasharray = `${beamLength} ${pathLength}`;
-        beam.style.strokeDashoffset = pathLength - beamLength;
       }
     };
 
@@ -321,38 +303,6 @@ const Hero = () => {
                 >
                   <Tabs />
                 </div>
-
-                {/* SVG Path dan Beam */}
-                <svg
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    zIndex: 1,
-                    pointerEvents: "none",
-                  }}
-                  viewBox="0 0 500 500"
-                >
-                  <path
-                    ref={pathRef}
-                    d="M10,450 Q250,50 490,450"
-                    stroke="transparent"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-                  <path
-                    ref={beamRef}
-                    d="M10,450 Q250,50 490,450"
-                    stroke="white"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeDasharray="0 1000"
-                    strokeLinecap="round"
-                  />
-                </svg>
-
                 {isMenuOpen && isInHeroSection && (
                   <Button
                     onClick={() => setIsMenuOpen(false)}
