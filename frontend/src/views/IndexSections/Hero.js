@@ -6,6 +6,8 @@ const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInHeroSection, setIsInHeroSection] = useState(false);
   const heroRef = useRef(null);
+  const pathRef = useRef(null);
+  const beamRef = useRef(null);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -23,6 +25,20 @@ const Hero = () => {
       }
       if (window.scrollY > 500) {
         setIsMenuOpen(false);
+      }
+
+      // Custom Scroll Effect
+      const path = pathRef.current;
+      const beam = beamRef.current;
+      if (path && beam) {
+        const pathLength = path.getTotalLength();
+        const scrollPercentage =
+          (window.scrollY /
+            (document.documentElement.scrollHeight - window.innerHeight)) *
+          100;
+        const beamLength = pathLength * (scrollPercentage / 100);
+
+        beam.style.strokeDasharray = `${beamLength} ${pathLength}`;
       }
     };
 
@@ -124,8 +140,8 @@ const Hero = () => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh", // Tinggi sesuai viewport
-        overflow: "hidden", // Nonaktifkan scroll
+        height: "100vh",
+        overflow: "hidden",
       }}
     >
       <video
@@ -216,7 +232,7 @@ const Hero = () => {
           <>
             <Row
               style={{
-                height: "100%", // Tinggi menyesuaikan container utama
+                height: "100%",
                 paddingTop: "0px",
                 display: "flex",
                 flexDirection: "row",
@@ -226,15 +242,15 @@ const Hero = () => {
               <Col
                 md={4}
                 style={{
-                  padding: "20px 20px 80px 20px", // Padding bawah untuk tombol tutup
+                  padding: "20px 20px 80px 20px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "100%", // Tinggi menyesuaikan container utama
+                  height: "100%",
                   position: "relative",
                   zIndex: 2,
-                  overflow: "auto", // Scroll di dalam container jika konten melebihi tinggi
+                  overflow: "auto",
                   flex: "1 1 100%",
                 }}
               >
@@ -255,14 +271,42 @@ const Hero = () => {
                   className="tabs-container"
                   style={{
                     width: "100%",
-                    height: "100%", // Tinggi menyesuaikan container
+                    height: "100%",
                     margin: "0",
                     padding: "0 10px",
-                    overflow: "auto", // Scroll di dalam container jika konten melebihi tinggi
+                    overflow: "auto",
                   }}
                 >
                   <Tabs />
                 </div>
+
+                {/* SVG Path dan Beam */}
+                <svg
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 1,
+                  }}
+                >
+                  <path
+                    ref={pathRef}
+                    d="M0,100 C150,200 350,0 500,100 L500,100 C650,200 850,0 1000,100"
+                    stroke="transparent"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  <path
+                    ref={beamRef}
+                    d="M0,100 C150,200 350,0 500,100 L500,100 C650,200 850,0 1000,100"
+                    stroke="white"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeDasharray="0 1000"
+                  />
+                </svg>
 
                 {isMenuOpen && isInHeroSection && (
                   <Button
@@ -289,12 +333,12 @@ const Hero = () => {
                 md={8}
                 style={{
                   position: "relative",
-                  padding: "20px 20px 40px 20px", // Padding bawah ditambahkan 40px
+                  padding: "20px 20px 40px 20px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100%", // Tinggi menyesuaikan container utama
+                  height: "100%",
                   backgroundColor: "rgba(0, 0, 0, 0.9)",
                   flex: "1 1 100%",
                 }}
