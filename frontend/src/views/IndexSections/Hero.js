@@ -154,6 +154,8 @@ const Hero = () => {
         width: "100%",
         height: "100vh",
         overflow: "hidden",
+        pointerEvents: "auto",
+        zIndex: 3,
       }}
     >
       <video
@@ -324,6 +326,7 @@ const Hero = () => {
                     width: "100%",
                     height: "100%",
                     zIndex: 1,
+                    pointerEvents: "none",
                   }}
                   viewBox="0 0 500 500" // **Menyesuaikan ukuran agar efek lebih terlihat**
                 >
