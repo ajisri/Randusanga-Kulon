@@ -20,26 +20,28 @@ const Hero = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (heroRef.current) {
-        const heroSection = heroRef.current;
-        const rect = heroSection.getBoundingClientRect();
+        const rect = heroRef.current.getBoundingClientRect();
         setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
       }
+
       if (window.scrollY > 500) {
         setIsMenuOpen(false);
       }
 
-      // Custom Scroll Effect
+      // Efek Beam Scroll
       const path = pathRef.current;
       const beam = beamRef.current;
+
       if (path && beam) {
         const pathLength = path.getTotalLength();
         const scrollPercentage =
           (window.scrollY /
             (document.documentElement.scrollHeight - window.innerHeight)) *
-          100;
-        const beamLength = pathLength * (scrollPercentage / 100);
+          1.2; // Diperbesar agar efek lebih terlihat
+        const beamLength = pathLength * scrollPercentage;
 
         beam.style.strokeDasharray = `${beamLength} ${pathLength}`;
+        beam.style.strokeDashoffset = pathLength - beamLength;
       }
     };
 
@@ -323,21 +325,23 @@ const Hero = () => {
                     height: "100%",
                     zIndex: 1,
                   }}
+                  viewBox="0 0 500 500" // **Menyesuaikan ukuran agar efek lebih terlihat**
                 >
                   <path
                     ref={pathRef}
-                    d="M0,100 C150,200 350,0 500,100 L500,100 C650,200 850,0 1000,100"
+                    d="M10,450 Q250,50 490,450" // **Diperbesar agar lebih dramatis**
                     stroke="transparent"
                     strokeWidth="2"
                     fill="none"
                   />
                   <path
                     ref={beamRef}
-                    d="M0,100 C150,200 350,0 500,100 L500,100 C650,200 850,0 1000,100"
+                    d="M10,450 Q250,50 490,450"
                     stroke="white"
-                    strokeWidth="2"
+                    strokeWidth="3"
                     fill="none"
                     strokeDasharray="0 1000"
+                    strokeLinecap="round"
                   />
                 </svg>
 
