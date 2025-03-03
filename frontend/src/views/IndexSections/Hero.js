@@ -24,10 +24,6 @@ const Hero = () => {
         setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
       }
 
-      if (window.scrollY > 500) {
-        setIsMenuOpen(false);
-      }
-
       // Efek Beam Scroll
       const path = pathRef.current;
       const beam = beamRef.current;
@@ -37,7 +33,7 @@ const Hero = () => {
         const scrollPercentage =
           (window.scrollY /
             (document.documentElement.scrollHeight - window.innerHeight)) *
-          1.2; // Diperbesar agar efek lebih terlihat
+          1.5;
         const beamLength = pathLength * scrollPercentage;
 
         beam.style.strokeDasharray = `${beamLength} ${pathLength}`;
@@ -48,6 +44,14 @@ const Hero = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflowY = "auto"; // Aktifkan scroll saat menu terbuka
+    } else {
+      document.body.style.overflowY = "visible"; // Normal saat menu tertutup
+    }
+  }, [isMenuOpen]);
 
   // Animasi pembuka (welcome text)
   useEffect(() => {
@@ -153,7 +157,7 @@ const Hero = () => {
         position: "relative",
         width: "100%",
         height: "100vh",
-        overflow: "hidden",
+        overflowY: isMenuOpen ? "auto" : "hidden", // Scroll hanya saat menu terbuka
         pointerEvents: "auto",
         zIndex: 3,
       }}
@@ -274,6 +278,7 @@ const Hero = () => {
                 display: "flex",
                 flexDirection: "row",
                 flexWrap: "wrap",
+                overflowY: "auto",
               }}
             >
               <Col
@@ -287,7 +292,7 @@ const Hero = () => {
                   height: "100%",
                   position: "relative",
                   zIndex: 2,
-                  overflow: "auto",
+                  overflowY: "auto",
                   flex: "1 1 100%",
                 }}
               >
@@ -328,11 +333,11 @@ const Hero = () => {
                     zIndex: 1,
                     pointerEvents: "none",
                   }}
-                  viewBox="0 0 500 500" // **Menyesuaikan ukuran agar efek lebih terlihat**
+                  viewBox="0 0 500 500"
                 >
                   <path
                     ref={pathRef}
-                    d="M10,450 Q250,50 490,450" // **Diperbesar agar lebih dramatis**
+                    d="M10,450 Q250,50 490,450"
                     stroke="transparent"
                     strokeWidth="2"
                     fill="none"
