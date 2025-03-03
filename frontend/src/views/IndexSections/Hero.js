@@ -5,6 +5,7 @@ import Tabs from "./Tabs.js";
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInHeroSection, setIsInHeroSection] = useState(false);
+  const [showWelcomeText, setShowWelcomeText] = useState(true); // State untuk animasi pembuka
   const heroRef = useRef(null);
   const pathRef = useRef(null);
   const beamRef = useRef(null);
@@ -44,6 +45,15 @@ const Hero = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Animasi pembuka (welcome text)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcomeText(false); // Sembunyikan teks setelah 3 detik
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const spaceStyles = {
@@ -175,6 +185,29 @@ const Hero = () => {
             100% {
               top: 69%;
               opacity: 0;
+            }
+          }
+
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+              transform: translateY(-20px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.1);
+            }
+            100% {
+              transform: scale(1);
             }
           }
 
@@ -403,11 +436,31 @@ const Hero = () => {
               justifyContent: "center",
               alignItems: "center",
               height: "100%",
+              flexDirection: "column",
             }}
           >
+            {showWelcomeText && (
+              <div
+                style={{
+                  fontFamily: "Soria, serif",
+                  fontSize: "4vw",
+                  fontWeight: "bold",
+                  color: "white",
+                  textAlign: "center",
+                  animation: "fadeIn 2s ease-in-out",
+                }}
+              >
+                Selamat Datang di Randusanga Kulon
+              </div>
+            )}
             <Button
               onClick={() => setIsMenuOpen(true)}
-              style={{ fontSize: "0.8rem", padding: "8px 14px" }}
+              style={{
+                fontSize: "0.8rem",
+                padding: "8px 14px",
+                marginTop: "20px",
+                animation: "pulse 2s infinite",
+              }}
             >
               Buka Menu
             </Button>
