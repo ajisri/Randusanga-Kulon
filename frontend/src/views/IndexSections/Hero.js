@@ -378,6 +378,7 @@ const Hero = () => {
 
               <Col
                 md={8}
+                className="d-none d-md-block"
                 style={{
                   position: "relative",
                   padding: "20px 20px 40px 20px",
@@ -409,40 +410,52 @@ const Hero = () => {
                 >
                   Randusanga Kulon
                 </div>
-                <div style={spaceStyles.planet}></div>
+                <div
+                  style={{
+                    ...spaceStyles.planet,
+                    width: "20px", // Diperkecil dari 30px
+                    height: "20px", // Diperkecil dari 30px
+                    transform:
+                      "translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg)", // Sesuaikan jarak dari pusat orbit
+                  }}
+                ></div>
                 <div style={spaceStyles.orbitContainer}>
+                  {/* Orbit Terluar */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "120%",
-                      height: "60%",
+                      width: "80%", // Diperkecil dari 120%
+                      height: "40%", // Diperkecil dari 60%
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
                   ></div>
+                  {/* Orbit Kedua */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "100%",
-                      height: "50%",
+                      width: "60%", // Diperkecil dari 100%
+                      height: "30%", // Diperkecil dari 50%
                       border: "2px solid rgba(255, 255, 255, 0.4)",
                       boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
                     }}
                   ></div>
+                  {/* Orbit Ketiga */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "80%",
-                      height: "40%",
+                      width: "40%", // Diperkecil dari 80%
+                      height: "20%", // Diperkecil dari 40%
                       border: "2px solid rgba(255, 255, 255, 0.3)",
                       boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
                     }}
                   ></div>
+                  {/* Orbit Terkecil */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "60%",
-                      height: "30%",
+                      width: "20%", // Diperkecil dari 60%
+                      height: "10%", // Diperkecil dari 30%
                       border: "2px solid rgba(255, 255, 255, 0.2)",
                       boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
