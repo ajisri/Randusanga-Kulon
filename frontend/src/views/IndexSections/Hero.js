@@ -160,8 +160,8 @@ const Hero = () => {
         src={require("assets/img/theme/vi1.mp4")}
       ></video>
 
-      {/* Efek Cahaya Matahari */}
-      <div
+      {/* Hapus Efek Cahaya Matahari */}
+      {/* <div
         style={{
           position: "absolute",
           top: 0,
@@ -173,31 +173,7 @@ const Hero = () => {
           animation: "sunrise 10s infinite alternate",
           zIndex: 2,
         }}
-      ></div>
-
-      {/* Burung Terbang */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "0",
-          width: "100%",
-          height: "100px",
-          overflow: "hidden",
-          zIndex: 2,
-        }}
-      >
-        <img
-          src={require("assets/img/theme/223588-P1MAT3-331-removebg-preview.png")} // Ganti dengan path gambar burung Anda
-          alt="Burung"
-          style={{
-            width: "50px",
-            height: "auto",
-            position: "absolute",
-            animation: "fly 10s linear infinite",
-          }}
-        />
-      </div>
+      ></div> */}
 
       <style>
         {`
@@ -503,8 +479,7 @@ const Hero = () => {
                   color: "white",
                   textAlign: "center",
                   opacity: 1,
-                  animation:
-                    "glow 2s infinite alternate, fadeIn 2s ease-in-out",
+                  animation: "fadeIn 2s ease-in-out",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
