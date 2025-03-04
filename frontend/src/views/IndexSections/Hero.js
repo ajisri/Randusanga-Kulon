@@ -5,7 +5,7 @@ import Tabs from "./Tabs.js";
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInHeroSection, setIsInHeroSection] = useState(false);
-  const [showWelcomeText, setShowWelcomeText] = useState(true); // State untuk animasi pembuka
+  const [showWelcomeText, setShowWelcomeText] = useState(true);
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -29,17 +29,16 @@ const Hero = () => {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflowY = "auto"; // Aktifkan scroll saat menu terbuka
+      document.body.style.overflowY = "auto";
     } else {
-      document.body.style.overflowY = "visible"; // Normal saat menu tertutup
+      document.body.style.overflowY = "visible";
     }
   }, [isMenuOpen]);
 
-  // Animasi pembuka (welcome text)
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowWelcomeText(false); // Sembunyikan teks setelah 3 detik
-    }, 8000);
+      setShowWelcomeText(false);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -139,7 +138,7 @@ const Hero = () => {
         position: "relative",
         width: "100%",
         height: "100vh",
-        overflowY: isMenuOpen ? "auto" : "hidden", // Scroll hanya saat menu terbuka
+        overflowY: isMenuOpen ? "auto" : "hidden",
         pointerEvents: "auto",
         zIndex: 3,
       }}
@@ -449,7 +448,8 @@ const Hero = () => {
                   color: "white",
                   textAlign: "center",
                   opacity: 1,
-                  animation: "glow 2s infinite alternate",
+                  animation:
+                    "glow 2s infinite alternate, fadeIn 2s ease-in-out",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
@@ -470,6 +470,7 @@ const Hero = () => {
                 boxShadow: "0 0 15px rgba(0, 255, 180, 0.8)",
                 transition: "all 0.3s ease-in-out",
                 cursor: "pointer",
+                animation: "pulse 2s infinite",
               }}
               onMouseOver={(e) =>
                 (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 180, 1)")
