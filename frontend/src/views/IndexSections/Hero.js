@@ -47,7 +47,7 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "40%",
+      height: "50%", // Tinggi orbit diperpanjang
       overflow: "visible",
       marginTop: "20px",
     },
@@ -69,12 +69,12 @@ const Hero = () => {
       position: "absolute",
       bottom: "0",
       left: "50%",
-      width: "20px", // Ukuran planet diperkecil
-      height: "20px", // Ukuran planet diperkecil
+      width: "20px", // Ukuran planet
+      height: "20px", // Ukuran planet
       backgroundColor: "blue",
       borderRadius: "50%",
       transform:
-        "translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg)", // Posisi planet
+        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)", // Posisi planet
       animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
     },
     star: {
@@ -196,10 +196,10 @@ const Hero = () => {
 
           @keyframes orbitPlanet {
             0% {
-              transform: translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg);
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg);
             }
             100% {
-              transform: translate(-50%, -50%) rotate(360deg) translateX(150px) rotate(360deg);
+              transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg);
             }
           }
 
@@ -290,16 +290,16 @@ const Hero = () => {
             }
 
             .orbitContainer {
-              height: 30vh !important; /* Sesuaikan tinggi orbit pada mobile */
+              height: 40vh !important; /* Sesuaikan tinggi orbit pada mobile */
             }
 
             .orbit {
-              width: 60% !important; /* Sesuaikan ukuran orbit pada mobile */
-              height: 60% !important;
+              width: 80% !important; /* Sesuaikan ukuran orbit pada mobile */
+              height: 80% !important;
             }
 
             .welcome-text {
-              font-size: 8vw !important; /* Perbesar tulisan pada mobile */
+              font-size: 6vw !important; /* Perkecil tulisan pada mobile */
             }
 
             .menu-button {
@@ -310,18 +310,18 @@ const Hero = () => {
 
           @media (min-width: 992px) {
             .orbitContainer {
-              height: 50vh; /* Sesuaikan tinggi orbit pada laptop */
+              height: 60vh; /* Sesuaikan tinggi orbit pada laptop */
             }
 
             .orbit {
-              width: 60% !important; /* Sesuaikan ukuran orbit pada laptop */
-              height: 60% !important;
+              width: 80% !important; /* Sesuaikan ukuran orbit pada laptop */
+              height: 80% !important;
             }
 
             .planet {
               width: 20px !important; /* Sesuaikan ukuran planet pada laptop */
               height: 20px !important;
-              transform: translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg) !important;
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg) !important;
             }
           }
         `}
@@ -426,7 +426,7 @@ const Hero = () => {
                 <div
                   style={{
                     fontFamily: "Soria, serif !important",
-                    fontSize: "5vw",
+                    fontSize: "4vw", // Ukuran tulisan diperkecil
                     fontWeight: "bold",
                     textAlign: "center",
                     display: "flex",
@@ -434,6 +434,12 @@ const Hero = () => {
                     alignItems: "center",
                     minHeight: "200px",
                     backgroundColor: "transparent",
+                    color: "transparent",
+                    background: "linear-gradient(45deg, #ffffff, #ffd700)", // Gradien teks
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    textShadow: "2px 2px 8px rgba(255, 215, 0, 0.8)", // Shadow teks
+                    animation: "glow 3s infinite alternate", // Animasi glow
                   }}
                 >
                   Randusanga Kulon
@@ -443,8 +449,8 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "60%",
-                      height: "60%",
+                      width: "80%",
+                      height: "80%",
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
@@ -453,8 +459,8 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "45%",
-                      height: "45%",
+                      width: "60%",
+                      height: "60%",
                       border: "2px solid rgba(255, 255, 255, 0.4)",
                       boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
                     }}
@@ -463,8 +469,8 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "30%",
-                      height: "30%",
+                      width: "40%",
+                      height: "40%",
                       border: "2px solid rgba(255, 255, 255, 0.3)",
                       boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
                     }}
@@ -473,8 +479,8 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "15%",
-                      height: "15%",
+                      width: "20%",
+                      height: "20%",
                       border: "2px solid rgba(255, 255, 255, 0.2)",
                       boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
@@ -487,7 +493,7 @@ const Hero = () => {
                     width: "20px",
                     height: "20px",
                     transform:
-                      "translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg)",
+                      "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
                     animation: "orbitPlanet 10s linear infinite",
                   }}
                 ></div>
@@ -509,9 +515,9 @@ const Hero = () => {
                 className="welcome-text"
                 style={{
                   fontFamily: "Soria, serif",
-                  fontSize: "6vw",
+                  fontSize: "5vw", // Ukuran tulisan diperkecil
                   fontWeight: "bold",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                  textShadow: "2px 2px 8px rgba(255, 215, 0, 0.8)",
                   textAlign: "center",
                   color: "transparent",
                   background: "linear-gradient(45deg, #ffffff, #ffd700)",
