@@ -523,7 +523,7 @@ const Hero = () => {
                   background: "linear-gradient(45deg, #ffffff, #ffd700)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
-                  animation: "glow 3s infinite alternate fadeIn 2s ease-in-out",
+                  animation: "glow 3s infinite alternate fadeIn 4s ease-in-out",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
