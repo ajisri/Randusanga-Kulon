@@ -62,6 +62,7 @@ const Hero = () => {
       transform: "translateX(-50%) rotate(180deg)",
       width: "100%",
       height: "100%",
+      animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
     },
     planet: {
       position: "absolute",
@@ -72,7 +73,7 @@ const Hero = () => {
       backgroundColor: "blue",
       borderRadius: "50%",
       transform: "translate(-50%, -50%)",
-      animation: "orbit 10s linear infinite",
+      animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
     },
     star: {
       position: "absolute",
@@ -141,6 +142,7 @@ const Hero = () => {
         overflowY: isMenuOpen ? "auto" : "hidden",
         pointerEvents: "auto",
         zIndex: 3,
+        background: "linear-gradient(to bottom, #87CEEB, #FFFFFF)", // Latar belakang biru langit
       }}
     >
       <video
@@ -159,21 +161,6 @@ const Hero = () => {
         playsInline
         src={require("assets/img/theme/vi1.mp4")}
       ></video>
-
-      {/* Hapus Efek Cahaya Matahari */}
-      {/* <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background:
-            "radial-gradient(circle, rgba(255, 200, 0, 0.3), transparent)",
-          animation: "sunrise 10s infinite alternate",
-          zIndex: 2,
-        }}
-      ></div> */}
 
       <style>
         {`
@@ -194,6 +181,24 @@ const Hero = () => {
 
           ::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.7);
+          }
+
+          @keyframes rotateOrbit {
+            0% {
+              transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+              transform: translateX(-50%) rotate(360deg);
+            }
+          }
+
+          @keyframes orbitPlanet {
+            0% {
+              transform: translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg);
+            }
+            100% {
+              transform: translate(-50%, -50%) rotate(360deg) translateX(150px) rotate(360deg);
+            }
           }
 
           @keyframes fallingStar {
@@ -222,26 +227,6 @@ const Hero = () => {
             }
           }
 
-          @keyframes glow {
-            from {
-              text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            }
-            to {
-              text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-            }
-          }
-
-          @keyframes slideIn {
-            from {
-              transform: translateY(100px);
-              opacity: 0;
-            }
-            to {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-
           @keyframes pulse {
             0% {
               transform: scale(1);
@@ -252,17 +237,6 @@ const Hero = () => {
             100% {
               transform: scale(1);
             }
-          }
-
-          @keyframes sunrise {
-            0% { transform: translateY(0); opacity: 0.3; }
-            50% { transform: translateY(-20%); opacity: 0.6; }
-            100% { transform: translateY(0); opacity: 0.3; }
-          }
-
-          @keyframes fly {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
           }
 
           @keyframes sandFall {
@@ -311,6 +285,15 @@ const Hero = () => {
             .orbit {
               width: 80% !important;
               height: 80% !important;
+            }
+
+            .welcome-text {
+              font-size: 8vw !important; /* Perbesar tulisan pada layar kecil */
+            }
+
+            .menu-button {
+              font-size: 0.8rem !important; /* Perkecil tombol pada layar kecil */
+              padding: 8px 16px !important;
             }
           }
         `}
@@ -433,6 +416,8 @@ const Hero = () => {
                       ...spaceStyles.orbit,
                       width: "120%",
                       height: "60%",
+                      border: "2px solid rgba(255, 255, 255, 0.5)",
+                      boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
                   ></div>
                   <div
@@ -440,6 +425,8 @@ const Hero = () => {
                       ...spaceStyles.orbit,
                       width: "100%",
                       height: "50%",
+                      border: "2px solid rgba(255, 255, 255, 0.4)",
+                      boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
                     }}
                   ></div>
                   <div
@@ -447,6 +434,8 @@ const Hero = () => {
                       ...spaceStyles.orbit,
                       width: "80%",
                       height: "40%",
+                      border: "2px solid rgba(255, 255, 255, 0.3)",
+                      boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
                     }}
                   ></div>
                   <div
@@ -454,6 +443,8 @@ const Hero = () => {
                       ...spaceStyles.orbit,
                       width: "60%",
                       height: "30%",
+                      border: "2px solid rgba(255, 255, 255, 0.2)",
+                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
                   ></div>
                 </div>
@@ -472,20 +463,23 @@ const Hero = () => {
           >
             {showWelcomeText && (
               <div
+                className="welcome-text"
                 style={{
                   fontFamily: "Soria, serif",
-                  fontSize: "4vw",
+                  fontSize: "6vw",
                   fontWeight: "bold",
                   color: "white",
                   textAlign: "center",
                   opacity: 1,
                   animation: "fadeIn 2s ease-in-out",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)", // Bayangan teks untuk menonjolkan tulisan
                 }}
               >
                 Selamat Datang di Randusanga Kulon
               </div>
             )}
             <Button
+              className="menu-button"
               onClick={() => setIsMenuOpen(true)}
               style={{
                 fontSize: "1rem",
