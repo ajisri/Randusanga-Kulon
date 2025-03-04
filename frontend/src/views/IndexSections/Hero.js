@@ -69,11 +69,12 @@ const Hero = () => {
       position: "absolute",
       bottom: "0",
       left: "50%",
-      width: "30px",
-      height: "30px",
+      width: "20px", // Ukuran planet diperkecil
+      height: "20px", // Ukuran planet diperkecil
       backgroundColor: "blue",
       borderRadius: "50%",
-      transform: "translate(-50%, -50%)",
+      transform:
+        "translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg)", // Posisi planet
       animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
     },
     star: {
@@ -228,6 +229,15 @@ const Hero = () => {
             }
           }
 
+          @keyframes glow {
+            0% {
+              text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+              text-shadow: 4px 4px 16px rgba(255, 215, 0, 1);
+            }
+          }
+
           @keyframes pulse {
             0% {
               transform: scale(1);
@@ -280,30 +290,38 @@ const Hero = () => {
             }
 
             .orbitContainer {
-              height: 50vh;
+              height: 30vh !important; /* Sesuaikan tinggi orbit pada mobile */
             }
 
             .orbit {
-              width: 80% !important;
-              height: 80% !important;
+              width: 60% !important; /* Sesuaikan ukuran orbit pada mobile */
+              height: 60% !important;
             }
 
             .welcome-text {
-              font-size: 8vw !important; /* Perbesar tulisan pada layar kecil */
+              font-size: 8vw !important; /* Perbesar tulisan pada mobile */
             }
 
             .menu-button {
-              font-size: 0.8rem !important; /* Perkecil tombol pada layar kecil */
+              font-size: 0.8rem !important; /* Perkecil tombol pada mobile */
               padding: 8px 16px !important;
             }
+          }
 
-            @keyframes glow {
-              0% {
-                text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.8);
-              }
-              100% {
-                text-shadow: 4px 4px 16px rgba(255, 215, 0, 1);
-              }
+          @media (min-width: 992px) {
+            .orbitContainer {
+              height: 50vh; /* Sesuaikan tinggi orbit pada laptop */
+            }
+
+            .orbit {
+              width: 60% !important; /* Sesuaikan ukuran orbit pada laptop */
+              height: 60% !important;
+            }
+
+            .planet {
+              width: 20px !important; /* Sesuaikan ukuran planet pada laptop */
+              height: 20px !important;
+              transform: translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg) !important;
             }
           }
         `}
@@ -420,22 +438,13 @@ const Hero = () => {
                 >
                   Randusanga Kulon
                 </div>
-                <div
-                  style={{
-                    ...spaceStyles.planet,
-                    width: "20px", // Diperkecil dari 30px
-                    height: "20px", // Diperkecil dari 30px
-                    transform:
-                      "translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg)", // Sesuaikan jarak dari pusat orbit
-                  }}
-                ></div>
                 <div style={spaceStyles.orbitContainer}>
                   {/* Orbit Terluar */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "80%", // Diperkecil dari 120%
-                      height: "40%", // Diperkecil dari 60%
+                      width: "60%",
+                      height: "60%",
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
@@ -444,8 +453,8 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "60%", // Diperkecil dari 100%
-                      height: "30%", // Diperkecil dari 50%
+                      width: "45%",
+                      height: "45%",
                       border: "2px solid rgba(255, 255, 255, 0.4)",
                       boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
                     }}
@@ -454,8 +463,8 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "40%", // Diperkecil dari 80%
-                      height: "20%", // Diperkecil dari 40%
+                      width: "30%",
+                      height: "30%",
                       border: "2px solid rgba(255, 255, 255, 0.3)",
                       boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
                     }}
@@ -464,13 +473,24 @@ const Hero = () => {
                   <div
                     style={{
                       ...spaceStyles.orbit,
-                      width: "20%", // Diperkecil dari 60%
-                      height: "10%", // Diperkecil dari 30%
+                      width: "15%",
+                      height: "15%",
                       border: "2px solid rgba(255, 255, 255, 0.2)",
                       boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
                   ></div>
                 </div>
+                {/* Planet */}
+                <div
+                  style={{
+                    ...spaceStyles.planet,
+                    width: "20px",
+                    height: "20px",
+                    transform:
+                      "translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg)",
+                    animation: "orbitPlanet 10s linear infinite",
+                  }}
+                ></div>
               </Col>
             </Row>
           </>
@@ -491,13 +511,13 @@ const Hero = () => {
                   fontFamily: "Soria, serif",
                   fontSize: "6vw",
                   fontWeight: "bold",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)", // Bayangan teks untuk menonjolkan tulisan
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                   textAlign: "center",
                   color: "transparent",
-                  background: "linear-gradient(45deg, #ffffff, #ffd700)", // Gradien teks
-                  WebkitBackgroundClip: "text", // Untuk browser WebKit (Chrome, Safari)
+                  background: "linear-gradient(45deg, #ffffff, #ffd700)",
+                  WebkitBackgroundClip: "text",
                   backgroundClip: "text",
-                  animation: "glow 3s infinite alternate fadeIn 2s ease-in-out", // Animasi glow
+                  animation: "glow 3s infinite alternate fadeIn 2s ease-in-out",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
