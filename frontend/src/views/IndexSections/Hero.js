@@ -47,8 +47,9 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "67%",
+      height: "40%",
       overflow: "visible",
+      marginTop: "20px",
     },
     orbit: {
       position: "absolute",
@@ -295,6 +296,15 @@ const Hero = () => {
               font-size: 0.8rem !important; /* Perkecil tombol pada layar kecil */
               padding: 8px 16px !important;
             }
+
+            @keyframes glow {
+              0% {
+                text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.8);
+              }
+              100% {
+                text-shadow: 4px 4px 16px rgba(255, 215, 0, 1);
+              }
+            }
           }
         `}
       </style>
@@ -481,11 +491,13 @@ const Hero = () => {
                   fontFamily: "Soria, serif",
                   fontSize: "6vw",
                   fontWeight: "bold",
-                  color: "white",
-                  textAlign: "center",
-                  opacity: 1,
-                  animation: "fadeIn 2s ease-in-out",
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)", // Bayangan teks untuk menonjolkan tulisan
+                  textAlign: "center",
+                  color: "transparent",
+                  background: "linear-gradient(45deg, #ffffff, #ffd700)", // Gradien teks
+                  WebkitBackgroundClip: "text", // Untuk browser WebKit (Chrome, Safari)
+                  backgroundClip: "text",
+                  animation: "glow 3s infinite alternate fadeIn 2s ease-in-out", // Animasi glow
                 }}
               >
                 Selamat Datang di Randusanga Kulon
