@@ -188,7 +188,7 @@ const Hero = () => {
         }}
       >
         <img
-          src="path/to/bird.png" // Ganti dengan path gambar burung Anda
+          src={require("assets/img/theme/223588-P1MAT3-331-removebg-preview.png")} // Ganti dengan path gambar burung Anda
           alt="Burung"
           style={{
             width: "50px",
@@ -287,6 +287,11 @@ const Hero = () => {
           @keyframes fly {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
+          }
+
+          @keyframes sandFall {
+            0% { transform: translate(-50%, 0); opacity: 1; }
+            100% { transform: translate(-50%, 50px); opacity: 0; }
           }
 
           @media (max-width: 768px) {
@@ -511,25 +516,38 @@ const Hero = () => {
                 fontSize: "1rem",
                 padding: "10px 20px",
                 marginTop: "20px",
-                background:
-                  "linear-gradient(135deg, rgba(0, 140, 255, 0.8), rgba(0, 255, 180, 0.8))",
+                background: "linear-gradient(135deg, #f4e6d4, #d2b48c)",
                 border: "none",
                 borderRadius: "30px",
                 color: "white",
                 fontWeight: "bold",
-                boxShadow: "0 0 15px rgba(0, 255, 180, 0.8)",
-                transition: "all 0.3s ease-in-out",
+                boxShadow: "0 0 10px rgba(210, 180, 140, 0.8)",
+                position: "relative",
+                overflow: "hidden",
                 cursor: "pointer",
                 animation: "pulse 2s infinite",
               }}
-              onMouseOver={(e) =>
-                (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 180, 1)")
-              }
-              onMouseOut={(e) =>
-                (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 180, 0.8)")
-              }
+              onMouseOver={(e) => {
+                e.target.style.boxShadow = "0 0 20px rgba(210, 180, 140, 1)";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.boxShadow = "0 0 10px rgba(210, 180, 140, 0.8)";
+              }}
             >
               Buka Menu
+              {/* Efek Pasir Berjatuhan */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "50%",
+                  width: "10px",
+                  height: "10px",
+                  background: "#f4e6d4",
+                  borderRadius: "50%",
+                  animation: "sandFall 1s infinite",
+                }}
+              ></div>
             </Button>
           </div>
         )}
