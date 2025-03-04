@@ -160,6 +160,45 @@ const Hero = () => {
         src={require("assets/img/theme/vi1.mp4")}
       ></video>
 
+      {/* Efek Cahaya Matahari */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background:
+            "radial-gradient(circle, rgba(255, 200, 0, 0.3), transparent)",
+          animation: "sunrise 10s infinite alternate",
+          zIndex: 2,
+        }}
+      ></div>
+
+      {/* Burung Terbang */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          left: "0",
+          width: "100%",
+          height: "100px",
+          overflow: "hidden",
+          zIndex: 2,
+        }}
+      >
+        <img
+          src="path/to/bird.png" // Ganti dengan path gambar burung Anda
+          alt="Burung"
+          style={{
+            width: "50px",
+            height: "auto",
+            position: "absolute",
+            animation: "fly 10s linear infinite",
+          }}
+        />
+      </div>
+
       <style>
         {`
           /* Scrollbar Styling */
@@ -237,6 +276,17 @@ const Hero = () => {
             100% {
               transform: scale(1);
             }
+          }
+
+          @keyframes sunrise {
+            0% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-20%); opacity: 0.6; }
+            100% { transform: translateY(0); opacity: 0.3; }
+          }
+
+          @keyframes fly {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
           }
 
           @media (max-width: 768px) {
