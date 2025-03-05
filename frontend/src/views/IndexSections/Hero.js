@@ -60,10 +60,10 @@ const Hero = () => {
       borderBottom: "none",
       borderLeft: "none",
       borderRight: "none",
-      transform: "translateX(-50%) rotateX(90deg)", // Rotasi ke sumbu X
+      transform: "translateX(-50%) rotate(180deg)",
       width: "100%",
       height: "100%",
-      animation: "rotateOrbitX 20s linear infinite", // Animasi rotasi ke sumbu X
+      animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
     },
     planet: {
       position: "absolute",
@@ -74,7 +74,7 @@ const Hero = () => {
       backgroundColor: "blue",
       borderRadius: "50%",
       transform:
-        "translate(-50%, -50%) rotate(0deg) translateY(200px) rotate(0deg)", // Menggunakan translateY
+        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)", // Posisi planet
       animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
     },
     star: {
@@ -186,21 +186,21 @@ const Hero = () => {
             background: rgba(255, 255, 255, 0.7);
           }
 
-          @keyframes rotateOrbitX {
+          @keyframes rotateOrbit {
             0% {
-              transform: translateX(-50%) rotateX(90deg) rotate(0deg);
+              transform: translateX(-50%) rotate(0deg);
             }
             100% {
-              transform: translateX(-50%) rotateX(90deg) rotate(360deg);
+              transform: translateX(-50%) rotate(360deg);
             }
           }
 
           @keyframes orbitPlanet {
             0% {
-              transform: translate(-50%, -50%) rotate(0deg) translateY(200px) rotate(0deg);
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg);
             }
             100% {
-              transform: translate(-50%, -50%) rotate(360deg) translateY(200px) rotate(360deg);
+              transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg);
             }
           }
 
@@ -230,6 +230,21 @@ const Hero = () => {
             }
           }
 
+          @keyframes fadeInScale {
+            0% {
+              opacity: 0;
+              transform: scale(0.5);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+            100% {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
           @keyframes glow {
             0% {
               text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
@@ -255,34 +270,43 @@ const Hero = () => {
           }
 
           @keyframes dramaticText {
-            0% {
-              opacity: 0;
-              transform: scale(0.5) translateY(-50px);
-              text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            }
-            50% {
-              opacity: 1;
-              transform: scale(1.2) translateY(0);
-              text-shadow: 0 0 20px rgba(255, 215, 0, 1);
-            }
-            100% {
-              opacity: 1;
-              transform: scale(1) translateY(0);
-              text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            }
+          0% {
+            opacity: 0;
+            transform: scale(0.5) translateY(-50px);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
           }
+          50% {
+            opacity: 1;
+            transform: scale(1.2) translateY(0);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+          }
+        }
 
-          @keyframes backgroundGradient {
-            0% {
-              background: linear-gradient(45deg, #87CEEB, #FFFFFF);
-            }
-            50% {
-              background: linear-gradient(45deg, #FFD700, #FFFFFF);
-            }
-            100% {
-              background: linear-gradient(45deg, #87CEEB, #FFFFFF);
-            }
-          }
+        @keyframes backgroundGradient {
+        0% {
+          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+        }
+        50% {
+          background: linear-gradient(45deg, #FFD700, #FFFFFF);
+        }
+        100% {
+          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+        }
+      }
+
+      @keyframes rotatePlanet {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
           @media (max-width: 768px) {
             .hero-container {
@@ -350,7 +374,7 @@ const Hero = () => {
             .planet {
               width: 20px !important; /* Sesuaikan ukuran planet pada laptop */
               height: 20px !important;
-              transform: translate(-50%, -50%) rotate(0deg) translateY(200px) rotate(0deg) !important;
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg) !important;
             }
           }
         `}
@@ -482,24 +506,21 @@ const Hero = () => {
                       height: "80%",
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
-                      transform: "translateX(-50%) rotateX(90deg)", // Rotasi ke sumbu X
-                      animation: "rotateOrbitX 20s linear infinite", // Animasi rotasi ke sumbu X
                     }}
                   >
-                    {/* Planet 1 */}
                     <div
                       style={{
                         ...spaceStyles.planet,
                         width: "20px",
                         height: "20px",
-                        backgroundColor: "blue",
+                        backgroundColor: "blue", // Warna planet
                         transform:
-                          "translate(-50%, -50%) rotate(0deg) translateY(200px) rotate(0deg)", // Menggunakan translateY
-                        animation: "orbitPlanet 10s linear infinite",
+                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
+                        animation:
+                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
                       }}
                     ></div>
                   </div>
-
                   {/* Orbit Kedua */}
                   <div
                     style={{
@@ -508,24 +529,8 @@ const Hero = () => {
                       height: "60%",
                       border: "2px solid rgba(255, 255, 255, 0.4)",
                       boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
-                      transform: "translateX(-50%) rotateX(90deg)", // Rotasi ke sumbu X
-                      animation: "rotateOrbitX 20s linear infinite", // Animasi rotasi ke sumbu X
                     }}
-                  >
-                    {/* Planet 2 */}
-                    <div
-                      style={{
-                        ...spaceStyles.planet,
-                        width: "15px",
-                        height: "15px",
-                        backgroundColor: "red",
-                        transform:
-                          "translate(-50%, -50%) rotate(120deg) translateY(150px) rotate(120deg)", // Menggunakan translateY
-                        animation: "orbitPlanet 8s linear infinite",
-                      }}
-                    ></div>
-                  </div>
-
+                  ></div>
                   {/* Orbit Ketiga */}
                   <div
                     style={{
@@ -534,23 +539,18 @@ const Hero = () => {
                       height: "40%",
                       border: "2px solid rgba(255, 255, 255, 0.3)",
                       boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
-                      transform: "translateX(-50%) rotateX(90deg)", // Rotasi ke sumbu X
-                      animation: "rotateOrbitX 20s linear infinite", // Animasi rotasi ke sumbu X
                     }}
-                  >
-                    {/* Planet 3 */}
-                    <div
-                      style={{
-                        ...spaceStyles.planet,
-                        width: "10px",
-                        height: "10px",
-                        backgroundColor: "green",
-                        transform:
-                          "translate(-50%, -50%) rotate(240deg) translateY(100px) rotate(240deg)", // Menggunakan translateY
-                        animation: "orbitPlanet 6s linear infinite",
-                      }}
-                    ></div>
-                  </div>
+                  ></div>
+                  {/* Orbit Terkecil */}
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "20%",
+                      height: "20%",
+                      border: "2px solid rgba(255, 255, 255, 0.2)",
+                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
+                    }}
+                  ></div>
                 </div>
               </Col>
             </Row>
