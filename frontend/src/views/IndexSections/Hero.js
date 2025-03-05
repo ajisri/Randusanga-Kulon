@@ -299,6 +299,15 @@ const Hero = () => {
         }
       }
 
+      @keyframes rotatePlanet {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
           @media (max-width: 768px) {
             .hero-container {
               height: auto;
@@ -498,7 +507,48 @@ const Hero = () => {
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
-                  ></div>
+                  >
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "blue", // Warna planet
+                        transform:
+                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
+                        animation:
+                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
+                      }}
+                    ></div>
+
+                    {/* Planet 2 */}
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "15px",
+                        height: "15px",
+                        backgroundColor: "red", // Warna planet
+                        transform:
+                          "translate(-50%, -50%) rotate(120deg) translateX(150px) rotate(120deg)",
+                        animation:
+                          "orbitPlanet 8s linear infinite, rotatePlanet 5s linear infinite",
+                      }}
+                    ></div>
+
+                    {/* Planet 3 */}
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "10px",
+                        height: "10px",
+                        backgroundColor: "green", // Warna planet
+                        transform:
+                          "translate(-50%, -50%) rotate(240deg) translateX(100px) rotate(240deg)",
+                        animation:
+                          "orbitPlanet 6s linear infinite, rotatePlanet 5s linear infinite",
+                      }}
+                    ></div>
+                  </div>
                   {/* Orbit Kedua */}
                   <div
                     style={{
@@ -538,7 +588,8 @@ const Hero = () => {
                     height: "20px",
                     transform:
                       "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
-                    animation: "orbitPlanet 10s linear infinite",
+                    animation:
+                      "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
                   }}
                 ></div>
               </Col>
@@ -561,7 +612,7 @@ const Hero = () => {
                   fontFamily: "Soria, serif",
                   fontSize: "5vw", // Ukuran tulisan diperkecil
                   fontWeight: "bold",
-                  textShadow: "2px 2px 8px rgba(255, 215, 0, 0.8)",
+                  textShadow: "2px 2px 8px rgba(0, 0, 0, 0.8)",
                   textAlign: "center",
                   color: "transparent",
                   background: "linear-gradient(45deg, #ffffff, #ffd700)",
