@@ -145,6 +145,7 @@ const Hero = () => {
         pointerEvents: "auto",
         zIndex: 3,
         background: "linear-gradient(to bottom, #87CEEB, #FFFFFF)", // Latar belakang biru langit
+        animation: "backgroundGradient 5s infinite alternate",
       }}
     >
       <video
@@ -229,12 +230,30 @@ const Hero = () => {
             }
           }
 
-          @keyframes glow {
+          @keyframes fadeInScale {
             0% {
-              text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.8);
+              opacity: 0;
+              transform: scale(0.5);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
             }
             100% {
-              text-shadow: 4px 4px 16px rgba(255, 215, 0, 1);
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          @keyframes glow {
+            0% {
+              text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+            }
+            50% {
+              text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+            }
+            100% {
+              text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
             }
           }
 
@@ -250,10 +269,35 @@ const Hero = () => {
             }
           }
 
-          @keyframes sandFall {
-            0% { transform: translate(-50%, 0); opacity: 1; }
-            100% { transform: translate(-50%, 50px); opacity: 0; }
+          @keyframes dramaticText {
+          0% {
+            opacity: 0;
+            transform: scale(0.5) translateY(-50px);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
           }
+          50% {
+            opacity: 1;
+            transform: scale(1.2) translateY(0);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+          }
+        }
+
+        @keyframes backgroundGradient {
+        0% {
+          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+        }
+        50% {
+          background: linear-gradient(45deg, #FFD700, #FFFFFF);
+        }
+        100% {
+          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+        }
+      }
 
           @media (max-width: 768px) {
             .hero-container {
@@ -523,7 +567,9 @@ const Hero = () => {
                   background: "linear-gradient(45deg, #ffffff, #ffd700)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
-                  animation: "glow 3s infinite alternate fadeIn 4s ease-in-out",
+                  opacity: 0,
+                  animation:
+                    "dramaticText 2s ease-in-out, glow 3s infinite alternate",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
@@ -565,7 +611,7 @@ const Hero = () => {
                   height: "10px",
                   background: "#f4e6d4",
                   borderRadius: "50%",
-                  animation: "sandFall 1s infinite",
+                  animation: "fadeIn 1s infinite",
                 }}
               ></div>
             </Button>
