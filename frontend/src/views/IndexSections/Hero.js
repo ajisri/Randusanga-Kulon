@@ -308,33 +308,6 @@ const Hero = () => {
       }
     }
 
-    @keyframes orbitPlanet1 {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg);
-  }
-}
-
-@keyframes orbitPlanet2 {
-  0% {
-    transform: translate(-50%, -50%) rotate(120deg) translateX(150px) rotate(120deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(480deg) translateX(150px) rotate(480deg);
-  }
-}
-
-@keyframes orbitPlanet3 {
-  0% {
-    transform: translate(-50%, -50%) rotate(240deg) translateX(100px) rotate(240deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(600deg) translateX(100px) rotate(600deg);
-  }
-}
-
           @media (max-width: 768px) {
             .hero-container {
               height: auto;
@@ -534,22 +507,20 @@ const Hero = () => {
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
-                  ></div>
-
-                  {/* Planet 1 */}
-                  <div
-                    style={{
-                      ...spaceStyles.planet,
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: "blue",
-                      transform:
-                        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
-                      animation: "orbitPlanet1 10s linear infinite",
-                      transformOrigin: "center center",
-                    }}
-                  ></div>
-
+                  >
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "blue", // Warna planet
+                        transform:
+                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
+                        animation:
+                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
+                      }}
+                    ></div>
+                  </div>
                   {/* Orbit Kedua */}
                   <div
                     style={{
@@ -560,21 +531,6 @@ const Hero = () => {
                       boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
                     }}
                   ></div>
-
-                  {/* Planet 2 */}
-                  <div
-                    style={{
-                      ...spaceStyles.planet,
-                      width: "15px",
-                      height: "15px",
-                      backgroundColor: "red",
-                      transform:
-                        "translate(-50%, -50%) rotate(120deg) translateX(150px) rotate(120deg)",
-                      animation: "orbitPlanet2 8s linear infinite",
-                      transformOrigin: "center center",
-                    }}
-                  ></div>
-
                   {/* Orbit Ketiga */}
                   <div
                     style={{
@@ -585,21 +541,29 @@ const Hero = () => {
                       boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
                     }}
                   ></div>
-
-                  {/* Planet 3 */}
+                  {/* Orbit Terkecil */}
                   <div
                     style={{
-                      ...spaceStyles.planet,
-                      width: "10px",
-                      height: "10px",
-                      backgroundColor: "green",
-                      transform:
-                        "translate(-50%, -50%) rotate(240deg) translateX(100px) rotate(240deg)",
-                      animation: "orbitPlanet3 6s linear infinite",
-                      transformOrigin: "center center",
+                      ...spaceStyles.orbit,
+                      width: "20%",
+                      height: "20%",
+                      border: "2px solid rgba(255, 255, 255, 0.2)",
+                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
                   ></div>
                 </div>
+                {/* Planet */}
+                <div
+                  style={{
+                    ...spaceStyles.planet,
+                    width: "20px",
+                    height: "20px",
+                    transform:
+                      "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
+                    animation:
+                      "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
+                  }}
+                ></div>
               </Col>
             </Row>
           </>
