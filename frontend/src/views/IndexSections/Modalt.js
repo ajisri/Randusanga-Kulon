@@ -659,7 +659,7 @@ const Modalt = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/desaankor.png")}
                 alt=""
               />
@@ -786,7 +786,7 @@ const Modalt = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/law.png")}
                 alt=""
               />
@@ -921,7 +921,7 @@ const Modalt = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/payroll.png")}
                 alt=""
               />

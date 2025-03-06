@@ -637,7 +637,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/aktakelahiran.png")}
                 alt=""
               />
@@ -737,7 +737,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/kartukeluarga.png")}
                 alt=""
               />
@@ -839,7 +839,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
               />
@@ -941,7 +941,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
               />
