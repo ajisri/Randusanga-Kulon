@@ -43,6 +43,12 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const [isTextVisible, setIsTextVisible] = useState(false);
+
+  useEffect(() => {
+    setIsTextVisible(true); // Set teks menjadi terlihat setelah komponen dimuat
+  }, []);
+
   const spaceStyles = {
     orbitContainer: {
       position: "relative",
@@ -245,18 +251,6 @@ const Hero = () => {
             }
           }
 
-          @keyframes glow {
-            0% {
-              text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
-            }
-            50% {
-              text-shadow: 0 0 20px rgba(255, 215, 0, 1);
-            }
-            100% {
-              text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
-            }
-          }
-
           @keyframes pulse {
             0% {
               transform: scale(1);
@@ -277,13 +271,25 @@ const Hero = () => {
           }
           50% {
             opacity: 1;
-            transform: scale(1.2) translateY(0);
-            text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+            transform: scale(1.5) translateY(0); // Skala lebih besar
+            text-shadow: 0 0 30px rgba(255, 215, 0, 1); // Shadow lebih besar
           }
           100% {
             opacity: 1;
             transform: scale(1) translateY(0);
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+          }
+        }
+
+        @keyframes glow {
+          0% {
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+          }
+          50% {
+            text-shadow: 0 0 30px rgba(255, 215, 0, 1); // Glow lebih intens
+          }
+          100% {
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
           }
         }
 
@@ -570,17 +576,19 @@ const Hero = () => {
                 className="welcome-text"
                 style={{
                   fontFamily: "Soria, serif",
-                  fontSize: "5vw", // Ukuran tulisan diperkecil
+                  fontSize: "8vw", // Ukuran tulisan diperkecil
                   fontWeight: "bold",
-                  textShadow: "2px 2px 8px rgba(0, 0, 0, 0.8)",
+                  textShadow: "2px 2px 20px rgba(255, 215, 0, 0.8)",
                   textAlign: "center",
                   color: "transparent",
-                  background: "linear-gradient(45deg, #ffffff, #ffd700)",
+                  background:
+                    "linear-gradient(45deg, #ffd700, #ffffff, #ffd700)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
-                  opacity: 0,
+                  opacity: isTextVisible ? 1 : 0,
                   animation:
-                    "dramaticText 2s ease-in-out, glow 3s infinite alternate",
+                    "dramaticText 3s ease-in-out, glow 5s infinite alternate",
+                  transition: "opacity 2s ease-in-out",
                 }}
               >
                 Selamat Datang di Randusanga Kulon
