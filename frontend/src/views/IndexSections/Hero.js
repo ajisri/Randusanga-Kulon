@@ -1,23 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import Tabs from "./Tabs.js";
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(false);
+  const [showWelcomeText, setShowWelcomeText] = useState(true);
+  const heroRef = useRef(null);
 
   useEffect(() => {
     const link = document.createElement("link");
-    link.href = require("assets/font/soria-font.ttf"); // Menggunakan font Soria dari assets
+    link.href = require("assets/font/soria-font.ttf");
     link.rel = "stylesheet";
     document.head.appendChild(link);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setIsInHeroSection(rect.top <= 0 && rect.bottom >= 0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflowY = "auto";
+    } else {
+      document.body.style.overflowY = "visible";
+    }
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcomeText(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const spaceStyles = {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "75%", // Efek bintang mengisi 75% bagian atas
-      overflow: "hidden",
+      height: "50%", // Tinggi orbit diperpanjang
+      overflow: "visible",
+      marginTop: "20px",
     },
     orbit: {
       position: "absolute",
@@ -28,18 +60,22 @@ const Hero = () => {
       borderBottom: "none",
       borderLeft: "none",
       borderRight: "none",
-      transform: "translateX(-50%) rotate(180deg)", // Membalik orbit ke atas
+      transform: "translateX(-50%) rotate(180deg)",
+      width: "100%",
+      height: "100%",
+      animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
     },
     planet: {
       position: "absolute",
       bottom: "0",
       left: "50%",
-      width: "30px",
-      height: "30px",
+      width: "20px", // Ukuran planet
+      height: "20px", // Ukuran planet
       backgroundColor: "blue",
       borderRadius: "50%",
-      transform: "translate(-50%, -50%)",
-      animation: "orbit 10s linear infinite",
+      transform:
+        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)", // Posisi planet
+      animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
     },
     star: {
       position: "absolute",
@@ -47,7 +83,7 @@ const Hero = () => {
       height: "2px",
       backgroundColor: "white",
       borderRadius: "50%",
-      boxShadow: "0 0 5px white", // Efek cahaya bintang
+      boxShadow: "0 0 5px white",
       opacity: 0.8,
     },
     fallingStar: {
@@ -56,72 +92,62 @@ const Hero = () => {
       height: "2px",
       backgroundColor: "white",
       borderRadius: "50%",
-      boxShadow: "0 0 5px white", // Efek cahaya bintang
-      animation: "fallingStar 8s linear infinite", // Animasi bintang jatuh
+      boxShadow: "0 0 5px white",
+      animation: "fallingStar 8s linear infinite",
       opacity: 0.8,
     },
   };
 
-  // Container khusus untuk bintang
   const starsContainerStyles = {
-    position: "absolute",
-    top: 0, // Mulai dari atas layar
-    left: 0,
-    width: "100%",
-    height: "75%", // Efek bintang mengisi 75% bagian atas
-    overflow: "hidden",
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
-    perspective: "1000px", // Menambahkan efek 3D
-  };
-
-  // Overlay hitam samar (hanya untuk mobile)
-  const overlayStyles = {
     position: "absolute",
     top: 0,
     left: 0,
     width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.7)", // Overlay hitam samar
-    zIndex: 1, // z-index lebih rendah dari konten Tabs
+    height: "69%",
+    overflow: "hidden",
+    zIndex: 1,
+    perspective: "1000px",
   };
 
-  // Generate random stars (bintang diam)
   const staticStars = Array.from({ length: 25 }).map((_, index) => {
     const style = {
       ...spaceStyles.star,
-      top: `${Math.random() * 75}%`, // Bintang hanya di 75% bagian atas
+      top: `${Math.random() * 69}%`,
       left: `${Math.random() * 100}%`,
-      transform: `translateZ(${Math.random() * 1000}px)`, // Efek 3D
+      transform: `translateZ(${Math.random() * 1000}px)`,
     };
     return <div key={`static-${index}`} style={style}></div>;
   });
 
-  // Generate falling stars (bintang jatuh)
   const fallingStars = Array.from({ length: 5 }).map((_, index) => {
-    const startX = Math.random() * 100; // Posisi awal horizontal acak
-    const duration = `${Math.random() * 5 + 18}s`; // Durasi animasi acak antara 18-23 detik
-    const delay = `${index * 8}s`; // Delay animasi (3 detik antara setiap bintang)
+    const startX = Math.random() * 100;
+    const duration = `${Math.random() * 5 + 18}s`;
+    const delay = `${index * 8}s`;
     const style = {
       ...spaceStyles.fallingStar,
-      top: `0%`, // Mulai dari atas layar
-      left: `${startX}%`, // Posisi awal horizontal
-      animationDuration: duration, // Durasi animasi acak
-      animationDelay: delay, // Delay animasi
+      top: `0%`,
+      left: `${startX}%`,
+      animationDuration: duration,
+      animationDelay: delay,
     };
     return <div key={`falling-${index}`} style={style}></div>;
   });
 
   return (
     <div
+      ref={heroRef}
       className="hero-container"
       style={{
         position: "relative",
         width: "100%",
         height: "100vh",
-        overflow: "hidden",
+        overflowY: isMenuOpen ? "auto" : "hidden",
+        pointerEvents: "auto",
+        zIndex: 3,
+        background: "linear-gradient(to bottom, #87CEEB, #FFFFFF)", // Latar belakang biru langit
+        animation: "backgroundGradient 5s infinite alternate",
       }}
     >
-      {/* Video Background */}
       <video
         style={{
           position: "absolute",
@@ -141,67 +167,214 @@ const Hero = () => {
 
       <style>
         {`
+          /* Scrollbar Styling */
+          ::-webkit-scrollbar {
+            width: 8px;
+          }
+
+          ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+          }
+
+          ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+          }
+
+          ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.7);
+          }
+
+          @keyframes rotateOrbit {
+            0% {
+              transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+              transform: translateX(-50%) rotate(360deg);
+            }
+          }
+
+          @keyframes orbitPlanet {
+            0% {
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg);
+            }
+            100% {
+              transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg);
+            }
+          }
+
           @keyframes fallingStar {
             0% {
-              top: 0%; /* Mulai dari atas layar */
+              top: 0%;
               opacity: 1;
             }
             50% {
-              top: 75%; /* Bergerak ke 75% bagian atas */
+              top: 69%;
               opacity: 0;
             }
             100% {
-              top: 75%; /* Tetap di 75% bagian atas */
+              top: 69%;
               opacity: 0;
             }
           }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(-20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes fadeInScale {
+            0% {
+              opacity: 0;
+              transform: scale(0.5);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+            100% {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          @keyframes glow {
+            0% {
+              text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+            }
+            50% {
+              text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+            }
+            100% {
+              text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+            }
+          }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.1);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+
+          @keyframes dramaticText {
+          0% {
+            opacity: 0;
+            transform: scale(0.5) translateY(-50px);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.2) translateY(0);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+          }
+        }
+
+        @keyframes backgroundGradient {
+        0% {
+          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+        }
+        50% {
+          background: linear-gradient(45deg, #FFD700, #FFFFFF);
+        }
+        100% {
+          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+        }
+      }
+
+      @keyframes rotatePlanet {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
           @media (max-width: 768px) {
             .hero-container {
               height: auto;
             }
 
-            .col-md-8 {
-              display: none; /* Sembunyikan kolom md8 pada tampilan mobile */
-            }
-
-            .col-md-4 {
-              width: 100%; /* Kolom md4 mengambil lebar penuh pada mobile */
-              height: 100vh; /* Mengisi seluruh tinggi layar */
-              padding-bottom: 80px; /* Memberikan ruang untuk tombol tutup */
-              position: relative;
-              background: rgba(0, 0, 0, 0.7); /* Overlay hitam samar */
-              overflow-y: auto; /* Memungkinkan scrolling jika konten melebihi tinggi layar */
-            }
-
             .tabs-container {
-              width: 100%; /* Lebar penuh untuk container Tabs */
-              max-width: none; /* Hilangkan batas maksimum lebar */
-              padding: 0 20px; /* Tambahkan padding agar konten tidak menempel ke tepi */
-              position: relative;
-              z-index: 2; /* z-index lebih tinggi dari efek bintang dan overlay */
+              width: 100%;
+              padding: 0 8px;
+              margin: 0;
+              overflow-x: auto;
+            }
+
+            .custom-button {
+              max-width: 90vw;
+              height: auto;
+              margin-bottom: 5px;
+              padding: 2px;
+            }
+
+            .button-icon {
+              min-height: 40px;
+            }
+
+            .icon-button-text {
+              font-size: 12px;
             }
 
             .close-button {
               position: fixed;
-              bottom: 20px;
-              right: 20px;
-              z-index: 1000; /* z-index lebih tinggi dari efek bintang dan overlay */
+              bottom: 10px;
+              right: 10px;
+              z-index: 1000;
             }
 
-            .stars-container {
-              display: block; /* Tampilkan efek bintang hanya pada mobile */
-              height: 75%; /* Efek bintang mengisi 75% bagian atas */
+            .orbitContainer {
+              height: 40vh !important; /* Sesuaikan tinggi orbit pada mobile */
+            }
+
+            .orbit {
+              width: 80% !important; /* Sesuaikan ukuran orbit pada mobile */
+              height: 80% !important;
+            }
+
+            .welcome-text {
+              font-size: 6vw !important; /* Perkecil tulisan pada mobile */
+            }
+
+            .menu-button {
+              font-size: 0.8rem !important; /* Perkecil tombol pada mobile */
+              padding: 8px 16px !important;
             }
           }
 
-          @media (min-width: 769px) {
-            .col-md-4 {
-              background: none; /* Hilangkan overlay hitam pada desktop */
+          @media (min-width: 992px) {
+            .orbitContainer {
+              height: 60vh; /* Sesuaikan tinggi orbit pada laptop */
             }
 
-            .stars-container {
-              display: none; /* Sembunyikan efek bintang pada kolom md4 di desktop */
+            .orbit {
+              width: 80% !important; /* Sesuaikan ukuran orbit pada laptop */
+              height: 80% !important;
+            }
+
+            .planet {
+              width: 20px !important; /* Sesuaikan ukuran planet pada laptop */
+              height: 20px !important;
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg) !important;
             }
           }
         `}
@@ -213,42 +386,31 @@ const Hero = () => {
       >
         {isMenuOpen ? (
           <>
-            {/* Baris Pertama */}
             <Row
               style={{
-                minHeight: "100vh",
-                height: "auto",
+                height: "100%",
                 paddingTop: "0px",
                 display: "flex",
                 flexDirection: "row",
                 flexWrap: "wrap",
+                overflowY: "auto",
               }}
             >
               <Col
                 md={4}
                 style={{
-                  padding: "20px",
+                  padding: "20px 20px 80px 20px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "100vh", // Mengisi seluruh tinggi layar
+                  height: "100%",
                   position: "relative",
                   zIndex: 2,
-                  overflowY: "auto", // Memungkinkan scrolling jika konten melebihi tinggi layar
-                  flex: "1 1 100%", // Flexbox property
+                  overflowY: "auto",
+                  flex: "1 1 100%",
                 }}
               >
-                {/* Overlay hitam samar (hanya pada mobile) */}
-                <div className="stars-container" style={overlayStyles}></div>
-
-                {/* Container khusus untuk bintang (hanya pada mobile) */}
-                <div className="stars-container" style={starsContainerStyles}>
-                  {staticStars} {/* Bintang diam */}
-                  {fallingStars} {/* Bintang jatuh */}
-                </div>
-
-                {/* Logo Kabupaten Brebes */}
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
                     alt="..."
@@ -259,64 +421,65 @@ const Hero = () => {
                       marginTop: "10px",
                     }}
                   />
-                  <h3 style={{ color: "white", paddingTop: "20px" }}>
-                    {/* fjfj */}
-                  </h3>
+                  <h3 style={{ color: "white", paddingTop: "20px" }}>menu</h3>
                 </div>
 
-                {/* Konten Tabs */}
                 <div
                   className="tabs-container"
                   style={{
                     width: "100%",
-                    maxWidth: "1200px", // Lebar container Tabs diperbesar
-                    height: "auto",
-                    margin: "0 auto",
-                    overflow: "hidden",
+                    height: "100%",
+                    margin: "0",
+                    padding: "0 10px",
+                    overflow: "auto",
                   }}
                 >
                   <Tabs />
                 </div>
-
-                {/* Tombol Tutup */}
-                <Button
-                  onClick={() => setIsMenuOpen(false)}
-                  className="close-button"
-                  style={{
-                    fontSize: "0.8rem",
-                    padding: "8px 14px",
-                    marginTop: "20px",
-                    alignSelf: "flex-end",
-                  }}
-                >
-                  Tutup
-                </Button>
+                {isMenuOpen && isInHeroSection && (
+                  <Button
+                    onClick={() => setIsMenuOpen(false)}
+                    className="close-button"
+                    style={{
+                      fontSize: "0.8rem",
+                      padding: "8px 14px",
+                      position: "fixed",
+                      bottom: "30px",
+                      right: "20px",
+                      zIndex: 1000,
+                      transition: "opacity 0.3s ease-in-out",
+                      opacity: isInHeroSection ? 1 : 0,
+                      pointerEvents: isInHeroSection ? "auto" : "none",
+                    }}
+                  >
+                    Tutup
+                  </Button>
+                )}
               </Col>
 
-              {/* Kolom Orbit (hanya ditampilkan pada desktop) */}
               <Col
                 md={8}
+                className="d-none d-md-block"
                 style={{
                   position: "relative",
-                  padding: "20px",
+                  padding: "20px 20px 40px 20px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "auto",
-                  backgroundColor: "rgba(0, 0, 0, 0.9)",
-                  flex: "1 1 100%", // Flexbox property
+                  height: "100%",
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                  flex: "1 1 100%",
                 }}
               >
-                {/* Container khusus untuk bintang */}
                 <div style={starsContainerStyles}>
-                  {staticStars} {/* Bintang diam */}
-                  {fallingStars} {/* Bintang jatuh */}
+                  {staticStars}
+                  {fallingStars}
                 </div>
                 <div
                   style={{
-                    fontFamily: "Soria, serif",
-                    fontSize: "5vw", // Ubah ke unit relatif
+                    fontFamily: "Soria, serif !important",
+                    fontSize: "4vw", // Ukuran tulisan diperkecil
                     fontWeight: "bold",
                     textAlign: "center",
                     display: "flex",
@@ -324,42 +487,68 @@ const Hero = () => {
                     alignItems: "center",
                     minHeight: "200px",
                     backgroundColor: "transparent",
+                    color: "transparent",
+                    background: "linear-gradient(45deg, #ffffff, #ffd700)", // Gradien teks
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    textShadow: "2px 2px 8px rgba(255, 215, 0, 0.8)", // Shadow teks
+                    animation: "glow 3s infinite alternate", // Animasi glow
                   }}
                 >
                   Randusanga Kulon
                 </div>
-                {/* Planet yang Berputar */}
-                <div style={spaceStyles.planet}></div>
-
-                {/* Container untuk Orbit */}
                 <div style={spaceStyles.orbitContainer}>
-                  {/* Orbit Lebih Besar */}
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "100%",
-                      height: "50%",
-                    }}
-                  ></div>
+                  {/* Orbit Terluar */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
                       width: "80%",
-                      height: "40%",
+                      height: "80%",
+                      border: "2px solid rgba(255, 255, 255, 0.5)",
+                      boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
                     }}
-                  ></div>
+                  >
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "blue", // Warna planet
+                        transform:
+                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
+                        animation:
+                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
+                      }}
+                    ></div>
+                  </div>
+                  {/* Orbit Kedua */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
                       width: "60%",
-                      height: "30%",
+                      height: "60%",
+                      border: "2px solid rgba(255, 255, 255, 0.4)",
+                      boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
                     }}
                   ></div>
+                  {/* Orbit Ketiga */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
                       width: "40%",
+                      height: "40%",
+                      border: "2px solid rgba(255, 255, 255, 0.3)",
+                      boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+                    }}
+                  ></div>
+                  {/* Orbit Terkecil */}
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "20%",
                       height: "20%",
+                      border: "2px solid rgba(255, 255, 255, 0.2)",
+                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
                   ></div>
                 </div>
@@ -373,13 +562,69 @@ const Hero = () => {
               justifyContent: "center",
               alignItems: "center",
               height: "100%",
+              flexDirection: "column",
             }}
           >
+            {showWelcomeText && (
+              <div
+                className="welcome-text"
+                style={{
+                  fontFamily: "Soria, serif",
+                  fontSize: "5vw", // Ukuran tulisan diperkecil
+                  fontWeight: "bold",
+                  textShadow: "2px 2px 8px rgba(0, 0, 0, 0.8)",
+                  textAlign: "center",
+                  color: "transparent",
+                  background: "linear-gradient(45deg, #ffffff, #ffd700)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  opacity: 0,
+                  animation:
+                    "dramaticText 2s ease-in-out, glow 3s infinite alternate",
+                }}
+              >
+                Selamat Datang di Randusanga Kulon
+              </div>
+            )}
             <Button
+              className="menu-button"
               onClick={() => setIsMenuOpen(true)}
-              style={{ fontSize: "0.8rem", padding: "8px 14px" }}
+              style={{
+                fontSize: "1rem",
+                padding: "10px 20px",
+                marginTop: "20px",
+                background: "linear-gradient(135deg, #f4e6d4, #d2b48c)",
+                border: "none",
+                borderRadius: "30px",
+                color: "white",
+                fontWeight: "bold",
+                boxShadow: "0 0 10px rgba(210, 180, 140, 0.8)",
+                position: "relative",
+                overflow: "hidden",
+                cursor: "pointer",
+                animation: "pulse 2s infinite",
+              }}
+              onMouseOver={(e) => {
+                e.target.style.boxShadow = "0 0 20px rgba(210, 180, 140, 1)";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.boxShadow = "0 0 10px rgba(210, 180, 140, 0.8)";
+              }}
             >
               Buka Menu
+              {/* Efek Pasir Berjatuhan */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "50%",
+                  width: "10px",
+                  height: "10px",
+                  background: "#f4e6d4",
+                  borderRadius: "50%",
+                  animation: "fadeIn 1s infinite",
+                }}
+              ></div>
             </Button>
           </div>
         )}
