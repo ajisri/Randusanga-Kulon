@@ -5,7 +5,6 @@ import Tabs from "./Tabs.js";
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInHeroSection, setIsInHeroSection] = useState(false);
-  const [showWelcomeText, setShowWelcomeText] = useState(true);
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -34,14 +33,6 @@ const Hero = () => {
       document.body.style.overflowY = "visible";
     }
   }, [isMenuOpen]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcomeText(false);
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const [isTextVisible, setIsTextVisible] = useState(false);
 
@@ -571,29 +562,28 @@ const Hero = () => {
               flexDirection: "column",
             }}
           >
-            {showWelcomeText && (
-              <div
-                className="welcome-text"
-                style={{
-                  fontFamily: "Soria, serif",
-                  fontSize: "8vw", // Ukuran tulisan diperkecil
-                  fontWeight: "bold",
-                  textShadow: "2px 2px 20px rgba(255, 215, 0, 0.8)",
-                  textAlign: "center",
-                  color: "transparent",
-                  background:
-                    "linear-gradient(45deg, #ffd700, #ffffff, #ffd700)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  opacity: isTextVisible ? 1 : 0,
-                  animation:
-                    "dramaticText 3s ease-in-out, glow 5s infinite alternate",
-                  transition: "opacity 2s ease-in-out",
-                }}
-              >
-                Selamat Datang di Randusanga Kulon
-              </div>
-            )}
+            <div
+              className="welcome-text"
+              style={{
+                fontFamily: "Soria, serif",
+                fontSize: "8vw", // Ukuran tulisan diperkecil
+                fontWeight: "bold",
+                textShadow: "2px 2px 20px rgba(255, 215, 0, 0.8)",
+                textAlign: "center",
+                color: "transparent",
+                WebkitTextStroke: "2px black",
+                letterSpacing: "-2px",
+                background: "linear-gradient(45deg, #ffffff)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                opacity: isTextVisible ? 1 : 0,
+                animation:
+                  "dramaticText 3s ease-in-out, glow 5s infinite alternate",
+                transition: "opacity 2s ease-in-out",
+              }}
+            >
+              Selamat Datang di Randusanga Kulon
+            </div>
             <Button
               className="menu-button"
               onClick={() => setIsMenuOpen(true)}
@@ -620,19 +610,6 @@ const Hero = () => {
               }}
             >
               Buka Menu
-              {/* Efek Pasir Berjatuhan */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "100%",
-                  left: "50%",
-                  width: "10px",
-                  height: "10px",
-                  background: "#f4e6d4",
-                  borderRadius: "50%",
-                  animation: "fadeIn 1s infinite",
-                }}
-              ></div>
             </Button>
           </div>
         )}
