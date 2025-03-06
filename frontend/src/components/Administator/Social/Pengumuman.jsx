@@ -59,10 +59,7 @@ const Pengumuman = () => {
     data: pengumumanData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/pengumuman",
-    fetcher
-  );
+  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/pengumuman", fetcher);
 
   useEffect(() => {
     if (pengumumanData?.pengumumans) {
@@ -152,7 +149,7 @@ const Pengumuman = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/pengumuman/${currentPengumuman.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/pengumuman/${currentPengumuman.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -166,7 +163,7 @@ const Pengumuman = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/cpengumuman",
+          "https://randusangakulon.osc-fr1.scalingo.io/cpengumuman",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -180,7 +177,7 @@ const Pengumuman = () => {
         });
       }
 
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/pengumuman");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/pengumuman");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -250,7 +247,7 @@ const Pengumuman = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/pengumuman/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/pengumuman/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -258,7 +255,7 @@ const Pengumuman = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/pengumuman");
+        await mutate("https://randusangakulon.osc-fr1.scalingo.io/pengumuman");
       } catch (error) {
         handleError(error);
       }

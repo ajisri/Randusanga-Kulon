@@ -46,7 +46,7 @@ const JenisLahan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/jenislahan",
+    "https://randusangakulon.osc-fr1.scalingo.io/jenislahan",
     fetcher
   );
 
@@ -76,7 +76,7 @@ const JenisLahan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/jenislahan/${currentData.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/jenislahan/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -87,7 +87,7 @@ const JenisLahan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/cjenislahan",
+          "https://randusangakulon.osc-fr1.scalingo.io/cjenislahan",
           formData
         );
         toast.current.show({
@@ -97,7 +97,7 @@ const JenisLahan = () => {
           life: 3000,
         });
       }
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/jenislahan");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/jenislahan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -140,7 +140,7 @@ const JenisLahan = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/jenislahan/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/jenislahan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -148,7 +148,7 @@ const JenisLahan = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/jenislahan");
+        await mutate("https://randusangakulon.osc-fr1.scalingo.io/jenislahan");
       } catch (error) {
         handleError(error);
       }

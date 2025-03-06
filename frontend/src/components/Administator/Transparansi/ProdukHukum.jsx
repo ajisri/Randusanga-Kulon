@@ -55,7 +55,7 @@ const Produkhukum = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/produk_hukum",
+    "https://randusangakulon.osc-fr1.scalingo.io/produk_hukum",
     fetcher
   );
 
@@ -196,7 +196,7 @@ const Produkhukum = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/produk_hukum/${currentProdukhukum.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -210,7 +210,7 @@ const Produkhukum = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/cprodukhukum",
+          "https://randusangakulon.osc-fr1.scalingo.io/cprodukhukum",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -224,7 +224,7 @@ const Produkhukum = () => {
         });
       }
 
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/produk_hukum");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/produk_hukum");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -295,7 +295,7 @@ const Produkhukum = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/produk_hukum/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/produk_hukum/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -304,7 +304,7 @@ const Produkhukum = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/produk_hukum"
+          "https://randusangakulon.osc-fr1.scalingo.io/produk_hukum"
         );
       } catch (error) {
         handleError(error);

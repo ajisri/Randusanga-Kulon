@@ -50,7 +50,7 @@ const Keuangan = () => {
     data: keuanganData,
     error,
     isLoading,
-  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/keuangan", fetcher);
+  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/keuangan", fetcher);
 
   useEffect(() => {
     if (keuanganData) {
@@ -64,7 +64,7 @@ const Keuangan = () => {
     data: apbdData,
     error: apbdError,
     isLoading: isApbdLoading,
-  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/allapbd", fetcher);
+  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/allapbd", fetcher);
 
   useEffect(() => {
     if (apbdData) {
@@ -106,7 +106,7 @@ const Keuangan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/keuangan/${currentKeuangan.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/keuangan/${currentKeuangan.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -117,7 +117,7 @@ const Keuangan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/ckeuangan",
+          "https://randusangakulon.osc-fr1.scalingo.io/ckeuangan",
           dataToSend
         );
         toast.current.show({
@@ -128,7 +128,7 @@ const Keuangan = () => {
         });
       }
 
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/keuangan");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/keuangan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -180,7 +180,7 @@ const Keuangan = () => {
       setIsLoadingg(true);
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/keuangan/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/keuangan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -188,7 +188,7 @@ const Keuangan = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/keuangan");
+        await mutate("https://randusangakulon.osc-fr1.scalingo.io/keuangan");
       } catch (error) {
         handleError(error);
       } finally {

@@ -40,7 +40,7 @@ const Strukturorganisasi = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/strukturorganisasi",
+    "https://randusangakulon.osc-fr1.scalingo.io/strukturorganisasi",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Strukturorganisasi = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/cstrukturorganisasi",
+        "https://randusangakulon.osc-fr1.scalingo.io/cstrukturorganisasi",
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ const Strukturorganisasi = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/strukturorganisasi"
+        "https://randusangakulon.osc-fr1.scalingo.io/strukturorganisasi"
       );
 
       toast.current.show({

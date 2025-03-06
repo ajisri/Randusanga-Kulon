@@ -42,7 +42,7 @@ const Visimisi = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/visimisi",
+    "https://randusangakulon.osc-fr1.scalingo.io/visimisi",
     fetcher
   );
 
@@ -87,7 +87,7 @@ const Visimisi = () => {
     try {
       setIsLoadingProcess(true);
       const response = await axiosJWT.post(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/cvisimisi",
+        "https://randusangakulon.osc-fr1.scalingo.io/cvisimisi",
         formData,
         {
           headers: {
@@ -101,7 +101,7 @@ const Visimisi = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/visimisi");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/visimisi");
 
       toast.current.show({
         severity: "success",

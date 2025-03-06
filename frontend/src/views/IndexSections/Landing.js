@@ -82,7 +82,7 @@ const Landing = () => {
     error: agendaError,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/agendapengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/agendapengunjung",
     fetcher
   );
 
@@ -111,7 +111,7 @@ const Landing = () => {
     error: jabatanError,
     isLoadingJabatan,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/jabatanpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/jabatanpengunjung",
     fetcher
   );
 
