@@ -568,7 +568,7 @@ const Hero = () => {
                 fontFamily: "Soria, serif",
                 fontSize: "8vw", // Ukuran tulisan diperkecil
                 fontWeight: "bold",
-                textShadow: "2px 2px 20px rgba(255, 215, 0, 0.8)",
+                textShadow: "2px 2px 20px rgba(15, 15, 15, 0.8)",
                 textAlign: "center",
                 color: "transparent",
                 WebkitTextStroke: "2px black",
