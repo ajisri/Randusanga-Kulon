@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useSWR from "swr"; // Import SWR
-// import axios from "axios";s
+// import axios from "axios";
 import { Chart } from "primereact/chart";
 import { Button, Row, Col } from "reactstrap";
 import { Dialog } from "primereact/dialog";
