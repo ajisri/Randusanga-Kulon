@@ -34,13 +34,18 @@ class Index extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    if (this.mainRef) {
+      this.mainRef.scrollTop = 0;
+    }
   }
+
   render() {
     return (
       <>
         {/* <DemoNavbar /> */}
-        <main ref="main">
+        <main ref={(ref) => (this.mainRef = ref)}>
+          {" "}
+          {/* Menggunakan fungsi callback */}
           <Hero />
           <Landing />
           {/* <Inputs /> */}

@@ -25,10 +25,11 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.toastRef = React.createRef();
+    this.toastRef = React.createRef(); // Menggunakan React.createRef()
   }
 
   showToast = (severity, summary, detail) => {
