@@ -24,7 +24,7 @@ const Geografix = () => {
     error: batasWilayahError,
     isLoading: isBatasWilayahLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/batawilayahpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/batawilayahpengunjung",
     fetcher
   );
 
@@ -33,7 +33,7 @@ const Geografix = () => {
     error: orbitasiError,
     isLoading: isOrbitasiLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/orbitasipengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/orbitasipengunjung",
     fetcher
   );
   const {
@@ -41,7 +41,7 @@ const Geografix = () => {
     error: jenisLahanError,
     isLoading: isJenisLahanLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/jenislahanpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/jenislahanpengunjung",
     fetcher
   );
   const {
@@ -49,7 +49,7 @@ const Geografix = () => {
     error: potensiWisataError,
     isLoading: isPotensiWisataLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/potensiwisatapengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/potensiwisatapengunjung",
     fetcher
   );
 

@@ -64,28 +64,28 @@ const Modall = () => {
 
   //akta kelahiran
   const { data: aktakelahiranData, error: aktakelahiranError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/aktakelahiranpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/aktakelahiranpengunjung",
     fetcher
   );
 
   const loadingAktakelahiran = !aktakelahiranData && !aktakelahiranError;
 
   // Construct full URL for the image
-  const baseAURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseAURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageAURL = aktakelahiranData?.service.file_url
     ? `${baseAURL}${aktakelahiranData.service.file_url}`
     : null;
 
   //kartu keluarga
   const { data: kartukeluargaData, error: kartukeluargaError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/kartukeluargapengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/kartukeluargapengunjung",
     fetcher
   );
 
   const loadingKartukeluarga = !kartukeluargaData && !kartukeluargaError;
 
   // Construct full URL for the image
-  const baseKKURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseKKURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageKKURL = kartukeluargaData?.service.file_url
     ? `${baseKKURL}${kartukeluargaData.service.file_url}`
     : null;
@@ -93,7 +93,7 @@ const Modall = () => {
   //ktp
   const { data: kartutandapendudukData, error: kartutandapendudukError } =
     useSWR(
-      "https://randusanga-kulon.osc-fr1.scalingo.io/kartutandapendudukpengunjung",
+      "https://randusangakulon.osc-fr1.scalingo.io/kartutandapendudukpengunjung",
       fetcher
     );
 
@@ -101,14 +101,14 @@ const Modall = () => {
     !kartutandapendudukData && !kartutandapendudukError;
 
   // Construct full URL for the image
-  const baseKTPURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseKTPURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageKTPURL = kartutandapendudukData?.service.file_url
     ? `${baseKTPURL}${kartutandapendudukData.service.file_url}`
     : null;
 
   //pendaftaran nikah
   const { data: pendaftarannikahData, error: pendaftarannikahError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/pendaftarannikahpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/pendaftarannikahpengunjung",
     fetcher
   );
 
@@ -116,35 +116,35 @@ const Modall = () => {
     !pendaftarannikahData && !pendaftarannikahError;
 
   // Construct full URL for the image
-  const basePNURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const basePNURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imagePNURL = pendaftarannikahData?.service.file_url
     ? `${basePNURL}${pendaftarannikahData.service.file_url}`
     : null;
 
   //aktifasi bpjs
   const { data: aktifasibpjsData, error: aktifasibpjsError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/aktifasibpjspengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/aktifasibpjspengunjung",
     fetcher
   );
 
   const loadingAktifasibpjs = !aktifasibpjsData && !aktifasibpjsError;
 
   // Construct full URL for the image
-  const baseABURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseABURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageABURL = aktifasibpjsData?.service.file_url
     ? `${baseABURL}${aktifasibpjsData.service.file_url}`
     : null;
 
   //pembuatan sktm
   const { data: pembuatansktmData, error: pembuatansktmError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/pembuatansktmpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/pembuatansktmpengunjung",
     fetcher
   );
 
   const loadingPembuatansktm = !pembuatansktmData && !pembuatansktmError;
 
   // Construct full URL for the image
-  const basePSKTMURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const basePSKTMURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imagePSKTMURL = pembuatansktmData?.service.file_url
     ? `${basePSKTMURL}${pembuatansktmData.service.file_url}`
     : null;
@@ -637,7 +637,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/aktakelahiran.png")}
                 alt=""
               />
@@ -737,7 +737,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/kartukeluarga.png")}
                 alt=""
               />
@@ -839,7 +839,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/ktp.png")}
                 alt=""
               />
@@ -941,7 +941,7 @@ const Modall = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/pernikahan.png")}
                 alt=""
               />

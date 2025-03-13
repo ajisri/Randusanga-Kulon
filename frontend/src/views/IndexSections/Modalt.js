@@ -24,7 +24,7 @@ const Modalt = () => {
   // const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/produk_hukump",
+    "https://randusangakulon.osc-fr1.scalingo.io/produk_hukump",
     fetcher
   );
   const loadingProdukhukum = !produkhukumData && !produkhukumError;
@@ -33,7 +33,7 @@ const Modalt = () => {
 
   // Fetch APBD data
   const { data: allapbdData, error: allapbdError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/allapbdp",
+    "https://randusangakulon.osc-fr1.scalingo.io/allapbdp",
     fetcher
   );
   const loadingApbd = !allapbdData && !allapbdError;
@@ -57,7 +57,7 @@ const Modalt = () => {
 
   //ankor
   const { data: allankorData } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/ankorp",
+    "https://randusangakulon.osc-fr1.scalingo.io/ankorp",
     fetcher
   );
 
@@ -659,7 +659,7 @@ const Modalt = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/desaankor.png")}
                 alt=""
               />
@@ -786,7 +786,7 @@ const Modalt = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/law.png")}
                 alt=""
               />
@@ -868,7 +868,7 @@ const Modalt = () => {
                       const fileName = rowData.file_url.split("/").pop(); // Ambil nama file saja
                       return (
                         <a
-                          href={`https://randusanga-kulon.osc-fr1.scalingo.io/download/${fileName}`} // Mengarahkan ke controller di backend
+                          href={`https://randusangakulon.osc-fr1.scalingo.io/download/${fileName}`} // Mengarahkan ke controller di backend
                           download
                           style={{ textDecoration: "none" }}
                         >
@@ -921,7 +921,7 @@ const Modalt = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/payroll.png")}
                 alt=""
               />

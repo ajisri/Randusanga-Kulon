@@ -77,7 +77,7 @@ const Dashboard = () => {
   const refreshToken = useCallback(async () => {
     try {
       const response = await axios.get(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/token",
+        "https://randusangakulon.osc-fr1.scalingo.io/token",
         {
           withCredentials: true,
         }
@@ -110,7 +110,7 @@ const Dashboard = () => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
         const response = await axios.get(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/token"
+          "https://randusangakulon.osc-fr1.scalingo.io/token"
         );
         console.log(
           "Token diperbarui melalui interceptor:",

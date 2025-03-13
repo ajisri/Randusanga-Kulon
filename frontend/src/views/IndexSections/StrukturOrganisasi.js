@@ -11,11 +11,11 @@ const fetcher = async (url) => {
 export default function OrganizationChartWithAPI() {
   // Fetch data from the API
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/api/orgchart",
+    "https://randusangakulon.osc-fr1.scalingo.io/api/orgchart",
     fetcher
   );
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading....</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
 
   const nodeTemplate = (node) => {

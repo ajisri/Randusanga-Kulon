@@ -53,7 +53,7 @@ const Agenda = () => {
     data: agendaData,
     error,
     isLoading,
-  } = useSWR("https://randusanga-kulon.osc-fr1.scalingo.io/agenda", fetcher);
+  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/agenda", fetcher);
 
   useEffect(() => {
     if (agendaData?.agenda) {
@@ -105,7 +105,7 @@ const Agenda = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/agenda/${currentAgenda.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/agenda/${currentAgenda.uuid}`,
           formData
         );
         toast.current.show({
@@ -116,7 +116,7 @@ const Agenda = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/cagenda",
+          "https://randusangakulon.osc-fr1.scalingo.io/cagenda",
           formData
         );
         toast.current.show({
@@ -126,7 +126,7 @@ const Agenda = () => {
           life: 3000,
         });
       }
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/agenda");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/agenda");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -171,7 +171,7 @@ const Agenda = () => {
     if (window.confirm("Are you sure you want to delete this agenda?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/agenda/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/agenda/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -179,7 +179,7 @@ const Agenda = () => {
           detail: "Agenda deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/agenda");
+        await mutate("https://randusangakulon.osc-fr1.scalingo.io/agenda");
       } catch (error) {
         handleError(error);
       }

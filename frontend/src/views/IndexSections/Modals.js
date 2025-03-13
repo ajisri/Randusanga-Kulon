@@ -27,10 +27,10 @@ const Modals = () => {
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
 
-  const baseURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
   const { data: tentangData, error: tentangError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/tentangpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/tentangpengunjung",
     fetcher
   );
   const loadingTentang = !tentangData && !tentangError;
@@ -39,7 +39,7 @@ const Modals = () => {
     : null;
 
   const { data: sejarahData, error: sejarahError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/sejarahpengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/sejarahpengunjung",
     fetcher
   );
   const loadingSejarah = !sejarahData && !sejarahError;
@@ -48,7 +48,7 @@ const Modals = () => {
     : null;
 
   const { data: visionData, error: visionError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/visimisipengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/visimisipengunjung",
     fetcher
   );
   const loadingVision = !visionData && !visionError;
@@ -58,7 +58,7 @@ const Modals = () => {
 
   const { data: strukturorganisasiData, error: strukturorganisasiError } =
     useSWR(
-      "https://randusanga-kulon.osc-fr1.scalingo.io/strukturorganisasipengunjung",
+      "https://randusangakulon.osc-fr1.scalingo.io/strukturorganisasipengunjung",
       fetcher
     );
 
@@ -71,19 +71,19 @@ const Modals = () => {
     : null;
 
   const { data: demografiData, error: demografiError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/demografipengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/demografipengunjung",
     fetcher
   );
 
   //lembaga
   const { data: lembagaData, error: lembagaError } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/lembagapengunjung",
+    "https://randusangakulon.osc-fr1.scalingo.io/lembagapengunjung",
     fetcher
   );
   const loadingLembaga = !lembagaData && !lembagaError;
 
   const lembagaList = lembagaData?.lembagap || [];
-  const baseLURL = "https://randusanga-kulon.osc-fr1.scalingo.io/";
+  const baseLURL = "https://randusangakulon.osc-fr1.scalingo.io/";
 
   const renderAnggota = (anggotaList) => (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -560,13 +560,6 @@ const Modals = () => {
               }
           }
 
-          @media (max-width: 768px) {
-              .custom-button {
-                  max-width: 80vw; /* Hampir seluruh layar pada ponsel */
-                  height: clamp(60px, 8vh, 80px);
-              }
-          }
-
           @media (min-width: 1440px) {
               .custom-button {
                   max-width: 25vw; /* Lebih kecil agar tidak terlalu lebar di layar besar */
@@ -651,13 +644,20 @@ const Modals = () => {
           }
 
           @media (max-width: 768px) {
-              .button-icon {
-                  min-height: 50px;
-              }
-
-              .icon-button-text {
-                  font-size: clamp(7px, 1.8vw, 9px);
-              }
+            .custom-button {
+              max-width: 80vw; /* Hampir seluruh layar pada ponsel */
+              height: clamp(60px, 8vh, 80px);
+            }
+            .button-icon {
+              min-height: 55px;
+            }
+            .button-icon img {
+              max-width: clamp(40px, 10vw, 60px) !important; /* Perbesar ukuran ikon */
+              height: auto; /* Pastikan proporsi tetap */
+            }
+            .icon-button-text {
+              font-size: clamp(7px, 1.8vw, 9px);
+            }
           }
             
           @keyframes spin {
@@ -809,7 +809,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/about-us.png")}
                 alt=""
               />
@@ -903,7 +903,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/book.png")}
                 alt=""
               />
@@ -997,7 +997,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/target.png")}
                 alt=""
               />
@@ -1096,7 +1096,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/management.png")}
                 alt=""
               />
@@ -1191,7 +1191,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/establishment.png")}
                 alt=""
               />
@@ -1367,7 +1367,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/planet.png")}
                 alt=""
               />
@@ -1431,7 +1431,7 @@ const Modals = () => {
               }}
             >
               <img
-                className="img-fluid icon-custom"
+                className="img-fluid"
                 src={require("assets/img/theme/demographic.png")}
                 alt=""
               />

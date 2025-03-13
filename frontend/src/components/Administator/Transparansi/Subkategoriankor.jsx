@@ -63,7 +63,7 @@ const SubkategoriAnkor = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/subkategoriankor",
+    "https://randusangakulon.osc-fr1.scalingo.io/subkategoriankor",
     fetcher
   );
 
@@ -86,7 +86,7 @@ const SubkategoriAnkor = () => {
     error: kategoriankorError,
     isLoading: isKategoriankorLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/kategoriankor",
+    "https://randusangakulon.osc-fr1.scalingo.io/kategoriankor",
     fetcher
   );
 
@@ -162,7 +162,7 @@ const SubkategoriAnkor = () => {
       if (isEditMode) {
         // Kirim request update subkategoriankor
         await axiosJWT.patch(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/subkategoriankor/${currentSubkategoriankor.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/subkategoriankor/${currentSubkategoriankor.uuid}`,
           dataToSend,
           {
             headers: {
@@ -181,7 +181,7 @@ const SubkategoriAnkor = () => {
         setDialogVisible(false);
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/csubkategoriankor",
+          "https://randusangakulon.osc-fr1.scalingo.io/csubkategoriankor",
           dataToSend,
           {
             headers: {
@@ -200,7 +200,7 @@ const SubkategoriAnkor = () => {
 
       // Refresh data dan tutup dialog
       await mutate(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/subkategoriankor"
+        "https://randusangakulon.osc-fr1.scalingo.io/subkategoriankor"
       );
       resetForm();
       setDialogVisible(false);
@@ -267,7 +267,7 @@ const SubkategoriAnkor = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/subkategoriankor/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/subkategoriankor/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -276,7 +276,7 @@ const SubkategoriAnkor = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/subkategoriankor"
+          "https://randusangakulon.osc-fr1.scalingo.io/subkategoriankor"
         );
       } catch (error) {
         handleError(error);
@@ -311,7 +311,7 @@ const SubkategoriAnkor = () => {
       // Kirim data ke backend
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/cpoinsubkategoriankor",
+        "https://randusangakulon.osc-fr1.scalingo.io/cpoinsubkategoriankor",
         {
           poinData: formattedPoinData,
         }
@@ -327,7 +327,7 @@ const SubkategoriAnkor = () => {
 
       // Mutasi data dan refresh state terkait
       await mutate(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/subkategoriankor"
+        "https://randusangakulon.osc-fr1.scalingo.io/subkategoriankor"
       );
 
       // Tutup dialog setelah sukses
@@ -377,7 +377,7 @@ const SubkategoriAnkor = () => {
     try {
       console.log("Kategori ID yang dikirim:", subkategoriankorId);
       const response = await axiosJWT.get(
-        `https://randusanga-kulon.osc-fr1.scalingo.io/poinbysubkategoriankor/${subkategoriankorId}`
+        `https://randusangakulon.osc-fr1.scalingo.io/poinbysubkategoriankor/${subkategoriankorId}`
       );
       if (Array.isArray(response.data) && response.data.length === 0) {
         showNotification(

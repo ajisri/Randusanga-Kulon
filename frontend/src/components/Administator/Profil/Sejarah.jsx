@@ -42,7 +42,7 @@ const Sejarah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/sejarah",
+    "https://randusangakulon.osc-fr1.scalingo.io/sejarah",
     fetcher
   );
 
@@ -87,7 +87,7 @@ const Sejarah = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon.osc-fr1.scalingo.io/csejarah",
+        "https://randusangakulon.osc-fr1.scalingo.io/csejarah",
         formData,
         {
           headers: {
@@ -100,7 +100,7 @@ const Sejarah = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/sejarah");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/sejarah");
 
       toast.current.show({
         severity: "success",
@@ -220,7 +220,7 @@ const Sejarah = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
+                        src={`https://randusangakulon.osc-fr1.scalingo.io${file_url}`}
                         alt="Database"
                       />
                     </div>

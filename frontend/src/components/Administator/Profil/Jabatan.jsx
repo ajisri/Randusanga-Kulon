@@ -58,7 +58,7 @@ const Jabatan = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/jabatan",
+    "https://randusangakulon.osc-fr1.scalingo.io/jabatan",
     fetcher
   );
 
@@ -105,7 +105,7 @@ const Jabatan = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "https://randusanga-kulon.osc-fr1.scalingo.io/demografi", // Endpoint API demografi
+    "https://randusangakulon.osc-fr1.scalingo.io/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -194,7 +194,7 @@ const Jabatan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.put(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/ujabatan/${currentData.uuid}`,
+          `https://randusangakulon.osc-fr1.scalingo.io/ujabatan/${currentData.uuid}`,
           data,
           {
             headers: {
@@ -210,7 +210,7 @@ const Jabatan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon.osc-fr1.scalingo.io/cjabatan",
+          "https://randusangakulon.osc-fr1.scalingo.io/cjabatan",
           data,
           {
             headers: {
@@ -225,7 +225,7 @@ const Jabatan = () => {
           life: 3000,
         });
       }
-      await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/jabatan");
+      await mutate("https://randusangakulon.osc-fr1.scalingo.io/jabatan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -271,7 +271,7 @@ const Jabatan = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon.osc-fr1.scalingo.io/jabatan/${uuid}`
+          `https://randusangakulon.osc-fr1.scalingo.io/jabatan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -279,7 +279,7 @@ const Jabatan = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon.osc-fr1.scalingo.io/jabatan");
+        await mutate("https://randusangakulon.osc-fr1.scalingo.io/jabatan");
       } catch (error) {
         handleError(error);
       }
@@ -290,7 +290,7 @@ const Jabatan = () => {
     try {
       // Kirim permintaan ke backend untuk memperbarui status kehadiran
       await axiosJWT.put(
-        `https://randusanga-kulon.osc-fr1.scalingo.io/ujabatanhadir/${rowData.uuid}`,
+        `https://randusangakulon.osc-fr1.scalingo.io/ujabatanhadir/${rowData.uuid}`,
         {
           statusHadir: statusBaru,
         }
