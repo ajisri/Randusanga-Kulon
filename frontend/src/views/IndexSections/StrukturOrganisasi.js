@@ -15,7 +15,7 @@ export default function OrganizationChartWithAPI() {
     fetcher
   );
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading....</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
 
   const nodeTemplate = (node) => {
