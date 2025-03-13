@@ -27,7 +27,7 @@ const Modals = () => {
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
 
-  const baseURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
   const { data: tentangData, error: tentangError } = useSWR(
     "https://randusangakulon.osc-fr1.scalingo.io/tentangpengunjung",

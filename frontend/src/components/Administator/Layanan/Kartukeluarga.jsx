@@ -264,7 +264,7 @@ const Kartukeluarga = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
+                        src={`https://randusangakulon.osc-fr1.scalingo.io${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

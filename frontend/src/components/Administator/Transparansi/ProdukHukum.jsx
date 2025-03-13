@@ -282,7 +282,7 @@ const Produkhukum = () => {
     setFormData(produkhukum);
     setSelectedFile(null);
     const fileUrl = produkhukum.file_url
-      ? `https://randusanga-kulon.osc-fr1.scalingo.io${produkhukum.file_url}`
+      ? `https://randusangakulon.osc-fr1.scalingo.io${produkhukum.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -374,7 +374,7 @@ const Produkhukum = () => {
           field="file_url"
           header="File"
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulon.osc-fr1.scalingo.io${rowData.file_url}`;
+            const fileUrl = `https://randusangakulon.osc-fr1.scalingo.io${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

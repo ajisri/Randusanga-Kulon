@@ -252,7 +252,7 @@ const Berita = () => {
             <div style={styles.imageContainer}>
               <img
                 src={
-                  `https://randusanga-kulon.osc-fr1.scalingo.io${item.file_url}` ||
+                  `https://randusangakulon.osc-fr1.scalingo.io${item.file_url}` ||
                   "default-image-url.jpg"
                 }
                 alt={item.title}
@@ -291,7 +291,7 @@ const Berita = () => {
         >
           <img
             src={
-              `https://randusanga-kulon.osc-fr1.scalingo.io${selectedBerita.file_url}` ||
+              `https://randusangakulon.osc-fr1.scalingo.io${selectedBerita.file_url}` ||
               "default-image-url.jpg"
             }
             alt={selectedBerita.title}

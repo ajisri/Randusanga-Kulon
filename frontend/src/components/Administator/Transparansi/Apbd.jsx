@@ -290,7 +290,7 @@ const Apbd = () => {
     setFormData(apbd);
     setSelectedFile(null);
     const fileUrl = apbd.file_url
-      ? `https://randusanga-kulon.osc-fr1.scalingo.io${apbd.file_url}`
+      ? `https://randusangakulon.osc-fr1.scalingo.io${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -385,7 +385,7 @@ const Apbd = () => {
           header="Gambar"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulon.osc-fr1.scalingo.io${rowData.file_url}`;
+            const fileUrl = `https://randusangakulon.osc-fr1.scalingo.io${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

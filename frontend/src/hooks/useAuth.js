@@ -61,7 +61,9 @@ const useAuth = (navigate) => {
         try {
           const res = await axios.get(
             "https://randusangakulon.osc-fr1.scalingo.io/token",
-            { withCredentials: true }
+            {
+              withCredentials: true,
+            }
           );
           error.config.headers[
             "Authorization"

@@ -71,7 +71,7 @@ const Modall = () => {
   const loadingAktakelahiran = !aktakelahiranData && !aktakelahiranError;
 
   // Construct full URL for the image
-  const baseAURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseAURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageAURL = aktakelahiranData?.service.file_url
     ? `${baseAURL}${aktakelahiranData.service.file_url}`
     : null;
@@ -85,7 +85,7 @@ const Modall = () => {
   const loadingKartukeluarga = !kartukeluargaData && !kartukeluargaError;
 
   // Construct full URL for the image
-  const baseKKURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseKKURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageKKURL = kartukeluargaData?.service.file_url
     ? `${baseKKURL}${kartukeluargaData.service.file_url}`
     : null;
@@ -101,7 +101,7 @@ const Modall = () => {
     !kartutandapendudukData && !kartutandapendudukError;
 
   // Construct full URL for the image
-  const baseKTPURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseKTPURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageKTPURL = kartutandapendudukData?.service.file_url
     ? `${baseKTPURL}${kartutandapendudukData.service.file_url}`
     : null;
@@ -116,7 +116,7 @@ const Modall = () => {
     !pendaftarannikahData && !pendaftarannikahError;
 
   // Construct full URL for the image
-  const basePNURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const basePNURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imagePNURL = pendaftarannikahData?.service.file_url
     ? `${basePNURL}${pendaftarannikahData.service.file_url}`
     : null;
@@ -130,7 +130,7 @@ const Modall = () => {
   const loadingAktifasibpjs = !aktifasibpjsData && !aktifasibpjsError;
 
   // Construct full URL for the image
-  const baseABURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const baseABURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imageABURL = aktifasibpjsData?.service.file_url
     ? `${baseABURL}${aktifasibpjsData.service.file_url}`
     : null;
@@ -144,7 +144,7 @@ const Modall = () => {
   const loadingPembuatansktm = !pembuatansktmData && !pembuatansktmError;
 
   // Construct full URL for the image
-  const basePSKTMURL = "https://randusanga-kulon.osc-fr1.scalingo.io";
+  const basePSKTMURL = "https://randusangakulon.osc-fr1.scalingo.io";
   const imagePSKTMURL = pembuatansktmData?.service.file_url
     ? `${basePSKTMURL}${pembuatansktmData.service.file_url}`
     : null;

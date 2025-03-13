@@ -330,7 +330,7 @@ const Demografi = () => {
     if (selectedDemographic?.file_url && !selectedFile) {
       // Jika ada file_url dan belum ada file yang baru diunggah
       setPreview(
-        `https://randusanga-kulon.osc-fr1.scalingo.io${selectedDemographic.file_url}`
+        `https://randusangakulon.osc-fr1.scalingo.io${selectedDemographic.file_url}`
       );
     } else if (!selectedDemographic && !selectedFile) {
       // Jika tidak ada file atau data yang dipilih

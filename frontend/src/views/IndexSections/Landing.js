@@ -150,7 +150,7 @@ const Landing = () => {
         <img
           src={
             item.pemegang?.file_url
-              ? `https://randusanga-kulon.osc-fr1.scalingo.io${item.pemegang.file_url}`
+              ? `https://randusangakulon.osc-fr1.scalingo.io${item.pemegang.file_url}`
               : "placeholder.png"
           }
           alt={item.pemegang?.name || "Jabatan"}

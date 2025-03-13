@@ -234,7 +234,7 @@ const Pengumuman = () => {
     setFormData(pengumuman);
     setSelectedFile(null);
     const fileUrl = pengumuman.file_url
-      ? `https://randusanga-kulon.osc-fr1.scalingo.io${pengumuman.file_url}`
+      ? `https://randusangakulon.osc-fr1.scalingo.io${pengumuman.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
