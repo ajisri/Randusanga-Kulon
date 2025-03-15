@@ -878,6 +878,34 @@ const Modals = () => {
               font-size: 10px;
             }
           }
+
+          @media (min-width: 768px) {
+          .dialog-text.modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .dialog-text.modal-body h3 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+          }
+
+          .dialog-text.modal-body .chart-container {
+            width: 80%;
+            margin: 0 auto;
+          }
+
+          .dialog-text.modal-body .p-datatable {
+            width: 80%;
+            margin-top: 20px;
+          }
+
+          .dialog-text.modal-body .button-container {
+            margin-top: 20px;
+          }
+        }
         `}
       </style>
       <svg style={{ display: "none" }}>
