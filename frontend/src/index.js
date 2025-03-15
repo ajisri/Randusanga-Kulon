@@ -5,7 +5,6 @@ import ToastContainer from "./components/ToastContainer";
 
 //administrator
 import Dashboard from "./components/Administator/Dashboard";
-// import Sidebar from "./components/Administator/Sidebar";
 import "components/App.css";
 
 import KeuanganDesa from "views/examples/KeuanganDesa";
