@@ -1645,7 +1645,7 @@ const Modals = () => {
                           data={educationChartData}
                           options={chartOptions}
                           // plugins={[ChartDataLabels]}
-                          style={{ width: "100%", height: "250px" }}
+                          style={{ width: "98%", height: "250px" }}
                         />
                       )}
                     </div>
@@ -1672,7 +1672,7 @@ const Modals = () => {
                           data={jobChartData}
                           options={chartOptions}
                           // plugins={[ChartDataLabels]}
-                          style={{ width: "100%", height: "250px" }}
+                          style={{ width: "98%", height: "250px" }}
                         />
                       )}
                     </div>
@@ -1699,7 +1699,7 @@ const Modals = () => {
                           data={religionChartData}
                           options={chartOptions}
                           // plugins={[ChartDataLabels]}
-                          style={{ width: "100%", height: "250px" }}
+                          style={{ width: "98%", height: "250px" }}
                         />
                       )}
                     </div>
@@ -1726,7 +1726,7 @@ const Modals = () => {
                           data={maritalStatusChartData}
                           options={chartOptions}
                           // plugins={[ChartDataLabels]}
-                          style={{ width: "100%", height: "250px" }}
+                          style={{ width: "98%", height: "250px" }}
                         />
                       )}
                     </div>
