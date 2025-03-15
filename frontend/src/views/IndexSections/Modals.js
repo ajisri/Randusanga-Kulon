@@ -27,6 +27,14 @@ const Modals = () => {
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
+
+  // Data untuk tabel
+  const [genderTableData, setGenderTableData] = useState([]);
+  const [educationTableData, setEducationTableData] = useState([]);
+  const [jobTableData, setJobTableData] = useState([]);
+  const [religionTableData, setReligionTableData] = useState([]);
+  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -160,6 +168,12 @@ const Modals = () => {
         demografiData.genderCounts?.map((item) => item?.gender) || [];
       const genderCounts =
         demografiData.genderCounts?.map((item) => item?._count?.id || 0) || [];
+      setGenderTableData(
+        genderLabels.map((label, index) => ({
+          label,
+          value: genderCounts[index],
+        }))
+      );
 
       // Safely handle education data
       const educationLabels =
@@ -167,6 +181,12 @@ const Modals = () => {
         [];
       const educationCounts =
         demografiData.educationCounts?.map((item) => item?.count || 0) || [];
+      setEducationTableData(
+        educationLabels.map((label, index) => ({
+          label,
+          value: educationCounts[index],
+        }))
+      );
 
       console.log("Education Labels: ", educationLabels);
       console.log("Education Counts: ", educationCounts);
@@ -179,6 +199,10 @@ const Modals = () => {
       // Generate the topJobs array based on jobCounts
       const topJobs = demografiData.jobCounts?.slice(0, 5) || []; // Misalnya, ambil 5 pekerjaan teratas
       const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0); // Hitung jumlah pekerjaan lainnya
+      setJobTableData([
+        ...topJobs.map((job) => ({ label: job.job, value: job._count.id })),
+        { label: "Others", value: otherJobCount },
+      ]);
 
       // Create jobChartData
       const jobChartData = {
@@ -197,6 +221,12 @@ const Modals = () => {
       const religionCounts =
         demografiData.religionCounts?.map((item) => item?._count?.id || 0) ||
         [];
+      setReligionTableData(
+        religionLabels.map((label, index) => ({
+          label,
+          value: religionCounts[index],
+        }))
+      );
 
       // Safely handle marital status data
       const maritalStatusLabels =
@@ -207,6 +237,12 @@ const Modals = () => {
         demografiData.maritalStatusCounts?.map(
           (item) => item?._count?.id || 0
         ) || [];
+      setMaritalStatusTableData(
+        maritalStatusLabels.map((label, index) => ({
+          label,
+          value: maritalStatusCounts[index],
+        }))
+      );
 
       // Set chart data
       setGenderChartData({
@@ -294,6 +330,44 @@ const Modals = () => {
       });
     }
   }, [demografiData]);
+
+  // Fungsi untuk menggeser slide
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev < 4 ? prev + 1 : prev));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : prev));
+  };
+
+  // Data untuk slide
+  const slides = [
+    {
+      title: "Gender Distribution",
+      chartData: genderChartData,
+      tableData: genderTableData,
+    },
+    {
+      title: "Education Distribution",
+      chartData: educationChartData,
+      tableData: educationTableData,
+    },
+    {
+      title: "Job Distribution",
+      chartData: jobChartData,
+      tableData: jobTableData,
+    },
+    {
+      title: "Religion Distribution",
+      chartData: religionChartData,
+      tableData: religionTableData,
+    },
+    {
+      title: "Marital Status Distribution",
+      chartData: maritalStatusChartData,
+      tableData: maritalStatusTableData,
+    },
+  ];
 
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
@@ -1485,82 +1559,191 @@ const Modals = () => {
               onHide={() => setDialogVisible(false)}
             >
               <div className="dialog-divider"></div>
+              <div className="dialog-divider"></div>
               <div
                 className="dialog-text modal-body"
                 style={{
+                  position: "relative",
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
                   gap: "20px",
                 }}
               >
-                <div className="chart-container">
-                  <h3>Gender Distribution</h3>
-                  {genderChartData && (
-                    <Chart
-                      type="pie"
-                      data={genderChartData}
-                      options={chartOptions}
-                      plugins={[ChartDataLabels]} // Tambahkan plugin
-                      style={{ width: "100%", height: "250px" }}
-                    />
-                  )}
+                {/* Tombol panah kiri */}
+                <Button
+                  icon="pi pi-chevron-left"
+                  className="p-button-text"
+                  onClick={prevSlide}
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 1,
+                  }}
+                  disabled={currentSlide === 0}
+                />
+
+                {/* Container slide */}
+                <div
+                  style={{
+                    display: "flex",
+                    overflowX: "hidden",
+                    scrollBehavior: "smooth",
+                    width: "100%",
+                    gridColumn: "1 / -1", // Memastikan container slide mengambil seluruh lebar
+                  }}
+                >
+                  {/* Slide Gender Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Gender Distribution</h3>
+                      {genderChartData && (
+                        <Chart
+                          type="pie"
+                          data={genderChartData}
+                          options={chartOptions}
+                          plugins={[ChartDataLabels]}
+                          style={{ width: "100%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Gender Distribution */}
+                    <DataTable value={genderTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Education Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Education Distribution</h3>
+                      {educationChartData && (
+                        <Chart
+                          type="pie"
+                          data={educationChartData}
+                          options={chartOptions}
+                          plugins={[ChartDataLabels]}
+                          style={{ width: "100%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Education Distribution */}
+                    <DataTable value={educationTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Job Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Job Distribution</h3>
+                      {jobChartData && (
+                        <Chart
+                          type="doughnut"
+                          data={jobChartData}
+                          options={chartOptions}
+                          plugins={[ChartDataLabels]}
+                          style={{ width: "100%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Job Distribution */}
+                    <DataTable value={jobTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Religion Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Religion Distribution</h3>
+                      {religionChartData && (
+                        <Chart
+                          type="pie"
+                          data={religionChartData}
+                          options={chartOptions}
+                          plugins={[ChartDataLabels]}
+                          style={{ width: "100%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Religion Distribution */}
+                    <DataTable value={religionTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Marital Status Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Marital Status Distribution</h3>
+                      {maritalStatusChartData && (
+                        <Chart
+                          type="pie"
+                          data={maritalStatusChartData}
+                          options={chartOptions}
+                          plugins={[ChartDataLabels]}
+                          style={{ width: "100%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Marital Status Distribution */}
+                    <DataTable value={maritalStatusTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
                 </div>
 
-                {/* Education Chart */}
-                <div className="chart-container">
-                  <h3>Education Distribution</h3>
-                  {educationChartData && (
-                    <Chart
-                      type="pie"
-                      data={educationChartData}
-                      options={chartOptions}
-                      plugins={[ChartDataLabels]} // Tambahkan plugin
-                      style={{ width: "100%", height: "250px" }}
-                    />
-                  )}
-                </div>
-
-                {/* Job Chart */}
-                <div className="chart-container">
-                  <h3>Job Distribution</h3>
-                  {jobChartData && (
-                    <Chart
-                      type="doughnut"
-                      data={jobChartData}
-                      options={chartOptions}
-                      plugins={[ChartDataLabels]} // Tambahkan plugin
-                      style={{ width: "100%", height: "250px" }}
-                    />
-                  )}
-                </div>
-
-                {/* Religion Chart */}
-                <div className="chart-container">
-                  <h3>Religion Distribution</h3>
-                  {religionChartData && (
-                    <Chart
-                      type="pie"
-                      data={religionChartData}
-                      options={chartOptions}
-                      plugins={[ChartDataLabels]} // Tambahkan plugin
-                      style={{ width: "100%", height: "250px" }}
-                    />
-                  )}
-                </div>
-
-                {/* Marital Status Chart */}
-                <div className="chart-container">
-                  <h3>Marital Status Distribution</h3>
-                  {maritalStatusChartData && (
-                    <Chart
-                      type="pie"
-                      data={maritalStatusChartData}
-                      options={chartOptions}
-                      plugins={[ChartDataLabels]} // Tambahkan plugin
-                      style={{ width: "100%", height: "250px" }}
-                    />
-                  )}
-                </div>
+                {/* Tombol panah kanan */}
+                <Button
+                  icon="pi pi-chevron-right"
+                  className="p-button-text"
+                  onClick={nextSlide}
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 1,
+                  }}
+                  disabled={currentSlide === slides.length - 1}
+                />
               </div>
             </Dialog>
           </div>
