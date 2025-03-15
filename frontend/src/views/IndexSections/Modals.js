@@ -4,7 +4,6 @@ import useSWR from "swr"; // Import SWR
 import { Chart } from "primereact/chart";
 // import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Button, Row, Col } from "reactstrap";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -1763,6 +1762,7 @@ const Modals = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     color: "#007bff",
+                    fontSize: "24px", // Ukuran ikon teks
                     transition: "all 0.3s ease",
                   }}
                   onMouseEnter={(e) => {
@@ -1776,7 +1776,7 @@ const Modals = () => {
                       "0 4px 6px rgba(0, 0, 0, 0.1)";
                   }}
                 >
-                  <FaChevronLeft />
+                  ‹ {/* Ikon panah kiri */}
                 </Button>
 
                 {/* Tombol Panah Kanan */}
@@ -1794,6 +1794,7 @@ const Modals = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     color: "#007bff",
+                    fontSize: "24px", // Ukuran ikon teks
                     transition: "all 0.3s ease",
                   }}
                   onMouseEnter={(e) => {
@@ -1807,7 +1808,7 @@ const Modals = () => {
                       "0 4px 6px rgba(0, 0, 0, 0.1)";
                   }}
                 >
-                  <FaChevronRight />
+                  › {/* Ikon panah kanan */}
                 </Button>
               </div>
             </Dialog>
