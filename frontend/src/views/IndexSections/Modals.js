@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useSWR from "swr"; // Import SWR
 // import axios from "axios";
 import { Chart } from "primereact/chart";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+// import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Button, Row, Col } from "reactstrap";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
@@ -319,13 +319,13 @@ const Modals = () => {
               },
             },
           },
-          datalabels: {
-            // Konfigurasi untuk menampilkan nilai
-            color: "#000", // Warna teks
-            anchor: "center", // Posisi teks
-            align: "center", // Align teks
-            formatter: (value) => value, // Menampilkan nilai
-          },
+          // datalabels: {
+          //   // Konfigurasi untuk menampilkan nilai
+          //   color: "#000", // Warna teks
+          //   anchor: "center", // Posisi teks
+          //   align: "center", // Align teks
+          //   formatter: (value) => value, // Menampilkan nilai
+          // },
         },
       });
     }
@@ -339,6 +339,27 @@ const Modals = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : prev));
   };
+
+  // Efek untuk mengubah posisi legenda berdasarkan ukuran layar
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    setChartOptions({
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: isMobile ? "bottom" : "right", // Legenda di bawah untuk mobile, di kanan untuk desktop
+        },
+        datalabels: {
+          color: "#000",
+          anchor: "center",
+          align: "center",
+          formatter: (value) => value,
+        },
+      },
+    });
+  }, []);
 
   // Data untuk slide
   const slides = [
@@ -451,6 +472,27 @@ const Modals = () => {
 
           .button:hover .cursor-icon {
             animation: magnetEffect 0.2s forwards;
+          }
+
+          /* Style untuk tombol panah */
+          .p-button-rounded {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+          }
+
+          .p-button-rounded:hover {
+            background-color: #f0f0f0 !important;
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
+          }
+
+          .p-button-rounded:active {
+            transform: scale(0.95);
           }
 
           .no-animation {
@@ -1572,16 +1614,14 @@ const Modals = () => {
                 {/* Tombol panah kiri */}
                 <Button
                   icon="pi pi-chevron-left"
-                  className="p-button-text"
+                  className="p-button-rounded p-button-outlined"
                   onClick={prevSlide}
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 1,
-                  }}
                   disabled={currentSlide === 0}
+                  style={{
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
+                  }}
                 />
 
                 {/* Container slide */}
@@ -1609,7 +1649,7 @@ const Modals = () => {
                           type="pie"
                           data={genderChartData}
                           options={chartOptions}
-                          plugins={[ChartDataLabels]}
+                          // plugins={[ChartDataLabels]}
                           style={{ width: "100%", height: "250px" }}
                         />
                       )}
@@ -1636,7 +1676,7 @@ const Modals = () => {
                           type="pie"
                           data={educationChartData}
                           options={chartOptions}
-                          plugins={[ChartDataLabels]}
+                          // plugins={[ChartDataLabels]}
                           style={{ width: "100%", height: "250px" }}
                         />
                       )}
@@ -1663,7 +1703,7 @@ const Modals = () => {
                           type="doughnut"
                           data={jobChartData}
                           options={chartOptions}
-                          plugins={[ChartDataLabels]}
+                          // plugins={[ChartDataLabels]}
                           style={{ width: "100%", height: "250px" }}
                         />
                       )}
@@ -1690,7 +1730,7 @@ const Modals = () => {
                           type="pie"
                           data={religionChartData}
                           options={chartOptions}
-                          plugins={[ChartDataLabels]}
+                          // plugins={[ChartDataLabels]}
                           style={{ width: "100%", height: "250px" }}
                         />
                       )}
@@ -1717,7 +1757,7 @@ const Modals = () => {
                           type="pie"
                           data={maritalStatusChartData}
                           options={chartOptions}
-                          plugins={[ChartDataLabels]}
+                          // plugins={[ChartDataLabels]}
                           style={{ width: "100%", height: "250px" }}
                         />
                       )}
@@ -1733,16 +1773,14 @@ const Modals = () => {
                 {/* Tombol panah kanan */}
                 <Button
                   icon="pi pi-chevron-right"
-                  className="p-button-text"
+                  className="p-button-rounded p-button-outlined"
                   onClick={nextSlide}
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 1,
-                  }}
                   disabled={currentSlide === slides.length - 1}
+                  style={{
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
+                  }}
                 />
               </div>
             </Dialog>
