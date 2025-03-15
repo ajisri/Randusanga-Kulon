@@ -658,6 +658,18 @@ const Modals = () => {
             .icon-button-text {
               font-size: clamp(7px, 1.8vw, 9px);
             }
+
+            .dialog-text.modal-body {
+              display: flex;
+              overflow-x: auto;
+              gap: 20px;
+            }
+
+          .chart-container {
+            flex: 0 0 auto;
+            width: 100%;
+            scroll-snap-align: start;
+          }
           }
             
           @keyframes spin {
@@ -1473,11 +1485,8 @@ const Modals = () => {
                   gap: "20px",
                 }}
               >
-                {/* Gender Chart */}
-                <div style={{ gridColumn: "span 1" }}>
-                  <h3 style={{ textAlign: "left", marginBottom: "10px" }}>
-                    Gender Distribution
-                  </h3>
+                <div className="chart-container">
+                  <h3>Gender Distribution</h3>
                   {genderChartData && (
                     <Chart
                       type="pie"
@@ -1488,20 +1497,18 @@ const Modals = () => {
                           ...chartOptions.plugins,
                           legend: {
                             ...chartOptions.plugins.legend,
-                            position: "bottom", // Legend positioned below
+                            position: "bottom",
                           },
                         },
                       }}
-                      style={{ width: "100%", height: "250px" }} // Smaller chart size
+                      style={{ width: "100%", height: "250px" }}
                     />
                   )}
                 </div>
 
                 {/* Education Chart */}
-                <div style={{ gridColumn: "span 1" }}>
-                  <h3 style={{ textAlign: "left", marginBottom: "10px" }}>
-                    Education Distribution
-                  </h3>
+                <div className="chart-container">
+                  <h3>Education Distribution</h3>
                   {educationChartData && (
                     <Chart
                       type="pie"
@@ -1512,23 +1519,21 @@ const Modals = () => {
                           ...chartOptions.plugins,
                           legend: {
                             ...chartOptions.plugins.legend,
-                            position: "bottom", // Legend positioned below
+                            position: "bottom",
                           },
                         },
                       }}
-                      style={{ width: "100%", height: "250px" }} // Smaller chart size
+                      style={{ width: "100%", height: "250px" }}
                     />
                   )}
                 </div>
 
                 {/* Job Chart */}
-                <div style={{ gridColumn: "span 1" }}>
-                  <h3 style={{ textAlign: "left", marginBottom: "10px" }}>
-                    Job Distribution
-                  </h3>
+                <div className="chart-container">
+                  <h3>Job Distribution</h3>
                   {jobChartData && (
                     <Chart
-                      type="doughnut" // Using doughnut instead of pie
+                      type="doughnut"
                       data={jobChartData}
                       options={{
                         ...chartOptions,
@@ -1536,20 +1541,18 @@ const Modals = () => {
                           ...chartOptions.plugins,
                           legend: {
                             ...chartOptions.plugins.legend,
-                            position: "bottom", // Legend positioned below
+                            position: "bottom",
                           },
                         },
                       }}
-                      style={{ width: "100%", height: "250px" }} // Smaller chart size
+                      style={{ width: "100%", height: "250px" }}
                     />
                   )}
                 </div>
 
                 {/* Religion Chart */}
-                <div style={{ gridColumn: "span 1" }}>
-                  <h3 style={{ textAlign: "left", marginBottom: "10px" }}>
-                    Religion Distribution
-                  </h3>
+                <div className="chart-container">
+                  <h3>Religion Distribution</h3>
                   {religionChartData && (
                     <Chart
                       type="pie"
@@ -1560,20 +1563,18 @@ const Modals = () => {
                           ...chartOptions.plugins,
                           legend: {
                             ...chartOptions.plugins.legend,
-                            position: "bottom", // Legend positioned below
+                            position: "bottom",
                           },
                         },
                       }}
-                      style={{ width: "100%", height: "250px" }} // Smaller chart size
+                      style={{ width: "100%", height: "250px" }}
                     />
                   )}
                 </div>
 
                 {/* Marital Status Chart */}
-                <div style={{ gridColumn: "span 1" }}>
-                  <h3 style={{ textAlign: "left", marginBottom: "10px" }}>
-                    Marital Status Distribution
-                  </h3>
+                <div className="chart-container">
+                  <h3>Marital Status Distribution</h3>
                   {maritalStatusChartData && (
                     <Chart
                       type="pie"
@@ -1584,11 +1585,11 @@ const Modals = () => {
                           ...chartOptions.plugins,
                           legend: {
                             ...chartOptions.plugins.legend,
-                            position: "bottom", // Legend positioned below
+                            position: "bottom",
                           },
                         },
                       }}
-                      style={{ width: "100%", height: "250px" }} // Smaller chart size
+                      style={{ width: "100%", height: "250px" }}
                     />
                   )}
                 </div>
