@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useSWR from "swr"; // Import SWR
 // import axios from "axios";
 import { Chart } from "primereact/chart";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Button, Row, Col } from "reactstrap";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
@@ -281,6 +282,13 @@ const Modals = () => {
                 return `${tooltipItem.label}: ${dataValue}`;
               },
             },
+          },
+          datalabels: {
+            // Konfigurasi untuk menampilkan nilai
+            color: "#000", // Warna teks
+            anchor: "center", // Posisi teks
+            align: "center", // Align teks
+            formatter: (value) => value, // Menampilkan nilai
           },
         },
       });
@@ -1491,16 +1499,8 @@ const Modals = () => {
                     <Chart
                       type="pie"
                       data={genderChartData}
-                      options={{
-                        ...chartOptions,
-                        plugins: {
-                          ...chartOptions.plugins,
-                          legend: {
-                            ...chartOptions.plugins.legend,
-                            position: "bottom",
-                          },
-                        },
-                      }}
+                      options={chartOptions}
+                      plugins={[ChartDataLabels]} // Tambahkan plugin
                       style={{ width: "100%", height: "250px" }}
                     />
                   )}
@@ -1513,16 +1513,8 @@ const Modals = () => {
                     <Chart
                       type="pie"
                       data={educationChartData}
-                      options={{
-                        ...chartOptions,
-                        plugins: {
-                          ...chartOptions.plugins,
-                          legend: {
-                            ...chartOptions.plugins.legend,
-                            position: "bottom",
-                          },
-                        },
-                      }}
+                      options={chartOptions}
+                      plugins={[ChartDataLabels]} // Tambahkan plugin
                       style={{ width: "100%", height: "250px" }}
                     />
                   )}
@@ -1535,16 +1527,8 @@ const Modals = () => {
                     <Chart
                       type="doughnut"
                       data={jobChartData}
-                      options={{
-                        ...chartOptions,
-                        plugins: {
-                          ...chartOptions.plugins,
-                          legend: {
-                            ...chartOptions.plugins.legend,
-                            position: "bottom",
-                          },
-                        },
-                      }}
+                      options={chartOptions}
+                      plugins={[ChartDataLabels]} // Tambahkan plugin
                       style={{ width: "100%", height: "250px" }}
                     />
                   )}
@@ -1557,16 +1541,8 @@ const Modals = () => {
                     <Chart
                       type="pie"
                       data={religionChartData}
-                      options={{
-                        ...chartOptions,
-                        plugins: {
-                          ...chartOptions.plugins,
-                          legend: {
-                            ...chartOptions.plugins.legend,
-                            position: "bottom",
-                          },
-                        },
-                      }}
+                      options={chartOptions}
+                      plugins={[ChartDataLabels]} // Tambahkan plugin
                       style={{ width: "100%", height: "250px" }}
                     />
                   )}
@@ -1579,16 +1555,8 @@ const Modals = () => {
                     <Chart
                       type="pie"
                       data={maritalStatusChartData}
-                      options={{
-                        ...chartOptions,
-                        plugins: {
-                          ...chartOptions.plugins,
-                          legend: {
-                            ...chartOptions.plugins.legend,
-                            position: "bottom",
-                          },
-                        },
-                      }}
+                      options={chartOptions}
+                      plugins={[ChartDataLabels]} // Tambahkan plugin
                       style={{ width: "100%", height: "250px" }}
                     />
                   )}
