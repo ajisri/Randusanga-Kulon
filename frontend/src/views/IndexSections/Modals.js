@@ -1755,37 +1755,37 @@ const Modals = () => {
                     </DataTable>
                   </div>
                 </div>
+              </div>
 
-                <div
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "20px",
+                }}
+              >
+                <Button
+                  icon="pi pi-chevron-left"
+                  className="p-button-rounded p-button-outlined"
+                  onClick={prevSlide}
+                  disabled={currentSlide === 0}
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: "20px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
                   }}
-                >
-                  <Button
-                    icon="pi pi-chevron-left"
-                    className="p-button-rounded p-button-outlined"
-                    onClick={prevSlide}
-                    disabled={currentSlide === 0}
-                    style={{
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #ddd",
-                    }}
-                  />
-                  <Button
-                    icon="pi pi-chevron-right"
-                    className="p-button-rounded p-button-outlined"
-                    onClick={nextSlide}
-                    disabled={currentSlide === slides.length - 1}
-                    style={{
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #ddd",
-                    }}
-                  />
-                </div>
+                />
+                <Button
+                  icon="pi pi-chevron-right"
+                  className="p-button-rounded p-button-outlined"
+                  onClick={nextSlide}
+                  disabled={currentSlide === slides.length - 1}
+                  style={{
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
+                  }}
+                />
               </div>
             </Dialog>
           </div>
