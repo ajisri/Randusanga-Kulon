@@ -4,6 +4,7 @@ import useSWR from "swr"; // Import SWR
 import { Chart } from "primereact/chart";
 // import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Button, Row, Col } from "reactstrap";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -1184,7 +1185,6 @@ const Modals = () => {
           </div>
         </Col>
       </Row>
-
       <Row>
         <Col
           className="mt-1"
@@ -1740,7 +1740,6 @@ const Modals = () => {
                 </div>
               </div>
 
-              {/* Tombol panah kiri dan kanan */}
               <div
                 style={{
                   display: "flex",
@@ -1749,11 +1748,10 @@ const Modals = () => {
                   marginTop: "20px",
                 }}
               >
+                {/* Tombol Panah Kiri */}
                 <Button
-                  icon="pi pi-chevron-left"
                   onClick={prevSlide}
                   disabled={currentSlide === 0}
-                  className="p-button-rounded p-button-outlined"
                   style={{
                     width: "50px",
                     height: "50px",
@@ -1764,14 +1762,27 @@ const Modals = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#007bff", // Warna ikon
+                    color: "#007bff",
+                    transition: "all 0.3s ease",
                   }}
-                />
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 8px rgba(0, 0, 0, 0.15)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 6px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <FaChevronLeft />
+                </Button>
+
+                {/* Tombol Panah Kanan */}
                 <Button
-                  icon="pi pi-chevron-right"
                   onClick={nextSlide}
                   disabled={currentSlide === slides.length - 1}
-                  className="p-button-rounded p-button-outlined"
                   style={{
                     width: "50px",
                     height: "50px",
@@ -1782,9 +1793,22 @@ const Modals = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#007bff", // Warna ikon
+                    color: "#007bff",
+                    transition: "all 0.3s ease",
                   }}
-                />
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 8px rgba(0, 0, 0, 0.15)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 6px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <FaChevronRight />
+                </Button>
               </div>
             </Dialog>
           </div>
