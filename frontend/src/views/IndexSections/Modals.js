@@ -27,6 +27,14 @@ const Modals = () => {
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
+
+  // Data untuk tabel
+  const [genderTableData, setGenderTableData] = useState([]);
+  const [educationTableData, setEducationTableData] = useState([]);
+  const [jobTableData, setJobTableData] = useState([]);
+  const [religionTableData, setReligionTableData] = useState([]);
+  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -127,45 +135,29 @@ const Modals = () => {
   const [maritalStatusChartData, setMaritalStatusChartData] = useState(null);
 
   const [chartOptions, setChartOptions] = useState({});
-  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
-
-  // Data untuk tabel
-  const [genderTableData, setGenderTableData] = useState([]);
-  const [educationTableData, setEducationTableData] = useState([]);
-  const [jobTableData, setJobTableData] = useState([]);
-  const [religionTableData, setReligionTableData] = useState([]);
-  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
 
   // Fungsi untuk menghasilkan warna berdasarkan jumlah data
   function generateColors(count) {
-    // Array warna cerah dan menarik
-    const vibrantColors = [
-      "#FF6F61", // Coral
-      "#6B5B95", // Ultra Violet
-      "#88B04B", // Meadow
-      "#FFA500", // Bright Orange
-      "#92A8D1", // Serenity
-      "#F7CAC9", // Rose Quartz
-      "#955251", // Marsala
-      "#B565A7", // Radiant Orchid
-      "#009B77", // Emerald
-      "#DD4124", // Tangerine Tango
-      "#D65076", // Honeysuckle
-      "#45B8AC", // Turquoise
-      "#EFC050", // Mimosa
-      "#5B5EA6", // Blue Iris
-      "#9B2335", // Chili Pepper
-      "#DFCFBE", // Sand Dollar
-      "#55B4B0", // Blue Turquoise
-      "#E15D44", // Fiesta
-      "#7FCDCD", // Aqua Sky
-      "#BC243C", // Poppy Red
+    // Array warna standar
+    const baseColors = [
+      "#FF6384",
+      "#36A2EB",
+      "#FFCE56",
+      "#4BC0C0",
+      "#9966FF",
+      "#FF9F40",
+      "#C9CBCF",
+      "#FF8C00",
+      "#2E8B57",
+      "#4682B4",
+      "#8A2BE2",
+      "#FFD700",
     ];
 
     // Jika jumlah data lebih banyak dari jumlah warna yang tersedia, ulangi warna
     return Array.from(
       { length: count },
-      (_, i) => vibrantColors[i % vibrantColors.length]
+      (_, i) => baseColors[i % baseColors.length]
     );
   }
 
@@ -341,7 +333,7 @@ const Modals = () => {
 
   // Fungsi untuk menggeser slide
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev < slides.length - 1 ? prev + 1 : prev));
+    setCurrentSlide((prev) => (prev < 4 ? prev + 1 : prev));
   };
 
   const prevSlide = () => {
@@ -779,10 +771,9 @@ const Modals = () => {
           .chart-container {
             flex: 0 0 auto;
             width: 100%;
-            gap: "20px",
             scroll-snap-align: start;
           }
-        }
+          }
             
           @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -886,34 +877,6 @@ const Modals = () => {
               font-size: 10px;
             }
           }
-
-          @media (min-width: 768px) {
-  .dialog-text.modal-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .dialog-text.modal-body h3 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
-  .dialog-text.modal-body .chart-container {
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  .dialog-text.modal-body .p-datatable {
-    width: 80%;
-    margin-top: 20px;
-  }
-
-  .dialog-text.modal-body .button-container {
-    margin-top: 20px;
-  }
-}
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -1616,7 +1579,16 @@ const Modals = () => {
               onHide={() => setDialogVisible(false)}
             >
               <div className="dialog-divider"></div>
-              <div className="dialog-text modal-body">
+              <div
+                className="dialog-text modal-body"
+                style={{
+                  position: "relative",
+                  // display: "grid",
+                  // gridTemplateColumns: "repeat(2, 1fr)",
+                  // gap: "20px",
+                }}
+              >
+                {/* Container slide */}
                 <div
                   style={{
                     display: "flex",
@@ -1624,130 +1596,220 @@ const Modals = () => {
                     scrollBehavior: "smooth",
                     width: "100%",
                     scrollSnapType: "x mandatory",
+                    // gridColumn: "1 / -1", // Memastikan container slide mengambil seluruh lebar
                   }}
                 >
-                  {slides.map((slide, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        flex: "0 0 100%",
-                        scrollSnapAlign: "start",
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        transition: "transform 0.3s ease",
-                        display: index === currentSlide ? "block" : "none",
-                      }}
-                    >
-                      <h3
-                        style={{
-                          textAlign: "center",
-                          fontSize: "24px",
-                          marginBottom: "20px",
-                        }}
-                      >
-                        {slide.title}
-                      </h3>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                        }}
-                      >
+                  {/* Slide Gender Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      scrollSnapAlign: "start",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      padding: "10px",
+                      boxSizing: "border-box",
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Gender Distribution</h3>
+                      {genderChartData && (
                         <Chart
                           type="pie"
-                          data={slide.chartData}
-                          options={{
-                            ...chartOptions,
-                            plugins: {
-                              legend: {
-                                display: true,
-                                position: "bottom",
-                              },
-                            },
-                          }}
-                          style={{ width: "100%", height: "250px" }}
+                          data={genderChartData}
+                          options={chartOptions}
+                          // plugins={[ChartDataLabels]}
+                          style={{ width: "98%", height: "250px" }}
                         />
-                      </div>
-                      <DataTable
-                        value={slide.tableData}
-                        style={{ width: "100%", marginTop: "20px" }}
-                      >
-                        <Column field="label" header="Label"></Column>
-                        <Column field="value" header="Value"></Column>
-                      </DataTable>
+                      )}
                     </div>
-                  ))}
+                    {/* Tabel Gender Distribution */}
+                    <DataTable value={genderTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Education Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Education Distribution</h3>
+                      {educationChartData && (
+                        <Chart
+                          type="pie"
+                          data={educationChartData}
+                          options={chartOptions}
+                          // plugins={[ChartDataLabels]}
+                          style={{ width: "98%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Education Distribution */}
+                    <DataTable value={educationTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Job Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Job Distribution</h3>
+                      {jobChartData && (
+                        <Chart
+                          type="doughnut"
+                          data={jobChartData}
+                          options={chartOptions}
+                          // plugins={[ChartDataLabels]}
+                          style={{ width: "98%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Job Distribution */}
+                    <DataTable value={jobTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Religion Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Religion Distribution</h3>
+                      {religionChartData && (
+                        <Chart
+                          type="pie"
+                          data={religionChartData}
+                          options={chartOptions}
+                          // plugins={[ChartDataLabels]}
+                          style={{ width: "98%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Religion Distribution */}
+                    <DataTable value={religionTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
+
+                  {/* Slide Marital Status Distribution */}
+                  <div
+                    style={{
+                      flex: "0 0 100%",
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <div className="chart-container">
+                      <h3>Marital Status Distribution</h3>
+                      {maritalStatusChartData && (
+                        <Chart
+                          type="pie"
+                          data={maritalStatusChartData}
+                          options={chartOptions}
+                          // plugins={[ChartDataLabels]}
+                          style={{ width: "98%", height: "250px" }}
+                        />
+                      )}
+                    </div>
+                    {/* Tabel Marital Status Distribution */}
+                    <DataTable value={maritalStatusTableData}>
+                      <Column field="label" header="Label"></Column>
+                      <Column field="value" header="Value"></Column>
+                    </DataTable>
+                  </div>
                 </div>
-                <div
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "20px",
+                  marginTop: "20px",
+                }}
+              >
+                {/* Tombol Panah Kiri */}
+                <Button
+                  onClick={prevSlide}
+                  disabled={currentSlide === 0}
                   style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
                     display: "flex",
+                    alignItems: "center",
                     justifyContent: "center",
-                    gap: "20px",
-                    marginTop: "20px",
+                    color: "#007bff",
+                    fontSize: "24px", // Ukuran ikon teks
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 8px rgba(0, 0, 0, 0.15)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 6px rgba(0, 0, 0, 0.1)";
                   }}
                 >
-                  <Button
-                    onClick={prevSlide}
-                    disabled={currentSlide === 0}
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #ddd",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#007bff",
-                      fontSize: "24px",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "scale(1.1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 6px 8px rgba(0, 0, 0, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 6px rgba(0, 0, 0, 0.1)";
-                    }}
-                  >
-                    ‹
-                  </Button>
-                  <Button
-                    onClick={nextSlide}
-                    disabled={currentSlide === slides.length - 1}
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #ddd",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#007bff",
-                      fontSize: "24px",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "scale(1.1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 6px 8px rgba(0, 0, 0, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 6px rgba(0, 0, 0, 0.1)";
-                    }}
-                  >
-                    ›
-                  </Button>
-                </div>
+                  ‹ {/* Ikon panah kiri */}
+                </Button>
+
+                {/* Tombol Panah Kanan */}
+                <Button
+                  onClick={nextSlide}
+                  disabled={currentSlide === slides.length - 1}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#007bff",
+                    fontSize: "24px", // Ukuran ikon teks
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 8px rgba(0, 0, 0, 0.15)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 6px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  › {/* Ikon panah kanan */}
+                </Button>
               </div>
             </Dialog>
           </div>
