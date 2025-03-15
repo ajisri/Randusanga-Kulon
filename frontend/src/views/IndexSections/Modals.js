@@ -474,31 +474,6 @@ const Modals = () => {
             animation: magnetEffect 0.2s forwards;
           }
 
-          /* Style untuk tombol panah */
-          /* File CSS */
-          .custom-rounded-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-          }
-
-          .custom-rounded-button:hover {
-            background-color: #f0f0f0 !important;
-            transform: scale(1.1);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
-          }
-
-          .custom-rounded-button:active {
-            transform: scale(0.95);
-          }
-
           .no-animation {
             animation: none; /* Menghilangkan animasi setelah selesai */
           }
@@ -1621,6 +1596,7 @@ const Modals = () => {
                     overflowX: "hidden",
                     scrollBehavior: "smooth",
                     width: "100%",
+                    scrollSnapType: "x mandatory",
                     // gridColumn: "1 / -1", // Memastikan container slide mengambil seluruh lebar
                   }}
                 >
@@ -1628,7 +1604,10 @@ const Modals = () => {
                   <div
                     style={{
                       flex: "0 0 100%",
+                      scrollSnapAlign: "start",
                       transform: `translateX(-${currentSlide * 100}%)`,
+                      padding: "10px",
+                      boxSizing: "border-box",
                       transition: "transform 0.3s ease",
                     }}
                   >
@@ -1772,15 +1751,39 @@ const Modals = () => {
               >
                 <Button
                   icon="pi pi-chevron-left"
-                  className="custom-rounded-button"
                   onClick={prevSlide}
                   disabled={currentSlide === 0}
+                  className="p-button-rounded p-button-outlined"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#007bff", // Warna ikon
+                  }}
                 />
                 <Button
                   icon="pi pi-chevron-right"
-                  className="custom-rounded-button"
                   onClick={nextSlide}
                   disabled={currentSlide === slides.length - 1}
+                  className="p-button-rounded p-button-outlined"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #ddd",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#007bff", // Warna ikon
+                  }}
                 />
               </div>
             </Dialog>
