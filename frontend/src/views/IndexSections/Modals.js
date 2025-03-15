@@ -27,14 +27,6 @@ const Modals = () => {
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
-  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
-
-  // Data untuk tabel
-  const [genderTableData, setGenderTableData] = useState([]);
-  const [educationTableData, setEducationTableData] = useState([]);
-  const [jobTableData, setJobTableData] = useState([]);
-  const [religionTableData, setReligionTableData] = useState([]);
-  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -135,29 +127,45 @@ const Modals = () => {
   const [maritalStatusChartData, setMaritalStatusChartData] = useState(null);
 
   const [chartOptions, setChartOptions] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
+
+  // Data untuk tabel
+  const [genderTableData, setGenderTableData] = useState([]);
+  const [educationTableData, setEducationTableData] = useState([]);
+  const [jobTableData, setJobTableData] = useState([]);
+  const [religionTableData, setReligionTableData] = useState([]);
+  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
 
   // Fungsi untuk menghasilkan warna berdasarkan jumlah data
   function generateColors(count) {
-    // Array warna standar
-    const baseColors = [
-      "#FF6384",
-      "#36A2EB",
-      "#FFCE56",
-      "#4BC0C0",
-      "#9966FF",
-      "#FF9F40",
-      "#C9CBCF",
-      "#FF8C00",
-      "#2E8B57",
-      "#4682B4",
-      "#8A2BE2",
-      "#FFD700",
+    // Array warna cerah dan menarik
+    const vibrantColors = [
+      "#FF6F61", // Coral
+      "#6B5B95", // Ultra Violet
+      "#88B04B", // Meadow
+      "#FFA500", // Bright Orange
+      "#92A8D1", // Serenity
+      "#F7CAC9", // Rose Quartz
+      "#955251", // Marsala
+      "#B565A7", // Radiant Orchid
+      "#009B77", // Emerald
+      "#DD4124", // Tangerine Tango
+      "#D65076", // Honeysuckle
+      "#45B8AC", // Turquoise
+      "#EFC050", // Mimosa
+      "#5B5EA6", // Blue Iris
+      "#9B2335", // Chili Pepper
+      "#DFCFBE", // Sand Dollar
+      "#55B4B0", // Blue Turquoise
+      "#E15D44", // Fiesta
+      "#7FCDCD", // Aqua Sky
+      "#BC243C", // Poppy Red
     ];
 
     // Jika jumlah data lebih banyak dari jumlah warna yang tersedia, ulangi warna
     return Array.from(
       { length: count },
-      (_, i) => baseColors[i % baseColors.length]
+      (_, i) => vibrantColors[i % vibrantColors.length]
     );
   }
 
@@ -333,7 +341,7 @@ const Modals = () => {
 
   // Fungsi untuk menggeser slide
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev < 4 ? prev + 1 : prev));
+    setCurrentSlide((prev) => (prev < slides.length - 1 ? prev + 1 : prev));
   };
 
   const prevSlide = () => {
@@ -1609,7 +1617,6 @@ const Modals = () => {
             >
               <div className="dialog-divider"></div>
               <div className="dialog-text modal-body">
-                {/* Container Slide */}
                 <div
                   style={{
                     display: "flex",
@@ -1628,9 +1635,9 @@ const Modals = () => {
                         padding: "10px",
                         boxSizing: "border-box",
                         transition: "transform 0.3s ease",
+                        display: index === currentSlide ? "block" : "none",
                       }}
                     >
-                      {/* Judul Chart */}
                       <h3
                         style={{
                           textAlign: "center",
@@ -1640,8 +1647,6 @@ const Modals = () => {
                       >
                         {slide.title}
                       </h3>
-
-                      {/* Chart */}
                       <div
                         style={{
                           display: "flex",
@@ -1657,18 +1662,16 @@ const Modals = () => {
                             plugins: {
                               legend: {
                                 display: true,
-                                position: "bottom", // Keterangan di bawah chart
+                                position: "bottom",
                               },
                             },
                           }}
-                          style={{ width: "100%", height: "250px" }} // Ukuran chart konsisten
+                          style={{ width: "100%", height: "250px" }}
                         />
                       </div>
-
-                      {/* Tabel */}
                       <DataTable
                         value={slide.tableData}
-                        style={{ width: "100%", marginTop: "20px" }} // Tabel lebar penuh
+                        style={{ width: "100%", marginTop: "20px" }}
                       >
                         <Column field="label" header="Label"></Column>
                         <Column field="value" header="Value"></Column>
@@ -1676,8 +1679,6 @@ const Modals = () => {
                     </div>
                   ))}
                 </div>
-
-                {/* Tombol Panah */}
                 <div
                   style={{
                     display: "flex",
