@@ -475,23 +475,27 @@ const Modals = () => {
           }
 
           /* Style untuk tombol panah */
-          .p-button-rounded {
+          /* File CSS */
+          .custom-rounded-button {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border: 1px solid #ddd;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
           }
 
-          .p-button-rounded:hover {
+          .custom-rounded-button:hover {
             background-color: #f0f0f0 !important;
             transform: scale(1.1);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
           }
 
-          .p-button-rounded:active {
+          .custom-rounded-button:active {
             transform: scale(0.95);
           }
 
@@ -1757,34 +1761,26 @@ const Modals = () => {
                 </div>
               </div>
 
+              {/* Tombol panah kiri dan kanan */}
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
+                  gap: "20px",
                   marginTop: "20px",
                 }}
               >
                 <Button
                   icon="pi pi-chevron-left"
-                  className="p-button-rounded p-button-outlined"
+                  className="custom-rounded-button"
                   onClick={prevSlide}
                   disabled={currentSlide === 0}
-                  style={{
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #ddd",
-                  }}
                 />
                 <Button
                   icon="pi pi-chevron-right"
-                  className="p-button-rounded p-button-outlined"
+                  className="custom-rounded-button"
                   onClick={nextSlide}
                   disabled={currentSlide === slides.length - 1}
-                  style={{
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #ddd",
-                  }}
                 />
               </div>
             </Dialog>
