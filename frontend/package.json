@@ -87,7 +87,8 @@
     "react-typing-effect": "^2.0.5",
     "reactstrap": "^8.10.0",
     "sass": "1.62.1",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "yocto-queue": "^1.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
