@@ -1601,29 +1601,15 @@ const Modals = () => {
               onHide={() => setDialogVisible(false)}
             >
               <div className="dialog-divider"></div>
-              <div className="dialog-divider"></div>
               <div
                 className="dialog-text modal-body"
                 style={{
                   position: "relative",
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: "20px",
+                  // display: "grid",
+                  // gridTemplateColumns: "repeat(2, 1fr)",
+                  // gap: "20px",
                 }}
               >
-                {/* Tombol panah kiri */}
-                <Button
-                  icon="pi pi-chevron-left"
-                  className="p-button-rounded p-button-outlined"
-                  onClick={prevSlide}
-                  disabled={currentSlide === 0}
-                  style={{
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #ddd",
-                  }}
-                />
-
                 {/* Container slide */}
                 <div
                   style={{
@@ -1631,7 +1617,7 @@ const Modals = () => {
                     overflowX: "hidden",
                     scrollBehavior: "smooth",
                     width: "100%",
-                    gridColumn: "1 / -1", // Memastikan container slide mengambil seluruh lebar
+                    // gridColumn: "1 / -1", // Memastikan container slide mengambil seluruh lebar
                   }}
                 >
                   {/* Slide Gender Distribution */}
@@ -1650,7 +1636,7 @@ const Modals = () => {
                           data={genderChartData}
                           options={chartOptions}
                           // plugins={[ChartDataLabels]}
-                          style={{ width: "100%", height: "250px" }}
+                          style={{ width: "98%", height: "250px" }}
                         />
                       )}
                     </div>
@@ -1770,18 +1756,36 @@ const Modals = () => {
                   </div>
                 </div>
 
-                {/* Tombol panah kanan */}
-                <Button
-                  icon="pi pi-chevron-right"
-                  className="p-button-rounded p-button-outlined"
-                  onClick={nextSlide}
-                  disabled={currentSlide === slides.length - 1}
+                <div
                   style={{
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #ddd",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "20px",
                   }}
-                />
+                >
+                  <Button
+                    icon="pi pi-chevron-left"
+                    className="p-button-rounded p-button-outlined"
+                    onClick={prevSlide}
+                    disabled={currentSlide === 0}
+                    style={{
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #ddd",
+                    }}
+                  />
+                  <Button
+                    icon="pi pi-chevron-right"
+                    className="p-button-rounded p-button-outlined"
+                    onClick={nextSlide}
+                    disabled={currentSlide === slides.length - 1}
+                    style={{
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #ddd",
+                    }}
+                  />
+                </div>
               </div>
             </Dialog>
           </div>
