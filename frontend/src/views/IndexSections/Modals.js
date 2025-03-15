@@ -771,9 +771,10 @@ const Modals = () => {
           .chart-container {
             flex: 0 0 auto;
             width: 100%;
+            gap: "20px",
             scroll-snap-align: start;
           }
-          }
+        }
             
           @keyframes spin {
             0% { transform: rotate(0deg); }
