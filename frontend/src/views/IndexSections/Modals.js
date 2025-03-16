@@ -196,32 +196,15 @@ const Modals = () => {
         }))
       );
 
-      console.log("Education Labels: ", educationLabels);
-      console.log("Education Counts: ", educationCounts);
-
       // Safely handle job data
-      // const jobLabels = demografiData.jobCounts?.map((item) => item?.job) || [];
       const jobCounts =
         demografiData.jobCounts?.map((item) => item?._count?.id || 0) || [];
-
-      // Generate the topJobs array based on jobCounts
-      const topJobs = demografiData.jobCounts?.slice(0, 5) || []; // Misalnya, ambil 5 pekerjaan teratas
+      const topJobs = demografiData.jobCounts?.slice(0, 5) || []; // Ambil 5 pekerjaan teratas
       const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0); // Hitung jumlah pekerjaan lainnya
       setJobTableData([
         ...topJobs.map((job) => ({ label: job.job, value: job._count.id })),
         { label: "Others", value: otherJobCount },
       ]);
-
-      // Create jobChartData
-      const jobChartData = {
-        labels: [...topJobs.map((job) => job.job), "Others"],
-        datasets: [
-          {
-            data: [...topJobs.map((job) => job._count.id), otherJobCount],
-            backgroundColor: generateColors(topJobs.length + 1), // Menghasilkan warna sesuai jumlah label
-          },
-        ],
-      };
 
       // Safely handle religion data
       const religionLabels =
@@ -252,14 +235,16 @@ const Modals = () => {
         }))
       );
 
-      // Set chart data
+      // Set chart data dengan generateColors
       setGenderChartData({
         labels: genderLabels,
         datasets: [
           {
             data: genderCounts,
-            backgroundColor: ["#42A5F5", "#66BB6A"],
-            hoverBackgroundColor: ["#64B5F6", "#81C784"],
+            backgroundColor: generateColors(genderLabels.length), // Gunakan generateColors
+            hoverBackgroundColor: generateColors(genderLabels.length).map(
+              (color) => `${color}CC`
+            ), // Tambahkan transparansi
           },
         ],
       });
@@ -269,32 +254,36 @@ const Modals = () => {
         datasets: [
           {
             data: educationCounts,
-            backgroundColor: ["#FFA726", "#FB8C00", "#F57C00"],
-            hoverBackgroundColor: ["#FFB74D", "#FF9800", "#F57C00"],
+            backgroundColor: generateColors(educationLabels.length), // Gunakan generateColors
+            hoverBackgroundColor: generateColors(educationLabels.length).map(
+              (color) => `${color}CC`
+            ), // Tambahkan transparansi
           },
         ],
       });
 
-      setJobChartData(jobChartData);
-
-      // setJobChartData({
-      //   labels: jobLabels,
-      //   datasets: [
-      //     {
-      //       data: jobCounts,
-      //       backgroundColor: ["#26A69A", "#66BB6A", "#FF7043"],
-      //       hoverBackgroundColor: ["#4DB6AC", "#81C784", "#FF8A65"],
-      //     },
-      //   ],
-      // });
+      setJobChartData({
+        labels: [...topJobs.map((job) => job.job), "Others"],
+        datasets: [
+          {
+            data: [...topJobs.map((job) => job._count.id), otherJobCount],
+            backgroundColor: generateColors(topJobs.length + 1), // Gunakan generateColors
+            hoverBackgroundColor: generateColors(topJobs.length + 1).map(
+              (color) => `${color}CC`
+            ), // Tambahkan transparansi
+          },
+        ],
+      });
 
       setReligionChartData({
         labels: religionLabels,
         datasets: [
           {
             data: religionCounts,
-            backgroundColor: ["#AB47BC", "#5C6BC0", "#42A5F5"],
-            hoverBackgroundColor: ["#BA68C8", "#7986CB", "#64B5F6"],
+            backgroundColor: generateColors(religionLabels.length), // Gunakan generateColors
+            hoverBackgroundColor: generateColors(religionLabels.length).map(
+              (color) => `${color}CC`
+            ), // Tambahkan transparansi
           },
         ],
       });
@@ -304,8 +293,10 @@ const Modals = () => {
         datasets: [
           {
             data: maritalStatusCounts,
-            backgroundColor: ["#EF5350", "#FF7043", "#66BB6A"],
-            hoverBackgroundColor: ["#E57373", "#FF8A65", "#81C784"],
+            backgroundColor: generateColors(maritalStatusLabels.length), // Gunakan generateColors
+            hoverBackgroundColor: generateColors(
+              maritalStatusLabels.length
+            ).map((color) => `${color}CC`), // Tambahkan transparansi
           },
         ],
       });
@@ -317,7 +308,7 @@ const Modals = () => {
         plugins: {
           legend: {
             display: true,
-            position: "right", // Move labels to the right
+            position: "right", // Posisi legenda
           },
           tooltip: {
             callbacks: {
@@ -327,13 +318,6 @@ const Modals = () => {
               },
             },
           },
-          // datalabels: {
-          //   // Konfigurasi untuk menampilkan nilai
-          //   color: "#000", // Warna teks
-          //   anchor: "center", // Posisi teks
-          //   align: "center", // Align teks
-          //   formatter: (value) => value, // Menampilkan nilai
-          // },
         },
       });
     }
@@ -1659,77 +1643,77 @@ const Modals = () => {
                       </DataTable>
                     </div>
                   </div>
-                </div>
 
-                {/* Tombol Navigasi */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "20px",
-                    marginTop: "20px",
-                  }}
-                >
-                  <Button
-                    onClick={prevSlide}
-                    disabled={currentSlide === 0}
+                  {/* Tombol Navigasi */}
+                  <div
                     style={{
-                      width: window.innerWidth <= 768 ? "40px" : "50px",
-                      height: window.innerWidth <= 768 ? "40px" : "50px",
-                      borderRadius: "50%",
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #ddd",
                       display: "flex",
-                      alignItems: "center",
                       justifyContent: "center",
-                      color: "#007bff",
-                      fontSize: window.innerWidth <= 768 ? "20px" : "24px",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "scale(1.1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 6px 8px rgba(0, 0, 0, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 6px rgba(0, 0, 0, 0.1)";
+                      gap: "20px",
+                      marginTop: window.innerWidth <= 768 ? "10px" : "20px",
                     }}
                   >
-                    ‹
-                  </Button>
-                  <Button
-                    onClick={nextSlide}
-                    disabled={currentSlide === slides.length - 1}
-                    style={{
-                      width: window.innerWidth <= 768 ? "40px" : "50px",
-                      height: window.innerWidth <= 768 ? "40px" : "50px",
-                      borderRadius: "50%",
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #ddd",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#007bff",
-                      fontSize: window.innerWidth <= 768 ? "20px" : "24px",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "scale(1.1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 6px 8px rgba(0, 0, 0, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 6px rgba(0, 0, 0, 0.1)";
-                    }}
-                  >
-                    ›
-                  </Button>
+                    <Button
+                      onClick={prevSlide}
+                      disabled={currentSlide === 0}
+                      style={{
+                        width: window.innerWidth <= 768 ? "40px" : "50px",
+                        height: window.innerWidth <= 768 ? "40px" : "50px",
+                        borderRadius: "50%",
+                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #ddd",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#007bff",
+                        fontSize: window.innerWidth <= 768 ? "20px" : "24px",
+                        transition: "all 0.3s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "scale(1.1)";
+                        e.currentTarget.style.boxShadow =
+                          "0 6px 8px rgba(0, 0, 0, 0.15)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.style.boxShadow =
+                          "0 4px 6px rgba(0, 0, 0, 0.1)";
+                      }}
+                    >
+                      ‹
+                    </Button>
+                    <Button
+                      onClick={nextSlide}
+                      disabled={currentSlide === slides.length - 1}
+                      style={{
+                        width: window.innerWidth <= 768 ? "40px" : "50px",
+                        height: window.innerWidth <= 768 ? "40px" : "50px",
+                        borderRadius: "50%",
+                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #ddd",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#007bff",
+                        fontSize: window.innerWidth <= 768 ? "20px" : "24px",
+                        transition: "all 0.3s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "scale(1.1)";
+                        e.currentTarget.style.boxShadow =
+                          "0 6px 8px rgba(0, 0, 0, 0.15)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.style.boxShadow =
+                          "0 4px 6px rgba(0, 0, 0, 0.1)";
+                      }}
+                    >
+                      ›
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Dialog>
