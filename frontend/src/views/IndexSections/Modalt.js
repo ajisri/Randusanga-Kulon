@@ -927,7 +927,7 @@ const Modalt = () => {
               />
             </div>
             <div>
-              <span className="icon-button-text">APB DESA</span>
+              <span className="icon-button-text">ANGGARAN DESA</span>
             </div>
           </Button>
           <div>

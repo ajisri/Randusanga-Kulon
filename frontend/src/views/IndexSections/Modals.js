@@ -912,7 +912,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translateY(-19px)`,
               }}
             >
               <img
@@ -1006,7 +1006,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition1.x}px, ${iconPosition1.y}px) translateY(-19px)`,
               }}
             >
               <img
@@ -1100,7 +1100,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition3.x}px, ${iconPosition3.y}px) translateY(-19px)`,
               }}
             >
               <img
@@ -1469,7 +1469,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition6.x}px, ${iconPosition6.y}px) translateY(-19px)`,
               }}
             >
               <img
@@ -1533,7 +1533,7 @@ const Modals = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition7.x}px, ${iconPosition7.y}px) translateY(-19px)`,
               }}
             >
               <img

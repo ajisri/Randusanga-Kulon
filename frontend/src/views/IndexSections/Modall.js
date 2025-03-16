@@ -845,7 +845,7 @@ const Modall = () => {
               />
             </div>
             <div>
-              <span className="icon-button-text">KTP</span>
+              <span className="icon-button-text">Kartu Tanda Penduduk</span>
             </div>
           </Button>
           <div>
