@@ -35,6 +35,10 @@ const Modals = () => {
   const [jobTableData, setJobTableData] = useState([]);
   const [religionTableData, setReligionTableData] = useState([]);
   const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
+  const [ageTableData, setAgeTableData] = useState([]);
+  const [rtTableData, setRTTableData] = useState([]);
+  const [rwTableData, setRWTableData] = useState([]);
+  const [hamletTableData, setHamletTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -133,6 +137,10 @@ const Modals = () => {
   const [jobChartData, setJobChartData] = useState(null);
   const [religionChartData, setReligionChartData] = useState(null);
   const [maritalStatusChartData, setMaritalStatusChartData] = useState(null);
+  const [ageChartData, setAgeChartData] = useState(null);
+  const [rtChartData, setRTChartData] = useState(null);
+  const [rwChartData, setRWChartData] = useState(null);
+  const [hamletChartData, setHamletChartData] = useState(null);
 
   const [chartOptions, setChartOptions] = useState({});
 
@@ -171,7 +179,12 @@ const Modals = () => {
 
   useEffect(() => {
     if (demografiData) {
-      // Safely handle gender data
+      console.log("Data dari API:", demografiData);
+      console.log("ageChartData:", ageChartData);
+      console.log("rtChartData:", rtChartData);
+      console.log("rwChartData:", rwChartData);
+      console.log("hamletChartData:", hamletChartData);
+      // Handle data gender
       const genderLabels =
         demografiData.genderCounts?.map((item) => item?.gender) || [];
       const genderCounts =
@@ -183,7 +196,7 @@ const Modals = () => {
         }))
       );
 
-      // Safely handle education data
+      // Handle data pendidikan
       const educationLabels =
         demografiData.educationCounts?.map((item) => item?.education?.level) ||
         [];
@@ -196,17 +209,17 @@ const Modals = () => {
         }))
       );
 
-      // Safely handle job data
+      // Handle data pekerjaan
       const jobCounts =
         demografiData.jobCounts?.map((item) => item?._count?.id || 0) || [];
-      const topJobs = demografiData.jobCounts?.slice(0, 5) || []; // Ambil 5 pekerjaan teratas
-      const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0); // Hitung jumlah pekerjaan lainnya
+      const topJobs = demografiData.jobCounts?.slice(0, 5) || [];
+      const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0);
       setJobTableData([
         ...topJobs.map((job) => ({ label: job.job, value: job._count.id })),
         { label: "Others", value: otherJobCount },
       ]);
 
-      // Safely handle religion data
+      // Handle data agama
       const religionLabels =
         demografiData.religionCounts?.map((item) => item?.religion?.name) || [];
       const religionCounts =
@@ -219,7 +232,7 @@ const Modals = () => {
         }))
       );
 
-      // Safely handle marital status data
+      // Handle data status perkawinan
       const maritalStatusLabels =
         demografiData.maritalStatusCounts?.map(
           (item) => item?.marital_status
@@ -235,16 +248,60 @@ const Modals = () => {
         }))
       );
 
-      // Set chart data dengan generateColors
+      // Handle data umur
+      const ageLabels = Object.keys(demografiData.ageGroups);
+      const ageCounts = Object.values(demografiData.ageGroups);
+
+      setAgeTableData(
+        ageLabels.map((label, index) => ({
+          label,
+          value: ageCounts[index],
+        }))
+      );
+
+      // Handle data RT
+      const rtLabels = Object.keys(demografiData.groupedByRT);
+      const rtCounts = Object.values(demografiData.groupedByRT).map(
+        (group) => group.length
+      );
+      setRTTableData(
+        rtLabels.map((label, index) => ({
+          label: `RT ${label}`,
+          value: rtCounts[index],
+        }))
+      );
+
+      // Handle data RW
+      const rwLabels = Object.keys(demografiData.groupedByRW);
+      const rwCounts = Object.values(demografiData.groupedByRW).map(
+        (group) => group.length
+      );
+      setRWTableData(
+        rwLabels.map((label, index) => ({
+          label: `RW ${label}`,
+          value: rwCounts[index],
+        }))
+      );
+
+      // Handle data Dusun
+      const hamletLabels = Object.keys(demografiData.groupedByHamlet);
+      const hamletCounts = Object.values(demografiData.groupedByHamlet).map(
+        (group) => group.length
+      );
+      setHamletTableData(
+        hamletLabels.map((label, index) => ({
+          label: `Dusun ${label}`,
+          value: hamletCounts[index],
+        }))
+      );
+
+      // Set chart data
       setGenderChartData({
         labels: genderLabels,
         datasets: [
           {
             data: genderCounts,
-            backgroundColor: generateColors(genderLabels.length), // Gunakan generateColors
-            hoverBackgroundColor: generateColors(genderLabels.length).map(
-              (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            backgroundColor: generateColors(genderLabels.length),
           },
         ],
       });
@@ -254,10 +311,7 @@ const Modals = () => {
         datasets: [
           {
             data: educationCounts,
-            backgroundColor: generateColors(educationLabels.length), // Gunakan generateColors
-            hoverBackgroundColor: generateColors(educationLabels.length).map(
-              (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            backgroundColor: generateColors(educationLabels.length),
           },
         ],
       });
@@ -267,10 +321,7 @@ const Modals = () => {
         datasets: [
           {
             data: [...topJobs.map((job) => job._count.id), otherJobCount],
-            backgroundColor: generateColors(topJobs.length + 1), // Gunakan generateColors
-            hoverBackgroundColor: generateColors(topJobs.length + 1).map(
-              (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            backgroundColor: generateColors(topJobs.length + 1),
           },
         ],
       });
@@ -280,10 +331,7 @@ const Modals = () => {
         datasets: [
           {
             data: religionCounts,
-            backgroundColor: generateColors(religionLabels.length), // Gunakan generateColors
-            hoverBackgroundColor: generateColors(religionLabels.length).map(
-              (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            backgroundColor: generateColors(religionLabels.length),
           },
         ],
       });
@@ -293,35 +341,71 @@ const Modals = () => {
         datasets: [
           {
             data: maritalStatusCounts,
-            backgroundColor: generateColors(maritalStatusLabels.length), // Gunakan generateColors
-            hoverBackgroundColor: generateColors(
-              maritalStatusLabels.length
-            ).map((color) => `${color}CC`), // Tambahkan transparansi
+            backgroundColor: generateColors(maritalStatusLabels.length),
           },
         ],
       });
 
-      // Update chart options
+      setAgeChartData({
+        labels: ageLabels,
+        datasets: [
+          {
+            data: ageCounts,
+            backgroundColor: generateColors(ageLabels.length),
+          },
+        ],
+      });
+
+      setRTChartData({
+        labels: rtLabels.map((label) => `RT ${label}`),
+        datasets: [
+          {
+            data: rtCounts,
+            backgroundColor: generateColors(rtLabels.length),
+          },
+        ],
+      });
+
+      setRWChartData({
+        labels: rwLabels.map((label) => `RW ${label}`),
+        datasets: [
+          {
+            data: rwCounts,
+            backgroundColor: generateColors(rwLabels.length),
+          },
+        ],
+      });
+
+      setHamletChartData({
+        labels: hamletLabels.map((label) => `Dusun ${label}`),
+        datasets: [
+          {
+            data: hamletCounts,
+            backgroundColor: generateColors(hamletLabels.length),
+          },
+        ],
+      });
+
+      // Set chart options
       setChartOptions({
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           legend: {
             display: true,
-            position: "right", // Posisi legenda
+            position: "right",
           },
           tooltip: {
             callbacks: {
               label: (tooltipItem) => {
-                const dataValue = tooltipItem.raw;
-                return `${tooltipItem.label}: ${dataValue}`;
+                return `${tooltipItem.label}: ${tooltipItem.raw}`;
               },
             },
           },
         },
       });
     }
-  }, [demografiData]);
+  }, [ageChartData, rtChartData, rwChartData, hamletChartData, demografiData]);
 
   // Fungsi untuk menggeser slide
   const nextSlide = () => {
@@ -356,31 +440,53 @@ const Modals = () => {
   // Data untuk slide
   const slides = [
     {
-      title: "Gender Distribution",
+      title: "Distribusi Gender",
       chartData: genderChartData,
       tableData: genderTableData,
     },
     {
-      title: "Education Distribution",
+      title: "Distribusi Pendidikan",
       chartData: educationChartData,
       tableData: educationTableData,
     },
     {
-      title: "Job Distribution",
+      title: "Distribusi Pekerjaan",
       chartData: jobChartData,
       tableData: jobTableData,
     },
     {
-      title: "Religion Distribution",
+      title: "Distribusi Agama",
       chartData: religionChartData,
       tableData: religionTableData,
     },
     {
-      title: "Marital Status Distribution",
+      title: "Distribusi Status Perkawinan",
       chartData: maritalStatusChartData,
       tableData: maritalStatusTableData,
     },
+    {
+      title: "Distribusi Umur",
+      chartData: ageChartData,
+      tableData: ageTableData,
+    },
+    {
+      title: "Distribusi RT",
+      chartData: rtChartData,
+      tableData: rtTableData,
+    },
+    {
+      title: "Distribusi RW",
+      chartData: rwChartData,
+      tableData: rwTableData,
+    },
+    {
+      title: "Distribusi Dusun",
+      chartData: hamletChartData,
+      tableData: hamletTableData,
+    },
   ];
+
+  console.log("Slides:", slides);
 
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
@@ -775,12 +881,6 @@ const Modals = () => {
               overflow-x: auto;
               gap: 20px;
             }
-
-          .chart-container {
-            flex: 0 0 auto;
-            width: 100%;
-            scroll-snap-align: start;
-          }
           }
             
           @keyframes spin {
@@ -1575,7 +1675,7 @@ const Modals = () => {
                 </div>
               }
               visible={dialogVisible}
-              style={{ width: window.innerWidth <= 768 ? "90vw" : "80vw" }} // Lebar dialog menyesuaikan layar
+              style={{ width: window.innerWidth <= 768 ? "90vw" : "80vw" }}
               maximizable
               modal
               contentStyle={{
@@ -1603,6 +1703,14 @@ const Modals = () => {
                       marginBottom: "10px",
                     }}
                   >
+                    {console.log(
+                      "Data untuk Chart:",
+                      slides[currentSlide].chartData
+                    )}
+                    {console.log(
+                      "Data untuk Tabel:",
+                      slides[currentSlide].tableData
+                    )}
                     {slides[currentSlide].title}
                   </h3>
 
@@ -1639,6 +1747,7 @@ const Modals = () => {
                             },
                           },
                         }}
+                        ref={(ref) => console.log("Chart instance:", ref)}
                         style={{
                           width: "100%",
                           height: window.innerWidth <= 768 ? "200px" : "250px",
@@ -1650,6 +1759,7 @@ const Modals = () => {
                     <div style={{ flex: 1 }}>
                       <DataTable
                         value={slides[currentSlide].tableData}
+                        ref={(ref) => console.log("DataTable instance:", ref)}
                         style={{
                           width: "100%",
                           marginTop: window.innerWidth <= 768 ? "10px" : "0",
