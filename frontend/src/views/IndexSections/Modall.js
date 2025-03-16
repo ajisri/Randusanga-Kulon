@@ -835,7 +835,7 @@ const Modall = () => {
             <div
               className="button-icon"
               style={{
-                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-15px)`,
+                transform: `translate(${iconPosition2.x}px, ${iconPosition2.y}px) translateY(-19px)`,
               }}
             >
               <img
@@ -845,7 +845,7 @@ const Modall = () => {
               />
             </div>
             <div>
-              <span className="icon-button-text">Kartu Tanda Penduduk</span>
+              <span className="icon-button-text">KTP</span>
             </div>
           </Button>
           <div>

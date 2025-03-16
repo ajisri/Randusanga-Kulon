@@ -255,55 +255,55 @@ const Hero = () => {
           }
 
           @keyframes dramaticText {
-          0% {
-            opacity: 0;
-            transform: scale(0.5) translateY(-50px);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            0% {
+              opacity: 0;
+              transform: scale(0.5) translateY(-50px);
+              text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.5) translateY(0); // Skala lebih besar
+              text-shadow: 0 0 30px rgba(255, 215, 0, 1); // Shadow lebih besar
+            }
+            100% {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+              text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            }
           }
-          50% {
-            opacity: 1;
-            transform: scale(1.5) translateY(0); // Skala lebih besar
-            text-shadow: 0 0 30px rgba(255, 215, 0, 1); // Shadow lebih besar
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-          }
-        }
 
-        @keyframes glow {
-          0% {
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+          @keyframes glow {
+            0% {
+              text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            }
+            50% {
+              text-shadow: 0 0 30px rgba(255, 215, 0, 1); // Glow lebih intens
+            }
+            100% {
+              text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            }
           }
-          50% {
-            text-shadow: 0 0 30px rgba(255, 215, 0, 1); // Glow lebih intens
-          }
-          100% {
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-          }
-        }
 
-        @keyframes backgroundGradient {
-        0% {
-          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
-        }
-        50% {
-          background: linear-gradient(45deg, #FFD700, #FFFFFF);
-        }
-        100% {
-          background: linear-gradient(45deg, #87CEEB, #FFFFFF);
-        }
-      }
+          @keyframes backgroundGradient {
+            0% {
+              background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+            }
+            50% {
+              background: linear-gradient(45deg, #FFD700, #FFFFFF);
+            }
+            100% {
+              background: linear-gradient(45deg, #87CEEB, #FFFFFF);
+            }
+          }
 
-      @keyframes rotatePlanet {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+          @keyframes rotatePlanet {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
 
           @media (max-width: 768px) {
             .hero-container {
@@ -349,7 +349,8 @@ const Hero = () => {
             }
 
             .welcome-text {
-              font-size: 6vw !important; /* Perkecil tulisan pada mobile */
+              font-size: 12vw !important; /* Ukuran font lebih besar untuk mobile */
+              line-height: 1.2; /* Jarak antar baris */
             }
 
             .menu-button {
@@ -560,6 +561,7 @@ const Hero = () => {
               alignItems: "center",
               height: "100%",
               flexDirection: "column",
+              textAlign: "center",
             }}
           >
             <div
@@ -582,7 +584,7 @@ const Hero = () => {
                 transition: "opacity 2s ease-in-out",
               }}
             >
-              Selamat Datang di Randusanga Kulon
+              Selamat Datang <br /> di Randusanga Kulon
             </div>
             <Button
               className="menu-button"
