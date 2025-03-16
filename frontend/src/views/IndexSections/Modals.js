@@ -1593,11 +1593,7 @@ const Modals = () => {
                     display: "flex",
                     flexDirection: "column",
                     gap: "20px",
-                    scrollBehavior: "smooth",
-                    scrollSnapType: "x mandatory",
-                    transform: `translateX(-${currentSlide * 100}%)`,
                   }}
-                  // className="chart-animation"
                 >
                   {/* Judul Chart */}
                   <h3
@@ -1605,7 +1601,6 @@ const Modals = () => {
                       textAlign: "center",
                       fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                       marginBottom: "10px",
-                      scrollBehavior: "smooth",
                     }}
                   >
                     {slides[currentSlide].title}
@@ -1619,9 +1614,6 @@ const Modals = () => {
                         window.innerWidth <= 768 ? "column" : "row",
                       gap: "20px",
                       alignItems: "center",
-                      // scrollBehavior: "smooth",
-                      // scrollSnapType: "x mandatory",
-                      // transform: `translateX(-${currentSlide * 100}%)`,
                     }}
                   >
                     {/* Chart */}
@@ -1631,12 +1623,10 @@ const Modals = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        scrollSnapAlign: "start",
                       }}
                       className="chart-animation"
                     >
                       <Chart
-                        key={currentSlide}
                         type="pie"
                         data={slides[currentSlide].chartData}
                         options={{
