@@ -27,15 +27,6 @@ const Modals = () => {
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
-  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
-
-  // Data untuk tabel
-  const [genderTableData, setGenderTableData] = useState([]);
-  const [educationTableData, setEducationTableData] = useState([]);
-  const [jobTableData, setJobTableData] = useState([]);
-  const [religionTableData, setReligionTableData] = useState([]);
-  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
-  const [ageTableData, setAgeTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -129,6 +120,16 @@ const Modals = () => {
     setExpandedRows(event.data); // Menyimpan status baris yang diperluas
   };
 
+  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
+
+  // Data untuk tabel
+  const [genderTableData, setGenderTableData] = useState([]);
+  const [educationTableData, setEducationTableData] = useState([]);
+  const [jobTableData, setJobTableData] = useState([]);
+  const [religionTableData, setReligionTableData] = useState([]);
+  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
+  const [ageTableData, setAgeTableData] = useState([]);
+
   const [genderChartData, setGenderChartData] = useState(null);
   const [educationChartData, setEducationChartData] = useState(null);
   const [jobChartData, setJobChartData] = useState(null);
@@ -171,20 +172,6 @@ const Modals = () => {
     );
   }
 
-  const calculateAge = (birthDate) => {
-    const today = new Date();
-    const birth = new Date(birthDate);
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birth.getDate())
-    ) {
-      age--;
-    }
-    return age;
-  };
-
   // Fungsi untuk mengelompokkan umur
   const groupAges = (ages) => {
     const ageGroups = {
@@ -210,10 +197,10 @@ const Modals = () => {
     return ageGroups;
   };
 
+  // Effect untuk memproses data dari API
   useEffect(() => {
-    console.log("Demografi Data:", demografiData);
     if (demografiData) {
-      // Safely handle gender data
+      // Handle data gender
       const genderLabels =
         demografiData.genderCounts?.map((item) => item?.gender) || [];
       const genderCounts =
@@ -225,7 +212,7 @@ const Modals = () => {
         }))
       );
 
-      // Safely handle education data
+      // Handle data pendidikan
       const educationLabels =
         demografiData.educationCounts?.map((item) => item?.education?.level) ||
         [];
@@ -238,7 +225,7 @@ const Modals = () => {
         }))
       );
 
-      // Safely handle job data
+      // Handle data pekerjaan
       const jobCounts =
         demografiData.jobCounts?.map((item) => item?._count?.id || 0) || [];
       const topJobs = demografiData.jobCounts?.slice(0, 5) || []; // Ambil 5 pekerjaan teratas
@@ -248,7 +235,7 @@ const Modals = () => {
         { label: "Others", value: otherJobCount },
       ]);
 
-      // Safely handle religion data
+      // Handle data agama
       const religionLabels =
         demografiData.religionCounts?.map((item) => item?.religion?.name) || [];
       const religionCounts =
@@ -261,7 +248,7 @@ const Modals = () => {
         }))
       );
 
-      // Safely handle marital status data
+      // Handle data status perkawinan
       const maritalStatusLabels =
         demografiData.maritalStatusCounts?.map(
           (item) => item?.marital_status
@@ -277,16 +264,28 @@ const Modals = () => {
         }))
       );
 
-      // Set chart data dengan generateColors
+      // Handle data umur
+      const ages = demografiData?.ages || [];
+      const ageGroups = groupAges(ages);
+      const ageLabels = Object.keys(ageGroups);
+      const ageCounts = Object.values(ageGroups);
+      setAgeTableData(
+        ageLabels.map((label, index) => ({
+          label,
+          value: ageCounts[index],
+        }))
+      );
+
+      // Set chart data
       setGenderChartData({
         labels: genderLabels,
         datasets: [
           {
             data: genderCounts,
-            backgroundColor: generateColors(genderLabels.length), // Gunakan generateColors
+            backgroundColor: generateColors(genderLabels.length),
             hoverBackgroundColor: generateColors(genderLabels.length).map(
               (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            ),
           },
         ],
       });
@@ -296,10 +295,10 @@ const Modals = () => {
         datasets: [
           {
             data: educationCounts,
-            backgroundColor: generateColors(educationLabels.length), // Gunakan generateColors
+            backgroundColor: generateColors(educationLabels.length),
             hoverBackgroundColor: generateColors(educationLabels.length).map(
               (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            ),
           },
         ],
       });
@@ -309,10 +308,10 @@ const Modals = () => {
         datasets: [
           {
             data: [...topJobs.map((job) => job._count.id), otherJobCount],
-            backgroundColor: generateColors(topJobs.length + 1), // Gunakan generateColors
+            backgroundColor: generateColors(topJobs.length + 1),
             hoverBackgroundColor: generateColors(topJobs.length + 1).map(
               (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            ),
           },
         ],
       });
@@ -322,10 +321,10 @@ const Modals = () => {
         datasets: [
           {
             data: religionCounts,
-            backgroundColor: generateColors(religionLabels.length), // Gunakan generateColors
+            backgroundColor: generateColors(religionLabels.length),
             hoverBackgroundColor: generateColors(religionLabels.length).map(
               (color) => `${color}CC`
-            ), // Tambahkan transparansi
+            ),
           },
         ],
       });
@@ -335,49 +334,13 @@ const Modals = () => {
         datasets: [
           {
             data: maritalStatusCounts,
-            backgroundColor: generateColors(maritalStatusLabels.length), // Gunakan generateColors
+            backgroundColor: generateColors(maritalStatusLabels.length),
             hoverBackgroundColor: generateColors(
               maritalStatusLabels.length
-            ).map((color) => `${color}CC`), // Tambahkan transparansi
+            ).map((color) => `${color}CC`),
           },
         ],
       });
-
-      // Update chart options
-      setChartOptions({
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: "right", // Posisi legenda
-          },
-          tooltip: {
-            callbacks: {
-              label: (tooltipItem) => {
-                const dataValue = tooltipItem.raw;
-                return `${tooltipItem.label}: ${dataValue}`;
-              },
-            },
-          },
-        },
-      });
-
-      const ages = demografiData.map((item) => calculateAge(item.birth_date));
-
-      // Kelompokkan umur ke dalam kategori
-      const ageGroups = groupAges(ages);
-
-      // Siapkan data untuk chart
-      const ageLabels = Object.keys(ageGroups);
-      const ageCounts = Object.values(ageGroups);
-
-      setAgeTableData(
-        ageLabels.map((label, index) => ({
-          label,
-          value: ageCounts[index],
-        }))
-      );
 
       setAgeChartData({
         labels: ageLabels,
@@ -391,6 +354,26 @@ const Modals = () => {
           },
         ],
       });
+
+      // Set chart options
+      setChartOptions({
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: "right",
+          },
+          tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                const dataValue = tooltipItem.raw;
+                return `${tooltipItem.label}: ${dataValue}`;
+              },
+            },
+          },
+        },
+      });
     }
   }, [demografiData]);
 
@@ -402,6 +385,40 @@ const Modals = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : prev));
   };
+
+  // Data untuk slides
+  const slides = [
+    {
+      title: "Distribusi Gender",
+      chartData: genderChartData,
+      tableData: genderTableData,
+    },
+    {
+      title: "Distribusi Pendidikan",
+      chartData: educationChartData,
+      tableData: educationTableData,
+    },
+    {
+      title: "Distribusi Pekerjaan",
+      chartData: jobChartData,
+      tableData: jobTableData,
+    },
+    {
+      title: "Distribusi Agama",
+      chartData: religionChartData,
+      tableData: religionTableData,
+    },
+    {
+      title: "Distribusi Status Perkawinan",
+      chartData: maritalStatusChartData,
+      tableData: maritalStatusTableData,
+    },
+    {
+      title: "Distribusi Umur",
+      chartData: ageChartData,
+      tableData: ageTableData,
+    },
+  ];
 
   // Efek untuk mengubah posisi legenda berdasarkan ukuran layar
   useEffect(() => {
@@ -423,40 +440,6 @@ const Modals = () => {
       },
     });
   }, []);
-
-  // Data untuk slide
-  const slides = [
-    {
-      title: "Gender Distribution",
-      chartData: genderChartData,
-      tableData: genderTableData,
-    },
-    {
-      title: "Education Distribution",
-      chartData: educationChartData,
-      tableData: educationTableData,
-    },
-    {
-      title: "Job Distribution",
-      chartData: jobChartData,
-      tableData: jobTableData,
-    },
-    {
-      title: "Religion Distribution",
-      chartData: religionChartData,
-      tableData: religionTableData,
-    },
-    {
-      title: "Marital Status Distribution",
-      chartData: maritalStatusChartData,
-      tableData: maritalStatusTableData,
-    },
-    {
-      title: "Age Distribution",
-      chartData: ageChartData,
-      tableData: ageTableData,
-    },
-  ];
 
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
