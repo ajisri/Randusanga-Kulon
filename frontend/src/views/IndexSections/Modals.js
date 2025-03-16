@@ -27,6 +27,18 @@ const Modals = () => {
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
+
+  // Data untuk tabel
+  const [genderTableData, setGenderTableData] = useState([]);
+  const [educationTableData, setEducationTableData] = useState([]);
+  const [jobTableData, setJobTableData] = useState([]);
+  const [religionTableData, setReligionTableData] = useState([]);
+  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
+  const [ageTableData, setAgeTableData] = useState([]);
+  const [rtTableData, setRTTableData] = useState([]);
+  const [rwTableData, setRWTableData] = useState([]);
+  const [hamletTableData, setHamletTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -120,22 +132,15 @@ const Modals = () => {
     setExpandedRows(event.data); // Menyimpan status baris yang diperluas
   };
 
-  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
-
-  // Data untuk tabel
-  const [genderTableData, setGenderTableData] = useState([]);
-  const [educationTableData, setEducationTableData] = useState([]);
-  const [jobTableData, setJobTableData] = useState([]);
-  const [religionTableData, setReligionTableData] = useState([]);
-  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
-  const [ageTableData, setAgeTableData] = useState([]);
-
   const [genderChartData, setGenderChartData] = useState(null);
   const [educationChartData, setEducationChartData] = useState(null);
   const [jobChartData, setJobChartData] = useState(null);
   const [religionChartData, setReligionChartData] = useState(null);
   const [maritalStatusChartData, setMaritalStatusChartData] = useState(null);
   const [ageChartData, setAgeChartData] = useState(null);
+  const [rtChartData, setRTChartData] = useState(null);
+  const [rwChartData, setRWChartData] = useState(null);
+  const [hamletChartData, setHamletChartData] = useState(null);
 
   const [chartOptions, setChartOptions] = useState({});
 
@@ -172,32 +177,6 @@ const Modals = () => {
     );
   }
 
-  // Fungsi untuk mengelompokkan umur
-  const groupAges = (ages) => {
-    const ageGroups = {
-      "0-17": 0,
-      "18-25": 0,
-      "26-35": 0,
-      "36-45": 0,
-      "46-55": 0,
-      "56-65": 0,
-      "65+": 0,
-    };
-
-    ages.forEach((age) => {
-      if (age >= 0 && age <= 17) ageGroups["0-17"]++;
-      else if (age >= 18 && age <= 25) ageGroups["18-25"]++;
-      else if (age >= 26 && age <= 35) ageGroups["26-35"]++;
-      else if (age >= 36 && age <= 45) ageGroups["36-45"]++;
-      else if (age >= 46 && age <= 55) ageGroups["46-55"]++;
-      else if (age >= 56 && age <= 65) ageGroups["56-65"]++;
-      else ageGroups["65+"]++;
-    });
-
-    return ageGroups;
-  };
-
-  // Effect untuk memproses data dari API
   useEffect(() => {
     if (demografiData) {
       // Handle data gender
@@ -228,8 +207,8 @@ const Modals = () => {
       // Handle data pekerjaan
       const jobCounts =
         demografiData.jobCounts?.map((item) => item?._count?.id || 0) || [];
-      const topJobs = demografiData.jobCounts?.slice(0, 5) || []; // Ambil 5 pekerjaan teratas
-      const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0); // Hitung jumlah pekerjaan lainnya
+      const topJobs = demografiData.jobCounts?.slice(0, 5) || [];
+      const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0);
       setJobTableData([
         ...topJobs.map((job) => ({ label: job.job, value: job._count.id })),
         { label: "Others", value: otherJobCount },
@@ -265,14 +244,48 @@ const Modals = () => {
       );
 
       // Handle data umur
-      const ages = demografiData?.ages || [];
-      const ageGroups = groupAges(ages);
-      const ageLabels = Object.keys(ageGroups);
-      const ageCounts = Object.values(ageGroups);
+      const ageLabels = Object.keys(demografiData.ageGroups);
+      const ageCounts = Object.values(demografiData.ageGroups);
       setAgeTableData(
         ageLabels.map((label, index) => ({
           label,
           value: ageCounts[index],
+        }))
+      );
+
+      // Handle data RT
+      const rtLabels = Object.keys(demografiData.groupedByRT);
+      const rtCounts = Object.values(demografiData.groupedByRT).map(
+        (group) => group.length
+      );
+      setRTTableData(
+        rtLabels.map((label, index) => ({
+          label: `RT ${label}`,
+          value: rtCounts[index],
+        }))
+      );
+
+      // Handle data RW
+      const rwLabels = Object.keys(demografiData.groupedByRW);
+      const rwCounts = Object.values(demografiData.groupedByRW).map(
+        (group) => group.length
+      );
+      setRWTableData(
+        rwLabels.map((label, index) => ({
+          label: `RW ${label}`,
+          value: rwCounts[index],
+        }))
+      );
+
+      // Handle data Dusun
+      const hamletLabels = Object.keys(demografiData.groupedByHamlet);
+      const hamletCounts = Object.values(demografiData.groupedByHamlet).map(
+        (group) => group.length
+      );
+      setHamletTableData(
+        hamletLabels.map((label, index) => ({
+          label: `Dusun ${label}`,
+          value: hamletCounts[index],
         }))
       );
 
@@ -283,9 +296,6 @@ const Modals = () => {
           {
             data: genderCounts,
             backgroundColor: generateColors(genderLabels.length),
-            hoverBackgroundColor: generateColors(genderLabels.length).map(
-              (color) => `${color}CC`
-            ),
           },
         ],
       });
@@ -296,9 +306,6 @@ const Modals = () => {
           {
             data: educationCounts,
             backgroundColor: generateColors(educationLabels.length),
-            hoverBackgroundColor: generateColors(educationLabels.length).map(
-              (color) => `${color}CC`
-            ),
           },
         ],
       });
@@ -309,9 +316,6 @@ const Modals = () => {
           {
             data: [...topJobs.map((job) => job._count.id), otherJobCount],
             backgroundColor: generateColors(topJobs.length + 1),
-            hoverBackgroundColor: generateColors(topJobs.length + 1).map(
-              (color) => `${color}CC`
-            ),
           },
         ],
       });
@@ -322,9 +326,6 @@ const Modals = () => {
           {
             data: religionCounts,
             backgroundColor: generateColors(religionLabels.length),
-            hoverBackgroundColor: generateColors(religionLabels.length).map(
-              (color) => `${color}CC`
-            ),
           },
         ],
       });
@@ -335,9 +336,6 @@ const Modals = () => {
           {
             data: maritalStatusCounts,
             backgroundColor: generateColors(maritalStatusLabels.length),
-            hoverBackgroundColor: generateColors(
-              maritalStatusLabels.length
-            ).map((color) => `${color}CC`),
           },
         ],
       });
@@ -348,9 +346,36 @@ const Modals = () => {
           {
             data: ageCounts,
             backgroundColor: generateColors(ageLabels.length),
-            hoverBackgroundColor: generateColors(ageLabels.length).map(
-              (color) => `${color}CC`
-            ),
+          },
+        ],
+      });
+
+      setRTChartData({
+        labels: rtLabels.map((label) => `RT ${label}`),
+        datasets: [
+          {
+            data: rtCounts,
+            backgroundColor: generateColors(rtLabels.length),
+          },
+        ],
+      });
+
+      setRWChartData({
+        labels: rwLabels.map((label) => `RW ${label}`),
+        datasets: [
+          {
+            data: rwCounts,
+            backgroundColor: generateColors(rwLabels.length),
+          },
+        ],
+      });
+
+      setHamletChartData({
+        labels: hamletLabels.map((label) => `Dusun ${label}`),
+        datasets: [
+          {
+            data: hamletCounts,
+            backgroundColor: generateColors(hamletLabels.length),
           },
         ],
       });
@@ -367,8 +392,7 @@ const Modals = () => {
           tooltip: {
             callbacks: {
               label: (tooltipItem) => {
-                const dataValue = tooltipItem.raw;
-                return `${tooltipItem.label}: ${dataValue}`;
+                return `${tooltipItem.label}: ${tooltipItem.raw}`;
               },
             },
           },
@@ -386,7 +410,28 @@ const Modals = () => {
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
-  // Data untuk slides
+  // Efek untuk mengubah posisi legenda berdasarkan ukuran layar
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    setChartOptions({
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: isMobile ? "bottom" : "right", // Legenda di bawah untuk mobile, di kanan untuk desktop
+        },
+        datalabels: {
+          color: "#000",
+          anchor: "center",
+          align: "center",
+          formatter: (value) => value,
+        },
+      },
+    });
+  }, []);
+
+  // Data untuk slide
   const slides = [
     {
       title: "Distribusi Gender",
@@ -418,28 +463,22 @@ const Modals = () => {
       chartData: ageChartData,
       tableData: ageTableData,
     },
+    {
+      title: "Distribusi RT",
+      chartData: rtChartData,
+      tableData: rtTableData,
+    },
+    {
+      title: "Distribusi RW",
+      chartData: rwChartData,
+      tableData: rwTableData,
+    },
+    {
+      title: "Distribusi Dusun",
+      chartData: hamletChartData,
+      tableData: hamletTableData,
+    },
   ];
-
-  // Efek untuk mengubah posisi legenda berdasarkan ukuran layar
-  useEffect(() => {
-    const isMobile = window.innerWidth <= 768;
-    setChartOptions({
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: true,
-          position: isMobile ? "bottom" : "right", // Legenda di bawah untuk mobile, di kanan untuk desktop
-        },
-        datalabels: {
-          color: "#000",
-          anchor: "center",
-          align: "center",
-          formatter: (value) => value,
-        },
-      },
-    });
-  }, []);
 
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
