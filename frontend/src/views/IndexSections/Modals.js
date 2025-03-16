@@ -1593,7 +1593,11 @@ const Modals = () => {
                     display: "flex",
                     flexDirection: "column",
                     gap: "20px",
+                    scrollBehavior: "smooth",
+                    scrollSnapType: "x mandatory",
+                    transform: `translateX(-${currentSlide * 100}%)`,
                   }}
+                  className="chart-animation"
                 >
                   {/* Judul Chart */}
                   <h3
@@ -1615,8 +1619,9 @@ const Modals = () => {
                         window.innerWidth <= 768 ? "column" : "row",
                       gap: "20px",
                       alignItems: "center",
-                      scrollBehavior: "smooth",
-                      transform: `translateX(-${currentSlide * 100}%)`,
+                      // scrollBehavior: "smooth",
+                      // scrollSnapType: "x mandatory",
+                      // transform: `translateX(-${currentSlide * 100}%)`,
                     }}
                   >
                     {/* Chart */}
@@ -1626,8 +1631,9 @@ const Modals = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        scrollSnapAlign: "start",
                       }}
-                      className="chart-animation"
+                      // className="chart-animation"
                     >
                       <Chart
                         key={currentSlide}
