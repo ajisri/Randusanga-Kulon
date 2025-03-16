@@ -1601,6 +1601,7 @@ const Modals = () => {
                       textAlign: "center",
                       fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                       marginBottom: "10px",
+                      scrollBehavior: "smooth",
                     }}
                   >
                     {slides[currentSlide].title}
@@ -1614,6 +1615,8 @@ const Modals = () => {
                         window.innerWidth <= 768 ? "column" : "row",
                       gap: "20px",
                       alignItems: "center",
+                      scrollBehavior: "smooth",
+                      transform: `translateX(-${currentSlide * 100}%)`,
                     }}
                   >
                     {/* Chart */}
