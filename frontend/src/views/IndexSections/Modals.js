@@ -1579,237 +1579,141 @@ const Modals = () => {
               onHide={() => setDialogVisible(false)}
             >
               <div className="dialog-divider"></div>
-              <div
-                className="dialog-text modal-body"
-                style={{
-                  position: "relative",
-                  // display: "grid",
-                  // gridTemplateColumns: "repeat(2, 1fr)",
-                  // gap: "20px",
-                }}
-              >
-                {/* Container slide */}
+              <div className="dialog-text modal-body">
                 <div
                   style={{
                     display: "flex",
-                    overflowX: "hidden",
-                    scrollBehavior: "smooth",
-                    width: "100%",
-                    scrollSnapType: "x mandatory",
-                    // gridColumn: "1 / -1", // Memastikan container slide mengambil seluruh lebar
+                    flexDirection: "column",
+                    gap: "20px",
                   }}
                 >
-                  {/* Slide Gender Distribution */}
-                  <div
+                  {/* Judul Chart */}
+                  <h3
                     style={{
-                      flex: "0 0 100%",
-                      scrollSnapAlign: "start",
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      padding: "10px",
-                      boxSizing: "border-box",
-                      transition: "transform 0.3s ease",
+                      textAlign: "center",
+                      fontSize: "24px",
+                      marginBottom: "10px",
                     }}
                   >
-                    <div className="chart-container">
-                      <h3>Gender Distribution</h3>
-                      {genderChartData && (
-                        <Chart
-                          type="pie"
-                          data={genderChartData}
-                          options={chartOptions}
-                          // plugins={[ChartDataLabels]}
-                          style={{ width: "98%", height: "250px" }}
-                        />
-                      )}
-                    </div>
-                    {/* Tabel Gender Distribution */}
-                    <DataTable value={genderTableData}>
-                      <Column field="label" header="Label"></Column>
-                      <Column field="value" header="Value"></Column>
-                    </DataTable>
-                  </div>
+                    {slides[currentSlide].title}
+                  </h3>
 
-                  {/* Slide Education Distribution */}
+                  {/* Container untuk Chart dan Tabel */}
                   <div
                     style={{
-                      flex: "0 0 100%",
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      transition: "transform 0.3s ease",
+                      display: "flex",
+                      flexDirection:
+                        window.innerWidth <= 768 ? "column" : "row",
+                      gap: "20px",
+                      alignItems: "center",
                     }}
                   >
-                    <div className="chart-container">
-                      <h3>Education Distribution</h3>
-                      {educationChartData && (
-                        <Chart
-                          type="pie"
-                          data={educationChartData}
-                          options={chartOptions}
-                          // plugins={[ChartDataLabels]}
-                          style={{ width: "98%", height: "250px" }}
-                        />
-                      )}
+                    {/* Chart */}
+                    <div
+                      style={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Chart
+                        type="pie"
+                        data={slides[currentSlide].chartData}
+                        options={{
+                          ...chartOptions,
+                          plugins: {
+                            legend: {
+                              display: true,
+                              position:
+                                window.innerWidth <= 768 ? "bottom" : "right",
+                            },
+                          },
+                        }}
+                        style={{ width: "100%", height: "250px" }}
+                      />
                     </div>
-                    {/* Tabel Education Distribution */}
-                    <DataTable value={educationTableData}>
-                      <Column field="label" header="Label"></Column>
-                      <Column field="value" header="Value"></Column>
-                    </DataTable>
-                  </div>
 
-                  {/* Slide Job Distribution */}
-                  <div
-                    style={{
-                      flex: "0 0 100%",
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      transition: "transform 0.3s ease",
-                    }}
-                  >
-                    <div className="chart-container">
-                      <h3>Job Distribution</h3>
-                      {jobChartData && (
-                        <Chart
-                          type="doughnut"
-                          data={jobChartData}
-                          options={chartOptions}
-                          // plugins={[ChartDataLabels]}
-                          style={{ width: "98%", height: "250px" }}
-                        />
-                      )}
+                    {/* Tabel */}
+                    <div style={{ flex: 1 }}>
+                      <DataTable value={slides[currentSlide].tableData}>
+                        <Column field="label" header="Label"></Column>
+                        <Column field="value" header="Value"></Column>
+                      </DataTable>
                     </div>
-                    {/* Tabel Job Distribution */}
-                    <DataTable value={jobTableData}>
-                      <Column field="label" header="Label"></Column>
-                      <Column field="value" header="Value"></Column>
-                    </DataTable>
-                  </div>
-
-                  {/* Slide Religion Distribution */}
-                  <div
-                    style={{
-                      flex: "0 0 100%",
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      transition: "transform 0.3s ease",
-                    }}
-                  >
-                    <div className="chart-container">
-                      <h3>Religion Distribution</h3>
-                      {religionChartData && (
-                        <Chart
-                          type="pie"
-                          data={religionChartData}
-                          options={chartOptions}
-                          // plugins={[ChartDataLabels]}
-                          style={{ width: "98%", height: "250px" }}
-                        />
-                      )}
-                    </div>
-                    {/* Tabel Religion Distribution */}
-                    <DataTable value={religionTableData}>
-                      <Column field="label" header="Label"></Column>
-                      <Column field="value" header="Value"></Column>
-                    </DataTable>
-                  </div>
-
-                  {/* Slide Marital Status Distribution */}
-                  <div
-                    style={{
-                      flex: "0 0 100%",
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      transition: "transform 0.3s ease",
-                    }}
-                  >
-                    <div className="chart-container">
-                      <h3>Marital Status Distribution</h3>
-                      {maritalStatusChartData && (
-                        <Chart
-                          type="pie"
-                          data={maritalStatusChartData}
-                          options={chartOptions}
-                          // plugins={[ChartDataLabels]}
-                          style={{ width: "98%", height: "250px" }}
-                        />
-                      )}
-                    </div>
-                    {/* Tabel Marital Status Distribution */}
-                    <DataTable value={maritalStatusTableData}>
-                      <Column field="label" header="Label"></Column>
-                      <Column field="value" header="Value"></Column>
-                    </DataTable>
                   </div>
                 </div>
-              </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "20px",
-                  marginTop: "20px",
-                }}
-              >
-                {/* Tombol Panah Kiri */}
-                <Button
-                  onClick={prevSlide}
-                  disabled={currentSlide === 0}
+                {/* Tombol Navigasi */}
+                <div
                   style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #ddd",
                     display: "flex",
-                    alignItems: "center",
                     justifyContent: "center",
-                    color: "#007bff",
-                    fontSize: "24px", // Ukuran ikon teks
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.1)";
-                    e.currentTarget.style.boxShadow =
-                      "0 6px 8px rgba(0, 0, 0, 0.15)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow =
-                      "0 4px 6px rgba(0, 0, 0, 0.1)";
+                    gap: "20px",
+                    marginTop: "20px",
                   }}
                 >
-                  ‹ {/* Ikon panah kiri */}
-                </Button>
-
-                {/* Tombol Panah Kanan */}
-                <Button
-                  onClick={nextSlide}
-                  disabled={currentSlide === slides.length - 1}
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #ddd",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#007bff",
-                    fontSize: "24px", // Ukuran ikon teks
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.1)";
-                    e.currentTarget.style.boxShadow =
-                      "0 6px 8px rgba(0, 0, 0, 0.15)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow =
-                      "0 4px 6px rgba(0, 0, 0, 0.1)";
-                  }}
-                >
-                  › {/* Ikon panah kanan */}
-                </Button>
+                  <Button
+                    onClick={prevSlide}
+                    disabled={currentSlide === 0}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #ddd",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#007bff",
+                      fontSize: "24px",
+                      transition: "all 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.1)";
+                      e.currentTarget.style.boxShadow =
+                        "0 6px 8px rgba(0, 0, 0, 0.15)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 6px rgba(0, 0, 0, 0.1)";
+                    }}
+                  >
+                    ‹
+                  </Button>
+                  <Button
+                    onClick={nextSlide}
+                    disabled={currentSlide === slides.length - 1}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #ddd",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#007bff",
+                      fontSize: "24px",
+                      transition: "all 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.1)";
+                      e.currentTarget.style.boxShadow =
+                        "0 6px 8px rgba(0, 0, 0, 0.15)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 6px rgba(0, 0, 0, 0.1)";
+                    }}
+                  >
+                    ›
+                  </Button>
+                </div>
               </div>
             </Dialog>
           </div>
