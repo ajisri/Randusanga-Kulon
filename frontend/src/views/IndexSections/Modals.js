@@ -140,18 +140,26 @@ const Modals = () => {
   function generateColors(count) {
     // Array warna standar
     const baseColors = [
-      "#FF6384",
-      "#36A2EB",
-      "#FFCE56",
-      "#4BC0C0",
-      "#9966FF",
-      "#FF9F40",
-      "#C9CBCF",
-      "#FF8C00",
-      "#2E8B57",
-      "#4682B4",
-      "#8A2BE2",
-      "#FFD700",
+      "#FF6F61", // Coral
+      "#6B5B95", // Ultra Violet
+      "#88B04B", // Meadow
+      "#FFA500", // Bright Orange
+      "#92A8D1", // Serenity
+      "#F7CAC9", // Rose Quartz
+      "#955251", // Marsala
+      "#B565A7", // Radiant Orchid
+      "#009B77", // Emerald
+      "#DD4124", // Tangerine Tango
+      "#D65076", // Honeysuckle
+      "#45B8AC", // Turquoise
+      "#EFC050", // Mimosa
+      "#5B5EA6", // Blue Iris
+      "#9B2335", // Chili Pepper
+      "#DFCFBE", // Sand Dollar
+      "#55B4B0", // Blue Turquoise
+      "#E15D44", // Fiesta
+      "#7FCDCD", // Aqua Sky
+      "#BC243C", // Poppy Red
     ];
 
     // Jika jumlah data lebih banyak dari jumlah warna yang tersedia, ulangi warna
@@ -1567,7 +1575,7 @@ const Modals = () => {
                 </div>
               }
               visible={dialogVisible}
-              style={{ width: "80vw" }}
+              style={{ width: window.innerWidth <= 768 ? "90vw" : "80vw" }} // Lebar dialog menyesuaikan layar
               maximizable
               modal
               contentStyle={{
@@ -1591,7 +1599,7 @@ const Modals = () => {
                   <h3
                     style={{
                       textAlign: "center",
-                      fontSize: "24px",
+                      fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                       marginBottom: "10px",
                     }}
                   >
@@ -1630,13 +1638,22 @@ const Modals = () => {
                             },
                           },
                         }}
-                        style={{ width: "100%", height: "250px" }}
+                        style={{
+                          width: "100%",
+                          height: window.innerWidth <= 768 ? "200px" : "250px",
+                        }}
                       />
                     </div>
 
                     {/* Tabel */}
                     <div style={{ flex: 1 }}>
-                      <DataTable value={slides[currentSlide].tableData}>
+                      <DataTable
+                        value={slides[currentSlide].tableData}
+                        style={{
+                          width: "100%",
+                          marginTop: window.innerWidth <= 768 ? "10px" : "0",
+                        }}
+                      >
                         <Column field="label" header="Label"></Column>
                         <Column field="value" header="Value"></Column>
                       </DataTable>
@@ -1657,8 +1674,8 @@ const Modals = () => {
                     onClick={prevSlide}
                     disabled={currentSlide === 0}
                     style={{
-                      width: "50px",
-                      height: "50px",
+                      width: window.innerWidth <= 768 ? "40px" : "50px",
+                      height: window.innerWidth <= 768 ? "40px" : "50px",
                       borderRadius: "50%",
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                       backgroundColor: "#ffffff",
@@ -1667,7 +1684,7 @@ const Modals = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       color: "#007bff",
-                      fontSize: "24px",
+                      fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                       transition: "all 0.3s ease",
                     }}
                     onMouseEnter={(e) => {
@@ -1687,8 +1704,8 @@ const Modals = () => {
                     onClick={nextSlide}
                     disabled={currentSlide === slides.length - 1}
                     style={{
-                      width: "50px",
-                      height: "50px",
+                      width: window.innerWidth <= 768 ? "40px" : "50px",
+                      height: window.innerWidth <= 768 ? "40px" : "50px",
                       borderRadius: "50%",
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                       backgroundColor: "#ffffff",
@@ -1697,7 +1714,7 @@ const Modals = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       color: "#007bff",
-                      fontSize: "24px",
+                      fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                       transition: "all 0.3s ease",
                     }}
                     onMouseEnter={(e) => {
