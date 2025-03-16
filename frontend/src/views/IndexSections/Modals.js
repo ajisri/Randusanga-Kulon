@@ -211,6 +211,7 @@ const Modals = () => {
   };
 
   useEffect(() => {
+    console.log("Demografi Data:", demografiData);
     if (demografiData) {
       // Safely handle gender data
       const genderLabels =
