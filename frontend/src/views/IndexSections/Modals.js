@@ -35,6 +35,7 @@ const Modals = () => {
   const [jobTableData, setJobTableData] = useState([]);
   const [religionTableData, setReligionTableData] = useState([]);
   const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
+  const [ageTableData, setAgeTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -133,6 +134,7 @@ const Modals = () => {
   const [jobChartData, setJobChartData] = useState(null);
   const [religionChartData, setReligionChartData] = useState(null);
   const [maritalStatusChartData, setMaritalStatusChartData] = useState(null);
+  const [ageChartData, setAgeChartData] = useState(null);
 
   const [chartOptions, setChartOptions] = useState({});
 
@@ -168,6 +170,45 @@ const Modals = () => {
       (_, i) => baseColors[i % baseColors.length]
     );
   }
+
+  const calculateAge = (birthDate) => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birth.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
+  // Fungsi untuk mengelompokkan umur
+  const groupAges = (ages) => {
+    const ageGroups = {
+      "0-17": 0,
+      "18-25": 0,
+      "26-35": 0,
+      "36-45": 0,
+      "46-55": 0,
+      "56-65": 0,
+      "65+": 0,
+    };
+
+    ages.forEach((age) => {
+      if (age >= 0 && age <= 17) ageGroups["0-17"]++;
+      else if (age >= 18 && age <= 25) ageGroups["18-25"]++;
+      else if (age >= 26 && age <= 35) ageGroups["26-35"]++;
+      else if (age >= 36 && age <= 45) ageGroups["36-45"]++;
+      else if (age >= 46 && age <= 55) ageGroups["46-55"]++;
+      else if (age >= 56 && age <= 65) ageGroups["56-65"]++;
+      else ageGroups["65+"]++;
+    });
+
+    return ageGroups;
+  };
 
   useEffect(() => {
     if (demografiData) {
@@ -320,6 +361,35 @@ const Modals = () => {
           },
         },
       });
+
+      const ages = demografiData.map((item) => calculateAge(item.birth_date));
+
+      // Kelompokkan umur ke dalam kategori
+      const ageGroups = groupAges(ages);
+
+      // Siapkan data untuk chart
+      const ageLabels = Object.keys(ageGroups);
+      const ageCounts = Object.values(ageGroups);
+
+      setAgeTableData(
+        ageLabels.map((label, index) => ({
+          label,
+          value: ageCounts[index],
+        }))
+      );
+
+      setAgeChartData({
+        labels: ageLabels,
+        datasets: [
+          {
+            data: ageCounts,
+            backgroundColor: generateColors(ageLabels.length),
+            hoverBackgroundColor: generateColors(ageLabels.length).map(
+              (color) => `${color}CC`
+            ),
+          },
+        ],
+      });
     }
   }, [demografiData]);
 
@@ -379,6 +449,11 @@ const Modals = () => {
       title: "Marital Status Distribution",
       chartData: maritalStatusChartData,
       tableData: maritalStatusTableData,
+    },
+    {
+      title: "Age Distribution",
+      chartData: ageChartData,
+      tableData: ageTableData,
     },
   ];
 
@@ -775,12 +850,6 @@ const Modals = () => {
               overflow-x: auto;
               gap: 20px;
             }
-
-          .chart-container {
-            flex: 0 0 auto;
-            width: 100%;
-            scroll-snap-align: start;
-          }
           }
             
           @keyframes spin {
@@ -1575,7 +1644,7 @@ const Modals = () => {
                 </div>
               }
               visible={dialogVisible}
-              style={{ width: window.innerWidth <= 768 ? "90vw" : "80vw" }} // Lebar dialog menyesuaikan layar
+              style={{ width: window.innerWidth <= 768 ? "90vw" : "80vw" }}
               maximizable
               modal
               contentStyle={{
