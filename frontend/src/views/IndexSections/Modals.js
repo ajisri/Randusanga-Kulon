@@ -251,6 +251,7 @@ const Modals = () => {
       // Handle data umur
       const ageLabels = Object.keys(demografiData.ageGroups);
       const ageCounts = Object.values(demografiData.ageGroups);
+
       setAgeTableData(
         ageLabels.map((label, index) => ({
           label,
@@ -484,6 +485,8 @@ const Modals = () => {
       tableData: hamletTableData,
     },
   ];
+
+  console.log("Slides:", slides);
 
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
