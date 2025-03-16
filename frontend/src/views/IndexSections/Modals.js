@@ -557,6 +557,22 @@ const Modals = () => {
             animation: bounceIn 1s ease-in-out;
           }
 
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .chart-animation {
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.5s;
+          }
+
           .dialog-header {
             display: flex;
             justify-content: space-between;
@@ -1608,6 +1624,7 @@ const Modals = () => {
                         flexDirection: "column",
                         alignItems: "center",
                       }}
+                      className="chart-animation"
                     >
                       <Chart
                         type="pie"
