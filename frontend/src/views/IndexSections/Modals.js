@@ -1597,7 +1597,7 @@ const Modals = () => {
                     scrollSnapType: "x mandatory",
                     transform: `translateX(-${currentSlide * 100}%)`,
                   }}
-                  className="chart-animation"
+                  // className="chart-animation"
                 >
                   {/* Judul Chart */}
                   <h3
@@ -1633,7 +1633,7 @@ const Modals = () => {
                         alignItems: "center",
                         scrollSnapAlign: "start",
                       }}
-                      // className="chart-animation"
+                      className="chart-animation"
                     >
                       <Chart
                         key={currentSlide}
