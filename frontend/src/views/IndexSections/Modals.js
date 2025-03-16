@@ -179,6 +179,11 @@ const Modals = () => {
 
   useEffect(() => {
     if (demografiData) {
+      console.log("Data dari API:", demografiData);
+      console.log("ageChartData:", ageChartData);
+      console.log("rtChartData:", rtChartData);
+      console.log("rwChartData:", rwChartData);
+      console.log("hamletChartData:", hamletChartData);
       // Handle data gender
       const genderLabels =
         demografiData.genderCounts?.map((item) => item?.gender) || [];
@@ -399,7 +404,7 @@ const Modals = () => {
         },
       });
     }
-  }, [demografiData]);
+  }, [ageChartData, rtChartData, rwChartData, hamletChartData, demografiData]);
 
   // Fungsi untuk menggeser slide
   const nextSlide = () => {
