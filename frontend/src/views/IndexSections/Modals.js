@@ -179,6 +179,7 @@ const Modals = () => {
   }
 
   useEffect(() => {
+    console.log("Data dari Backend:", demografiData);
     if (demografiData) {
       // Handle data gender
       const genderLabels =
