@@ -27,18 +27,6 @@ const Modals = () => {
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
-  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
-
-  // Data untuk tabel
-  const [genderTableData, setGenderTableData] = useState([]);
-  const [educationTableData, setEducationTableData] = useState([]);
-  const [jobTableData, setJobTableData] = useState([]);
-  const [religionTableData, setReligionTableData] = useState([]);
-  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
-  const [ageTableData, setAgeTableData] = useState([]);
-  const [rtTableData, setRTTableData] = useState([]);
-  const [rwTableData, setRWTableData] = useState([]);
-  const [hamletTableData, setHamletTableData] = useState([]);
 
   const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
 
@@ -132,6 +120,19 @@ const Modals = () => {
     setExpandedRows(event.data); // Menyimpan status baris yang diperluas
   };
 
+  const [currentSlide, setCurrentSlide] = useState(0); // State untuk mengatur slide yang aktif
+
+  // Data untuk tabel chart
+  const [genderTableData, setGenderTableData] = useState([]);
+  const [educationTableData, setEducationTableData] = useState([]);
+  const [jobTableData, setJobTableData] = useState([]);
+  const [religionTableData, setReligionTableData] = useState([]);
+  const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
+  const [ageTableData, setAgeTableData] = useState([]);
+  const [rtTableData, setRTTableData] = useState([]);
+  const [rwTableData, setRWTableData] = useState([]);
+  const [hamletTableData, setHamletTableData] = useState([]);
+
   const [genderChartData, setGenderChartData] = useState(null);
   const [educationChartData, setEducationChartData] = useState(null);
   const [jobChartData, setJobChartData] = useState(null);
@@ -187,7 +188,9 @@ const Modals = () => {
       setGenderTableData(
         genderLabels.map((label, index) => ({
           label,
-          value: genderCounts[index],
+          total: genderCounts[index],
+          male: demografiData.genderCounts[index]?.male || 0,
+          female: demografiData.genderCounts[index]?.female || 0,
         }))
       );
 
@@ -200,7 +203,9 @@ const Modals = () => {
       setEducationTableData(
         educationLabels.map((label, index) => ({
           label,
-          value: educationCounts[index],
+          total: educationCounts[index],
+          male: demografiData.educationCounts[index]?.male || 0,
+          female: demografiData.educationCounts[index]?.female || 0,
         }))
       );
 
@@ -210,8 +215,13 @@ const Modals = () => {
       const topJobs = demografiData.jobCounts?.slice(0, 5) || [];
       const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0);
       setJobTableData([
-        ...topJobs.map((job) => ({ label: job.job, value: job._count.id })),
-        { label: "Others", value: otherJobCount },
+        ...topJobs.map((job) => ({
+          label: job.job,
+          total: job._count.id,
+          male: job.male || 0,
+          female: job.female || 0,
+        })),
+        { label: "Others", total: otherJobCount, male: 0, female: 0 },
       ]);
 
       // Handle data agama
@@ -223,7 +233,9 @@ const Modals = () => {
       setReligionTableData(
         religionLabels.map((label, index) => ({
           label,
-          value: religionCounts[index],
+          total: religionCounts[index],
+          male: demografiData.religionCounts[index]?.male || 0,
+          female: demografiData.religionCounts[index]?.female || 0,
         }))
       );
 
@@ -239,11 +251,77 @@ const Modals = () => {
       setMaritalStatusTableData(
         maritalStatusLabels.map((label, index) => ({
           label,
-          value: maritalStatusCounts[index],
+          total: maritalStatusCounts[index],
+          male: demografiData.maritalStatusCounts[index]?.male || 0,
+          female: demografiData.maritalStatusCounts[index]?.female || 0,
         }))
       );
 
-      // Set chart data
+      // Handle data umur
+      const ageRanges = [
+        "0-17",
+        "18-25",
+        "26-35",
+        "36-45",
+        "46-55",
+        "56-65",
+        "65+",
+      ];
+      const ageCounts = ageRanges.map(
+        (range) => demografiData.ageGroups?.[range]?.total || 0
+      );
+      setAgeTableData(
+        ageRanges.map((label, index) => ({
+          label,
+          total: ageCounts[index],
+          male: demografiData.ageGroups?.[ageRanges[index]]?.male || 0,
+          female: demografiData.ageGroups?.[ageRanges[index]]?.female || 0,
+        }))
+      );
+
+      // Handle data RT
+      const rtLabels = Object.keys(demografiData.groupedByRT);
+      const rtCounts = Object.values(demografiData.groupedByRT).map(
+        (group) => group.length
+      );
+      setRTTableData(
+        rtLabels.map((label, index) => ({
+          label: `RT ${label}`,
+          total: rtCounts[index],
+          male: demografiData.groupedByRT[label]?.male || 0,
+          female: demografiData.groupedByRT[label]?.female || 0,
+        }))
+      );
+
+      // Handle data RW
+      const rwLabels = Object.keys(demografiData.groupedByRW);
+      const rwCounts = Object.values(demografiData.groupedByRW).map(
+        (group) => group.length
+      );
+      setRWTableData(
+        rwLabels.map((label, index) => ({
+          label: `RW ${label}`,
+          total: rwCounts[index],
+          male: demografiData.groupedByRW[label]?.male || 0,
+          female: demografiData.groupedByRW[label]?.female || 0,
+        }))
+      );
+
+      // Handle data Dusun
+      const hamletLabels = Object.keys(demografiData.groupedByHamlet);
+      const hamletCounts = Object.values(demografiData.groupedByHamlet).map(
+        (group) => group.length
+      );
+      setHamletTableData(
+        hamletLabels.map((label, index) => ({
+          label: `Dusun ${label}`,
+          total: hamletCounts[index],
+          male: demografiData.groupedByHamlet[label]?.male || 0,
+          female: demografiData.groupedByHamlet[label]?.female || 0,
+        }))
+      );
+
+      // Set chart data (hanya total)
       setGenderChartData({
         labels: genderLabels,
         datasets: [
@@ -294,28 +372,6 @@ const Modals = () => {
         ],
       });
 
-      // Handle data umur
-      const ageRanges = [
-        "0-17",
-        "18-25",
-        "26-35",
-        "36-45",
-        "46-55",
-        "56-65",
-        "65+",
-      ];
-      const ageCounts = ageRanges.map(
-        (range) => demografiData.ageGroups?.[range] || 0
-      );
-
-      // Atur data tabel dan chart usia
-      setAgeTableData(
-        ageRanges.map((label, index) => ({
-          label,
-          value: ageCounts[index],
-        }))
-      );
-
       setAgeChartData({
         labels: ageRanges,
         datasets: [
@@ -327,17 +383,6 @@ const Modals = () => {
         ],
       });
 
-      // Handle data RT
-      const rtLabels = Object.keys(demografiData.groupedByRT);
-      const rtCounts = Object.values(demografiData.groupedByRT).map(
-        (group) => group.length
-      );
-      setRTTableData(
-        rtLabels.map((label, index) => ({
-          label: `RT ${label}`,
-          value: rtCounts[index],
-        }))
-      );
       setRTChartData({
         labels: rtLabels.map((label) => `RT ${label}`),
         datasets: [
@@ -348,17 +393,6 @@ const Modals = () => {
         ],
       });
 
-      // Handle data RW
-      const rwLabels = Object.keys(demografiData.groupedByRW);
-      const rwCounts = Object.values(demografiData.groupedByRW).map(
-        (group) => group.length
-      );
-      setRWTableData(
-        rwLabels.map((label, index) => ({
-          label: `RW ${label}`,
-          value: rwCounts[index],
-        }))
-      );
       setRWChartData({
         labels: rwLabels.map((label) => `RW ${label}`),
         datasets: [
@@ -369,17 +403,6 @@ const Modals = () => {
         ],
       });
 
-      // Handle data Dusun
-      const hamletLabels = Object.keys(demografiData.groupedByHamlet);
-      const hamletCounts = Object.values(demografiData.groupedByHamlet).map(
-        (group) => group.length
-      );
-      setHamletTableData(
-        hamletLabels.map((label, index) => ({
-          label: `Dusun ${label}`,
-          value: hamletCounts[index],
-        }))
-      );
       setHamletChartData({
         labels: hamletLabels.map((label) => `Dusun ${label}`),
         datasets: [
@@ -414,7 +437,7 @@ const Modals = () => {
   // Data untuk slide
   const slides = [
     {
-      title: "Distribusi Gender",
+      title: "Distribusi Jenis Kelamin",
       chartData: genderChartData,
       tableData: genderTableData,
     },
@@ -735,6 +758,12 @@ const Modals = () => {
             width: 30px;
             height: 30px;
             animation: spin 2s linear infinite;
+          }
+
+          .chart-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Mengurangi jarak antara chart dan legend */
           }
 
           .custom-button {
@@ -1473,7 +1502,6 @@ const Modals = () => {
                         const imageLUrl = rowData.file_url
                           ? `${baseLURL}${rowData.file_url}`
                           : "https://via.placeholder.com/150";
-                        console.log("Image URL:", imageLUrl);
                         return (
                           <img
                             src={imageLUrl}
@@ -1705,14 +1733,6 @@ const Modals = () => {
                       marginBottom: "10px",
                     }}
                   >
-                    {console.log(
-                      "Data untuk Chart:",
-                      slides[currentSlide].chartData
-                    )}
-                    {console.log(
-                      "Data untuk Tabel:",
-                      slides[currentSlide].tableData
-                    )}
                     {slides[currentSlide].title}
                   </h3>
 
@@ -1727,53 +1747,56 @@ const Modals = () => {
                     }}
                   >
                     {/* Chart */}
-                    <div
-                      style={{
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                      }}
-                      className="chart-animation"
-                    >
-                      {slides[currentSlide].chartData && (
-                        <Chart
-                          type="pie"
-                          data={slides[currentSlide].chartData}
-                          options={{
-                            ...chartOptions,
-                            plugins: {
-                              legend: {
-                                display: true,
-                                position:
-                                  window.innerWidth <= 768 ? "bottom" : "right",
+                    <div className="chart-container">
+                      <div
+                        style={{
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                        className="chart-animation"
+                      >
+                        {slides[currentSlide].chartData && (
+                          <Chart
+                            type="pie"
+                            data={slides[currentSlide].chartData}
+                            options={{
+                              ...chartOptions,
+                              plugins: {
+                                legend: {
+                                  display: true,
+                                  position:
+                                    window.innerWidth <= 768
+                                      ? "bottom"
+                                      : "right",
+                                },
                               },
-                            },
-                          }}
-                          ref={(ref) => console.log("Chart instance:", ref)}
-                          style={{
-                            width: "100%",
-                            height:
-                              window.innerWidth <= 768 ? "200px" : "250px",
-                          }}
-                        />
-                      )}
+                            }}
+                            style={{
+                              width: "100%",
+                              height:
+                                window.innerWidth <= 768 ? "200px" : "250px",
+                            }}
+                          />
+                        )}
+                      </div>
                     </div>
-
                     {/* Tabel */}
                     <div style={{ flex: 1 }}>
                       {/* Render Tabel jika data tersedia */}
                       {slides[currentSlide].tableData && (
                         <DataTable
                           value={slides[currentSlide].tableData}
-                          ref={(ref) => console.log("DataTable instance:", ref)}
                           style={{
                             width: "100%",
                             marginTop: window.innerWidth <= 768 ? "10px" : "0",
                           }}
                         >
-                          <Column field="label" header="Label"></Column>
-                          <Column field="value" header="Value"></Column>
+                          <Column field="label" header="Legenda"></Column>
+                          <Column field="total" header="Total"></Column>
+                          <Column field="male" header="Laki-laki"></Column>
+                          <Column field="female" header="Perempuan"></Column>
                         </DataTable>
                       )}
                     </div>
