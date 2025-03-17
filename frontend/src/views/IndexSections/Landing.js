@@ -90,7 +90,7 @@ const Landing = () => {
     const fetchData = async () => {
       if (agendaData) {
         setAgendas(agendaData.agenda || []); // Gunakan default empty array jika agenda tidak ada
-        console.log(agendaData.agenda);
+        // console.log(agendaData.agenda);
       }
     };
 

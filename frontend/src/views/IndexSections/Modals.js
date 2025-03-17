@@ -189,8 +189,8 @@ const Modals = () => {
         genderLabels.map((label, index) => ({
           label,
           total: genderCounts[index],
-          male: demografiData.genderCounts[index]?.male || 0,
-          female: demografiData.genderCounts[index]?.female || 0,
+          male: demografiData.genderCounts?.[index]?.male || 0,
+          female: demografiData.genderCounts?.[index]?.female || 0,
         }))
       );
 
@@ -204,8 +204,8 @@ const Modals = () => {
         educationLabels.map((label, index) => ({
           label,
           total: educationCounts[index],
-          male: demografiData.educationCounts[index]?.male || 0,
-          female: demografiData.educationCounts[index]?.female || 0,
+          male: demografiData.educationCounts?.[index]?.male || 0,
+          female: demografiData.educationCounts?.[index]?.female || 0,
         }))
       );
 
@@ -234,8 +234,8 @@ const Modals = () => {
         religionLabels.map((label, index) => ({
           label,
           total: religionCounts[index],
-          male: demografiData.religionCounts[index]?.male || 0,
-          female: demografiData.religionCounts[index]?.female || 0,
+          male: demografiData.religionCounts?.[index]?.male || 0,
+          female: demografiData.religionCounts?.[index]?.female || 0,
         }))
       );
 
@@ -252,8 +252,8 @@ const Modals = () => {
         maritalStatusLabels.map((label, index) => ({
           label,
           total: maritalStatusCounts[index],
-          male: demografiData.maritalStatusCounts[index]?.male || 0,
-          female: demografiData.maritalStatusCounts[index]?.female || 0,
+          male: demografiData.maritalStatusCounts?.[index]?.male || 0,
+          female: demografiData.maritalStatusCounts?.[index]?.female || 0,
         }))
       );
 
@@ -280,44 +280,44 @@ const Modals = () => {
       );
 
       // Handle data RT
-      const rtLabels = Object.keys(demografiData.groupedByRT);
-      const rtCounts = Object.values(demografiData.groupedByRT).map(
-        (group) => group.length
+      const rtLabels = Object.keys(demografiData.groupedByRT || {});
+      const rtCounts = Object.values(demografiData.groupedByRT || {}).map(
+        (group) => group?.length || 0
       );
       setRTTableData(
         rtLabels.map((label, index) => ({
           label: `RT ${label}`,
           total: rtCounts[index],
-          male: demografiData.groupedByRT[label]?.male || 0,
-          female: demografiData.groupedByRT[label]?.female || 0,
+          male: demografiData.groupedByRT?.[label]?.male || 0,
+          female: demografiData.groupedByRT?.[label]?.female || 0,
         }))
       );
 
       // Handle data RW
-      const rwLabels = Object.keys(demografiData.groupedByRW);
-      const rwCounts = Object.values(demografiData.groupedByRW).map(
-        (group) => group.length
+      const rwLabels = Object.keys(demografiData.groupedByRW || {});
+      const rwCounts = Object.values(demografiData.groupedByRW || {}).map(
+        (group) => group?.length || 0
       );
       setRWTableData(
         rwLabels.map((label, index) => ({
           label: `RW ${label}`,
           total: rwCounts[index],
-          male: demografiData.groupedByRW[label]?.male || 0,
-          female: demografiData.groupedByRW[label]?.female || 0,
+          male: demografiData.groupedByRW?.[label]?.male || 0,
+          female: demografiData.groupedByRW?.[label]?.female || 0,
         }))
       );
 
       // Handle data Dusun
-      const hamletLabels = Object.keys(demografiData.groupedByHamlet);
-      const hamletCounts = Object.values(demografiData.groupedByHamlet).map(
-        (group) => group.length
-      );
+      const hamletLabels = Object.keys(demografiData.groupedByHamlet || {});
+      const hamletCounts = Object.values(
+        demografiData.groupedByHamlet || {}
+      ).map((group) => group?.length || 0);
       setHamletTableData(
         hamletLabels.map((label, index) => ({
           label: `Dusun ${label}`,
           total: hamletCounts[index],
-          male: demografiData.groupedByHamlet[label]?.male || 0,
-          female: demografiData.groupedByHamlet[label]?.female || 0,
+          male: demografiData.groupedByHamlet?.[label]?.male || 0,
+          female: demografiData.groupedByHamlet?.[label]?.female || 0,
         }))
       );
 
