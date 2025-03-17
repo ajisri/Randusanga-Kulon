@@ -35,7 +35,7 @@ const Modals = () => {
   const [jobTableData, setJobTableData] = useState([]);
   const [religionTableData, setReligionTableData] = useState([]);
   const [maritalStatusTableData, setMaritalStatusTableData] = useState([]);
-  // const [ageTableData, setAgeTableData] = useState([]);
+  const [ageTableData, setAgeTableData] = useState([]);
   const [rtTableData, setRTTableData] = useState([]);
   const [rwTableData, setRWTableData] = useState([]);
   const [hamletTableData, setHamletTableData] = useState([]);
@@ -137,7 +137,7 @@ const Modals = () => {
   const [jobChartData, setJobChartData] = useState(null);
   const [religionChartData, setReligionChartData] = useState(null);
   const [maritalStatusChartData, setMaritalStatusChartData] = useState(null);
-  // const [ageChartData, setAgeChartData] = useState(null);
+  const [ageChartData, setAgeChartData] = useState(null);
   const [rtChartData, setRTChartData] = useState(null);
   const [rwChartData, setRWChartData] = useState(null);
   const [hamletChartData, setHamletChartData] = useState(null);
@@ -295,40 +295,37 @@ const Modals = () => {
       });
 
       // Handle data umur
-      // const ageRanges = [
-      //   "0-17",
-      //   "18-25",
-      //   "26-35",
-      //   "36-45",
-      //   "46-55",
-      //   "56-65",
-      //   "65+",
-      // ];
-      // const ageCounts = ageRanges.map(
-      //   (range) => demografiData.ageGroups?.[range] || 0
-      // );
+      const ageRanges = [
+        "0-17",
+        "18-25",
+        "26-35",
+        "36-45",
+        "46-55",
+        "56-65",
+        "65+",
+      ];
+      const ageCounts = ageRanges.map(
+        (range) => demografiData.ageGroups?.[range] || 0
+      );
 
-      // // Debugging: Pastikan data usia benar
-      // console.log("ageRanges:", ageRanges);
-      // console.log("ageCounts:", ageCounts);
+      // Atur data tabel dan chart usia
+      setAgeTableData(
+        ageRanges.map((label, index) => ({
+          label,
+          value: ageCounts[index],
+        }))
+      );
 
-      // // Atur data tabel dan chart usia
-      // setAgeTableData(
-      //   ageRanges.map((label, index) => ({
-      //     label,
-      //     value: ageCounts[index],
-      //   }))
-      // );
-
-      // setAgeChartData({
-      //   labels: ageRanges,
-      //   datasets: [
-      //     {
-      //       data: ageCounts,
-      //       backgroundColor: generateColors(ageRanges.length),
-      //     },
-      //   ],
-      // });
+      setAgeChartData({
+        labels: ageRanges,
+        datasets: [
+          {
+            label: "Jumlah Penduduk per Kelompok Usia",
+            data: ageCounts,
+            backgroundColor: generateColors(ageRanges.length),
+          },
+        ],
+      });
 
       // Handle data RT
       const rtLabels = Object.keys(demografiData.groupedByRT);
@@ -441,11 +438,11 @@ const Modals = () => {
       chartData: maritalStatusChartData,
       tableData: maritalStatusTableData,
     },
-    // {
-    //   title: "Distribusi Umur",
-    //   chartData: ageChartData,
-    //   tableData: ageTableData,
-    // },
+    {
+      title: "Distribusi Umur",
+      chartData: ageChartData,
+      tableData: ageTableData,
+    },
     {
       title: "Distribusi RT",
       chartData: rtChartData,
@@ -463,11 +460,9 @@ const Modals = () => {
     },
   ];
 
-  console.log("Slides:", slides);
-
   // Fungsi untuk menggeser slide
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev < 4 ? prev + 1 : prev));
+    setCurrentSlide((prev) => (prev < 1 ? prev + 1 : prev));
   };
 
   const prevSlide = () => {
