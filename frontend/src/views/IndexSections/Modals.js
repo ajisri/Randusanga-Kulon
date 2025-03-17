@@ -295,26 +295,36 @@ const Modals = () => {
       });
 
       // Handle data umur
-      const ageLabels = Object.keys(demografiData.ageGroups);
-      const ageCounts = Object.values(demografiData.ageGroups);
+      const ageRanges = [
+        "0-17",
+        "18-25",
+        "26-35",
+        "36-45",
+        "46-55",
+        "56-65",
+        "65+",
+      ];
+      const ageCounts = ageRanges.map(
+        (range) => demografiData.ageGroups?.[range] || 0
+      );
       setAgeTableData(
-        ageLabels.map((label, index) => ({
+        ageRanges.map((label, index) => ({
           label,
           value: ageCounts[index],
         }))
       );
       setAgeChartData({
-        labels: ageLabels,
+        labels: ageRanges,
         datasets: [
           {
             data: ageCounts,
-            backgroundColor: generateColors(ageLabels.length),
+            backgroundColor: generateColors(ageRanges.length),
           },
         ],
       });
       // Tambahkan log di sini
       console.log("ageChartData setelah update:", {
-        labels: ageLabels,
+        labels: ageRanges,
         data: ageCounts,
       });
 
