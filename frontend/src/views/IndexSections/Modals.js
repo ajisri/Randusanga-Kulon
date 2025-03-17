@@ -462,7 +462,7 @@ const Modals = () => {
 
   // Fungsi untuk menggeser slide
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev < 1 ? prev + 1 : prev));
+    setCurrentSlide((prev) => (prev < slides.length - 1 ? prev + 1 : prev)); // Bisa sampai slide terakhir
   };
 
   const prevSlide = () => {
