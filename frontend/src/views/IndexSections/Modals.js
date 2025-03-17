@@ -312,6 +312,11 @@ const Modals = () => {
           },
         ],
       });
+      // Tambahkan log di sini
+      console.log("ageChartData setelah update:", {
+        labels: ageLabels,
+        data: ageCounts,
+      });
 
       // Handle data RT
       const rtLabels = Object.keys(demografiData.groupedByRT);
