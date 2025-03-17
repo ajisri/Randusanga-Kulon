@@ -179,84 +179,162 @@ const Modals = () => {
   }
 
   useEffect(() => {
-    console.log("Data dari Backend:", demografiData);
     if (demografiData) {
+      console.log("Data dari Backend:", demografiData); // Debugging: Periksa struktur data
+
       // Handle data gender
       const genderLabels =
-        demografiData.genderCounts?.map((item) => item?.gender) || [];
+        demografiData.genderCounts?.map((item) => item?.gender || "Unknown") ||
+        [];
       const genderCounts =
-        demografiData.genderCounts?.map((item) => item?._count?.id || 0) || [];
+        demografiData.genderCounts?.map((item) => item?.total || 0) || [];
+      const genderMaleCounts =
+        demografiData.genderCounts?.map((item) => item?.male || 0) || [];
+      const genderFemaleCounts =
+        demografiData.genderCounts?.map((item) => item?.female || 0) || [];
+
       setGenderTableData(
         genderLabels.map((label, index) => ({
           label,
           total: genderCounts[index],
-          male: demografiData.genderCounts?.[index]?.male || 0,
-          female: demografiData.genderCounts?.[index]?.female || 0,
+          male: genderMaleCounts[index],
+          female: genderFemaleCounts[index],
         }))
       );
 
+      setGenderChartData({
+        labels: genderLabels,
+        datasets: [
+          {
+            data: genderCounts,
+            backgroundColor: generateColors(genderLabels.length),
+          },
+        ],
+      });
+
       // Handle data pendidikan
       const educationLabels =
-        demografiData.educationCounts?.map((item) => item?.education?.level) ||
-        [];
+        demografiData.educationCounts?.map(
+          (item) => item?.level || "Unknown"
+        ) || [];
       const educationCounts =
-        demografiData.educationCounts?.map((item) => item?.count || 0) || [];
+        demografiData.educationCounts?.map((item) => item?.total || 0) || [];
+      const educationMaleCounts =
+        demografiData.educationCounts?.map((item) => item?.male || 0) || [];
+      const educationFemaleCounts =
+        demografiData.educationCounts?.map((item) => item?.female || 0) || [];
+
       setEducationTableData(
         educationLabels.map((label, index) => ({
           label,
           total: educationCounts[index],
-          male: demografiData.educationCounts?.[index]?.male || 0,
-          female: demografiData.educationCounts?.[index]?.female || 0,
+          male: educationMaleCounts[index],
+          female: educationFemaleCounts[index],
         }))
       );
 
+      setEducationChartData({
+        labels: educationLabels,
+        datasets: [
+          {
+            data: educationCounts,
+            backgroundColor: generateColors(educationLabels.length),
+          },
+        ],
+      });
+
       // Handle data pekerjaan
       const jobCounts =
-        demografiData.jobCounts?.map((item) => item?._count?.id || 0) || [];
+        demografiData.jobCounts?.map((item) => item?.total || 0) || [];
+      const jobMaleCounts =
+        demografiData.jobCounts?.map((item) => item?.male || 0) || [];
+      const jobFemaleCounts =
+        demografiData.jobCounts?.map((item) => item?.female || 0) || [];
       const topJobs = demografiData.jobCounts?.slice(0, 5) || [];
       const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0);
+
       setJobTableData([
-        ...topJobs.map((job) => ({
-          label: job.job,
-          total: job._count.id,
-          male: job.male || 0,
-          female: job.female || 0,
+        ...topJobs.map((job, index) => ({
+          label: job.job || "Unknown",
+          total: jobCounts[index],
+          male: jobMaleCounts[index],
+          female: jobFemaleCounts[index],
         })),
         { label: "Others", total: otherJobCount, male: 0, female: 0 },
       ]);
 
+      setJobChartData({
+        labels: [...topJobs.map((job) => job.job || "Unknown"), "Others"],
+        datasets: [
+          {
+            data: [...topJobs.map((job) => job.total || 0), otherJobCount],
+            backgroundColor: generateColors(topJobs.length + 1),
+          },
+        ],
+      });
+
       // Handle data agama
       const religionLabels =
-        demografiData.religionCounts?.map((item) => item?.religion?.name) || [];
-      const religionCounts =
-        demografiData.religionCounts?.map((item) => item?._count?.id || 0) ||
+        demografiData.religionCounts?.map((item) => item?.name || "Unknown") ||
         [];
+      const religionCounts =
+        demografiData.religionCounts?.map((item) => item?.total || 0) || [];
+      const religionMaleCounts =
+        demografiData.religionCounts?.map((item) => item?.male || 0) || [];
+      const religionFemaleCounts =
+        demografiData.religionCounts?.map((item) => item?.female || 0) || [];
+
       setReligionTableData(
         religionLabels.map((label, index) => ({
           label,
           total: religionCounts[index],
-          male: demografiData.religionCounts?.[index]?.male || 0,
-          female: demografiData.religionCounts?.[index]?.female || 0,
+          male: religionMaleCounts[index],
+          female: religionFemaleCounts[index],
         }))
       );
+
+      setReligionChartData({
+        labels: religionLabels,
+        datasets: [
+          {
+            data: religionCounts,
+            backgroundColor: generateColors(religionLabels.length),
+          },
+        ],
+      });
 
       // Handle data status perkawinan
       const maritalStatusLabels =
         demografiData.maritalStatusCounts?.map(
-          (item) => item?.marital_status
+          (item) => item?.marital_status || "Unknown"
         ) || [];
       const maritalStatusCounts =
-        demografiData.maritalStatusCounts?.map(
-          (item) => item?._count?.id || 0
-        ) || [];
+        demografiData.maritalStatusCounts?.map((item) => item?.total || 0) ||
+        [];
+      const maritalStatusMaleCounts =
+        demografiData.maritalStatusCounts?.map((item) => item?.male || 0) || [];
+      const maritalStatusFemaleCounts =
+        demografiData.maritalStatusCounts?.map((item) => item?.female || 0) ||
+        [];
+
       setMaritalStatusTableData(
         maritalStatusLabels.map((label, index) => ({
           label,
           total: maritalStatusCounts[index],
-          male: demografiData.maritalStatusCounts?.[index]?.male || 0,
-          female: demografiData.maritalStatusCounts?.[index]?.female || 0,
+          male: maritalStatusMaleCounts[index],
+          female: maritalStatusFemaleCounts[index],
         }))
       );
+
+      setMaritalStatusChartData({
+        labels: maritalStatusLabels,
+        datasets: [
+          {
+            data: maritalStatusCounts,
+            backgroundColor: generateColors(maritalStatusLabels.length),
+          },
+        ],
+      });
 
       // Handle data umur
       const ageRanges = [
@@ -271,107 +349,21 @@ const Modals = () => {
       const ageCounts = ageRanges.map(
         (range) => demografiData.ageGroups?.[range]?.total || 0
       );
+      const ageMaleCounts = ageRanges.map(
+        (range) => demografiData.ageGroups?.[range]?.male || 0
+      );
+      const ageFemaleCounts = ageRanges.map(
+        (range) => demografiData.ageGroups?.[range]?.female || 0
+      );
+
       setAgeTableData(
         ageRanges.map((label, index) => ({
           label,
           total: ageCounts[index],
-          male: demografiData.ageGroups?.[ageRanges[index]]?.male || 0,
-          female: demografiData.ageGroups?.[ageRanges[index]]?.female || 0,
+          male: ageMaleCounts[index],
+          female: ageFemaleCounts[index],
         }))
       );
-
-      // Handle data RT
-      const rtLabels = Object.keys(demografiData.groupedByRT || {});
-      const rtCounts = Object.values(demografiData.groupedByRT || {}).map(
-        (group) => group?.length || 0
-      );
-      setRTTableData(
-        rtLabels.map((label, index) => ({
-          label: `RT ${label}`,
-          total: rtCounts[index],
-          male: demografiData.groupedByRT?.[label]?.male || 0,
-          female: demografiData.groupedByRT?.[label]?.female || 0,
-        }))
-      );
-
-      // Handle data RW
-      const rwLabels = Object.keys(demografiData.groupedByRW || {});
-      const rwCounts = Object.values(demografiData.groupedByRW || {}).map(
-        (group) => group?.length || 0
-      );
-      setRWTableData(
-        rwLabels.map((label, index) => ({
-          label: `RW ${label}`,
-          total: rwCounts[index],
-          male: demografiData.groupedByRW?.[label]?.male || 0,
-          female: demografiData.groupedByRW?.[label]?.female || 0,
-        }))
-      );
-
-      // Handle data Dusun
-      const hamletLabels = Object.keys(demografiData.groupedByHamlet || {});
-      const hamletCounts = Object.values(
-        demografiData.groupedByHamlet || {}
-      ).map((group) => group?.length || 0);
-      setHamletTableData(
-        hamletLabels.map((label, index) => ({
-          label: `Dusun ${label}`,
-          total: hamletCounts[index],
-          male: demografiData.groupedByHamlet?.[label]?.male || 0,
-          female: demografiData.groupedByHamlet?.[label]?.female || 0,
-        }))
-      );
-
-      // Set chart data (hanya total)
-      setGenderChartData({
-        labels: genderLabels,
-        datasets: [
-          {
-            data: genderCounts,
-            backgroundColor: generateColors(genderLabels.length),
-          },
-        ],
-      });
-
-      setEducationChartData({
-        labels: educationLabels,
-        datasets: [
-          {
-            data: educationCounts,
-            backgroundColor: generateColors(educationLabels.length),
-          },
-        ],
-      });
-
-      setJobChartData({
-        labels: [...topJobs.map((job) => job.job), "Others"],
-        datasets: [
-          {
-            data: [...topJobs.map((job) => job._count.id), otherJobCount],
-            backgroundColor: generateColors(topJobs.length + 1),
-          },
-        ],
-      });
-
-      setReligionChartData({
-        labels: religionLabels,
-        datasets: [
-          {
-            data: religionCounts,
-            backgroundColor: generateColors(religionLabels.length),
-          },
-        ],
-      });
-
-      setMaritalStatusChartData({
-        labels: maritalStatusLabels,
-        datasets: [
-          {
-            data: maritalStatusCounts,
-            backgroundColor: generateColors(maritalStatusLabels.length),
-          },
-        ],
-      });
 
       setAgeChartData({
         labels: ageRanges,
@@ -384,6 +376,27 @@ const Modals = () => {
         ],
       });
 
+      // Handle data RT
+      const rtLabels = Object.keys(demografiData.groupedByRT || {});
+      const rtCounts = Object.values(demografiData.groupedByRT || {}).map(
+        (group) => group?.total || 0
+      );
+      const rtMaleCounts = Object.values(demografiData.groupedByRT || {}).map(
+        (group) => group?.male || 0
+      );
+      const rtFemaleCounts = Object.values(demografiData.groupedByRT || {}).map(
+        (group) => group?.female || 0
+      );
+
+      setRTTableData(
+        rtLabels.map((label, index) => ({
+          label: `RT ${label}`,
+          total: rtCounts[index],
+          male: rtMaleCounts[index],
+          female: rtFemaleCounts[index],
+        }))
+      );
+
       setRTChartData({
         labels: rtLabels.map((label) => `RT ${label}`),
         datasets: [
@@ -394,6 +407,27 @@ const Modals = () => {
         ],
       });
 
+      // Handle data RW
+      const rwLabels = Object.keys(demografiData.groupedByRW || {});
+      const rwCounts = Object.values(demografiData.groupedByRW || {}).map(
+        (group) => group?.total || 0
+      );
+      const rwMaleCounts = Object.values(demografiData.groupedByRW || {}).map(
+        (group) => group?.male || 0
+      );
+      const rwFemaleCounts = Object.values(demografiData.groupedByRW || {}).map(
+        (group) => group?.female || 0
+      );
+
+      setRWTableData(
+        rwLabels.map((label, index) => ({
+          label: `RW ${label}`,
+          total: rwCounts[index],
+          male: rwMaleCounts[index],
+          female: rwFemaleCounts[index],
+        }))
+      );
+
       setRWChartData({
         labels: rwLabels.map((label) => `RW ${label}`),
         datasets: [
@@ -403,6 +437,27 @@ const Modals = () => {
           },
         ],
       });
+
+      // Handle data Dusun
+      const hamletLabels = Object.keys(demografiData.groupedByHamlet || {});
+      const hamletCounts = Object.values(
+        demografiData.groupedByHamlet || {}
+      ).map((group) => group?.total || 0);
+      const hamletMaleCounts = Object.values(
+        demografiData.groupedByHamlet || {}
+      ).map((group) => group?.male || 0);
+      const hamletFemaleCounts = Object.values(
+        demografiData.groupedByHamlet || {}
+      ).map((group) => group?.female || 0);
+
+      setHamletTableData(
+        hamletLabels.map((label, index) => ({
+          label: `Dusun ${label}`,
+          total: hamletCounts[index],
+          male: hamletMaleCounts[index],
+          female: hamletFemaleCounts[index],
+        }))
+      );
 
       setHamletChartData({
         labels: hamletLabels.map((label) => `Dusun ${label}`),
