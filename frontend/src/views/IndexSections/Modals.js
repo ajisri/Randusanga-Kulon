@@ -307,12 +307,19 @@ const Modals = () => {
       const ageCounts = ageRanges.map(
         (range) => demografiData.ageGroups?.[range] || 0
       );
+
+      // Debugging: Pastikan data usia benar
+      console.log("ageRanges:", ageRanges);
+      console.log("ageCounts:", ageCounts);
+
+      // Atur data tabel dan chart usia
       setAgeTableData(
         ageRanges.map((label, index) => ({
           label,
           value: ageCounts[index],
         }))
       );
+
       setAgeChartData({
         labels: ageRanges,
         datasets: [
@@ -321,11 +328,6 @@ const Modals = () => {
             backgroundColor: generateColors(ageRanges.length),
           },
         ],
-      });
-      // Tambahkan log di sini
-      console.log("ageChartData setelah update:", {
-        labels: ageRanges,
-        data: ageCounts,
       });
 
       // Handle data RT
