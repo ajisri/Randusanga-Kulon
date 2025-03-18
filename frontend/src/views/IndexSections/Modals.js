@@ -178,6 +178,19 @@ const Modals = () => {
     );
   }
 
+  const calculateTotals = (data) => {
+    const totals = data.reduce(
+      (acc, row) => {
+        acc.total += row.total || 0;
+        acc.male += row.male || 0;
+        acc.female += row.female || 0;
+        return acc;
+      },
+      { label: "Total", total: 0, male: 0, female: 0 }
+    );
+    return totals;
+  };
+
   useEffect(() => {
     if (demografiData) {
       console.log("Data dari Backend:", demografiData); // Debugging: Periksa struktur data
@@ -187,20 +200,30 @@ const Modals = () => {
         demografiData.genderCounts?.map((item) => item?.gender || "Unknown") ||
         [];
       const genderCounts =
-        demografiData.genderCounts?.map((item) => item?.total || 0) || [];
+        demografiData.genderCounts?.map((item) => item?._count?.id || 0) || [];
       const genderMaleCounts =
         demografiData.genderCounts?.map((item) => item?.male || 0) || [];
       const genderFemaleCounts =
         demografiData.genderCounts?.map((item) => item?.female || 0) || [];
 
-      setGenderTableData(
-        genderLabels.map((label, index) => ({
+      const genderTableDataWithTotals = [
+        ...genderLabels.map((label, index) => ({
           label,
           total: genderCounts[index],
           male: genderMaleCounts[index],
           female: genderFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          genderLabels.map((label, index) => ({
+            label,
+            total: genderCounts[index],
+            male: genderMaleCounts[index],
+            female: genderFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setGenderTableData(genderTableDataWithTotals);
 
       setGenderChartData({
         labels: genderLabels,
@@ -224,14 +247,24 @@ const Modals = () => {
       const educationFemaleCounts =
         demografiData.educationCounts?.map((item) => item?.female || 0) || [];
 
-      setEducationTableData(
-        educationLabels.map((label, index) => ({
+      const educationTableDataWithTotals = [
+        ...educationLabels.map((label, index) => ({
           label,
           total: educationCounts[index],
           male: educationMaleCounts[index],
           female: educationFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          educationLabels.map((label, index) => ({
+            label,
+            total: educationCounts[index],
+            male: educationMaleCounts[index],
+            female: educationFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setEducationTableData(educationTableDataWithTotals);
 
       setEducationChartData({
         labels: educationLabels,
@@ -253,7 +286,7 @@ const Modals = () => {
       const topJobs = demografiData.jobCounts?.slice(0, 5) || [];
       const otherJobCount = jobCounts.slice(5).reduce((a, b) => a + b, 0);
 
-      setJobTableData([
+      const jobTableDataWithTotals = [
         ...topJobs.map((job, index) => ({
           label: job.job || "Unknown",
           total: jobCounts[index],
@@ -261,7 +294,17 @@ const Modals = () => {
           female: jobFemaleCounts[index],
         })),
         { label: "Others", total: otherJobCount, male: 0, female: 0 },
-      ]);
+        calculateTotals(
+          topJobs.map((job, index) => ({
+            label: job.job || "Unknown",
+            total: jobCounts[index],
+            male: jobMaleCounts[index],
+            female: jobFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setJobTableData(jobTableDataWithTotals);
 
       setJobChartData({
         labels: [...topJobs.map((job) => job.job || "Unknown"), "Others"],
@@ -284,14 +327,24 @@ const Modals = () => {
       const religionFemaleCounts =
         demografiData.religionCounts?.map((item) => item?.female || 0) || [];
 
-      setReligionTableData(
-        religionLabels.map((label, index) => ({
+      const religionTableDataWithTotals = [
+        ...religionLabels.map((label, index) => ({
           label,
           total: religionCounts[index],
           male: religionMaleCounts[index],
           female: religionFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          religionLabels.map((label, index) => ({
+            label,
+            total: religionCounts[index],
+            male: religionMaleCounts[index],
+            female: religionFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setReligionTableData(religionTableDataWithTotals);
 
       setReligionChartData({
         labels: religionLabels,
@@ -317,14 +370,24 @@ const Modals = () => {
         demografiData.maritalStatusCounts?.map((item) => item?.female || 0) ||
         [];
 
-      setMaritalStatusTableData(
-        maritalStatusLabels.map((label, index) => ({
+      const maritalStatusTableDataWithTotals = [
+        ...maritalStatusLabels.map((label, index) => ({
           label,
           total: maritalStatusCounts[index],
           male: maritalStatusMaleCounts[index],
           female: maritalStatusFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          maritalStatusLabels.map((label, index) => ({
+            label,
+            total: maritalStatusCounts[index],
+            male: maritalStatusMaleCounts[index],
+            female: maritalStatusFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setMaritalStatusTableData(maritalStatusTableDataWithTotals);
 
       setMaritalStatusChartData({
         labels: maritalStatusLabels,
@@ -356,14 +419,24 @@ const Modals = () => {
         (range) => demografiData.ageGroups?.[range]?.female || 0
       );
 
-      setAgeTableData(
-        ageRanges.map((label, index) => ({
+      const ageTableDataWithTotals = [
+        ...ageRanges.map((label, index) => ({
           label,
           total: ageCounts[index],
           male: ageMaleCounts[index],
           female: ageFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          ageRanges.map((label, index) => ({
+            label,
+            total: ageCounts[index],
+            male: ageMaleCounts[index],
+            female: ageFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setAgeTableData(ageTableDataWithTotals);
 
       setAgeChartData({
         labels: ageRanges,
@@ -388,14 +461,24 @@ const Modals = () => {
         (group) => group?.female || 0
       );
 
-      setRTTableData(
-        rtLabels.map((label, index) => ({
+      const rtTableDataWithTotals = [
+        ...rtLabels.map((label, index) => ({
           label: `RT ${label}`,
           total: rtCounts[index],
           male: rtMaleCounts[index],
           female: rtFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          rtLabels.map((label, index) => ({
+            label: `RT ${label}`,
+            total: rtCounts[index],
+            male: rtMaleCounts[index],
+            female: rtFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setRTTableData(rtTableDataWithTotals);
 
       setRTChartData({
         labels: rtLabels.map((label) => `RT ${label}`),
@@ -419,14 +502,24 @@ const Modals = () => {
         (group) => group?.female || 0
       );
 
-      setRWTableData(
-        rwLabels.map((label, index) => ({
+      const rwTableDataWithTotals = [
+        ...rwLabels.map((label, index) => ({
           label: `RW ${label}`,
           total: rwCounts[index],
           male: rwMaleCounts[index],
           female: rwFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          rwLabels.map((label, index) => ({
+            label: `RW ${label}`,
+            total: rwCounts[index],
+            male: rwMaleCounts[index],
+            female: rwFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setRWTableData(rwTableDataWithTotals);
 
       setRWChartData({
         labels: rwLabels.map((label) => `RW ${label}`),
@@ -450,14 +543,24 @@ const Modals = () => {
         demografiData.groupedByHamlet || {}
       ).map((group) => group?.female || 0);
 
-      setHamletTableData(
-        hamletLabels.map((label, index) => ({
+      const hamletTableDataWithTotals = [
+        ...hamletLabels.map((label, index) => ({
           label: `Dusun ${label}`,
           total: hamletCounts[index],
           male: hamletMaleCounts[index],
           female: hamletFemaleCounts[index],
-        }))
-      );
+        })),
+        calculateTotals(
+          hamletLabels.map((label, index) => ({
+            label: `Dusun ${label}`,
+            total: hamletCounts[index],
+            male: hamletMaleCounts[index],
+            female: hamletFemaleCounts[index],
+          }))
+        ),
+      ];
+
+      setHamletTableData(hamletTableDataWithTotals);
 
       setHamletChartData({
         labels: hamletLabels.map((label) => `Dusun ${label}`),
@@ -1838,9 +1941,9 @@ const Modals = () => {
                         )}
                       </div>
                     </div>
+
                     {/* Tabel */}
                     <div style={{ flex: 1 }}>
-                      {/* Render Tabel jika data tersedia */}
                       {slides[currentSlide].tableData && (
                         <DataTable
                           value={slides[currentSlide].tableData}
@@ -1849,10 +1952,14 @@ const Modals = () => {
                             marginTop: window.innerWidth <= 768 ? "10px" : "0",
                           }}
                         >
-                          <Column field="label" header="Legenda"></Column>
-                          <Column field="total" header="Total"></Column>
-                          <Column field="male" header="Laki-laki"></Column>
-                          <Column field="female" header="Perempuan"></Column>
+                          <Column
+                            field="label"
+                            header="Legenda"
+                            style={{ width: "150px" }}
+                          />
+                          <Column field="total" header="Total" />
+                          <Column field="male" header="Laki-laki" />
+                          <Column field="female" header="Perempuan" />
                         </DataTable>
                       )}
                     </div>
@@ -1884,16 +1991,6 @@ const Modals = () => {
                         fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                         transition: "all 0.3s ease",
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "scale(1.1)";
-                        e.currentTarget.style.boxShadow =
-                          "0 6px 8px rgba(0, 0, 0, 0.15)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "scale(1)";
-                        e.currentTarget.style.boxShadow =
-                          "0 4px 6px rgba(0, 0, 0, 0.1)";
-                      }}
                     >
                       ‹
                     </Button>
@@ -1913,16 +2010,6 @@ const Modals = () => {
                         color: "#007bff",
                         fontSize: window.innerWidth <= 768 ? "20px" : "24px",
                         transition: "all 0.3s ease",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "scale(1.1)";
-                        e.currentTarget.style.boxShadow =
-                          "0 6px 8px rgba(0, 0, 0, 0.15)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "scale(1)";
-                        e.currentTarget.style.boxShadow =
-                          "0 4px 6px rgba(0, 0, 0, 0.1)";
                       }}
                     >
                       ›
