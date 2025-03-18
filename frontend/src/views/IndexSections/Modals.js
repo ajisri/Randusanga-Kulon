@@ -2000,9 +2000,7 @@ const Modals = () => {
                           />
                           <Column
                             field="total"
-                            body={(rowData) => (
-                              <div className="center-text">{rowData.total}</div>
-                            )}
+                            body={(rowData) => <div>{rowData.total}</div>}
                             header={() => (
                               <div className="center-text">Jumlah</div>
                             )}
@@ -2010,9 +2008,7 @@ const Modals = () => {
                           />
                           <Column
                             field="male"
-                            body={(rowData) => (
-                              <div className="center-text">{rowData.male}</div>
-                            )}
+                            body={(rowData) => <div>{rowData.male}</div>}
                             header={() => (
                               <div className="center-text">Laki-laki</div>
                             )}
@@ -2022,7 +2018,7 @@ const Modals = () => {
                             field="female"
                             body={(rowData) => (
                               <div
-                                className="center-text ellipsis-text"
+                                className="ellipsis-text"
                                 data-pr-tooltip={rowData.female}
                                 data-pr-position="top"
                               >
