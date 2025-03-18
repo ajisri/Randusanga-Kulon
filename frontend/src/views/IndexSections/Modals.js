@@ -7,6 +7,7 @@ import { Button, Row, Col } from "reactstrap";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Tooltip } from "primereact/tooltip";
 import Geografix from "../../components/Administator/Profil/Geografix";
 import "primeicons/primeicons.css";
 
@@ -1173,6 +1174,43 @@ const Modals = () => {
               font-size: 10px;
             }
           }
+          /* Desktop: Tampilkan teks penuh */
+@media (min-width: 768px) {
+  .ellipsis-text {
+    white-space: normal; /* Teks bisa wrap ke baris baru */
+    overflow: visible; /* Tampilkan teks penuh */
+    text-overflow: clip; /* Tidak perlu ellipsis */
+  }
+}
+
+/* Mobile: Potong teks dengan ellipsis */
+@media (max-width: 767px) {
+  .ellipsis-text {
+    white-space: nowrap; /* Teks tidak wrap ke baris baru */
+    overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
+    text-overflow: ellipsis; /* Tambahkan ... di akhir teks */
+  }
+}
+
+/* Styling umum */
+.center-text {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.responsive-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.responsive-table .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+.responsive-table .p-datatable-table {
+  min-width: 600px;
+}
         `}
       </style>
       <svg style={{ display: "none" }}>
@@ -1942,6 +1980,7 @@ const Modals = () => {
 
                     {/* Tabel */}
                     <div style={{ flex: 1 }}>
+                      <Tooltip target=".ellipsis-text" />
                       {slides[currentSlide].tableData && (
                         <DataTable
                           value={slides[currentSlide].tableData}
@@ -1968,6 +2007,7 @@ const Modals = () => {
                             header={() => (
                               <div className="center-text">Jumlah</div>
                             )}
+                            style={{ minWidth: "100px" }}
                           />
                           <Column
                             field="male"
@@ -1977,17 +2017,29 @@ const Modals = () => {
                             header={() => (
                               <div className="center-text">Laki-laki</div>
                             )}
+                            style={{ minWidth: "100px" }}
                           />
                           <Column
                             field="female"
                             body={(rowData) => (
-                              <div className="center-text">
+                              <div
+                                className="center-text ellipsis-text"
+                                data-pr-tooltip={rowData.female}
+                                data-pr-position="top"
+                              >
                                 {rowData.female}
                               </div>
                             )}
                             header={() => (
-                              <div className="center-text">Perempuan</div>
+                              <div
+                                className="center-text ellipsis-text"
+                                data-pr-tooltip="Perempuan"
+                                data-pr-position="top"
+                              >
+                                Perempuan
+                              </div>
                             )}
+                            style={{ minWidth: "100px" }} // Lebar minimum kolom
                           />
                         </DataTable>
                       )}
