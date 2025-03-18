@@ -846,22 +846,6 @@ const Modals = () => {
             animation: bounceIn 1s ease-in-out;
           }
 
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .chart-animation {
-            animation: fadeIn 1s ease-in-out;
-            animation-delay: 0.5s;
-          }
-
           .dialog-header {
             display: flex;
             justify-content: space-between;
@@ -916,12 +900,6 @@ const Modals = () => {
             width: 30px;
             height: 30px;
             animation: spin 2s linear infinite;
-          }
-
-          .chart-container {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Mengurangi jarak antara chart dan legend */
           }
 
           .custom-button {
@@ -1174,7 +1152,29 @@ const Modals = () => {
               font-size: 10px;
             }
           }
-          /* Desktop: Tampilkan teks penuh */
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Mengurangi jarak antara chart dan legend */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-animation {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Desktop: Tampilkan teks penuh */
 @media (min-width: 768px) {
   .ellipsis-text {
     white-space: normal; /* Teks bisa wrap ke baris baru */
@@ -1194,8 +1194,8 @@ const Modals = () => {
 
 /* Styling umum */
 .center-text {
-  text-align: center;
-  vertical-align: middle;
+  text-align: center !important;;
+  vertical-align: middle !important;;
 }
 
 .responsive-table {
@@ -1951,6 +1951,7 @@ const Modals = () => {
                           alignItems: "center",
                         }}
                         className="chart-animation"
+                        key={currentSlide}
                       >
                         {slides[currentSlide].chartData && (
                           <Chart
@@ -1991,9 +1992,7 @@ const Modals = () => {
                         >
                           <Column
                             field="label"
-                            body={(rowData) => (
-                              <div className="center-text">{rowData.label}</div>
-                            )}
+                            body={(rowData) => <div>{rowData.label}</div>}
                             header={() => (
                               <div className="center-text">Legenda</div>
                             )}
@@ -2007,7 +2006,7 @@ const Modals = () => {
                             header={() => (
                               <div className="center-text">Jumlah</div>
                             )}
-                            style={{ minWidth: "100px" }}
+                            style={{ minWidth: "50px" }}
                           />
                           <Column
                             field="male"
@@ -2017,7 +2016,7 @@ const Modals = () => {
                             header={() => (
                               <div className="center-text">Laki-laki</div>
                             )}
-                            style={{ minWidth: "100px" }}
+                            style={{ minWidth: "50px" }}
                           />
                           <Column
                             field="female"
