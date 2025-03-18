@@ -193,8 +193,6 @@ const Modals = () => {
 
   useEffect(() => {
     if (demografiData) {
-      console.log("Data dari Backend:", demografiData); // Debugging: Periksa struktur data
-
       // Handle data gender
       const genderLabels =
         demografiData.genderCounts?.map((item) => item?.gender || "Unknown") ||
@@ -1954,12 +1952,43 @@ const Modals = () => {
                         >
                           <Column
                             field="label"
-                            header="Legenda"
+                            body={(rowData) => (
+                              <div className="center-text">{rowData.label}</div>
+                            )}
+                            header={() => (
+                              <div className="center-text">Legenda</div>
+                            )}
                             style={{ width: "150px" }}
                           />
-                          <Column field="total" header="Total" />
-                          <Column field="male" header="Laki-laki" />
-                          <Column field="female" header="Perempuan" />
+                          <Column
+                            field="total"
+                            body={(rowData) => (
+                              <div className="center-text">{rowData.total}</div>
+                            )}
+                            header={() => (
+                              <div className="center-text">Jumlah</div>
+                            )}
+                          />
+                          <Column
+                            field="male"
+                            body={(rowData) => (
+                              <div className="center-text">{rowData.male}</div>
+                            )}
+                            header={() => (
+                              <div className="center-text">Laki-laki</div>
+                            )}
+                          />
+                          <Column
+                            field="female"
+                            body={(rowData) => (
+                              <div className="center-text">
+                                {rowData.female}
+                              </div>
+                            )}
+                            header={() => (
+                              <div className="center-text">Perempuan</div>
+                            )}
+                          />
                         </DataTable>
                       )}
                     </div>
