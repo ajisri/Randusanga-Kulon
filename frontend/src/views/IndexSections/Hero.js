@@ -175,22 +175,22 @@ const Hero = () => {
           } */
 
         @keyframes orbitPlanet {
-        0% {
-          transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
-        }
-        25% {
-          transform: translate(-50%, -50%) rotate(90deg) translateY(100px) rotate(90deg); // Bergerak ke kiri
-        }
-        50% {
-          transform: translate(-50%, -50%) rotate(180deg) translateY(100px) rotate(180deg); // Bergerak ke atas
-        }
-        75% {
-          transform: translate(-50%, -50%) rotate(270deg) translateY(100px) rotate(270deg); // Bergerak ke kanan
-        }
-        100% {
-          transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Kembali ke bawah
-        }
-      }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(90deg) translateY(100px) rotate(90deg); // Bergerak ke kiri
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) translateY(100px) rotate(180deg); // Bergerak ke atas
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(270deg) translateY(100px) rotate(270deg); // Bergerak ke kanan
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Kembali ke bawah
+  }
+}
 
           @keyframes fallingStar {
             0% {
@@ -495,6 +495,7 @@ const Hero = () => {
                       height: "80%",
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
+                      marginBottom: "20px", // Jarak antar orbit
                     }}
                   >
                     <div
@@ -504,6 +505,71 @@ const Hero = () => {
                         height: "20px",
                         backgroundColor: "blue",
                         animation: "orbitPlanet 10s linear infinite", // Planet bergerak
+                      }}
+                    ></div>
+                  </div>
+
+                  {/* Orbit Tengah */}
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "60%",
+                      height: "60%",
+                      border: "2px solid rgba(255, 255, 255, 0.4)",
+                      boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
+                      marginBottom: "20px", // Jarak antar orbit
+                    }}
+                  >
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "green", // Warna planet berbeda
+                        animation: "orbitPlanet 8s linear infinite", // Planet bergerak lebih cepat
+                      }}
+                    ></div>
+                  </div>
+
+                  {/* Orbit Dalam */}
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "40%",
+                      height: "40%",
+                      border: "2px solid rgba(255, 255, 255, 0.3)",
+                      boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+                      marginBottom: "20px", // Jarak antar orbit
+                    }}
+                  >
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "red", // Warna planet berbeda
+                        animation: "orbitPlanet 6s linear infinite", // Planet bergerak lebih cepat
+                      }}
+                    ></div>
+                  </div>
+
+                  {/* Orbit Terkecil */}
+                  <div
+                    style={{
+                      ...spaceStyles.orbit,
+                      width: "20%",
+                      height: "20%",
+                      border: "2px solid rgba(255, 255, 255, 0.2)",
+                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        ...spaceStyles.planet,
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "yellow", // Warna planet berbeda
+                        animation: "orbitPlanet 4s linear infinite", // Planet bergerak lebih cepat
                       }}
                     ></div>
                   </div>
