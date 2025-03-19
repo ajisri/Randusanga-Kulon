@@ -71,7 +71,7 @@ const Hero = () => {
       backgroundColor: "blue",
       borderRadius: "50%",
       transform:
-        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)", // Posisi awal planet
+        "translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg)", // Posisi awal planet
       animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
     },
     star: {
@@ -194,10 +194,10 @@ const Hero = () => {
 
          @keyframes orbitPlanet {
   0% {
-    transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg); // Mulai dari posisi awal
+    transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
   }
   100% {
-    transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg); // Bergerak melingkar
+    transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Bergerak melingkar
   }
 }
 
@@ -513,9 +513,8 @@ const Hero = () => {
                         height: "20px",
                         backgroundColor: "blue", // Warna planet
                         transform:
-                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
-                        animation:
-                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
+                          "translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg)",
+                        animation: "orbitPlanet 10s linear infinite",
                       }}
                     ></div>
                   </div>
