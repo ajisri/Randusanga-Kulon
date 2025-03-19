@@ -47,11 +47,13 @@ const Hero = () => {
       height: "50%", // Tinggi container orbit
       overflow: "hidden", // Potong bagian atas orbit
       marginTop: "20px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end", // Posisikan orbit di bagian bawah
+      alignItems: "center",
     },
     orbit: {
-      position: "absolute",
-      bottom: "0", // Posisikan orbit di bagian bawah
-      left: "50%",
+      position: "relative", // Ubah ke relative agar jarak antar orbit bisa diatur
       border: "2px dashed rgba(255, 255, 255, 0.3)",
       borderRadius: "50%",
       borderLeft: "none", // Hapus border kiri
@@ -60,6 +62,7 @@ const Hero = () => {
       width: "100%",
       height: "100%",
       animation: "none", // Hentikan animasi orbit
+      marginBottom: "20px", // Jarak antar orbit
     },
     planet: {
       position: "absolute",
@@ -171,14 +174,23 @@ const Hero = () => {
             }
           } */
 
-         @keyframes orbitPlanet {
-          0% {
-            transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
-          }
-          100% {
-            transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Bergerak melingkar
-          }
+        @keyframes orbitPlanet {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
         }
+        25% {
+          transform: translate(-50%, -50%) rotate(90deg) translateY(100px) rotate(90deg); // Bergerak ke kiri
+        }
+        50% {
+          transform: translate(-50%, -50%) rotate(180deg) translateY(100px) rotate(180deg); // Bergerak ke atas
+        }
+        75% {
+          transform: translate(-50%, -50%) rotate(270deg) translateY(100px) rotate(270deg); // Bergerak ke kanan
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Kembali ke bawah
+        }
+      }
 
           @keyframes fallingStar {
             0% {
@@ -495,36 +507,6 @@ const Hero = () => {
                       }}
                     ></div>
                   </div>
-                  {/* Orbit Kedua */}
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "60%",
-                      height: "60%",
-                      border: "2px solid rgba(255, 255, 255, 0.4)",
-                      boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
-                    }}
-                  ></div>
-                  {/* Orbit Ketiga */}
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "40%",
-                      height: "40%",
-                      border: "2px solid rgba(255, 255, 255, 0.3)",
-                      boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
-                    }}
-                  ></div>
-                  {/* Orbit Terkecil */}
-                  <div
-                    style={{
-                      ...spaceStyles.orbit,
-                      width: "20%",
-                      height: "20%",
-                      border: "2px solid rgba(255, 255, 255, 0.2)",
-                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
-                    }}
-                  ></div>
                 </div>
               </Col>
             </Row>
