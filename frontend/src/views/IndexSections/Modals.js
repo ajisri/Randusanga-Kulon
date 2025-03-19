@@ -1990,52 +1990,88 @@ const Modals = () => {
                             marginTop: window.innerWidth <= 768 ? "10px" : "0",
                           }}
                         >
+                          {/* Kolom Legenda */}
                           <Column
                             field="label"
                             body={(rowData) => <div>{rowData.label}</div>}
                             header={() => (
                               <div className="center-text">Legenda</div>
                             )}
-                            style={{ width: "150px" }}
+                            style={{
+                              width:
+                                window.innerWidth <= 768 ? "120px" : "150px", // Lebar responsif
+                            }}
                           />
+
+                          {/* Kolom Jumlah */}
                           <Column
                             field="total"
-                            body={(rowData) => <div>{rowData.total}</div>}
+                            body={(rowData) => (
+                              <div className="center-text">{rowData.total}</div>
+                            )}
                             header={() => (
                               <div className="center-text">Jumlah</div>
                             )}
-                            style={{ minWidth: "50px" }}
+                            style={{
+                              minWidth:
+                                window.innerWidth <= 768 ? "40px" : "60px", // Lebar minimum responsif
+                              width: window.innerWidth <= 768 ? "60px" : "80px", // Lebar tetap responsif
+                            }}
                           />
-                          <Column
-                            field="male"
-                            body={(rowData) => <div>{rowData.male}</div>}
-                            header={() => (
-                              <div className="center-text">Laki-laki</div>
-                            )}
-                            style={{ minWidth: "50px" }}
-                          />
-                          <Column
-                            field="female"
-                            body={(rowData) => (
-                              <div
-                                className="ellipsis-text"
-                                data-pr-tooltip={rowData.female}
-                                data-pr-position="top"
-                              >
-                                {rowData.female}
-                              </div>
-                            )}
-                            header={() => (
-                              <div
-                                className="center-text ellipsis-text"
-                                data-pr-tooltip="Perempuan"
-                                data-pr-position="top"
-                              >
-                                Perempuan
-                              </div>
-                            )}
-                            style={{ minWidth: "100px" }} // Lebar minimum kolom
-                          />
+
+                          {/* Kolom Laki-laki (Hanya ditampilkan jika bukan Distribusi Jenis Kelamin) */}
+                          {slides[currentSlide].title !==
+                            "Distribusi Jenis Kelamin" && (
+                            <Column
+                              field="male"
+                              body={(rowData) => (
+                                <div className="center-text">
+                                  {rowData.male}
+                                </div>
+                              )}
+                              header={() => (
+                                <div className="center-text">Laki-laki</div>
+                              )}
+                              style={{
+                                minWidth:
+                                  window.innerWidth <= 768 ? "40px" : "60px", // Lebar minimum responsif
+                                width:
+                                  window.innerWidth <= 768 ? "60px" : "80px", // Lebar tetap responsif
+                              }}
+                            />
+                          )}
+
+                          {/* Kolom Perempuan (Hanya ditampilkan jika bukan Distribusi Jenis Kelamin) */}
+                          {slides[currentSlide].title !==
+                            "Distribusi Jenis Kelamin" && (
+                            <Column
+                              field="female"
+                              body={(rowData) => (
+                                <div
+                                  className="center-text ellipsis-text"
+                                  data-pr-tooltip={rowData.female}
+                                  data-pr-position="top"
+                                >
+                                  {rowData.female}
+                                </div>
+                              )}
+                              header={() => (
+                                <div
+                                  className="center-text ellipsis-text"
+                                  data-pr-tooltip="Perempuan"
+                                  data-pr-position="top"
+                                >
+                                  Perempuan
+                                </div>
+                              )}
+                              style={{
+                                minWidth:
+                                  window.innerWidth <= 768 ? "60px" : "80px", // Lebar minimum responsif
+                                width:
+                                  window.innerWidth <= 768 ? "80px" : "100px", // Lebar tetap responsif
+                              }}
+                            />
+                          )}
                         </DataTable>
                       )}
                     </div>
