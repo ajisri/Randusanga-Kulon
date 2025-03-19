@@ -44,54 +44,33 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "50%", // Tinggi orbit diperpanjang
-      overflow: "visible",
+      height: "50%", // Tinggi container orbit
+      overflow: "hidden", // Potong bagian atas orbit
       marginTop: "20px",
     },
     orbit: {
       position: "absolute",
-      bottom: "0",
+      bottom: "0", // Posisikan orbit di bagian bawah
       left: "50%",
       border: "2px dashed rgba(255, 255, 255, 0.3)",
       borderRadius: "50%",
-      borderBottom: "none",
-      borderLeft: "none",
-      borderRight: "none",
-      transform: "translateX(-50%) rotate(180deg)",
+      borderLeft: "none", // Hapus border kiri
+      borderRight: "none", // Hapus border kanan
+      transform: "translateX(-50%) rotate(90deg)", // Putar orbit 90 derajat
       width: "100%",
       height: "100%",
-      animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
+      animation: "none", // Hentikan animasi orbit
     },
     planet: {
       position: "absolute",
       bottom: "0",
       left: "50%",
-      width: "20px", // Ukuran planet
-      height: "20px", // Ukuran planet
+      width: "20px",
+      height: "20px",
       backgroundColor: "blue",
       borderRadius: "50%",
-      transform:
-        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)", // Posisi planet
-      animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
-    },
-    star: {
-      position: "absolute",
-      width: "2px",
-      height: "2px",
-      backgroundColor: "white",
-      borderRadius: "50%",
-      boxShadow: "0 0 5px white",
-      opacity: 0.8,
-    },
-    fallingStar: {
-      position: "absolute",
-      width: "2px",
-      height: "2px",
-      backgroundColor: "white",
-      borderRadius: "50%",
-      boxShadow: "0 0 5px white",
-      animation: "fallingStar 8s linear infinite",
-      opacity: 0.8,
+      transform: "translate(-50%, -50%)", // Posisi awal planet di tengah
+      animation: "orbitPlanet 10s linear infinite", // Biarkan planet bergerak
     },
   };
 
@@ -183,23 +162,23 @@ const Hero = () => {
             background: rgba(255, 255, 255, 0.7);
           }
 
-          @keyframes rotateOrbit {
+          /*@keyframes rotateOrbit {
             0% {
               transform: translateX(-50%) rotate(0deg);
             }
             100% {
               transform: translateX(-50%) rotate(360deg);
             }
-          }
+          } */
 
-          @keyframes orbitPlanet {
-            0% {
-              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg);
-            }
-            100% {
-              transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg);
-            }
+         @keyframes orbitPlanet {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
           }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Bergerak melingkar
+          }
+        }
 
           @keyframes fallingStar {
             0% {
@@ -511,11 +490,8 @@ const Hero = () => {
                         ...spaceStyles.planet,
                         width: "20px",
                         height: "20px",
-                        backgroundColor: "blue", // Warna planet
-                        transform:
-                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
-                        animation:
-                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
+                        backgroundColor: "blue",
+                        animation: "orbitPlanet 10s linear infinite", // Planet bergerak
                       }}
                     ></div>
                   </div>

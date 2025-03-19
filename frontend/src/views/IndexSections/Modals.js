@@ -1937,7 +1937,7 @@ const Modals = () => {
                       display: "flex",
                       flexDirection:
                         window.innerWidth <= 768 ? "column" : "row",
-                      gap: "20px",
+                      gap: window.innerWidth <= 768 ? "10px" : "15px", // Kurangi gap
                       alignItems: "center",
                     }}
                   >
@@ -1980,7 +1980,14 @@ const Modals = () => {
                     </div>
 
                     {/* Tabel */}
-                    <div style={{ flex: 1 }}>
+                    <div
+                      style={{
+                        flex: 1,
+                        maxWidth: window.innerWidth <= 768 ? "100%" : "70%",
+                      }}
+                    >
+                      {" "}
+                      {/* Kurangi lebar tabel */}
                       <Tooltip target=".ellipsis-text" />
                       {slides[currentSlide].tableData && (
                         <DataTable
@@ -2002,11 +2009,11 @@ const Modals = () => {
                                 slides[currentSlide].title ===
                                 "Distribusi Jenis Kelamin"
                                   ? window.innerWidth <= 768
-                                    ? "100px" // Lebar lebih kecil untuk mobile
-                                    : "120px" // Lebar lebih kecil untuk desktop
+                                    ? "80px" // Lebar lebih kecil untuk mobile
+                                    : "100px" // Lebar lebih kecil untuk desktop
                                   : window.innerWidth <= 768
-                                  ? "120px"
-                                  : "150px", // Lebar default untuk tabel lainnya
+                                  ? "100px"
+                                  : "120px", // Lebar default untuk tabel lainnya
                             }}
                           />
 
@@ -2024,20 +2031,20 @@ const Modals = () => {
                                 slides[currentSlide].title ===
                                 "Distribusi Jenis Kelamin"
                                   ? window.innerWidth <= 768
-                                    ? "30px" // Lebar minimum lebih kecil untuk mobile
-                                    : "40px" // Lebar minimum lebih kecil untuk desktop
+                                    ? "20px" // Lebar minimum lebih kecil untuk mobile
+                                    : "30px" // Lebar minimum lebih kecil untuk desktop
                                   : window.innerWidth <= 768
-                                  ? "40px"
-                                  : "60px", // Lebar default untuk tabel lainnya
+                                  ? "30px"
+                                  : "40px", // Lebar default untuk tabel lainnya
                               width:
                                 slides[currentSlide].title ===
                                 "Distribusi Jenis Kelamin"
                                   ? window.innerWidth <= 768
-                                    ? "50px" // Lebar lebih kecil untuk mobile
-                                    : "60px" // Lebar lebih kecil untuk desktop
+                                    ? "40px" // Lebar lebih kecil untuk mobile
+                                    : "50px" // Lebar lebih kecil untuk desktop
                                   : window.innerWidth <= 768
-                                  ? "60px"
-                                  : "80px", // Lebar default untuk tabel lainnya
+                                  ? "50px"
+                                  : "60px", // Lebar default untuk tabel lainnya
                             }}
                           />
 
@@ -2056,9 +2063,9 @@ const Modals = () => {
                               )}
                               style={{
                                 minWidth:
-                                  window.innerWidth <= 768 ? "40px" : "60px",
+                                  window.innerWidth <= 768 ? "30px" : "40px",
                                 width:
-                                  window.innerWidth <= 768 ? "60px" : "80px",
+                                  window.innerWidth <= 768 ? "40px" : "50px",
                               }}
                             />
                           )}
@@ -2088,9 +2095,9 @@ const Modals = () => {
                               )}
                               style={{
                                 minWidth:
-                                  window.innerWidth <= 768 ? "60px" : "80px",
+                                  window.innerWidth <= 768 ? "40px" : "50px",
                                 width:
-                                  window.innerWidth <= 768 ? "80px" : "100px",
+                                  window.innerWidth <= 768 ? "50px" : "60px",
                               }}
                             />
                           )}
