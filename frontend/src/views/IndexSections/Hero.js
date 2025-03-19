@@ -60,7 +60,7 @@ const Hero = () => {
       transform: "translateX(-50%) rotate(180deg)",
       width: "100%",
       height: "100%",
-      animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
+      // animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
     },
     planet: {
       position: "absolute",
