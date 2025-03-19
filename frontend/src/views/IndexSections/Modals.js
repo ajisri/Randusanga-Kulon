@@ -1999,7 +1999,14 @@ const Modals = () => {
                             )}
                             style={{
                               width:
-                                window.innerWidth <= 768 ? "120px" : "150px", // Lebar responsif
+                                slides[currentSlide].title ===
+                                "Distribusi Jenis Kelamin"
+                                  ? window.innerWidth <= 768
+                                    ? "100px" // Lebar lebih kecil untuk mobile
+                                    : "120px" // Lebar lebih kecil untuk desktop
+                                  : window.innerWidth <= 768
+                                  ? "120px"
+                                  : "150px", // Lebar default untuk tabel lainnya
                             }}
                           />
 
@@ -2014,8 +2021,23 @@ const Modals = () => {
                             )}
                             style={{
                               minWidth:
-                                window.innerWidth <= 768 ? "40px" : "60px", // Lebar minimum responsif
-                              width: window.innerWidth <= 768 ? "60px" : "80px", // Lebar tetap responsif
+                                slides[currentSlide].title ===
+                                "Distribusi Jenis Kelamin"
+                                  ? window.innerWidth <= 768
+                                    ? "30px" // Lebar minimum lebih kecil untuk mobile
+                                    : "40px" // Lebar minimum lebih kecil untuk desktop
+                                  : window.innerWidth <= 768
+                                  ? "40px"
+                                  : "60px", // Lebar default untuk tabel lainnya
+                              width:
+                                slides[currentSlide].title ===
+                                "Distribusi Jenis Kelamin"
+                                  ? window.innerWidth <= 768
+                                    ? "50px" // Lebar lebih kecil untuk mobile
+                                    : "60px" // Lebar lebih kecil untuk desktop
+                                  : window.innerWidth <= 768
+                                  ? "60px"
+                                  : "80px", // Lebar default untuk tabel lainnya
                             }}
                           />
 
@@ -2034,9 +2056,9 @@ const Modals = () => {
                               )}
                               style={{
                                 minWidth:
-                                  window.innerWidth <= 768 ? "40px" : "60px", // Lebar minimum responsif
+                                  window.innerWidth <= 768 ? "40px" : "60px",
                                 width:
-                                  window.innerWidth <= 768 ? "60px" : "80px", // Lebar tetap responsif
+                                  window.innerWidth <= 768 ? "60px" : "80px",
                               }}
                             />
                           )}
@@ -2066,9 +2088,9 @@ const Modals = () => {
                               )}
                               style={{
                                 minWidth:
-                                  window.innerWidth <= 768 ? "60px" : "80px", // Lebar minimum responsif
+                                  window.innerWidth <= 768 ? "60px" : "80px",
                                 width:
-                                  window.innerWidth <= 768 ? "80px" : "100px", // Lebar tetap responsif
+                                  window.innerWidth <= 768 ? "80px" : "100px",
                               }}
                             />
                           )}

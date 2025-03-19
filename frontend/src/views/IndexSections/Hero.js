@@ -466,7 +466,7 @@ const Hero = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   height: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.3)",
+                  backgroundColor: "rgba(0, 0, 0, 0.8)",
                   flex: "1 1 100%",
                 }}
               >
