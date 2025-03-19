@@ -44,36 +44,54 @@ const Hero = () => {
     orbitContainer: {
       position: "relative",
       width: "100%",
-      height: "50%", // Tinggi container orbit
-      overflow: "hidden", // Potong bagian atas orbit
+      height: "50%", // Tinggi orbit diperpanjang
+      overflow: "visible",
       marginTop: "20px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "flex-end", // Posisikan orbit di bagian bawah
-      alignItems: "center",
     },
     orbit: {
-      position: "relative", // Ubah ke relative agar jarak antar orbit bisa diatur
+      position: "absolute",
+      bottom: "0",
+      left: "50%",
       border: "2px dashed rgba(255, 255, 255, 0.3)",
       borderRadius: "50%",
-      borderLeft: "none", // Hapus border kiri
-      borderRight: "none", // Hapus border kanan
-      transform: "translateX(-50%) rotate(90deg)", // Putar orbit 90 derajat
+      borderBottom: "none",
+      borderLeft: "none",
+      borderRight: "none",
+      transform: "translateX(-50%) rotate(180deg)",
       width: "100%",
       height: "100%",
-      animation: "none", // Hentikan animasi orbit
-      marginBottom: "20px", // Jarak antar orbit
+      animation: "rotateOrbit 20s linear infinite", // Animasi rotasi orbit
     },
     planet: {
       position: "absolute",
       bottom: "0",
       left: "50%",
-      width: "20px",
-      height: "20px",
+      width: "20px", // Ukuran planet
+      height: "20px", // Ukuran planet
       backgroundColor: "blue",
       borderRadius: "50%",
-      transform: "translate(-50%, -50%)", // Posisi awal planet di tengah
-      animation: "orbitPlanet 10s linear infinite", // Biarkan planet bergerak
+      transform:
+        "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)", // Posisi planet
+      animation: "orbitPlanet 10s linear infinite", // Animasi planet mengikuti orbit
+    },
+    star: {
+      position: "absolute",
+      width: "2px",
+      height: "2px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+      boxShadow: "0 0 5px white",
+      opacity: 0.8,
+    },
+    fallingStar: {
+      position: "absolute",
+      width: "2px",
+      height: "2px",
+      backgroundColor: "white",
+      borderRadius: "50%",
+      boxShadow: "0 0 5px white",
+      animation: "fallingStar 8s linear infinite",
+      opacity: 0.8,
     },
   };
 
@@ -165,32 +183,23 @@ const Hero = () => {
             background: rgba(255, 255, 255, 0.7);
           }
 
-          /*@keyframes rotateOrbit {
+          @keyframes rotateOrbit {
             0% {
               transform: translateX(-50%) rotate(0deg);
             }
             100% {
               transform: translateX(-50%) rotate(360deg);
             }
-          } */
+          }
 
-        @keyframes orbitPlanet {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg) translateY(100px) rotate(0deg); // Mulai dari bawah
-  }
-  25% {
-    transform: translate(-50%, -50%) rotate(90deg) translateY(100px) rotate(90deg); // Bergerak ke kiri
-  }
-  50% {
-    transform: translate(-50%, -50%) rotate(180deg) translateY(100px) rotate(180deg); // Bergerak ke atas
-  }
-  75% {
-    transform: translate(-50%, -50%) rotate(270deg) translateY(100px) rotate(270deg); // Bergerak ke kanan
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg) translateY(100px) rotate(360deg); // Kembali ke bawah
-  }
-}
+          @keyframes orbitPlanet {
+            0% {
+              transform: translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg);
+            }
+            100% {
+              transform: translate(-50%, -50%) rotate(360deg) translateX(200px) rotate(360deg);
+            }
+          }
 
           @keyframes fallingStar {
             0% {
@@ -495,7 +504,6 @@ const Hero = () => {
                       height: "80%",
                       border: "2px solid rgba(255, 255, 255, 0.5)",
                       boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
-                      marginBottom: "20px", // Jarak antar orbit
                     }}
                   >
                     <div
@@ -503,13 +511,15 @@ const Hero = () => {
                         ...spaceStyles.planet,
                         width: "20px",
                         height: "20px",
-                        backgroundColor: "blue",
-                        animation: "orbitPlanet 10s linear infinite", // Planet bergerak
+                        backgroundColor: "blue", // Warna planet
+                        transform:
+                          "translate(-50%, -50%) rotate(0deg) translateX(200px) rotate(0deg)",
+                        animation:
+                          "orbitPlanet 10s linear infinite, rotatePlanet 5s linear infinite",
                       }}
                     ></div>
                   </div>
-
-                  {/* Orbit Tengah */}
+                  {/* Orbit Kedua */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
@@ -517,21 +527,9 @@ const Hero = () => {
                       height: "60%",
                       border: "2px solid rgba(255, 255, 255, 0.4)",
                       boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
-                      marginBottom: "20px", // Jarak antar orbit
                     }}
-                  >
-                    <div
-                      style={{
-                        ...spaceStyles.planet,
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "green", // Warna planet berbeda
-                        animation: "orbitPlanet 8s linear infinite", // Planet bergerak lebih cepat
-                      }}
-                    ></div>
-                  </div>
-
-                  {/* Orbit Dalam */}
+                  ></div>
+                  {/* Orbit Ketiga */}
                   <div
                     style={{
                       ...spaceStyles.orbit,
@@ -539,20 +537,8 @@ const Hero = () => {
                       height: "40%",
                       border: "2px solid rgba(255, 255, 255, 0.3)",
                       boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
-                      marginBottom: "20px", // Jarak antar orbit
                     }}
-                  >
-                    <div
-                      style={{
-                        ...spaceStyles.planet,
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "red", // Warna planet berbeda
-                        animation: "orbitPlanet 6s linear infinite", // Planet bergerak lebih cepat
-                      }}
-                    ></div>
-                  </div>
-
+                  ></div>
                   {/* Orbit Terkecil */}
                   <div
                     style={{
@@ -562,17 +548,7 @@ const Hero = () => {
                       border: "2px solid rgba(255, 255, 255, 0.2)",
                       boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
                     }}
-                  >
-                    <div
-                      style={{
-                        ...spaceStyles.planet,
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "yellow", // Warna planet berbeda
-                        animation: "orbitPlanet 4s linear infinite", // Planet bergerak lebih cepat
-                      }}
-                    ></div>
-                  </div>
+                  ></div>
                 </div>
               </Col>
             </Row>
