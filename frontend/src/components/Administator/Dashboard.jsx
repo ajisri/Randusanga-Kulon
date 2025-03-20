@@ -253,7 +253,7 @@ const Dashboard = () => {
               }}
             >
               <i
-                className="pi pi-fw pi-info-circle"
+                className="pi pi-fw pi-hashtag"
                 style={{ marginRight: "10px" }}
               ></i>
               {isSidebarHovered && <span>Desa Cantik</span>}
