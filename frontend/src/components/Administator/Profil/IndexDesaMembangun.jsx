@@ -346,17 +346,6 @@ const IndexDesaMembangun = () => {
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="Berbatasan dengan">Berbatasan dengan</label>
-                <InputText
-                  id="nilai"
-                  name="nilai"
-                  value={formData.nilai}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                />
-              </div>
               <div className="button-sub">
                 <Button
                   type="submit"
