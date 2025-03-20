@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Tentang from "./Profil/Tentang";
 import Sejarah from "./Profil/Sejarah";
 import Demografi from "./Profil/Demografi";
+import DesaCantik from "./Profil/DesaCantik";
 import Lembaga from "./Profil/Lembaga";
 import Strukturorganisasi from "./Profil/Strukturorganisasi";
 import Jabatan from "./Profil/Jabatan";
@@ -139,6 +140,8 @@ const Dashboard = () => {
         return <Sejarah />;
       case "Demografi":
         return <Demografi />;
+      case "DesaCantik":
+        return <DesaCantik />;
       case "Lembaga":
         return <Lembaga />;
       case "Strukturorganisasi":
@@ -240,6 +243,22 @@ const Dashboard = () => {
             className="submenu"
             style={{ marginLeft: "20px", marginBottom: "10px" }}
           >
+            <div
+              onClick={() => setActiveMenu("DesaCantik")}
+              className="menu-item"
+              style={{
+                marginBottom: "10px",
+                cursor: "pointer",
+                padding: "10px",
+              }}
+            >
+              <i
+                className="pi pi-fw pi-info-circle"
+                style={{ marginRight: "10px" }}
+              ></i>
+              {isSidebarHovered && <span>Desa Cantik</span>}
+              <Ripple />
+            </div>
             <div
               onClick={() => setActiveMenu("Tentang")}
               className="menu-item"
