@@ -9,6 +9,7 @@ import Tentang from "./Profil/Tentang";
 import Sejarah from "./Profil/Sejarah";
 import Demografi from "./Profil/Demografi";
 import DesaCantik from "./Profil/DesaCantik";
+import IndexDesaMembangun from "./Profil/IndexDesaMembangun";
 import Lembaga from "./Profil/Lembaga";
 import Strukturorganisasi from "./Profil/Strukturorganisasi";
 import Jabatan from "./Profil/Jabatan";
@@ -142,6 +143,8 @@ const Dashboard = () => {
         return <Demografi />;
       case "DesaCantik":
         return <DesaCantik />;
+      case "IndexDesaMembangun":
+        return <IndexDesaMembangun />;
       case "Lembaga":
         return <Lembaga />;
       case "Strukturorganisasi":
@@ -243,6 +246,22 @@ const Dashboard = () => {
             className="submenu"
             style={{ marginLeft: "20px", marginBottom: "10px" }}
           >
+            <div
+              onClick={() => setActiveMenu("IndexDesaMembangun")}
+              className="menu-item"
+              style={{
+                marginBottom: "10px",
+                cursor: "pointer",
+                padding: "10px",
+              }}
+            >
+              <i
+                className="pi pi-fw pi-hashtag"
+                style={{ marginRight: "10px" }}
+              ></i>
+              {isSidebarHovered && <span>Index Desa Membangun</span>}
+              <Ripple />
+            </div>
             <div
               onClick={() => setActiveMenu("DesaCantik")}
               className="menu-item"
