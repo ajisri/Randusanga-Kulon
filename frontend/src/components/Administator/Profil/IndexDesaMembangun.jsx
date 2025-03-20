@@ -15,6 +15,7 @@ import "./BatasWilayah.css"; // Custom CSS for styling
 
 const IndexDesaMembangun = () => {
   const [formData, setFormData] = useState({
+    uuid: "",
     statusidm: "",
     nilaiidm: "",
     ikl: "",
@@ -87,10 +88,9 @@ const IndexDesaMembangun = () => {
           life: 3000,
         });
       } else {
-        const { uuid, ...dataWithoutUuid } = formData;
         await axiosJWT.post(
           "https://randusangakulon.osc-fr1.scalingo.io/cindexdesamembangun",
-          dataWithoutUuid
+          formData
         );
         toast.current.show({
           severity: "success",
@@ -124,6 +124,7 @@ const IndexDesaMembangun = () => {
 
   const resetForm = () => {
     setFormData({
+      uuid: "",
       statusidm: "",
       nilaiidm: "",
       ikl: "",
