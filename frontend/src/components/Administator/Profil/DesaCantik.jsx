@@ -135,36 +135,6 @@ const DesaCantik = () => {
     handleSubmit(e);
   };
 
-  const LineHeightPlugin = (editor) => {
-    editor.ui.componentFactory.add("lineHeight", (locale) => {
-      const view = new editor.ui.dropdown.DropdownView(locale);
-      const options = ["1", "1.5", "2", "2.5", "3"]; // Pilihan spasi
-
-      view.buttonView.set({
-        label: "Spasi",
-        withText: true,
-      });
-
-      options.forEach((option) => {
-        const item = new editor.ui.button.ButtonView(locale);
-        item.set({
-          label: `Spasi ${option}`,
-          withText: true,
-        });
-
-        item.on("execute", () => {
-          editor.model.change((writer) => {
-            writer.setSelectionAttribute("style", `line-height: ${option};`);
-          });
-        });
-
-        view.panelView.children.add(item);
-      });
-
-      return view;
-    });
-  };
-
   const leftColumnRef = useRef(null);
   const rightColumnRef = useRef(null);
 
@@ -307,10 +277,6 @@ const DesaCantik = () => {
                           "mergeTableCells",
                         ],
                       },
-                      lineHeight: {
-                        options: ["1", "1.5", "2", "2.5", "3"], // Pilihan spasi
-                      },
-                      extraPlugins: [LineHeightPlugin],
                     }}
                     onReady={(editor) => {
                       console.log("Editor is ready to use!", editor);
