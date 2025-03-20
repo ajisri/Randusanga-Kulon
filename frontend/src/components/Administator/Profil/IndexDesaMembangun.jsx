@@ -79,14 +79,7 @@ const IndexDesaMembangun = () => {
       if (isEditMode) {
         await axiosJWT.patch(
           `https://randusangakulon.osc-fr1.scalingo.io/indexdesamembangun/${currentData.uuid}`,
-          {
-            statusidm: formData.statusidm,
-            nilaiidm: formData.nilaiidm,
-            ikl: formData.ikl,
-            iks: formData.iks,
-            ike: formData.ike,
-            ket: formData.ket,
-          }
+          formData
         );
         toast.current.show({
           severity: "success",
@@ -97,14 +90,7 @@ const IndexDesaMembangun = () => {
       } else {
         await axiosJWT.post(
           "https://randusangakulon.osc-fr1.scalingo.io/cindexdesamembangun",
-          {
-            statusidm: formData.statusidm,
-            nilaiidm: formData.nilaiidm,
-            ikl: formData.ikl,
-            iks: formData.iks,
-            ike: formData.ike,
-            ket: formData.ket,
-          }
+          formData
         );
         toast.current.show({
           severity: "success",
@@ -121,7 +107,7 @@ const IndexDesaMembangun = () => {
     } catch (error) {
       handleError(error);
     } finally {
-      setIsLoadingProcess(false);
+      setIsLoadingProcess(false); // Nonaktifkan loading setelah proses selesai
     }
   };
 
