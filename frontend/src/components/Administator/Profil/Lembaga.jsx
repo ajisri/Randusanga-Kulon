@@ -63,7 +63,7 @@ const Lembaga = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/lembaga",
+    "http://localhost:8080/lembaga",
     fetcher
   );
 
@@ -100,7 +100,7 @@ const Lembaga = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/demografi", // Endpoint API demografi
+    "http://localhost:8080/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -228,7 +228,7 @@ const Lembaga = () => {
       if (isEditMode) {
         console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
-          `https://randusangakulon.osc-fr1.scalingo.io/ulembaga/${currentData.uuid}`,
+          `http://localhost:8080/ulembaga/${currentData.uuid}`,
           data,
           {
             headers: {
@@ -243,15 +243,11 @@ const Lembaga = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/clembaga",
-          data,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/clembaga", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -259,7 +255,7 @@ const Lembaga = () => {
           life: 3000,
         });
       }
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/lembaga");
+      await mutate("http://localhost:8080/lembaga");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -305,16 +301,14 @@ const Lembaga = () => {
   const deleteData = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/lembaga/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/lembaga/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusangakulon.osc-fr1.scalingo.io/lembaga");
+        await mutate("http://localhost:8080/lembaga");
       } catch (error) {
         handleError(error);
       }
@@ -360,7 +354,7 @@ const Lembaga = () => {
     }
     console.log("Data Jabatan saat dibuka:", rowData.jabatans);
     if (typeof rowData.file_url === "string") {
-      const fullUrl = `https://randusangakulon.osc-fr1.scalingo.io/${rowData.file_url}`;
+      const fullUrl = `http://localhost:8080/${rowData.file_url}`;
       console.log("Full URL gambar:", fullUrl); // Debug URL absolut
       setImagePreview(fullUrl);
     } else if (rowData.file_url instanceof File) {

@@ -45,7 +45,7 @@ const Ankor = () => {
     data: ankorData,
     error,
     isLoading,
-  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/ankor", fetcher);
+  } = useSWR("http://localhost:8080/ankor", fetcher);
 
   useEffect(() => {
     if (ankorData?.ankor) {
@@ -111,7 +111,7 @@ const Ankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusangakulon.osc-fr1.scalingo.io/ankor/${currentAnkor.id}`,
+          `http://localhost:8080/ankor/${currentAnkor.id}`,
           { name: formData.name },
           {
             headers: {
@@ -127,7 +127,7 @@ const Ankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/cankor",
+          "http://localhost:8080/cankor",
           { name: formData.name },
           {
             headers: {
@@ -144,7 +144,7 @@ const Ankor = () => {
       }
 
       console.log("Data berhasil dikirim, merefresh data...");
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/ankor");
+      await mutate("http://localhost:8080/ankor");
 
       resetForm();
       setDialogVisible(false);
@@ -202,16 +202,14 @@ const Ankor = () => {
   const deleteankor = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/ankor/${id}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/ankor/${id}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusangakulon.osc-fr1.scalingo.io/ankor");
+        await mutate("http://localhost:8080/ankor");
       } catch (error) {
         handleError(error);
       }

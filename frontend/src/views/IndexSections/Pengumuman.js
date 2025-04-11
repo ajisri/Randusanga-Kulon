@@ -8,7 +8,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
   const { data: pengumumanData, error: pengumumanError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/pengumumanpengunjung",
+    "http://localhost:8080/pengumumanpengunjung",
     fetcher
   );
 
@@ -56,7 +56,7 @@ const Pengumuman = () => {
               }}
             >
               <Image
-                src={`https://randusangakulon.osc-fr1.scalingo.io${item.file_url}`}
+                src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
                 className={styles.newsImage}
                 preview

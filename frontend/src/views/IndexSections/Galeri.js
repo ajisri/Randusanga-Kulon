@@ -8,7 +8,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Galeri = () => {
   const { data: galeriData, error: galeriError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/galeripengunjung",
+    "http://localhost:8080/galeripengunjung",
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);
@@ -72,7 +72,7 @@ const Galeri = () => {
               onClick={() => handleImageClick(item)}
             >
               <Image
-                src={`https://randusangakulon.osc-fr1.scalingo.io${item.file_url}`}
+                src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
                 className={styles.galleryImage}
                 width="100%"
@@ -98,7 +98,7 @@ const Galeri = () => {
               onClick={() => handleImageClick(item)}
             >
               <Image
-                src={`https://randusangakulon.osc-fr1.scalingo.io${item.file_url}`}
+                src={`http://localhost:8080${item.file_url}`}
                 alt={item.title}
                 // className={styles.galleryImage}
                 width="100%"
@@ -123,7 +123,7 @@ const Galeri = () => {
               ✖
             </button>
             <img
-              src={`https://randusangakulon.osc-fr1.scalingo.io${selectedImage.file_url}`}
+              src={`http://localhost:8080${selectedImage.file_url}`}
               alt={selectedImage.title}
               className={styles.popupImage}
             />

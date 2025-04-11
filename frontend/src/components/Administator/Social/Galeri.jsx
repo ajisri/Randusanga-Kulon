@@ -60,7 +60,7 @@ const Galeri = () => {
     data: galeriData,
     error,
     isLoading,
-  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/galeri", fetcher);
+  } = useSWR("http://localhost:8080/galeri", fetcher);
 
   useEffect(() => {
     if (galeriData?.galeris) {
@@ -163,7 +163,7 @@ const Galeri = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusangakulon.osc-fr1.scalingo.io/galeri/${currentGaleri.uuid}`,
+          `http://localhost:8080/galeri/${currentGaleri.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -176,13 +176,9 @@ const Galeri = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/cgaleri",
-          dataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cgaleri", dataToSend, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -191,7 +187,7 @@ const Galeri = () => {
         });
       }
 
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/galeri");
+      await mutate("http://localhost:8080/galeri");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -248,7 +244,7 @@ const Galeri = () => {
     setFormData(galeri);
     setSelectedFile(null);
     const fileUrl = galeri.file_url
-      ? `https://randusangakulon.osc-fr1.scalingo.io${galeri.file_url}`
+      ? `http://localhost:8080${galeri.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -260,16 +256,14 @@ const Galeri = () => {
   const deleteGaleri = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/galeri/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/galeri/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusangakulon.osc-fr1.scalingo.io/galeri");
+        await mutate("http://localhost:8080/galeri");
       } catch (error) {
         handleError(error);
       }

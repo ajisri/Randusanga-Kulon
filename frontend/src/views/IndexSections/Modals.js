@@ -24,15 +24,26 @@ const Modals = () => {
   const [dialogVisibleso, setDialogVisibleso] = useState(false);
   const [dialogVisiblele, setDialogVisiblele] = useState(false);
   const [dialogVisiblege, setDialogVisiblege] = useState(false);
+  const [dialogVisibledecan, setDialogVisibledecan] = useState(false);
 
   // const [customers, setCustomers] = useState([]);
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
 
-  const baseURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const baseURL = "http://localhost:8080";
+
+  const { data: desacantikData, error: desacantikError } = useSWR(
+    "http://localhost:8080/desacantikpengunjung",
+    fetcher
+  );
+
+  const loadingDesacantik = !desacantikData && !desacantikError;
+  const imageURLdc = desacantikData?.profile.file_url
+    ? `${baseURL}${desacantikData.profile.file_url}`
+    : null;
 
   const { data: tentangData, error: tentangError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/tentangpengunjung",
+    "http://localhost:8080/tentangpengunjung",
     fetcher
   );
   const loadingTentang = !tentangData && !tentangError;
@@ -41,7 +52,7 @@ const Modals = () => {
     : null;
 
   const { data: sejarahData, error: sejarahError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/sejarahpengunjung",
+    "http://localhost:8080/sejarahpengunjung",
     fetcher
   );
   const loadingSejarah = !sejarahData && !sejarahError;
@@ -50,7 +61,7 @@ const Modals = () => {
     : null;
 
   const { data: visionData, error: visionError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/visimisipengunjung",
+    "http://localhost:8080/visimisipengunjung",
     fetcher
   );
   const loadingVision = !visionData && !visionError;
@@ -59,10 +70,7 @@ const Modals = () => {
     : null;
 
   const { data: strukturorganisasiData, error: strukturorganisasiError } =
-    useSWR(
-      "https://randusangakulon.osc-fr1.scalingo.io/strukturorganisasipengunjung",
-      fetcher
-    );
+    useSWR("http://localhost:8080/strukturorganisasipengunjung", fetcher);
 
   const loadingStrukturorganisasi =
     !strukturorganisasiData && !strukturorganisasiError;
@@ -73,19 +81,19 @@ const Modals = () => {
     : null;
 
   const { data: demografiData, error: demografiError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/demografipengunjung",
+    "http://localhost:8080/demografipengunjung",
     fetcher
   );
 
   //lembaga
   const { data: lembagaData, error: lembagaError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/lembagapengunjung",
+    "http://localhost:8080/lembagapengunjung",
     fetcher
   );
   const loadingLembaga = !lembagaData && !lembagaError;
 
   const lembagaList = lembagaData?.lembagap || [];
-  const baseLURL = "https://randusangakulon.osc-fr1.scalingo.io/";
+  const baseLURL = "http://localhost:8080/";
 
   const renderAnggota = (anggotaList) => (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -680,6 +688,7 @@ const Modals = () => {
   const [iconPosition5, setIconPosition5] = useState({ x: 0, y: 0 });
   const [iconPosition6, setIconPosition6] = useState({ x: 0, y: 0 });
   const [iconPosition7, setIconPosition7] = useState({ x: 0, y: 0 });
+  const [iconPosition8, setIconPosition8] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e, setIconPosition) => {
     const button = e.currentTarget;
@@ -911,6 +920,7 @@ const Modals = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding-bottom: 10px;
             height: clamp(100px, 10vh, 100px);
             gap: 6px;
             background: rgba(255, 255, 255, 0.1);
@@ -1018,10 +1028,20 @@ const Modals = () => {
             border-radius: inherit;
           }
 
+          .icon-button-textsd {
+            display: block;
+            text-align: center;
+            font-size: clamp(10px, 2vw, 12px);
+            font-weight: 600;
+            transform: translateY(-15px);
+            margin-top: auto;
+            color: #fff;
+          }
+
           .icon-button-text {
             display: block;
             text-align: center;
-            font-size: clamp(8px, 2vw, 10px);
+            font-size: clamp(10px, 2vw, 12px);
             font-weight: 600;
             transform: translateY(-15px);
             color: #fff;
@@ -1541,6 +1561,7 @@ const Modals = () => {
               className="button-icon"
               style={{
                 transform: `translate(${iconPosition4.x}px, ${iconPosition4.y}px) translateY(-15px)`,
+                marginBottom: "5px",
               }}
             >
               <img
@@ -1550,7 +1571,7 @@ const Modals = () => {
               />
             </div>
             <div>
-              <span className="icon-button-text">Struktur Organisasi</span>
+              <span className="icon-button-text">Organisasi</span>
             </div>
           </Button>
 
@@ -1855,6 +1876,101 @@ const Modals = () => {
         </Col>
       </Row>
       <Row>
+        <Col
+          className="mt-1"
+          md="4"
+          xs="4"
+          style={{ fontFamily: "Roboto, sans-serif" }}
+        >
+          <Button
+            block
+            className="custom-button mb-3 mb-sm-0"
+            type="button"
+            icon="pi pi-info-circle"
+            onClick={(e) => {
+              setDialogVisibledecan(true);
+            }}
+            onMouseMove={(e) => handleMouseMove(e, setIconPosition8)}
+            onMouseLeave={() => handleMouseLeave(setIconPosition8)}
+          >
+            <div
+              className="button-icon"
+              style={{
+                transform: `translate(${iconPosition8.x}px, ${iconPosition8.y}px) translateY(-19px)`,
+              }}
+            >
+              <img
+                className="img-fluid"
+                src={require("assets/img/theme/learning.png")}
+                alt=""
+              />
+            </div>
+            <div>
+              <span className="icon-button-text">DESA CANTIK</span>
+            </div>
+          </Button>
+          <div>
+            <Dialog
+              header={
+                <div className="dialog-header">
+                  <div>
+                    <h2 className="dialog-title">Desa Cantik</h2>
+                    <p className="dialog-subtitle">
+                      Informasi mengenai desa cantik
+                    </p>
+                  </div>
+                </div>
+              }
+              visible={dialogVisibledecan}
+              style={{ width: "55vw" }}
+              maximizable
+              modal
+              className="custom-dialog bounce-in"
+              contentStyle={{
+                overflowY: "auto",
+                padding: "24px 24px 10px 24px",
+              }}
+              onHide={() => setDialogVisibledecan(false)}
+            >
+              <div>
+                {imageURLdc ? (
+                  <div style={{ marginBottom: "20px" }}>
+                    <img
+                      src={imageURLdc}
+                      alt="About"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px",
+                        maxHeight: "calc(89vh - 60px)",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <p>No image available</p>
+                )}
+
+                <div className="dialog-divider"></div>
+                {loadingDesacantik ? (
+                  <div className="loading-container">
+                    <span className="loader"></span>
+                  </div>
+                ) : desacantikError ? (
+                  <p className="error-message">{desacantikError}</p>
+                ) : (
+                  <div
+                    className="dialog-text"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        desacantikData?.profile?.content ||
+                        "<p>No content available</p>",
+                    }}
+                  />
+                )}
+              </div>
+            </Dialog>
+          </div>
+        </Col>
         <Col
           className="mt-1"
           md="4"

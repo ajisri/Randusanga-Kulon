@@ -48,7 +48,7 @@ const IndexDesaMembangun = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/indexdesamembangun",
+    "http://localhost:8080/indexdesamembangun",
     fetcher
   );
 
@@ -78,7 +78,7 @@ const IndexDesaMembangun = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusangakulon.osc-fr1.scalingo.io/indexdesamembangun/${currentData.uuid}`,
+          `http://localhost:8080/indexdesamembangun/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -89,7 +89,7 @@ const IndexDesaMembangun = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/cindexdesamembangun",
+          "http://localhost:8080/cindexdesamembangun",
           formData
         );
         toast.current.show({
@@ -99,9 +99,7 @@ const IndexDesaMembangun = () => {
           life: 3000,
         });
       }
-      await mutate(
-        "https://randusangakulon.osc-fr1.scalingo.io/indexdesamembangun"
-      );
+      await mutate("http://localhost:8080/indexdesamembangun");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -147,7 +145,7 @@ const IndexDesaMembangun = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/indexdesamembangun/${uuid}`
+          `http://localhost:8080/indexdesamembangun/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -155,9 +153,7 @@ const IndexDesaMembangun = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusangakulon.osc-fr1.scalingo.io/indexdesamembangun"
-        );
+        await mutate("http://localhost:8080/indexdesamembangun");
       } catch (error) {
         handleError(error);
       }

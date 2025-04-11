@@ -60,7 +60,7 @@ const Berita = () => {
     data: beritaData,
     error,
     isLoading,
-  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/berita", fetcher);
+  } = useSWR("http://localhost:8080/berita", fetcher);
 
   useEffect(() => {
     if (beritaData?.beritas) {
@@ -163,7 +163,7 @@ const Berita = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusangakulon.osc-fr1.scalingo.io/berita/${currentBerita.uuid}`,
+          `http://localhost:8080/berita/${currentBerita.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -176,13 +176,9 @@ const Berita = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/cberita",
-          dataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cberita", dataToSend, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -191,7 +187,7 @@ const Berita = () => {
         });
       }
 
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/berita");
+      await mutate("http://localhost:8080/berita");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -248,7 +244,7 @@ const Berita = () => {
     setFormData(berita);
     setSelectedFile(null);
     const fileUrl = berita.file_url
-      ? `https://randusangakulon.osc-fr1.scalingo.io${berita.file_url}`
+      ? `http://localhost:8080${berita.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -260,16 +256,14 @@ const Berita = () => {
   const deleteBerita = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/berita/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/berita/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusangakulon.osc-fr1.scalingo.io/berita");
+        await mutate("http://localhost:8080/berita");
       } catch (error) {
         handleError(error);
       }

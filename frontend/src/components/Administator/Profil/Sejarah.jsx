@@ -42,7 +42,7 @@ const Sejarah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/sejarah",
+    "http://localhost:8080/sejarah",
     fetcher
   );
 
@@ -86,21 +86,17 @@ const Sejarah = () => {
 
     try {
       setIsLoadingProcess(true);
-      await axiosJWT.post(
-        "https://randusangakulon.osc-fr1.scalingo.io/csejarah",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axiosJWT.post("http://localhost:8080/csejarah", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/sejarah");
+      await mutate("http://localhost:8080/sejarah");
 
       toast.current.show({
         severity: "success",
@@ -220,7 +216,7 @@ const Sejarah = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusangakulon.osc-fr1.scalingo.io${file_url}`}
+                        src={`http://localhost:8080${file_url}`}
                         alt="Database"
                       />
                     </div>

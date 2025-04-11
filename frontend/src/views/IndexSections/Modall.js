@@ -64,51 +64,48 @@ const Modall = () => {
 
   //akta kelahiran
   const { data: aktakelahiranData, error: aktakelahiranError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/aktakelahiranpengunjung",
+    "http://localhost:8080/aktakelahiranpengunjung",
     fetcher
   );
 
   const loadingAktakelahiran = !aktakelahiranData && !aktakelahiranError;
 
   // Construct full URL for the image
-  const baseAURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const baseAURL = "http://localhost:8080";
   const imageAURL = aktakelahiranData?.service.file_url
     ? `${baseAURL}${aktakelahiranData.service.file_url}`
     : null;
 
   //kartu keluarga
   const { data: kartukeluargaData, error: kartukeluargaError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/kartukeluargapengunjung",
+    "http://localhost:8080/kartukeluargapengunjung",
     fetcher
   );
 
   const loadingKartukeluarga = !kartukeluargaData && !kartukeluargaError;
 
   // Construct full URL for the image
-  const baseKKURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const baseKKURL = "http://localhost:8080";
   const imageKKURL = kartukeluargaData?.service.file_url
     ? `${baseKKURL}${kartukeluargaData.service.file_url}`
     : null;
 
   //ktp
   const { data: kartutandapendudukData, error: kartutandapendudukError } =
-    useSWR(
-      "https://randusangakulon.osc-fr1.scalingo.io/kartutandapendudukpengunjung",
-      fetcher
-    );
+    useSWR("http://localhost:8080/kartutandapendudukpengunjung", fetcher);
 
   const loadingKartutandapenduduk =
     !kartutandapendudukData && !kartutandapendudukError;
 
   // Construct full URL for the image
-  const baseKTPURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const baseKTPURL = "http://localhost:8080";
   const imageKTPURL = kartutandapendudukData?.service.file_url
     ? `${baseKTPURL}${kartutandapendudukData.service.file_url}`
     : null;
 
   //pendaftaran nikah
   const { data: pendaftarannikahData, error: pendaftarannikahError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/pendaftarannikahpengunjung",
+    "http://localhost:8080/pendaftarannikahpengunjung",
     fetcher
   );
 
@@ -116,35 +113,35 @@ const Modall = () => {
     !pendaftarannikahData && !pendaftarannikahError;
 
   // Construct full URL for the image
-  const basePNURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const basePNURL = "http://localhost:8080";
   const imagePNURL = pendaftarannikahData?.service.file_url
     ? `${basePNURL}${pendaftarannikahData.service.file_url}`
     : null;
 
   //aktifasi bpjs
   const { data: aktifasibpjsData, error: aktifasibpjsError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/aktifasibpjspengunjung",
+    "http://localhost:8080/aktifasibpjspengunjung",
     fetcher
   );
 
   const loadingAktifasibpjs = !aktifasibpjsData && !aktifasibpjsError;
 
   // Construct full URL for the image
-  const baseABURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const baseABURL = "http://localhost:8080";
   const imageABURL = aktifasibpjsData?.service.file_url
     ? `${baseABURL}${aktifasibpjsData.service.file_url}`
     : null;
 
   //pembuatan sktm
   const { data: pembuatansktmData, error: pembuatansktmError } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/pembuatansktmpengunjung",
+    "http://localhost:8080/pembuatansktmpengunjung",
     fetcher
   );
 
   const loadingPembuatansktm = !pembuatansktmData && !pembuatansktmError;
 
   // Construct full URL for the image
-  const basePSKTMURL = "https://randusangakulon.osc-fr1.scalingo.io";
+  const basePSKTMURL = "http://localhost:8080";
   const imagePSKTMURL = pembuatansktmData?.service.file_url
     ? `${basePSKTMURL}${pembuatansktmData.service.file_url}`
     : null;

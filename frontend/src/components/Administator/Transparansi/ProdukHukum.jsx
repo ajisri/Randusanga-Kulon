@@ -54,10 +54,7 @@ const Produkhukum = () => {
     data: produkhukumData,
     error,
     isLoading,
-  } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/produk_hukum",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/produk_hukum", fetcher);
 
   useEffect(() => {
     if (produkhukumData?.produkHukum) {
@@ -196,7 +193,7 @@ const Produkhukum = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusangakulon.osc-fr1.scalingo.io/produk_hukum/${currentProdukhukum.uuid}`,
+          `http://localhost:8080/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -209,13 +206,9 @@ const Produkhukum = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/cprodukhukum",
-          dataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cprodukhukum", dataToSend, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -224,7 +217,7 @@ const Produkhukum = () => {
         });
       }
 
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/produk_hukum");
+      await mutate("http://localhost:8080/produk_hukum");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -282,7 +275,7 @@ const Produkhukum = () => {
     setFormData(produkhukum);
     setSelectedFile(null);
     const fileUrl = produkhukum.file_url
-      ? `https://randusangakulon.osc-fr1.scalingo.io${produkhukum.file_url}`
+      ? `http://localhost:8080${produkhukum.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -294,18 +287,14 @@ const Produkhukum = () => {
   const deleteProdukhukum = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/produk_hukum/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/produk_hukum/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusangakulon.osc-fr1.scalingo.io/produk_hukum"
-        );
+        await mutate("http://localhost:8080/produk_hukum");
       } catch (error) {
         handleError(error);
       }
@@ -374,7 +363,7 @@ const Produkhukum = () => {
           field="file_url"
           header="File"
           body={(rowData) => {
-            const fileUrl = `https://randusangakulon.osc-fr1.scalingo.io${rowData.file_url}`;
+            const fileUrl = `http://localhost:8080${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

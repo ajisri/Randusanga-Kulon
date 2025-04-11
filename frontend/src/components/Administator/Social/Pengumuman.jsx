@@ -59,7 +59,7 @@ const Pengumuman = () => {
     data: pengumumanData,
     error,
     isLoading,
-  } = useSWR("https://randusangakulon.osc-fr1.scalingo.io/pengumuman", fetcher);
+  } = useSWR("http://localhost:8080/pengumuman", fetcher);
 
   useEffect(() => {
     if (pengumumanData?.pengumumans) {
@@ -149,7 +149,7 @@ const Pengumuman = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusangakulon.osc-fr1.scalingo.io/pengumuman/${currentPengumuman.uuid}`,
+          `http://localhost:8080/pengumuman/${currentPengumuman.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -162,13 +162,9 @@ const Pengumuman = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://randusangakulon.osc-fr1.scalingo.io/cpengumuman",
-          dataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axiosJWT.post("http://localhost:8080/cpengumuman", dataToSend, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -177,7 +173,7 @@ const Pengumuman = () => {
         });
       }
 
-      await mutate("https://randusangakulon.osc-fr1.scalingo.io/pengumuman");
+      await mutate("http://localhost:8080/pengumuman");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -234,7 +230,7 @@ const Pengumuman = () => {
     setFormData(pengumuman);
     setSelectedFile(null);
     const fileUrl = pengumuman.file_url
-      ? `https://randusangakulon.osc-fr1.scalingo.io${pengumuman.file_url}`
+      ? `http://localhost:8080${pengumuman.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -246,16 +242,14 @@ const Pengumuman = () => {
   const deletePengumuman = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(
-          `https://randusangakulon.osc-fr1.scalingo.io/pengumuman/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/pengumuman/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusangakulon.osc-fr1.scalingo.io/pengumuman");
+        await mutate("http://localhost:8080/pengumuman");
       } catch (error) {
         handleError(error);
       }

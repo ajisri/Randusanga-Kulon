@@ -81,10 +81,7 @@ const Landing = () => {
     data: agendaData,
     error: agendaError,
     isLoading,
-  } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/agendapengunjung",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/agendapengunjung", fetcher);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,10 +107,7 @@ const Landing = () => {
     data: jabatanData = [],
     error: jabatanError,
     isLoadingJabatan,
-  } = useSWR(
-    "https://randusangakulon.osc-fr1.scalingo.io/jabatanpengunjung",
-    fetcher
-  );
+  } = useSWR("http://localhost:8080/jabatanpengunjung", fetcher);
 
   const [selectedJabatan, setSelectedJabatan] = useState(null); // Untuk data jabatan yang dipilih
   const [isDialogVisible, setDialogVisible] = useState(false); // Untuk kontrol dialog
@@ -150,7 +144,7 @@ const Landing = () => {
         <img
           src={
             item.pemegang?.file_url
-              ? `https://randusangakulon.osc-fr1.scalingo.io${item.pemegang.file_url}`
+              ? `http://localhost:8080${item.pemegang.file_url}`
               : "placeholder.png"
           }
           alt={item.pemegang?.name || "Jabatan"}

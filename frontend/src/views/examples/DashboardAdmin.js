@@ -26,9 +26,7 @@ const Dashboard = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get(
-        "https://randusangakulon.osc-fr1.scalingo.io/token"
-      );
+      const response = await axios.get("http://localhost:8080/token");
       setToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
       setName(decoded.name);
@@ -46,9 +44,7 @@ const Dashboard = () => {
     async (config) => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
-        const response = await axios.get(
-          "https://randusangakulon.osc-fr1.scalingo.io/token"
-        );
+        const response = await axios.get("http://localhost:8080/token");
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         // setToken(response.data.accessToken);
         const decoded = jwt_decode(response.data.accessToken);
