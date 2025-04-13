@@ -104,6 +104,16 @@ const Hero = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [hovered, setHovered] = useState(false);
 
+    // Handle card click (excluding navigation arrows)
+    const handleCardClick = (e) => {
+      // Cek apakah yang diklik adalah tombol navigasi
+      const isNavigationArrow = e.target.closest(".navigation-arrow");
+
+      if (!isNavigationArrow) {
+        window.open("https://idm.kemendesa.go.id/rekomendasi", "_blank");
+      }
+    };
+
     // Handle empty data
     if (!idmData || idmData.length === 0) {
       return (
@@ -172,7 +182,9 @@ const Hero = () => {
           marginTop: "60px",
           position: "relative",
           padding: "0 20px",
+          cursor: "pointer", // Tambahkan cursor pointer
         }}
+        onClick={handleCardClick}
       >
         {/* Year Navigation with Solid Design */}
         <div
