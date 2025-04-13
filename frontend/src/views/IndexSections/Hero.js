@@ -100,9 +100,62 @@ const Hero = () => {
     return <div key={`falling-${index}`} style={style}></div>;
   });
 
-  const StatusDesaCard = ({ idmData }) => {
+  const StatusDesaCard = ({ idmData = [] }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [hovered, setHovered] = useState(false);
+
+    // Handle empty data
+    if (!idmData || idmData.length === 0) {
+      return (
+        <div
+          style={{
+            width: "100%",
+            marginTop: "60px",
+            padding: "20px",
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(30, 30, 30, 0.8)",
+              borderRadius: "12px",
+              padding: "40px 20px",
+              border: "2px dashed rgba(255, 255, 255, 0.3)",
+            }}
+          >
+            <img
+              src={require("assets/img/theme/data-not-found.png")}
+              alt="No data"
+              style={{ width: "80px", opacity: 0.7 }}
+            />
+            <h3
+              style={{
+                color: "#FFD700",
+                marginTop: "20px",
+                fontSize: "1.5rem",
+              }}
+            >
+              Data Tidak Tersedia
+            </h3>
+            <p style={{ opacity: 0.8 }}>
+              Data status desa belum dapat dimuat atau tidak tersedia
+            </p>
+            <Button
+              color="warning"
+              style={{
+                marginTop: "20px",
+                background: "rgba(255, 215, 0, 0.2)",
+                border: "1px solid #FFD700",
+              }}
+              onClick={() => window.location.reload()}
+            >
+              Coba Lagi
+            </Button>
+          </div>
+        </div>
+      );
+    }
 
     const nextCard = () =>
       setCurrentIndex((prev) => (prev + 1) % idmData.length);
