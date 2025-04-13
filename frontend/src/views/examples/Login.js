@@ -44,7 +44,7 @@ const Login = () => {
       <div className="surface-card p-4 shadow-2 border-round w-full lg:w-4">
         <div className="text-center mb-5">
           <img
-            src="../../assets/img/theme/Lambang_Kabupaten_Brebes.png"
+            src={require("assets/img/theme/Lambang_Kabupaten_Brebes.png")}
             alt="logo"
             height={50}
             className="mb-3"

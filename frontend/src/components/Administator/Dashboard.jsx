@@ -202,6 +202,20 @@ const Dashboard = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await axios.delete(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/Logout",
+        {
+          withCredentials: true,
+        }
+      );
+      navigate("/"); // Redirect to login page after logout
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <Sidebar
@@ -752,7 +766,7 @@ const Dashboard = () => {
               {isSidebarHovered && <span>Produk Hukum</span>}
               <Ripple />
             </div>
-            <div
+            {/* <div
               className="menu-item"
               style={{
                 marginBottom: "10px",
@@ -766,7 +780,7 @@ const Dashboard = () => {
               ></i>
               {isSidebarHovered && <span>Download</span>}
               <Ripple />
-            </div>
+            </div> */}
             {/* Menu untuk APBD, Keuangan, Kategori, Subkategori */}
             <div
               onClick={toggleKeuanganSubmenu}
@@ -947,7 +961,7 @@ const Dashboard = () => {
               {isSidebarHovered && <span>Berita</span>}
               <Ripple />
             </div>
-            <div
+            {/* <div
               className="menu-item"
               style={{
                 marginBottom: "10px",
@@ -961,9 +975,31 @@ const Dashboard = () => {
               ></i>
               {isSidebarHovered && <span>Download</span>}
               <Ripple />
-            </div>
+            </div> */}
           </div>
         )}
+
+        <div
+          onClick={handleLogout}
+          className="menu-item"
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "10px",
+            padding: "10px",
+            paddingLeft: "5px",
+            color: "#ff0000", // Red color for logout
+            marginTop: "20px", // Add some space above the logout button
+          }}
+        >
+          <i
+            className="pi pi-fw pi-power-off"
+            style={{ marginRight: "20px" }}
+          ></i>
+          {isSidebarHovered && <span>Logout</span>}
+          <Ripple />
+        </div>
       </Sidebar>
 
       <div
