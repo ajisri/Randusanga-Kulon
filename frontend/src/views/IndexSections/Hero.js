@@ -890,11 +890,11 @@ const Hero = () => {
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  height: "105%",
+                  height: "115%",
                   position: "relative",
                   zIndex: 2,
                   overflowY: "auto",
-                  flex: "1 1 105%",
+                  flex: "1 1 115%",
                   order: 2, // Default order
                 }}
               >
