@@ -126,7 +126,7 @@ const Hero = () => {
           >
             <img
               src={require("assets/img/theme/data-not-found.png")}
-              alt="No data"
+              alt="No dataa"
               style={{ width: "80px", opacity: 0.7 }}
             />
             <h3
