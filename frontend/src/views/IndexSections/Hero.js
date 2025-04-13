@@ -102,36 +102,62 @@ const Hero = () => {
 
   const StatusDesaCard = ({ idmData = [] }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
-    const [isPulsing, setIsPulsing] = useState(false);
+    const [hovered, setHovered] = useState(false);
 
+    // Handle card click (excluding navigation arrows)
     const handleCardClick = (e) => {
-      const isNavigationArrow =
-        e.target.closest(".navigation-arrow") ||
-        e.target.closest(".year-navigation");
+      // Cek apakah yang diklik adalah tombol navigasi
+      const isNavigationArrow = e.target.closest(".navigation-arrow");
 
       if (!isNavigationArrow) {
-        setIsPulsing(true);
-        setTimeout(() => {
-          window.open("https://idm.kemendesa.go.id/rekomendasi", "_blank");
-          setIsPulsing(false);
-        }, 300);
+        window.open("https://idm.kemendesa.go.id/rekomendasi", "_blank");
       }
     };
 
+    // Handle empty data
     if (!idmData || idmData.length === 0) {
       return (
-        <div style={styles.emptyStateContainer}>
-          <div style={styles.emptyState}>
+        <div
+          style={{
+            width: "100%",
+            marginTop: "60px",
+            padding: "20px",
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(30, 30, 30, 0.8)",
+              borderRadius: "12px",
+              padding: "40px 20px",
+              border: "2px dashed rgba(255, 255, 255, 0.3)",
+            }}
+          >
             <img
               src={require("assets/img/theme/data-not-found.png")}
-              alt="No data"
-              style={styles.emptyImage}
+              alt="No dataa"
+              style={{ width: "80px", opacity: 0.7 }}
             />
-            <h3 style={styles.emptyTitle}>Data Tidak Tersedia</h3>
+            <h3
+              style={{
+                color: "#FFD700",
+                marginTop: "20px",
+                fontSize: "1.5rem",
+              }}
+            >
+              Data Tidak Tersedia
+            </h3>
+            <p style={{ opacity: 0.8 }}>
+              Data status desa belum dapat dimuat atau tidak tersedia
+            </p>
             <Button
               color="warning"
-              style={styles.reloadButton}
+              style={{
+                marginTop: "20px",
+                background: "rgba(255, 215, 0, 0.2)",
+                border: "1px solid #FFD700",
+              }}
               onClick={() => window.location.reload()}
             >
               Coba Lagi
@@ -141,162 +167,340 @@ const Hero = () => {
       );
     }
 
-    const nextCard = (e) => {
-      e.stopPropagation();
+    const nextCard = () =>
       setCurrentIndex((prev) => (prev + 1) % idmData.length);
-    };
-
-    const prevCard = (e) => {
-      e.stopPropagation();
+    const prevCard = () =>
       setCurrentIndex((prev) => (prev - 1 + idmData.length) % idmData.length);
-    };
 
-    const currentItem = idmData[currentIndex] || {};
-    const statusColor = getStatusColor(currentItem?.statusidm);
+    const currentItem = idmData[currentIndex];
+    const statusColor = getStatusColor(currentItem.statusidm);
 
     return (
-      <div style={styles.container}>
-        {/* Year Navigation */}
-        <div className="year-navigation" style={styles.yearNavigation}>
-          <button
-            className="navigation-arrow"
-            onClick={prevCard}
-            style={styles.navArrow}
-          >
-            ←
-          </button>
+      <div
+        style={{
+          width: "100%",
+          marginTop: "60px",
+          position: "relative",
+          padding: "0 20px",
+          cursor: "pointer", // Tambahkan cursor pointer
+        }}
+        onClick={handleCardClick}
+      >
+        {/* Year Navigation with Solid Design */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "30px",
+            gap: "30px",
+          }}
+        >
+          <NavigationArrow direction="left" onClick={prevCard} />
 
-          <div style={styles.yearDisplay}>
-            <div style={styles.yearLabel}>TAHUN</div>
-            <div style={styles.yearValue}>{currentItem?.ket || "-"}</div>
+          <div
+            style={{
+              background: "rgba(0, 0, 0, 0.6)",
+              border: "2px solid rgba(255, 215, 0, 0.5)",
+              borderRadius: "10px",
+              padding: "12px 30px",
+              minWidth: "150px",
+              textAlign: "center",
+              boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <div
+              style={{
+                color: "#FFD700",
+                fontSize: "1.1rem",
+                fontWeight: "600",
+                letterSpacing: "1px",
+              }}
+            >
+              TAHUN
+            </div>
+            <div
+              style={{
+                color: "white",
+                fontSize: "1.8rem",
+                fontWeight: "bold",
+                marginTop: "5px",
+              }}
+            >
+              {currentItem.ket || "-"}
+            </div>
           </div>
 
-          <button
-            className="navigation-arrow"
-            onClick={nextCard}
-            style={styles.navArrow}
-          >
-            →
-          </button>
+          <NavigationArrow direction="right" onClick={nextCard} />
         </div>
 
         {/* Main Card Container */}
-        <div style={styles.cardsContainer}>
-          {/* Status Card */}
+        <div
+          style={{
+            display: "flex",
+            gap: "25px",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            width: "100%",
+          }}
+        >
+          {/* Status Card - More Solid Design */}
           <div
-            onClick={handleCardClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
             style={{
-              ...styles.statusCard,
-              transform: isHovered ? "translateY(-5px)" : "none",
+              flex: "1 1 300px",
+              maxWidth: "380px",
+              background: "rgba(30, 30, 30, 0.8)",
+              borderRadius: "12px",
+              padding: "25px",
+              color: "white",
+              boxShadow: hovered
+                ? "0 10px 25px rgba(0, 0, 0, 0.5)"
+                : "0 5px 15px rgba(0, 0, 0, 0.3)",
+              backdropFilter: "blur(8px)",
               border: `2px solid ${
-                isHovered
-                  ? "#FFD700"
-                  : statusColor.border || "rgba(255, 255, 255, 0.15)"
+                statusColor.border || "rgba(255, 255, 255, 0.15)"
               }`,
-              animation: isPulsing ? "pulse 0.3s ease" : "none",
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+              position: "relative",
+              overflow: "hidden",
+              minHeight: "380px",
+              transform: hovered ? "translateY(-5px)" : "none",
             }}
           >
-            {/* Floating Action Hint */}
-            <div style={styles.floatingAction}>
-              <ExternalLinkIcon />
-            </div>
-
-            {/* Click Hint Ribbon */}
-            <div style={styles.clickRibbon}>
-              <div
-                style={{
-                  ...styles.ribbonContent,
-                  transform: isHovered ? "scale(1.05)" : "none",
-                  boxShadow: isHovered
-                    ? "0 2px 10px rgba(255, 215, 0, 0.5)"
-                    : "none",
-                }}
-              >
-                Klik untuk rekomendasi IDM
-                <span
-                  style={{
-                    ...styles.ribbonArrow,
-                    transform: isHovered ? "translateX(3px)" : "none",
-                  }}
-                >
-                  →
-                </span>
-              </div>
-            </div>
-
-            {/* Status Header */}
+            {/* Solid Status Header */}
             <div
               style={{
-                ...styles.statusHeader,
+                position: "absolute",
+                top: "0",
+                left: "0",
+                right: "0",
+                height: "8px",
                 background: statusColor.background,
+                zIndex: 2,
               }}
             />
+            {/* Inside the Status Card div, add this right after the Solid Status Header */}
+            <div
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                background: "rgba(255, 215, 0, 0.2)",
+                borderRadius: "4px",
+                padding: "4px 8px",
+                color: "#FFD700",
+                fontSize: "0.7rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+                backdropFilter: "blur(4px)",
+                border: "1px solid rgba(255, 215, 0, 0.3)",
+                zIndex: 4,
+                transition: "all 0.3s ease",
+                transform: hovered ? "translateY(-2px)" : "none",
+                boxShadow: hovered
+                  ? "0 2px 8px rgba(255, 215, 0, 0.3)"
+                  : "none",
+              }}
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#FFD700"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              IDM
+            </div>
 
-            {/* Card Content */}
-            <div style={styles.cardContent}>
+            <div
+              style={{
+                position: "relative",
+                zIndex: 3,
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
               <div>
-                <h3 style={styles.statusTitle}>
+                <h3
+                  style={{
+                    margin: "15px 0 25px 0",
+                    color: "#FFD700",
+                    fontSize: "1.6rem",
+                    textAlign: "center",
+                    textShadow: "0 2px 8px rgba(255, 215, 0, 0.4)",
+                    letterSpacing: "1px",
+                    position: "relative",
+                    paddingBottom: "15px",
+                  }}
+                >
                   STATUS DESA
-                  <div style={styles.titleUnderline} />
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "0",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "80px",
+                      height: "3px",
+                      background:
+                        "linear-gradient(90deg, transparent, #FFD700, transparent)",
+                      borderRadius: "3px",
+                    }}
+                  />
                 </h3>
 
+                {/* Solid Status Indicator */}
                 <div
                   style={{
-                    ...styles.statusValue,
+                    padding: "25px 15px",
+                    background: "rgba(0, 0, 0, 0.4)",
                     border: `2px solid ${statusColor.border || "#444"}`,
                     color: statusColor.color,
+                    borderRadius: "10px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    fontSize: "2.2rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "2px",
+                    marginBottom: "25px",
                     boxShadow: `inset 0 0 15px ${
                       statusColor.shadow || "rgba(0,0,0,0.3)"
                     }, 0 5px 15px rgba(0,0,0,0.3)`,
+                    position: "relative",
+                    overflow: "hidden",
                   }}
                 >
-                  {currentItem?.statusidm || "Belum Terdata"}
+                  {currentItem.statusidm || "Data Tidak Tersedia"}
                   <div
                     style={{
-                      ...styles.statusValueBg,
+                      position: "absolute",
+                      top: "0",
+                      left: "0",
+                      right: "0",
+                      bottom: "0",
                       background: statusColor.background,
+                      opacity: "0.15",
+                      zIndex: -1,
                     }}
                   />
                 </div>
               </div>
 
-              <div style={styles.idmValue}>
-                <div style={styles.idmLabel}>INDEKS DESA MEMBANGUN</div>
-                <div style={styles.idmNumber}>
-                  {currentItem?.nilaiidm || "-"}
+              {/* Solid IDM Value Display */}
+              <div
+                style={{
+                  background: "rgba(0, 50, 100, 0.3)",
+                  border: "1px solid rgba(0, 120, 215, 0.3)",
+                  borderRadius: "8px",
+                  padding: "12px",
+                  textAlign: "center",
+                  boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <div
+                  style={{
+                    color: "#7FBFFF",
+                    fontSize: "0.9rem",
+                    marginBottom: "5px",
+                  }}
+                >
+                  INDEKS DESA MEMBANGUN
+                </div>
+                <div
+                  style={{
+                    color: "white",
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    letterSpacing: "1px",
+                  }}
+                >
+                  {currentItem.nilaiidm || "-"}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Indicators Panel */}
-          <div style={styles.indicatorsPanel}>
-            <h3 style={styles.indicatorsTitle}>
+          {/* Indicators Panel - More Solid Design */}
+          <div
+            style={{
+              flex: "1 1 300px",
+              maxWidth: "380px",
+              background: "rgba(30, 30, 30, 0.8)",
+              borderRadius: "12px",
+              padding: "25px",
+              border: "2px solid rgba(255, 255, 255, 0.15)",
+              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <h3
+              style={{
+                margin: "0 0 25px 0",
+                color: "#FFD700",
+                fontSize: "1.6rem",
+                textAlign: "center",
+                textShadow: "0 2px 8px rgba(255, 215, 0, 0.4)",
+                letterSpacing: "1px",
+                position: "relative",
+                paddingBottom: "15px",
+              }}
+            >
               INDIKATOR
-              <div style={styles.titleUnderline} />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "80px",
+                  height: "3px",
+                  background:
+                    "linear-gradient(90deg, transparent, #FFD700, transparent)",
+                  borderRadius: "3px",
+                }}
+              />
             </h3>
 
-            <div style={styles.indicatorsGrid}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "15px",
+                marginTop: "20px",
+              }}
+            >
               {[
                 {
                   label: "IKL",
-                  value: currentItem?.ikl,
+                  value: currentItem.ikl,
                   bg: "rgba(46, 125, 50, 0.3)",
                   border: "rgba(76, 175, 80, 0.5)",
                   color: "#A5D6A7",
                 },
                 {
                   label: "IKS",
-                  value: currentItem?.iks,
+                  value: currentItem.iks,
                   bg: "rgba(198, 40, 40, 0.3)",
                   border: "rgba(244, 67, 54, 0.5)",
                   color: "#EF9A9A",
                 },
                 {
                   label: "IKE",
-                  value: currentItem?.ike,
+                  value: currentItem.ike,
                   bg: "rgba(178, 138, 0, 0.3)",
                   border: "rgba(255, 193, 7, 0.5)",
                   color: "#FFF59D",
@@ -305,177 +509,75 @@ const Hero = () => {
                 <div
                   key={index}
                   style={{
-                    ...styles.indicatorItem,
                     background: item.bg,
                     border: `1px solid ${item.border}`,
+                    borderRadius: "8px",
+                    padding: "15px 10px",
+                    textAlign: "center",
+                    boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
+                    transition: "all 0.3s ease",
+                    ":hover": {
+                      transform: "translateY(-3px)",
+                      boxShadow: `0 5px 15px ${item.border}`,
+                    },
                   }}
                 >
-                  <div style={{ ...styles.indicatorLabel, color: item.color }}>
+                  <div
+                    style={{
+                      color: item.color,
+                      fontSize: "1rem",
+                      fontWeight: "600",
+                      marginBottom: "10px",
+                      letterSpacing: "1px",
+                    }}
+                  >
                     {item.label}
                   </div>
-                  <div style={styles.indicatorValue}>{item.value || "-"}</div>
+                  <div
+                    style={{
+                      color: "white",
+                      fontSize: "1.8rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.value || "-"}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-
-        {/* Animation Styles */}
-        <style>
-          {`
-            @keyframes pulse {
-              0% { transform: translateY(-5px) scale(1); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); }
-              50% { transform: translateY(-5px) scale(1.03); box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3); }
-              100% { transform: translateY(-5px) scale(1); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); }
-            }
-            @keyframes float {
-              0% { transform: translateY(0px); }
-              50% { transform: translateY(-5px); }
-              100% { transform: translateY(0px); }
-            }
-          `}
-        </style>
       </div>
     );
   };
 
-  // External Link Icon Component
-  const ExternalLinkIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#FFD700"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-      <polyline points="15 3 21 3 21 9"></polyline>
-      <line x1="10" y1="14" x2="21" y2="3"></line>
-    </svg>
-  );
-
-  // Styles
-  const styles = {
-    container: {
-      width: "100%",
-      marginTop: "60px",
-      position: "relative",
-      padding: "0 20px",
-    },
-    yearNavigation: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: "30px",
-      gap: "30px",
-    },
-    navArrow: {
-      background: "rgba(255, 215, 0, 0.1)",
-      border: "2px solid rgba(255, 215, 0, 0.5)",
-      color: "#FFD700",
-      fontSize: "1.5rem",
-      width: "50px",
-      height: "50px",
-      borderRadius: "50%",
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      transition: "all 0.3s ease",
-      backdropFilter: "blur(5px)",
-      ":hover": {
-        background: "rgba(255, 215, 0, 0.2)",
-        transform: "scale(1.1)",
-      },
-    },
-    statusCard: {
-      flex: "1 1 300px",
-      maxWidth: "380px",
-      background: "rgba(30, 30, 30, 0.8)",
-      borderRadius: "12px",
-      padding: "25px",
-      color: "white",
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-      backdropFilter: "blur(8px)",
-      transition: "all 0.3s ease",
-      cursor: "pointer",
-      position: "relative",
-      overflow: "hidden",
-      minHeight: "380px",
-    },
-    floatingAction: {
-      position: "absolute",
-      top: "15px",
-      right: "15px",
-      background: "rgba(255, 215, 0, 0.2)",
-      borderRadius: "50%",
-      width: "30px",
-      height: "30px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      animation: "float 2s ease-in-out infinite",
-      opacity: 0.7,
-      transition: "all 0.3s ease",
-      ":hover": {
-        opacity: 1,
-      },
-    },
-    clickRibbon: {
-      position: "absolute",
-      bottom: "20px",
-      left: "0",
-      right: "0",
-      textAlign: "center",
-    },
-    ribbonContent: {
-      display: "inline-block",
-      background: "rgba(255, 215, 0, 0.3)",
-      color: "#FFD700",
-      padding: "5px 15px",
-      borderRadius: "20px",
-      fontSize: "0.8rem",
-      backdropFilter: "blur(5px)",
-      transition: "all 0.3s ease",
-    },
-    ribbonArrow: {
-      marginLeft: "8px",
-      display: "inline-block",
-      transition: "transform 0.3s ease",
-    },
-    // ... (other style objects)
-  };
-
   // Arrow Component for Better Reusability
-  // const NavigationArrow = ({ direction, onClick }) => (
-  //   <button
-  //     onClick={onClick}
-  //     style={{
-  //       background: "rgba(255, 215, 0, 0.1)",
-  //       border: "2px solid rgba(255, 215, 0, 0.5)",
-  //       color: "#FFD700",
-  //       fontSize: "1.5rem",
-  //       width: "50px",
-  //       height: "50px",
-  //       borderRadius: "50%",
-  //       cursor: "pointer",
-  //       display: "flex",
-  //       alignItems: "center",
-  //       justifyContent: "center",
-  //       transition: "all 0.3s ease",
-  //       backdropFilter: "blur(5px)",
-  //       ":hover": {
-  //         background: "rgba(255, 215, 0, 0.2)",
-  //         transform: "scale(1.1)",
-  //       },
-  //     }}
-  //   >
-  //     {direction === "left" ? "←" : "→"}
-  //   </button>
-  // );
+  const NavigationArrow = ({ direction, onClick }) => (
+    <button
+      onClick={onClick}
+      style={{
+        background: "rgba(255, 215, 0, 0.1)",
+        border: "2px solid rgba(255, 215, 0, 0.5)",
+        color: "#FFD700",
+        fontSize: "1.5rem",
+        width: "50px",
+        height: "50px",
+        borderRadius: "50%",
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "all 0.3s ease",
+        backdropFilter: "blur(5px)",
+        ":hover": {
+          background: "rgba(255, 215, 0, 0.2)",
+          transform: "scale(1.1)",
+        },
+      }}
+    >
+      {direction === "left" ? "←" : "→"}
+    </button>
+  );
 
   return (
     <div
