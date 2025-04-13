@@ -104,16 +104,6 @@ const Hero = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [hovered, setHovered] = useState(false);
 
-    // Handle card click (excluding navigation arrows)
-    const handleCardClick = (e) => {
-      // Cek apakah yang diklik adalah tombol navigasi
-      const isNavigationArrow = e.target.closest(".navigation-arrow");
-
-      if (!isNavigationArrow) {
-        window.open("https://idm.kemendesa.go.id/rekomendasi", "_blank");
-      }
-    };
-
     // Handle empty data
     if (!idmData || idmData.length === 0) {
       return (
@@ -182,9 +172,7 @@ const Hero = () => {
           marginTop: "60px",
           position: "relative",
           padding: "0 20px",
-          cursor: "pointer", // Tambahkan cursor pointer
         }}
-        onClick={handleCardClick}
       >
         {/* Year Navigation with Solid Design */}
         <div
@@ -284,45 +272,58 @@ const Hero = () => {
               }}
             />
             {/* Inside the Status Card div, add this right after the Solid Status Header */}
-            <div
+            <a
+              href="https://idm.kemendesa.go.id/rekomendasi"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
+                textDecoration: "none",
                 position: "absolute",
                 top: "15px",
                 right: "15px",
-                background: "rgba(255, 215, 0, 0.2)",
-                borderRadius: "4px",
-                padding: "4px 8px",
-                color: "#FFD700",
-                fontSize: "0.7rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-                backdropFilter: "blur(4px)",
-                border: "1px solid rgba(255, 215, 0, 0.3)",
-                zIndex: 4,
-                transition: "all 0.3s ease",
-                transform: hovered ? "translateY(-2px)" : "none",
-                boxShadow: hovered
-                  ? "0 2px 8px rgba(255, 215, 0, 0.3)"
-                  : "none",
               }}
             >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#FFD700"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              <div
+                style={{
+                  background: "rgba(255, 215, 0, 0.2)",
+                  borderRadius: "4px",
+                  padding: "4px 8px",
+                  color: "#FFD700",
+                  fontSize: "0.7rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  backdropFilter: "blur(4px)",
+                  border: "1px solid rgba(255, 215, 0, 0.3)",
+                  zIndex: 4,
+                  transition: "all 0.3s ease",
+                  transform: hovered ? "translateY(-2px)" : "none",
+                  boxShadow: hovered
+                    ? "0 2px 8px rgba(255, 215, 0, 0.3)"
+                    : "none",
+                  cursor: "pointer",
+                  "&:hover": {
+                    background: "rgba(255, 215, 0, 0.3)",
+                  },
+                }}
               >
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-              IDM
-            </div>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#FFD700"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                IDM
+              </div>
+            </a>
 
             <div
               style={{
