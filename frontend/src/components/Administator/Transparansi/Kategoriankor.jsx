@@ -48,7 +48,10 @@ const Kategoriankor = () => {
     data: kategoriankorData,
     error,
     isLoading,
-  } = useSWR("http://localhost:8080/kategoriankor", fetcher);
+  } = useSWR(
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/kategoriankor",
+    fetcher
+  );
 
   useEffect(() => {
     if (kategoriankorData) {
@@ -60,7 +63,7 @@ const Kategoriankor = () => {
     data: ankorData,
     error: ankorError,
     isLoading: isAnkorLoading,
-  } = useSWR("http://localhost:8080/ankor", fetcher);
+  } = useSWR("https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankor", fetcher);
 
   useEffect(() => {
     if (ankorData?.ankor && Array.isArray(ankorData.ankor)) {
@@ -127,7 +130,7 @@ const Kategoriankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:8080/kategoriankor/${currentKategoriAnkor.uuid}`,
+          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/kategoriankor/${currentKategoriAnkor.uuid}`,
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -143,7 +146,7 @@ const Kategoriankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "http://localhost:8080/ckategoriankor",
+          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/ckategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -158,7 +161,9 @@ const Kategoriankor = () => {
           life: 3000,
         });
       }
-      await mutate("http://localhost:8080/kategoriankor");
+      await mutate(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/kategoriankor"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -217,14 +222,18 @@ const Kategoriankor = () => {
   const deletekategoriankor = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(`http://localhost:8080/kategoriankor/${id}`);
+        await axiosJWT.delete(
+          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/kategoriankor/${id}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/kategoriankor");
+        await mutate(
+          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/kategoriankor"
+        );
       } catch (error) {
         handleError(error);
       }

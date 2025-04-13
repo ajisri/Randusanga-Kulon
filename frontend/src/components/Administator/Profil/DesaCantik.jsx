@@ -42,7 +42,7 @@ const DesaCantik = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/desacantik",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/desacantik",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const DesaCantik = () => {
 
   useEffect(() => {
     axiosJWT
-      .get("http://localhost:8080/desacantik")
+      .get("https://ds-randusanga-kulon.osc-fr1.scalingo.io/desacantik")
       .then((response) => console.log("Data fetched manually:", response.data))
       .catch((error) =>
         console.error("Error fetching Desa Cantik manually:", error)
@@ -95,17 +95,23 @@ const DesaCantik = () => {
 
     try {
       setIsLoadingProcess(true);
-      await axiosJWT.post("http://localhost:8080/cdesacantik", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axiosJWT.post(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cdesacantik",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:8080/desacantik");
+      await mutate(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/desacantik"
+      );
 
       toast.current.show({
         severity: "success",
@@ -226,7 +232,7 @@ const DesaCantik = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`http://localhost:8080${file_url}`}
+                        src={`https://ds-randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

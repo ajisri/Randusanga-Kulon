@@ -23,23 +23,35 @@ const Geografix = () => {
     data: batasWilayahData,
     error: batasWilayahError,
     isLoading: isBatasWilayahLoading,
-  } = useSWR("http://localhost:8080/batawilayahpengunjung", fetcher);
+  } = useSWR(
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/batawilayahpengunjung",
+    fetcher
+  );
 
   const {
     data: orbitasiData,
     error: orbitasiError,
     isLoading: isOrbitasiLoading,
-  } = useSWR("http://localhost:8080/orbitasipengunjung", fetcher);
+  } = useSWR(
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/orbitasipengunjung",
+    fetcher
+  );
   const {
     data: jenisLahanData,
     error: jenisLahanError,
     isLoading: isJenisLahanLoading,
-  } = useSWR("http://localhost:8080/jenislahanpengunjung", fetcher);
+  } = useSWR(
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/jenislahanpengunjung",
+    fetcher
+  );
   const {
     data: potensiWisataData,
     error: potensiWisataError,
     isLoading: isPotensiWisataLoading,
-  } = useSWR("http://localhost:8080/potensiwisatapengunjung", fetcher);
+  } = useSWR(
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/potensiwisatapengunjung",
+    fetcher
+  );
 
   useEffect(() => {
     if (batasWilayahData?.batasWilayah) {

@@ -11,7 +11,7 @@ const fetcher = async (url) => {
 export default function OrganizationChartWithAPI() {
   // Fetch data from the API
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/api/orgchart",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/api/orgchart",
     fetcher
   );
 

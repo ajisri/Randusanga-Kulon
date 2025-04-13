@@ -24,7 +24,7 @@ const Modalt = () => {
   // const [dialogVisibleD, setDialogVisibleD] = useState(false);
 
   const { data: produkhukumData, error: produkhukumError } = useSWR(
-    "http://localhost:8080/produk_hukump",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/produk_hukump",
     fetcher
   );
   const loadingProdukhukum = !produkhukumData && !produkhukumError;
@@ -33,7 +33,7 @@ const Modalt = () => {
 
   // Fetch APBD data
   const { data: allapbdData, error: allapbdError } = useSWR(
-    "http://localhost:8080/allapbdp",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/allapbdp",
     fetcher
   );
   const loadingApbd = !allapbdData && !allapbdError;
@@ -57,7 +57,7 @@ const Modalt = () => {
 
   //ankor
   const { data: allankorData } = useSWR(
-    "http://localhost:8080/ankorp",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankorp",
     fetcher
   );
 
@@ -868,7 +868,7 @@ const Modalt = () => {
                       const fileName = rowData.file_url.split("/").pop(); // Ambil nama file saja
                       return (
                         <a
-                          href={`http://localhost:8080/download/${fileName}`} // Mengarahkan ke controller di backend
+                          href={`https://ds-randusanga-kulon.osc-fr1.scalingo.io/download/${fileName}`} // Mengarahkan ke controller di backend
                           download
                           style={{ textDecoration: "none" }}
                         >

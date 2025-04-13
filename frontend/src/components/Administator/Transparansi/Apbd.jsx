@@ -52,7 +52,7 @@ const Apbd = () => {
     data: apbdData,
     error,
     isLoading,
-  } = useSWR("http://localhost:8080/apbd", fetcher);
+  } = useSWR("https://ds-randusanga-kulon.osc-fr1.scalingo.io/apbd", fetcher);
 
   useEffect(() => {
     if (apbdData?.apbd) {
@@ -200,7 +200,7 @@ const Apbd = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:8080/apbd/${currentApbd.id}`,
+          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/apbd/${currentApbd.id}`,
           formDataToSend,
           {
             headers: {
@@ -216,11 +216,15 @@ const Apbd = () => {
         });
       } else {
         console.log("Mengirim data baru...");
-        await axiosJWT.post("http://localhost:8080/capbd", formDataToSend, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axiosJWT.post(
+          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/capbd",
+          formDataToSend,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -229,7 +233,7 @@ const Apbd = () => {
         });
       }
 
-      await mutate("http://localhost:8080/apbd");
+      await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/apbd");
 
       resetForm();
       setDialogVisible(false);
@@ -286,7 +290,7 @@ const Apbd = () => {
     setFormData(apbd);
     setSelectedFile(null);
     const fileUrl = apbd.file_url
-      ? `http://localhost:8080${apbd.file_url}`
+      ? `https://ds-randusanga-kulon.osc-fr1.scalingo.io${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -298,14 +302,16 @@ const Apbd = () => {
   const deleteapbd = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        await axiosJWT.delete(`http://localhost:8080/apbd/${id}`);
+        await axiosJWT.delete(
+          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/apbd/${id}`
+        );
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/apbd");
+        await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/apbd");
       } catch (error) {
         handleError(error);
       }
@@ -379,7 +385,7 @@ const Apbd = () => {
           header="Gambar"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
-            const fileUrl = `http://localhost:8080${rowData.file_url}`;
+            const fileUrl = `https://ds-randusanga-kulon.osc-fr1.scalingo.io${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

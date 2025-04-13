@@ -10,7 +10,7 @@ const useAuth = (navigate) => {
     const refreshToken = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/token",
+          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/token",
           { withCredentials: true } // ⬅️ Pastikan refreshToken dikirim dari cookie
         );
         setToken(response.data.accessToken);
@@ -33,7 +33,7 @@ const useAuth = (navigate) => {
       if (expire * 1000 < currentDate.getTime()) {
         try {
           const response = await axios.get(
-            "http://localhost:8080/token",
+            "https://ds-randusanga-kulon.osc-fr1.scalingo.io/token",
             { withCredentials: true } // ⬅️ Pastikan refreshToken dikirim dari cookie
           );
           setToken(response.data.accessToken);
@@ -59,9 +59,12 @@ const useAuth = (navigate) => {
     async (error) => {
       if (error.response?.status === 401) {
         try {
-          const res = await axios.get("http://localhost:8080/token", {
-            withCredentials: true,
-          });
+          const res = await axios.get(
+            "https://ds-randusanga-kulon.osc-fr1.scalingo.io/token",
+            {
+              withCredentials: true,
+            }
+          );
           error.config.headers[
             "Authorization"
           ] = `Bearer ${res.data.accessToken}`;

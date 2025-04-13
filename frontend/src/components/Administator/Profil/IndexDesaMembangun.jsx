@@ -48,7 +48,7 @@ const IndexDesaMembangun = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/indexdesamembangun",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/indexdesamembangun",
     fetcher
   );
 
@@ -78,7 +78,7 @@ const IndexDesaMembangun = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `http://localhost:8080/indexdesamembangun/${currentData.uuid}`,
+          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/indexdesamembangun/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -89,7 +89,7 @@ const IndexDesaMembangun = () => {
         });
       } else {
         await axiosJWT.post(
-          "http://localhost:8080/cindexdesamembangun",
+          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cindexdesamembangun",
           formData
         );
         toast.current.show({
@@ -99,7 +99,9 @@ const IndexDesaMembangun = () => {
           life: 3000,
         });
       }
-      await mutate("http://localhost:8080/indexdesamembangun");
+      await mutate(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/indexdesamembangun"
+      );
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -145,7 +147,7 @@ const IndexDesaMembangun = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `http://localhost:8080/indexdesamembangun/${uuid}`
+          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/indexdesamembangun/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -153,7 +155,9 @@ const IndexDesaMembangun = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("http://localhost:8080/indexdesamembangun");
+        await mutate(
+          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/indexdesamembangun"
+        );
       } catch (error) {
         handleError(error);
       }

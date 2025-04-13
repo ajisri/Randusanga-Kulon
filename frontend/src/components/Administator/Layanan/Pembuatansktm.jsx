@@ -39,7 +39,7 @@ const Pembuatansktm = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/pembuatansktm",
+    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/pembuatansktm",
     fetcher
   );
 
@@ -83,17 +83,23 @@ const Pembuatansktm = () => {
 
     try {
       setIsLoadingProcess(true);
-      await axiosJWT.post("http://localhost:8080/cpembuatansktm", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axiosJWT.post(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cpembuatansktm",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       setSelectedFile(null); // Reset file
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("http://localhost:8080/pembuatansktm");
+      await mutate(
+        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/pembuatansktm"
+      );
 
       toast.current.show({
         severity: "success",
@@ -259,7 +265,7 @@ const Pembuatansktm = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`http://localhost:8080${file_url}`}
+                        src={`https://ds-randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />
