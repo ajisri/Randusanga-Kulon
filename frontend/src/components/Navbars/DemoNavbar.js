@@ -239,17 +239,17 @@ class DemoNavbar extends React.Component {
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem>
-                    <NavLink
+                    {/* <NavLink
                       className="nav-link-icon"
                       href="https://github.com/"
                       id="tooltip112445449"
                       target="_blank"
                     >
-                      <i className="fa fa-github" />
-                      {/* <span className="nav-link-inner--text d-lg-none ml-2">
+                      <i className="fa fa-github" /> */}
+                    {/* <span className="nav-link-inner--text d-lg-none ml-2">
                         Github
                       </span> */}
-                    </NavLink>
+                    {/* </NavLink> */}
                     {/* <UncontrolledTooltip delay={0} target="tooltip112445449">
                       Star us on Github
                     </UncontrolledTooltip> */}
