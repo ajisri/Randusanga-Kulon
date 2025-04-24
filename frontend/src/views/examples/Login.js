@@ -87,23 +87,23 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            //<div className="flex align-items-center justify-content-between mb-6">
-              //<div className="flex align-items-center">
-                //<Checkbox
-                  //inputId="rememberme"
-                  //checked={rememberMe}
-                  //onChange={(e) => setRememberMe(e.checked)}
-                  //className="mr-2"
-                ///>
-                //<label htmlFor="rememberme">Remember me</label>
-              //</div>
-              //<a
-                //href="/landing-page"
-                //className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
-              //>
-                //Lupa password?
-              //</a>
-            //</div>
+            {/* <div className="flex align-items-center justify-content-between mb-6">
+              <div className="flex align-items-center">
+                <Checkbox
+                  inputId="rememberme"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.checked)}
+                  className="mr-2"
+                />
+                <label htmlFor="rememberme">Remember me</label>
+              </div>
+              <a
+                href="/landing-page"
+                className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
+              >
+                Lupa password?
+              </a>
+            </div> */}
 
             <Button label="Sign In" icon="pi pi-user" className="w-full" />
           </form>
