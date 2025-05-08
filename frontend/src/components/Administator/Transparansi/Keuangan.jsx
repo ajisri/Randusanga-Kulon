@@ -305,7 +305,7 @@ const Keuangan = () => {
       </DataTable>
 
       <Dialog
-        header={isEditMode ? "Edit Keuangan Data" : "Add Keuangan Data"}
+        header={isEditMode ? "Edit Kategori Data" : "Add Kategori Data"}
         visible={isDialogVisible}
         onHide={closeDialog}
         dismissableMask={true}
@@ -334,7 +334,7 @@ const Keuangan = () => {
                 />
               </div>
               <div className="field">
-                <label htmlFor="keuanganId">Keuangan:</label>
+                <label htmlFor="keuanganId">Kategori:</label>
                 <Dropdown
                   id="apbdId"
                   name="apbdId"
@@ -343,7 +343,7 @@ const Keuangan = () => {
                   value={formData.apbdId}
                   options={apbdData}
                   onChange={handleChange}
-                  placeholder="Select Keuangan"
+                  placeholder="Pilih Nama dan Tahun Anggaran"
                   required
                   className="input-field"
                 />

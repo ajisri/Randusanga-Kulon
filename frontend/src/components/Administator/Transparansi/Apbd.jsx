@@ -328,7 +328,7 @@ const Apbd = () => {
 
   return (
     <div>
-      <h1 className="demografi-header">APBD</h1>
+      <h1 className="demografi-header">Sumber Anggaran</h1>
       <Toast ref={toast} />
       <DataTable
         value={apbdList}
@@ -382,7 +382,7 @@ const Apbd = () => {
         />
         <Column
           field="file_url"
-          header="File"
+          header="Gambar"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
             const fileUrl = `https://ds-randusanga-kulon.osc-fr1.scalingo.io${rowData.file_url}`;
@@ -457,12 +457,12 @@ const Apbd = () => {
               }}
             >
               <h3 className="section-title" style={{ color: "#00796B" }}>
-                APBD Information
+                Sumber Anggaran Informasi
               </h3>
 
               <div className="form-group">
                 <label htmlFor="name">
-                  Nama APBD <span className="required">*</span>
+                  Nama Sumber Anggaran <span className="required">*</span>
                 </label>
                 <InputText
                   id="name"
