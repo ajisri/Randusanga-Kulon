@@ -87,7 +87,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <div className="flex align-items-center justify-content-between mb-6">
+            {/* <div className="flex align-items-center justify-content-between mb-6">
               <div className="flex align-items-center">
                 <Checkbox
                   inputId="rememberme"
@@ -103,7 +103,7 @@ const Login = () => {
               >
                 Lupa password?
               </a>
-            </div>
+            </div> */}
 
             <Button label="Sign In" icon="pi pi-user" className="w-full" />
           </form>

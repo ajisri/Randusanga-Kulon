@@ -382,7 +382,7 @@ const Apbd = () => {
         />
         <Column
           field="file_url"
-          header="Gambar"
+          header="File"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
             const fileUrl = `https://ds-randusanga-kulon.osc-fr1.scalingo.io${rowData.file_url}`;
