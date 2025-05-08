@@ -334,7 +334,9 @@ const Keuangan = () => {
                 />
               </div>
               <div className="field">
-                <label htmlFor="keuanganId">Kategori:</label>
+                <label htmlFor="keuanganId">
+                  Pilih Nama dan Tahun Anggaran:
+                </label>
                 <Dropdown
                   id="apbdId"
                   name="apbdId"

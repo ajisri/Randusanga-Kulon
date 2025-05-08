@@ -586,7 +586,7 @@ const Kategori = () => {
                 />
               </div>
               <div className="field">
-                <label htmlFor="keuanganId">Keuangan:</label>
+                <label htmlFor="keuanganId">Kategori:</label>
                 <Dropdown
                   id="keuanganId"
                   name="keuanganId"
@@ -595,7 +595,7 @@ const Kategori = () => {
                   value={formData.keuanganId}
                   options={keuanganData}
                   onChange={handleChange}
-                  placeholder="Select Keuangan"
+                  placeholder="Select Kategori"
                   required
                   className="input-field"
                 />
