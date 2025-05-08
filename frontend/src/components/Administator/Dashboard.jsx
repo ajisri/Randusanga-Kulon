@@ -798,7 +798,7 @@ const Dashboard = () => {
                 className="pi pi-fw pi-dollar"
                 style={{ marginRight: "10px" }}
               ></i>
-              {isSidebarHovered && <span>APB Desa</span>}
+              {isSidebarHovered && <span>Sumber Anggaran</span>}
               <i
                 className={`pi pi-fw ${
                   isKeuanganSubmenuVisible
