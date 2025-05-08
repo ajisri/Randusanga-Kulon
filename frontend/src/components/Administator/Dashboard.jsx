@@ -827,7 +827,7 @@ const Dashboard = () => {
                     className="pi pi-fw pi-file"
                     style={{ marginRight: "10px" }}
                   ></i>
-                  {isSidebarHovered && <span>Tahun APBD</span>}
+                  {isSidebarHovered && <span>Tahun Anggaran</span>}
                   <Ripple />
                 </div>
                 <div
