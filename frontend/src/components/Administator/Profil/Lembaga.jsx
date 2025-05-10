@@ -170,7 +170,13 @@ const Lembaga = () => {
       if (name === "namaJabatan") {
         updatedJabatans[index].namaJabatan = value; // Update nama jabatan
       } else if (name === "demografiId") {
-        updatedJabatans[index].demografiId = value;
+        updatedJabatans[index].demografiId = value; // Update demografiId
+        const selectedDemografi = demografiOptions.find(
+          (option) => option.value === value
+        );
+        updatedJabatans[index].uuid = selectedDemografi
+          ? selectedDemografi.uuid
+          : null; // Ambil UUID dari demografi
       }
       return updatedJabatans;
     });
@@ -339,9 +345,9 @@ const Lembaga = () => {
       console.log("Data Anggota:", rowData.Anggota);
       if (rowData.Anggota.length > 0) {
         const formattedJabatans = rowData.Anggota.map((anggota) => ({
-          uuid: anggota.uuid,
+          uuid: anggota.uuid || null,
           namaJabatan: anggota.jabatan,
-          demografiId: anggota.demografi.uuid || "",
+          demografiId: anggota.demografi.uuid,
         }));
         setJabatans(formattedJabatans);
       } else {
