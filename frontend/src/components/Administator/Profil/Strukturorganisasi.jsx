@@ -326,4 +326,12 @@ const Strukturorganisasi = () => {
                   />
                 </div>
               </div>
-    
+            </Card>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Strukturorganisasi;
