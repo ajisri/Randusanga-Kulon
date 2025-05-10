@@ -60,7 +60,7 @@ const Pengumuman = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//pengumuman",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pengumuman",
     fetcher
   );
 
@@ -152,7 +152,7 @@ const Pengumuman = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//pengumuman/${currentPengumuman.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/pengumuman/${currentPengumuman.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -166,7 +166,7 @@ const Pengumuman = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cpengumuman",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cpengumuman",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -181,7 +181,7 @@ const Pengumuman = () => {
       }
 
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//pengumuman"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pengumuman"
       );
       resetForm();
       setDialogVisible(false);
@@ -252,7 +252,7 @@ const Pengumuman = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//pengumuman/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/pengumuman/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -261,7 +261,7 @@ const Pengumuman = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//pengumuman"
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pengumuman"
         );
       } catch (error) {
         handleError(error);

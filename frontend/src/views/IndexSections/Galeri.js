@@ -8,7 +8,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Galeri = () => {
   const { data: galeriData, error: galeriError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//galeripengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/galeripengunjung",
     fetcher
   );
   const [isPaused, setIsPaused] = useState(false);

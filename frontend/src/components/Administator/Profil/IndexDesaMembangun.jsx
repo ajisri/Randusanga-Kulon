@@ -48,7 +48,7 @@ const IndexDesaMembangun = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//indexdesamembangun",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/indexdesamembangun",
     fetcher
   );
 
@@ -78,7 +78,7 @@ const IndexDesaMembangun = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//indexdesamembangun/${currentData.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/indexdesamembangun/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -89,7 +89,7 @@ const IndexDesaMembangun = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cindexdesamembangun",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cindexdesamembangun",
           formData
         );
         toast.current.show({
@@ -100,7 +100,7 @@ const IndexDesaMembangun = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//indexdesamembangun"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/indexdesamembangun"
       );
       resetForm();
       setDialogVisible(false);
@@ -147,7 +147,7 @@ const IndexDesaMembangun = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//indexdesamembangun/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/indexdesamembangun/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -156,7 +156,7 @@ const IndexDesaMembangun = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//indexdesamembangun"
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/indexdesamembangun"
         );
       } catch (error) {
         handleError(error);

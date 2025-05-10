@@ -8,7 +8,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Pengumuman = () => {
   const { data: pengumumanData, error: pengumumanError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//pengumumanpengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pengumumanpengunjung",
     fetcher
   );
 

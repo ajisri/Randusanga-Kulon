@@ -49,7 +49,7 @@ const Kategoriankor = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//kategoriankor",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kategoriankor",
     fetcher
   );
 
@@ -63,7 +63,7 @@ const Kategoriankor = () => {
     data: ankorData,
     error: ankorError,
     isLoading: isAnkorLoading,
-  } = useSWR("https://randusanga-kulon-ds.osc-fr1.scalingo.io//ankor", fetcher);
+  } = useSWR("https://randusanga-kulon-ds.osc-fr1.scalingo.io/ankor", fetcher);
 
   useEffect(() => {
     if (ankorData?.ankor && Array.isArray(ankorData.ankor)) {
@@ -130,7 +130,7 @@ const Kategoriankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//kategoriankor/${currentKategoriAnkor.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/kategoriankor/${currentKategoriAnkor.uuid}`,
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -146,7 +146,7 @@ const Kategoriankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//ckategoriankor",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/ckategoriankor",
           { name: formData.name, ankorId: formData.ankorId },
           {
             headers: {
@@ -162,7 +162,7 @@ const Kategoriankor = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//kategoriankor"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kategoriankor"
       );
       resetForm();
       setDialogVisible(false);
@@ -223,7 +223,7 @@ const Kategoriankor = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//kategoriankor/${id}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/kategoriankor/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -232,7 +232,7 @@ const Kategoriankor = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//kategoriankor"
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kategoriankor"
         );
       } catch (error) {
         handleError(error);

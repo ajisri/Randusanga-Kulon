@@ -63,7 +63,7 @@ const Lembaga = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//lembaga",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/lembaga",
     fetcher
   );
 
@@ -100,7 +100,7 @@ const Lembaga = () => {
     error: demografiError,
     isLoading: demografiLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//demografi", // Endpoint API demografi
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/demografi", // Endpoint API demografi
     fetcher
   );
 
@@ -228,7 +228,7 @@ const Lembaga = () => {
       if (isEditMode) {
         console.log("currentData.uuid:", currentData.uuid);
         await axiosJWT.put(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//ulembaga/${currentData.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/ulembaga/${currentData.uuid}`,
           data,
           {
             headers: {
@@ -244,7 +244,7 @@ const Lembaga = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//clembaga",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/clembaga",
           data,
           {
             headers: {
@@ -259,7 +259,7 @@ const Lembaga = () => {
           life: 3000,
         });
       }
-      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//lembaga");
+      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/lembaga");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -306,7 +306,7 @@ const Lembaga = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//lembaga/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/lembaga/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -314,9 +314,7 @@ const Lembaga = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//lembaga"
-        );
+        await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/lembaga");
       } catch (error) {
         handleError(error);
       }
@@ -362,7 +360,7 @@ const Lembaga = () => {
     }
     console.log("Data Jabatan saat dibuka:", rowData.jabatans);
     if (typeof rowData.file_url === "string") {
-      const fullUrl = `https://randusanga-kulon-ds.osc-fr1.scalingo.io//${rowData.file_url}`;
+      const fullUrl = `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${rowData.file_url}`;
       console.log("Full URL gambar:", fullUrl); // Debug URL absolut
       setImagePreview(fullUrl);
     } else if (rowData.file_url instanceof File) {

@@ -42,7 +42,7 @@ const DesaCantik = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//desacantik",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/desacantik",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const DesaCantik = () => {
 
   useEffect(() => {
     axiosJWT
-      .get("https://randusanga-kulon-ds.osc-fr1.scalingo.io//desacantik")
+      .get("https://randusanga-kulon-ds.osc-fr1.scalingo.io/desacantik")
       .then((response) => console.log("Data fetched manually:", response.data))
       .catch((error) =>
         console.error("Error fetching Desa Cantik manually:", error)
@@ -96,7 +96,7 @@ const DesaCantik = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cdesacantik",
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cdesacantik",
         formData,
         {
           headers: {
@@ -110,7 +110,7 @@ const DesaCantik = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//desacantik"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/desacantik"
       );
 
       toast.current.show({

@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const refreshToken = async () => {
       try {
         const response = await axios.get(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//token",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
           {
             withCredentials: true,
           }
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     const currentDate = new Date();
     if (expire * 1000 < currentDate.getTime()) {
       const response = await axios.get(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//token",
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
         {
           withCredentials: true,
         }

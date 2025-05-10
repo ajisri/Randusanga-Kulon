@@ -39,7 +39,7 @@ const Aktifasibpjs = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//aktifasibpjs",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktifasibpjs",
     fetcher
   );
 
@@ -84,7 +84,7 @@ const Aktifasibpjs = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//caktifasibpjs",
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/caktifasibpjs",
         formData,
         {
           headers: {
@@ -98,7 +98,7 @@ const Aktifasibpjs = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//aktifasibpjs"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktifasibpjs"
       );
 
       toast.current.show({

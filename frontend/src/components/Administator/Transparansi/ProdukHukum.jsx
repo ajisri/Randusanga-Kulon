@@ -55,7 +55,7 @@ const Produkhukum = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//produk_hukum",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/produk_hukum",
     fetcher
   );
 
@@ -196,7 +196,7 @@ const Produkhukum = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//produk_hukum/${currentProdukhukum.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/produk_hukum/${currentProdukhukum.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -210,7 +210,7 @@ const Produkhukum = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cprodukhukum",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cprodukhukum",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -225,7 +225,7 @@ const Produkhukum = () => {
       }
 
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//produk_hukum"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/produk_hukum"
       );
       resetForm();
       setDialogVisible(false);
@@ -297,7 +297,7 @@ const Produkhukum = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//produk_hukum/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/produk_hukum/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -306,7 +306,7 @@ const Produkhukum = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//produk_hukum"
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/produk_hukum"
         );
       } catch (error) {
         handleError(error);

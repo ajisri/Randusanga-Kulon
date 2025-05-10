@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//login",
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/login",
         {
           username: username,
           password: password,

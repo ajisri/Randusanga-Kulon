@@ -64,7 +64,7 @@ const Modall = () => {
 
   //akta kelahiran
   const { data: aktakelahiranData, error: aktakelahiranError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//aktakelahiranpengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktakelahiranpengunjung",
     fetcher
   );
 
@@ -78,7 +78,7 @@ const Modall = () => {
 
   //kartu keluarga
   const { data: kartukeluargaData, error: kartukeluargaError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//kartukeluargapengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kartukeluargapengunjung",
     fetcher
   );
 
@@ -93,7 +93,7 @@ const Modall = () => {
   //ktp
   const { data: kartutandapendudukData, error: kartutandapendudukError } =
     useSWR(
-      "https://randusanga-kulon-ds.osc-fr1.scalingo.io//kartutandapendudukpengunjung",
+      "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kartutandapendudukpengunjung",
       fetcher
     );
 
@@ -108,7 +108,7 @@ const Modall = () => {
 
   //pendaftaran nikah
   const { data: pendaftarannikahData, error: pendaftarannikahError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//pendaftarannikahpengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pendaftarannikahpengunjung",
     fetcher
   );
 
@@ -123,7 +123,7 @@ const Modall = () => {
 
   //aktifasi bpjs
   const { data: aktifasibpjsData, error: aktifasibpjsError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//aktifasibpjspengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktifasibpjspengunjung",
     fetcher
   );
 
@@ -137,7 +137,7 @@ const Modall = () => {
 
   //pembuatan sktm
   const { data: pembuatansktmData, error: pembuatansktmError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//pembuatansktmpengunjung",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pembuatansktmpengunjung",
     fetcher
   );
 
