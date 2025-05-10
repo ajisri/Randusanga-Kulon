@@ -44,7 +44,7 @@ const PotensiWisata = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/potensiwisata",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//potensiwisata",
     fetcher
   );
 
@@ -74,7 +74,7 @@ const PotensiWisata = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/potensiwisata/${currentData.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//potensiwisata/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -85,7 +85,7 @@ const PotensiWisata = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cpotensiwisata",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cpotensiwisata",
           formData
         );
         toast.current.show({
@@ -96,7 +96,7 @@ const PotensiWisata = () => {
         });
       }
       await mutate(
-        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/potensiwisata"
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//potensiwisata"
       );
       resetForm();
       setDialogVisible(false);
@@ -137,7 +137,7 @@ const PotensiWisata = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/potensiwisata/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//potensiwisata/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -146,7 +146,7 @@ const PotensiWisata = () => {
           life: 3000,
         });
         await mutate(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/potensiwisata"
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//potensiwisata"
         );
       } catch (error) {
         handleError(error);

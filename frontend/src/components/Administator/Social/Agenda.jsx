@@ -53,7 +53,7 @@ const Agenda = () => {
     data: agendaData,
     error,
     isLoading,
-  } = useSWR("https://ds-randusanga-kulon.osc-fr1.scalingo.io/agenda", fetcher);
+  } = useSWR("http://localhost:8080/agenda", fetcher);
 
   useEffect(() => {
     if (agendaData?.agenda) {
@@ -105,7 +105,7 @@ const Agenda = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/agenda/${currentAgenda.uuid}`,
+          `http://localhost:8080/agenda/${currentAgenda.uuid}`,
           formData
         );
         toast.current.show({
@@ -115,10 +115,7 @@ const Agenda = () => {
           life: 3000,
         });
       } else {
-        await axiosJWT.post(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cagenda",
-          formData
-        );
+        await axiosJWT.post("http://localhost:8080/cagenda", formData);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -126,7 +123,7 @@ const Agenda = () => {
           life: 3000,
         });
       }
-      await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/agenda");
+      await mutate("http://localhost:8080/agenda");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -170,16 +167,14 @@ const Agenda = () => {
   const deleteAgenda = async (uuid) => {
     if (window.confirm("Are you sure you want to delete this agenda?")) {
       try {
-        await axiosJWT.delete(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/agenda/${uuid}`
-        );
+        await axiosJWT.delete(`http://localhost:8080/agenda/${uuid}`);
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Agenda deleted successfully!",
           life: 3000,
         });
-        await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/agenda");
+        await mutate("http://localhost:8080/agenda");
       } catch (error) {
         handleError(error);
       }

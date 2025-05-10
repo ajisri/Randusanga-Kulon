@@ -46,7 +46,7 @@ const OrbitasiDesa = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/orbitasi",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//orbitasi",
     fetcher
   );
 
@@ -76,7 +76,7 @@ const OrbitasiDesa = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/orbitasi/${currentData.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//orbitasi/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -87,7 +87,7 @@ const OrbitasiDesa = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/corbitasi",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//corbitasi",
           formData
         );
         toast.current.show({
@@ -97,7 +97,7 @@ const OrbitasiDesa = () => {
           life: 3000,
         });
       }
-      await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/orbitasi");
+      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//orbitasi");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -140,7 +140,7 @@ const OrbitasiDesa = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/orbitasi/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//orbitasi/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -149,7 +149,7 @@ const OrbitasiDesa = () => {
           life: 3000,
         });
         await mutate(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/orbitasi"
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//orbitasi"
         );
       } catch (error) {
         handleError(error);

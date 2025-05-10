@@ -42,7 +42,7 @@ const Visimisi = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://ds-randusanga-kulon.osc-fr1.scalingo.io/visimisi",
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//visimisi",
     fetcher
   );
 
@@ -87,7 +87,7 @@ const Visimisi = () => {
     try {
       setIsLoadingProcess(true);
       const response = await axiosJWT.post(
-        "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cvisimisi",
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cvisimisi",
         formData,
         {
           headers: {
@@ -101,7 +101,7 @@ const Visimisi = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/visimisi");
+      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//visimisi");
 
       toast.current.show({
         severity: "success",
@@ -221,7 +221,7 @@ const Visimisi = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://ds-randusanga-kulon.osc-fr1.scalingo.io${file_url}`}
+                        src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
                         alt="Database"
                       />
                     </div>

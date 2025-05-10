@@ -60,7 +60,10 @@ const Galeri = () => {
     data: galeriData,
     error,
     isLoading,
-  } = useSWR("https://ds-randusanga-kulon.osc-fr1.scalingo.io/galeri", fetcher);
+  } = useSWR(
+    "https://randusanga-kulon-ds.osc-fr1.scalingo.io//galeri",
+    fetcher
+  );
 
   useEffect(() => {
     if (galeriData?.galeris) {
@@ -163,7 +166,7 @@ const Galeri = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/galeri/${currentGaleri.uuid}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//galeri/${currentGaleri.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -177,7 +180,7 @@ const Galeri = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cgaleri",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cgaleri",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -191,7 +194,7 @@ const Galeri = () => {
         });
       }
 
-      await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/galeri");
+      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//galeri");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -248,7 +251,7 @@ const Galeri = () => {
     setFormData(galeri);
     setSelectedFile(null);
     const fileUrl = galeri.file_url
-      ? `https://ds-randusanga-kulon.osc-fr1.scalingo.io${galeri.file_url}`
+      ? `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${galeri.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -261,7 +264,7 @@ const Galeri = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/galeri/${uuid}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//galeri/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -269,7 +272,7 @@ const Galeri = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/galeri");
+        await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//galeri");
       } catch (error) {
         handleError(error);
       }

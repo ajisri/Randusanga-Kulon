@@ -45,7 +45,7 @@ const Ankor = () => {
     data: ankorData,
     error,
     isLoading,
-  } = useSWR("https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankor", fetcher);
+  } = useSWR("https://randusanga-kulon-ds.osc-fr1.scalingo.io//ankor", fetcher);
 
   useEffect(() => {
     if (ankorData?.ankor) {
@@ -111,7 +111,7 @@ const Ankor = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankor/${currentAnkor.id}`,
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//ankor/${currentAnkor.id}`,
           { name: formData.name },
           {
             headers: {
@@ -127,7 +127,7 @@ const Ankor = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://ds-randusanga-kulon.osc-fr1.scalingo.io/cankor",
+          "https://randusanga-kulon-ds.osc-fr1.scalingo.io//cankor",
           { name: formData.name },
           {
             headers: {
@@ -144,7 +144,7 @@ const Ankor = () => {
       }
 
       console.log("Data berhasil dikirim, merefresh data...");
-      await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankor");
+      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//ankor");
 
       resetForm();
       setDialogVisible(false);
@@ -203,7 +203,7 @@ const Ankor = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankor/${id}`
+          `https://randusanga-kulon-ds.osc-fr1.scalingo.io//ankor/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -211,7 +211,7 @@ const Ankor = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://ds-randusanga-kulon.osc-fr1.scalingo.io/ankor");
+        await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io//ankor");
       } catch (error) {
         handleError(error);
       }
