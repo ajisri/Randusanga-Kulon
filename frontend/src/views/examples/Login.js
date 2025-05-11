@@ -18,23 +18,33 @@ const Login = () => {
   const Auth = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      // Step 1: Login
+      await axios.post(
         "https://randusanga-kulon-ds.osc-fr1.scalingo.io/login",
         {
-          username: username,
-          password: password,
+          username,
+          password,
         },
-        { withCredentials: true } // Mengirim cookie refresh token ke backend
+        { withCredentials: true } // agar cookie dikirim dan disimpan
       );
-      if (response.data.accessToken) {
+
+      // Step 2: Dapatkan accessToken baru dari refreshToken
+      const tokenResponse = await axios.get(
+        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
+        { withCredentials: true }
+      );
+
+      // Step 3: Jika token diterima, baru navigasi
+      if (tokenResponse.data.accessToken) {
         navigate("/dashboard");
       } else {
-        setMsg("Login gagal, tidak ada token yang diterima");
+        setMsg("Login berhasil tapi gagal mendapatkan token");
       }
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
-        console.error("Error during login:", error.response.data.msg);
+      } else {
+        setMsg("Terjadi kesalahan koneksi");
       }
     }
   };
