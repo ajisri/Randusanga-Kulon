@@ -60,7 +60,7 @@ const Berita = () => {
     data: beritaData,
     error,
     isLoading,
-  } = useSWR("https://randusanga-kulon-ds.osc-fr1.scalingo.io/berita", fetcher);
+  } = useSWR("https://api.desarandusangakulon.com/berita", fetcher);
 
   useEffect(() => {
     if (beritaData?.beritas) {
@@ -163,7 +163,7 @@ const Berita = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/berita/${currentBerita.uuid}`,
+          `https://api.desarandusangakulon.com/berita/${currentBerita.uuid}`,
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -177,7 +177,7 @@ const Berita = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cberita",
+          "https://api.desarandusangakulon.com/cberita",
           dataToSend,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -191,7 +191,7 @@ const Berita = () => {
         });
       }
 
-      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/berita");
+      await mutate("https://api.desarandusangakulon.com/berita");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -248,7 +248,7 @@ const Berita = () => {
     setFormData(berita);
     setSelectedFile(null);
     const fileUrl = berita.file_url
-      ? `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${berita.file_url}`
+      ? `https://api.desarandusangakulon.com/${berita.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -261,7 +261,7 @@ const Berita = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/berita/${uuid}`
+          `https://api.desarandusangakulon.com/berita/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -269,7 +269,7 @@ const Berita = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/berita");
+        await mutate("https://api.desarandusangakulon.com/berita");
       } catch (error) {
         handleError(error);
       }

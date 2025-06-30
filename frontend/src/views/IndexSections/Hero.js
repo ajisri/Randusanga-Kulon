@@ -31,7 +31,7 @@ const Hero = () => {
   }, []);
 
   const { data: idmData, error: idmError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/indexdesamembangunpengunjung",
+    "https://api.desarandusangakulon.com/indexdesamembangunpengunjung",
     fetcher
   );
 

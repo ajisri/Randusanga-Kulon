@@ -39,7 +39,7 @@ const Pendaftarannikah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pendaftarannikah",
+    "https://api.desarandusangakulon.com/pendaftarannikah",
     fetcher
   );
 
@@ -84,7 +84,7 @@ const Pendaftarannikah = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cpendaftarannikah",
+        "https://api.desarandusangakulon.com/cpendaftarannikah",
         formData,
         {
           headers: {
@@ -98,7 +98,7 @@ const Pendaftarannikah = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pendaftarannikah"
+        "https://api.desarandusangakulon.com/pendaftarannikah"
       );
 
       toast.current.show({
@@ -265,7 +265,7 @@ const Pendaftarannikah = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
+                        src={`https://api.desarandusangakulon.com/${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

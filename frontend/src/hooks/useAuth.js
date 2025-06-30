@@ -10,7 +10,7 @@ const useAuth = (navigate) => {
     const refreshToken = async () => {
       try {
         const response = await axios.get(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
+          "https://api.desarandusangakulon.com/token",
           { withCredentials: true } // ⬅️ Pastikan refreshToken dikirim dari cookie
         );
         setToken(response.data.accessToken);
@@ -33,7 +33,7 @@ const useAuth = (navigate) => {
       if (expire * 1000 < currentDate.getTime()) {
         try {
           const response = await axios.get(
-            "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
+            "https://api.desarandusangakulon.com/token",
             { withCredentials: true } // ⬅️ Pastikan refreshToken dikirim dari cookie
           );
           setToken(response.data.accessToken);
@@ -60,7 +60,7 @@ const useAuth = (navigate) => {
       if (error.response?.status === 401) {
         try {
           const res = await axios.get(
-            "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
+            "https://api.desarandusangakulon.com/token",
             {
               withCredentials: true,
             }

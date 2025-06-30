@@ -39,7 +39,7 @@ const Aktifasibpjs = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktifasibpjs",
+    "https://api.desarandusangakulon.com/aktifasibpjs",
     fetcher
   );
 
@@ -84,7 +84,7 @@ const Aktifasibpjs = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/caktifasibpjs",
+        "https://api.desarandusangakulon.com/caktifasibpjs",
         formData,
         {
           headers: {
@@ -98,7 +98,7 @@ const Aktifasibpjs = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktifasibpjs"
+        "https://api.desarandusangakulon.com/aktifasibpjs"
       );
 
       toast.current.show({
@@ -262,7 +262,7 @@ const Aktifasibpjs = () => {
                 {file_url && !preview && (
                   <div className="image-container">
                     <img
-                      src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
+                      src={`https://api.desarandusangakulon.com/${file_url}`}
                       alt="Database"
                       className="preview-image"
                     />

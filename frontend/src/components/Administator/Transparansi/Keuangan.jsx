@@ -51,7 +51,7 @@ const Keuangan = () => {
     error,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/keuangan",
+    "https://api.desarandusangakulon.com/keuangan",
     fetcher
   );
 
@@ -68,7 +68,7 @@ const Keuangan = () => {
     error: apbdError,
     isLoading: isApbdLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/allapbd",
+    "https://api.desarandusangakulon.com/allapbd",
     fetcher
   );
 
@@ -112,7 +112,7 @@ const Keuangan = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/keuangan/${currentKeuangan.uuid}`,
+          `https://api.desarandusangakulon.com/keuangan/${currentKeuangan.uuid}`,
           dataToSend
         );
         toast.current.show({
@@ -123,7 +123,7 @@ const Keuangan = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/ckeuangan",
+          "https://api.desarandusangakulon.com/ckeuangan",
           dataToSend
         );
         toast.current.show({
@@ -134,7 +134,7 @@ const Keuangan = () => {
         });
       }
 
-      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/keuangan");
+      await mutate("https://api.desarandusangakulon.com/keuangan");
       resetForm();
       setDialogVisible(false);
     } catch (error) {
@@ -186,7 +186,7 @@ const Keuangan = () => {
       setIsLoadingg(true);
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/keuangan/${uuid}`
+          `https://api.desarandusangakulon.com/keuangan/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -195,7 +195,7 @@ const Keuangan = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/keuangan"
+          "https://api.desarandusangakulon.com/keuangan"
         );
       } catch (error) {
         handleError(error);

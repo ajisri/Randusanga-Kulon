@@ -42,7 +42,7 @@ const Tentang = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/tentang",
+    "https://api.desarandusangakulon.com/tentang",
     fetcher
   );
 
@@ -75,7 +75,7 @@ const Tentang = () => {
 
   useEffect(() => {
     axiosJWT
-      .get("https://randusanga-kulon-ds.osc-fr1.scalingo.io/tentang")
+      .get("https://api.desarandusangakulon.com/tentang")
       .then((response) => console.log("Data fetched manually:", response.data))
       .catch((error) =>
         console.error("Error fetching Tentang manually:", error)
@@ -96,7 +96,7 @@ const Tentang = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/ctentang",
+        "https://api.desarandusangakulon.com/ctentang",
         formData,
         {
           headers: {
@@ -109,7 +109,7 @@ const Tentang = () => {
       setPreview(null); // Reset preview
 
       // Memastikan re-render setelah penyimpanan berhasil
-      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/tentang");
+      await mutate("https://api.desarandusangakulon.com/tentang");
 
       toast.current.show({
         severity: "success",
@@ -230,7 +230,7 @@ const Tentang = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
+                        src={`https://api.desarandusangakulon.com/${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

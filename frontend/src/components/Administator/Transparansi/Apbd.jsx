@@ -52,7 +52,7 @@ const Apbd = () => {
     data: apbdData,
     error,
     isLoading,
-  } = useSWR("https://randusanga-kulon-ds.osc-fr1.scalingo.io/apbd", fetcher);
+  } = useSWR("https://api.desarandusangakulon.com/apbd", fetcher);
 
   useEffect(() => {
     if (apbdData?.apbd) {
@@ -200,7 +200,7 @@ const Apbd = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/apbd/${currentApbd.id}`,
+          `https://api.desarandusangakulon.com/apbd/${currentApbd.id}`,
           formDataToSend,
           {
             headers: {
@@ -217,7 +217,7 @@ const Apbd = () => {
       } else {
         console.log("Mengirim data baru...");
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/capbd",
+          "https://api.desarandusangakulon.com/capbd",
           formDataToSend,
           {
             headers: {
@@ -233,7 +233,7 @@ const Apbd = () => {
         });
       }
 
-      await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/apbd");
+      await mutate("https://api.desarandusangakulon.com/apbd");
 
       resetForm();
       setDialogVisible(false);
@@ -290,7 +290,7 @@ const Apbd = () => {
     setFormData(apbd);
     setSelectedFile(null);
     const fileUrl = apbd.file_url
-      ? `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${apbd.file_url}`
+      ? `https://api.desarandusangakulon.com/${apbd.file_url}`
       : null;
     // console.log("File URL:", fileUrl);
     setPreview(fileUrl); // Set preview to the existing file URL
@@ -303,7 +303,7 @@ const Apbd = () => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/apbd/${id}`
+          `https://api.desarandusangakulon.com/apbd/${id}`
         );
         toast.current.show({
           severity: "success",
@@ -311,7 +311,7 @@ const Apbd = () => {
           detail: "Data deleted successfully!",
           life: 3000,
         });
-        await mutate("https://randusanga-kulon-ds.osc-fr1.scalingo.io/apbd");
+        await mutate("https://api.desarandusangakulon.com/apbd");
       } catch (error) {
         handleError(error);
       }
@@ -385,7 +385,7 @@ const Apbd = () => {
           header="Gambar"
           style={{ width: "5%", minWidth: "5%" }}
           body={(rowData) => {
-            const fileUrl = `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${rowData.file_url}`;
+            const fileUrl = `https://api.desarandusangakulon.com/${rowData.file_url}`;
             return (
               <Button
                 label="Lihat"

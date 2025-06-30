@@ -40,7 +40,7 @@ const Aktakelahiran = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktakelahiran",
+    "https://api.desarandusangakulon.com/aktakelahiran",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Aktakelahiran = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/caktakelahiran",
+        "https://api.desarandusangakulon.com/caktakelahiran",
         formData,
         {
           headers: {
@@ -98,7 +98,7 @@ const Aktakelahiran = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/aktakelahiran"
+        "https://api.desarandusangakulon.com/aktakelahiran"
       );
 
       toast.current.show({
@@ -219,7 +219,7 @@ const Aktakelahiran = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
+                        src={`https://api.desarandusangakulon.com/${file_url}`}
                         alt="Database"
                       />
                     </div>

@@ -82,7 +82,7 @@ const Landing = () => {
     error: agendaError,
     isLoading,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/agendapengunjung",
+    "https://api.desarandusangakulon.com/agendapengunjung",
     fetcher
   );
 
@@ -111,7 +111,7 @@ const Landing = () => {
     error: jabatanError,
     isLoadingJabatan,
   } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/jabatanpengunjung",
+    "https://api.desarandusangakulon.com/jabatanpengunjung",
     fetcher
   );
 
@@ -150,7 +150,7 @@ const Landing = () => {
         <img
           src={
             item.pemegang?.file_url
-              ? `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${item.pemegang.file_url}`
+              ? `https://api.desarandusangakulon.com/${item.pemegang.file_url}`
               : "placeholder.png"
           }
           alt={item.pemegang?.name || "Jabatan"}

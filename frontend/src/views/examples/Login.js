@@ -20,7 +20,7 @@ const Login = () => {
     try {
       // Step 1: Login
       await axios.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/login",
+        "https://api.desarandusangakulon.com/login",
         {
           username,
           password,
@@ -30,7 +30,7 @@ const Login = () => {
 
       // Step 2: Dapatkan accessToken baru dari refreshToken
       const tokenResponse = await axios.get(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token",
+        "https://api.desarandusangakulon.com/token",
         { withCredentials: true }
       );
 

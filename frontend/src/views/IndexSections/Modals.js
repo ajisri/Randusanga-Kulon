@@ -30,10 +30,10 @@ const Modals = () => {
   // const [chartData, setChartData] = useState({});
   // const [chartOptions, setChartOptions] = useState({});
 
-  const baseURL = "https://randusanga-kulon-ds.osc-fr1.scalingo.io/";
+  const baseURL = "https://api.desarandusangakulon.com/";
 
   const { data: desacantikData, error: desacantikError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/desacantikpengunjung",
+    "https://api.desarandusangakulon.com/desacantikpengunjung",
     fetcher
   );
 
@@ -43,7 +43,7 @@ const Modals = () => {
     : null;
 
   const { data: tentangData, error: tentangError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/tentangpengunjung",
+    "https://api.desarandusangakulon.com/tentangpengunjung",
     fetcher
   );
   const loadingTentang = !tentangData && !tentangError;
@@ -52,7 +52,7 @@ const Modals = () => {
     : null;
 
   const { data: sejarahData, error: sejarahError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/sejarahpengunjung",
+    "https://api.desarandusangakulon.com/sejarahpengunjung",
     fetcher
   );
   const loadingSejarah = !sejarahData && !sejarahError;
@@ -61,7 +61,7 @@ const Modals = () => {
     : null;
 
   const { data: visionData, error: visionError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/visimisipengunjung",
+    "https://api.desarandusangakulon.com/visimisipengunjung",
     fetcher
   );
   const loadingVision = !visionData && !visionError;
@@ -71,7 +71,7 @@ const Modals = () => {
 
   const { data: strukturorganisasiData, error: strukturorganisasiError } =
     useSWR(
-      "https://randusanga-kulon-ds.osc-fr1.scalingo.io/strukturorganisasipengunjung",
+      "https://api.desarandusangakulon.com/strukturorganisasipengunjung",
       fetcher
     );
 
@@ -84,19 +84,19 @@ const Modals = () => {
     : null;
 
   const { data: demografiData, error: demografiError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/demografipengunjung",
+    "https://api.desarandusangakulon.com/demografipengunjung",
     fetcher
   );
 
   //lembaga
   const { data: lembagaData, error: lembagaError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/lembagapengunjung",
+    "https://api.desarandusangakulon.com/lembagapengunjung",
     fetcher
   );
   const loadingLembaga = !lembagaData && !lembagaError;
 
   const lembagaList = lembagaData?.lembagap || [];
-  const baseLURL = "https://randusanga-kulon-ds.osc-fr1.scalingo.io/";
+  const baseLURL = "https://api.desarandusangakulon.com/";
 
   const renderAnggota = (anggotaList) => (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>

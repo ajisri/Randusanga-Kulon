@@ -27,7 +27,7 @@ const Dashboard = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.get(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token"
+        "https://api.desarandusangakulon.com/token"
       );
       setToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
@@ -47,7 +47,7 @@ const Dashboard = () => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
         const response = await axios.get(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/token"
+          "https://api.desarandusangakulon.com/token"
         );
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         // setToken(response.data.accessToken);

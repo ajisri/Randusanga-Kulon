@@ -40,7 +40,7 @@ const Kartukeluarga = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kartukeluarga",
+    "https://api.desarandusangakulon.com/kartukeluarga",
     fetcher
   );
 
@@ -85,7 +85,7 @@ const Kartukeluarga = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/ckartukeluarga",
+        "https://api.desarandusangakulon.com/ckartukeluarga",
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ const Kartukeluarga = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/kartukeluarga"
+        "https://api.desarandusangakulon.com/kartukeluarga"
       );
 
       toast.current.show({
@@ -266,7 +266,7 @@ const Kartukeluarga = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
+                        src={`https://api.desarandusangakulon.com/${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />

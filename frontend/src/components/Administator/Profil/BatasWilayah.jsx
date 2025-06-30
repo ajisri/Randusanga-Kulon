@@ -44,7 +44,7 @@ const BatasWilayah = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/bataswilayah",
+    "https://api.desarandusangakulon.com/bataswilayah",
     fetcher
   );
 
@@ -74,7 +74,7 @@ const BatasWilayah = () => {
       setIsLoadingProcess(true);
       if (isEditMode) {
         await axiosJWT.patch(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/bataswilayah/${currentData.uuid}`,
+          `https://api.desarandusangakulon.com/bataswilayah/${currentData.uuid}`,
           formData
         );
         toast.current.show({
@@ -85,7 +85,7 @@ const BatasWilayah = () => {
         });
       } else {
         await axiosJWT.post(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cbataswilayah",
+          "https://api.desarandusangakulon.com/cbataswilayah",
           formData
         );
         toast.current.show({
@@ -96,7 +96,7 @@ const BatasWilayah = () => {
         });
       }
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/bataswilayah"
+        "https://api.desarandusangakulon.com/bataswilayah"
       );
       resetForm();
       setDialogVisible(false);
@@ -139,7 +139,7 @@ const BatasWilayah = () => {
     if (window.confirm("Are you sure you want to delete this data?")) {
       try {
         await axiosJWT.delete(
-          `https://randusanga-kulon-ds.osc-fr1.scalingo.io/bataswilayah/${uuid}`
+          `https://api.desarandusangakulon.com/bataswilayah/${uuid}`
         );
         toast.current.show({
           severity: "success",
@@ -148,7 +148,7 @@ const BatasWilayah = () => {
           life: 3000,
         });
         await mutate(
-          "https://randusanga-kulon-ds.osc-fr1.scalingo.io/bataswilayah"
+          "https://api.desarandusangakulon.com/bataswilayah"
         );
       } catch (error) {
         handleError(error);

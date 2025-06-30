@@ -9,7 +9,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Berita = () => {
   const { data: beritaData, error: beritaError } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/beritapengunjung",
+    "https://api.desarandusangakulon.com/beritapengunjung",
     fetcher
   );
 
@@ -252,7 +252,7 @@ const Berita = () => {
             <div style={styles.imageContainer}>
               <img
                 src={
-                  `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${item.file_url}` ||
+                  `https://api.desarandusangakulon.com/${item.file_url}` ||
                   "default-image-url.jpg"
                 }
                 alt={item.title}
@@ -291,7 +291,7 @@ const Berita = () => {
         >
           <img
             src={
-              `https://randusanga-kulon-ds.osc-fr1.scalingo.io/${selectedBerita.file_url}` ||
+              `https://api.desarandusangakulon.com/${selectedBerita.file_url}` ||
               "default-image-url.jpg"
             }
             alt={selectedBerita.title}

@@ -39,7 +39,7 @@ const Pembuatansktm = () => {
   );
 
   const { data, error, isLoading } = useSWR(
-    "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pembuatansktm",
+    "https://api.desarandusangakulon.com/pembuatansktm",
     fetcher
   );
 
@@ -84,7 +84,7 @@ const Pembuatansktm = () => {
     try {
       setIsLoadingProcess(true);
       await axiosJWT.post(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/cpembuatansktm",
+        "https://api.desarandusangakulon.com/cpembuatansktm",
         formData,
         {
           headers: {
@@ -98,7 +98,7 @@ const Pembuatansktm = () => {
 
       // Memastikan re-render setelah penyimpanan berhasil
       await mutate(
-        "https://randusanga-kulon-ds.osc-fr1.scalingo.io/pembuatansktm"
+        "https://api.desarandusangakulon.com/pembuatansktm"
       );
 
       toast.current.show({
@@ -265,7 +265,7 @@ const Pembuatansktm = () => {
                   {file_url && !preview && (
                     <div className="image-container">
                       <img
-                        src={`https://randusanga-kulon-ds.osc-fr1.scalingo.io/${file_url}`}
+                        src={`https://api.desarandusangakulon.com/${file_url}`}
                         alt="Database"
                         className="preview-image"
                       />
